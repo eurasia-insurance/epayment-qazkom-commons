@@ -30,23 +30,38 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
     private Properties configurationProperties;
+    private String signatureAlgorythm;
 
     @PostConstruct
     public void init() throws UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException,
 	    KeyStoreException, IOException {
-	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_FILE);
-	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_TYPE,
-		DEFAULT_MERCANT_KEYSTORE_TYPE);
-	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_PASSWORD);
-	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_KEYALIAS);
-	privatekey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
+	initProperties();
+	initPrivateKey();
+	initCertificate();
+    }
 
+    private void initProperties() {
+	signatureAlgorythm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORYTHM, DEFAULT_SIGNATURE_ALG);
+    }
+
+    protected void initCertificate()
+	    throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
 	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_FILE);
 	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_TYPE,
 		DEFAULT_MERCANT_CERTSTORE_TYPE);
 	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_PASSWORD);
 	String certAlias = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_CERTALIAS);
 	certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
+    }
+
+    protected void initPrivateKey() throws NoSuchAlgorithmException, CertificateException, KeyStoreException,
+	    IOException, UnrecoverableKeyException {
+	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_FILE);
+	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_TYPE,
+		DEFAULT_MERCANT_KEYSTORE_TYPE);
+	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_PASSWORD);
+	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_KEYALIAS);
+	privatekey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
     }
 
     private X509Certificate loadCertificate(String certstoreFile, String certstoreType, String certstorePass,
@@ -80,7 +95,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     @Override
     public byte[] sign(final byte[] data, boolean inverted) throws KKBSignatureOperationFailed {
 	try {
-	    Signature sig = Signature.getInstance(SIGNATURE_ALG);
+	    Signature sig = Signature.getInstance(signatureAlgorythm);
 	    sig.initSign(privatekey);
 	    sig.update(data);
 	    byte[] signature = sig.sign();
@@ -100,7 +115,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     public void verify(final byte[] data, final byte[] signature, boolean inverted)
 	    throws KKBSignatureOperationFailed, KKBWrongSignature {
 	try {
-	    Signature sig = Signature.getInstance(SIGNATURE_ALG);
+	    Signature sig = Signature.getInstance(signatureAlgorythm);
 	    sig.initVerify(certificate);
 	    sig.update(data);
 	    boolean result = (inverted) ? sig.verify(invertedByteArray(signature)) : sig.verify(signature);
