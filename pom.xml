@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lapsa.maven.pom</groupId>
+		<artifactId>javaee7-app-parent</artifactId>
+		<version>1.3.1</version>
+	</parent>
+	
+	<groupId>com.lapsa.kkb-lib</groupId>
+	<artifactId>kkb-services-impl-default</artifactId>
+	<version>1.0-pre-rc1-SNAPSHOT</version>
+	<packaging>ejb</packaging>
+
+	<name>KKB Lib : Services : Default implementation</name>
+
+	<properties>
+		<kkb-lib.version>1.0-pre-rc1-SNAPSHOT</kkb-lib.version>
+	</properties>
+
+	<dependencies>
+		<!-- internal -->
+		<dependency>
+			<groupId>com.lapsa.kkb-lib</groupId>
+			<artifactId>kkb-jaxb</artifactId>
+			<version>${kkb-lib.version}</version>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.lapsa.kkb-lib</groupId>
+			<artifactId>kkb-services</artifactId>
+			<version>${kkb-lib.version}</version>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<!-- external -->
+		<!-- JavaEE -->
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>javax.ejb-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<scm>
+		<connection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/kkb-services-impl-default.git</connection>
+		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/kkb-services-impl-default.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>gitlab</system>
+		<url>https://gitrepo.theeurasia.kz/vadim.isaev/kkb-services-impl-default/issues</url>
+	</issueManagement>
+
+</project>
