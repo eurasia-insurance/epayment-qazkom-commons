@@ -21,6 +21,7 @@ public class DefaultKKBEpayConfigurationService implements KKBEpayConfigurationS
     private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
     private URL bankEpayURL;
+
     private String templateName;
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)

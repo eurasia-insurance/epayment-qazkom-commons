@@ -15,7 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -33,7 +32,6 @@ import com.lapsa.kkb.xml.KKBXmlMerchantSign;
 import com.lapsa.kkb.xml.KKBXmlOrder;
 import com.lapsa.kkb.xml.KKBXmlSignType;
 
-@Startup
 @Singleton
 public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRequestService {
 
@@ -86,6 +84,19 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 	return encodeRequest(request.getOrderId(), request.getAmount(), request.getCurrency());
     }
 
+    @Override
+    public String encodeRequest(String orderId, double amount, FinCurrency currency) throws KKBEncodingException {
+	try {
+	    KKBXmlMerchant merchant = generateMerchant(orderId, amount, currency);
+	    KKBXmlMerchantSign merchantSign = generateMerchantSign(merchant);
+	    KKBXmlDocument document = generateDocument(merchant, merchantSign);
+	    String xml = generateDocumentXML(document);
+	    return xml;
+	} catch (JAXBException | KKBSignatureOperationFailed e) {
+	    throw new KKBEncodingException(e);
+	}
+    }
+
     private KKBXmlMerchant generateMerchant(String orderId, double amount, FinCurrency currency) {
 	KKBXmlMerchant merchant = new KKBXmlMerchant();
 	BigInteger serialNumber = merchantSignatureService.getMerchantCertificate().getSerialNumber();
@@ -107,30 +118,15 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 	return merchant;
     }
 
-    @Override
-    public String encodeRequest(String orderId, double amount, FinCurrency currency) throws KKBEncodingException {
-	try {
-	    KKBXmlMerchant merchant = generateMerchant(orderId, amount, currency);
-	    KKBXmlMerchantSign merchantSign = generateSignature(merchant);
-	    KKBXmlDocument document = generateDocument(merchant, merchantSign);
-	    String xml = generateDocumentXML(document);
-	    return xml;
-	} catch (JAXBException | KKBSignatureOperationFailed e) {
-	    throw new KKBEncodingException(e);
-	}
-    }
-
-    @SuppressWarnings("unused")
-    private byte[] generateDocumentBytes(KKBXmlDocument document) throws JAXBException {
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	jaxbMarshaller.marshal(document, baos);
-	return baos.toByteArray();
-    }
-
-    private String generateDocumentXML(KKBXmlDocument document) throws JAXBException {
-	StringWriter baos = new StringWriter();
-	jaxbMarshaller.marshal(document, baos);
-	return baos.toString();
+    private KKBXmlMerchantSign generateMerchantSign(KKBXmlMerchant merchant)
+	    throws JAXBException, KKBSignatureOperationFailed {
+	ByteArrayOutputStream output = new ByteArrayOutputStream();
+	jaxbMarshaller.marshal(merchant, output);
+	KKBXmlMerchantSign sign = new KKBXmlMerchantSign();
+	sign.setSignType(KKBXmlSignType.RSA);
+	byte[] signature = merchantSignatureService.sign(output.toByteArray());
+	sign.setSignature(signature);
+	return sign;
     }
 
     private KKBXmlDocument generateDocument(KKBXmlMerchant merchant, KKBXmlMerchantSign merchantSign) {
@@ -140,14 +136,9 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 	return document;
     }
 
-    private KKBXmlMerchantSign generateSignature(KKBXmlMerchant merchant)
-	    throws JAXBException, KKBSignatureOperationFailed {
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	jaxbMarshaller.marshal(merchant, baos);
-	KKBXmlMerchantSign sign = new KKBXmlMerchantSign();
-	sign.setSignType(KKBXmlSignType.RSA);
-	byte[] signature = merchantSignatureService.sign(baos.toByteArray());
-	sign.setSignature(signature);
-	return sign;
+    private String generateDocumentXML(KKBXmlDocument document) throws JAXBException {
+	StringWriter output = new StringWriter();
+	jaxbMarshaller.marshal(document, output);
+	return output.toString();
     }
 }

@@ -4,6 +4,7 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -21,23 +22,23 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
-import javax.ejb.Startup;
 
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
 import com.lapsa.kkb.api.KKBSignatureOperationFailed;
 import com.lapsa.kkb.api.KKBWrongSignature;
 
-@Startup
 @Singleton
 public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureService {
     private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
+    private String signatureAlgorithm;
+
+    private PrivateKey privateKey;
+
     private X509Certificate certificate;
-    private PrivateKey privatekey;
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
     private Properties configurationProperties;
-    private String signatureAlgorithm;
 
     @PostConstruct
     public void init() {
@@ -52,51 +53,9 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
 	}
     }
 
-    private void initProperties() {
-	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM, DEFAULT_SIGNATURE_ALGORITHM);
-    }
-
-    protected void initCertificate()
-	    throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
-	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_FILE);
-	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_TYPE,
-		DEFAULT_MERCANT_CERTSTORE_TYPE);
-	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_PASSWORD);
-	String certAlias = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_CERTALIAS);
-	certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
-    }
-
-    protected void initPrivateKey() throws NoSuchAlgorithmException, CertificateException, KeyStoreException,
-	    IOException, UnrecoverableKeyException {
-	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_FILE);
-	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_TYPE,
-		DEFAULT_MERCANT_KEYSTORE_TYPE);
-	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_PASSWORD);
-	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_KEYALIAS);
-	privatekey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
-    }
-
-    private X509Certificate loadCertificate(String certstoreFile, String certstoreType, String certstorePass,
-	    String certAlias) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
-	KeyStore keystore = loadKeyStore(certstoreFile, certstoreType, certstorePass);
-	return (X509Certificate) keystore.getCertificate(certAlias);
-    }
-
-    private PrivateKey loadPrivateKey(String keystoreFile, String keystoreType, String keystorePassword,
-	    String keyAlias) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException,
-	    UnrecoverableKeyException {
-	KeyStore keystore = loadKeyStore(keystoreFile, keystoreType, keystorePassword);
-	PrivateKey privatekey = (PrivateKey) keystore.getKey(keyAlias, keystorePassword.toCharArray());
-	return privatekey;
-    }
-
-    private KeyStore loadKeyStore(String keystoreFile, String keystoreType, String keystorePassword)
-	    throws NoSuchAlgorithmException, CertificateException, IOException, KeyStoreException {
-	KeyStore keystore = KeyStore.getInstance(keystoreType);
-	try (FileInputStream fileinputstream = new FileInputStream(keystoreFile)) {
-	    keystore.load(fileinputstream, keystorePassword.toCharArray());
-	    return keystore;
-	}
+    @Override
+    public X509Certificate getMerchantCertificate() {
+	return certificate;
     }
 
     @Override
@@ -108,7 +67,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     public byte[] sign(final byte[] data, boolean inverted) throws KKBSignatureOperationFailed {
 	try {
 	    Signature sig = Signature.getInstance(signatureAlgorithm);
-	    sig.initSign(privatekey);
+	    sig.initSign(privateKey);
 	    sig.update(data);
 	    byte[] signature = sig.sign();
 	    return (inverted) ? invertedByteArray(signature) : signature;
@@ -138,15 +97,58 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
 	}
     }
 
+    private void initProperties() {
+	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
+		DEFAULT_SIGNATURE_ALGORITHM);
+    }
+
+    protected void initCertificate()
+	    throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
+	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_FILE);
+	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_TYPE,
+		DEFAULT_MERCANT_CERTSTORE_TYPE);
+	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_PASSWORD);
+	String certAlias = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_CERTALIAS);
+	certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
+    }
+
+    protected void initPrivateKey() throws NoSuchAlgorithmException, CertificateException, KeyStoreException,
+	    IOException, UnrecoverableKeyException {
+	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_FILE);
+	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_TYPE,
+		DEFAULT_MERCANT_KEYSTORE_TYPE);
+	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_PASSWORD);
+	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_KEYALIAS);
+	privateKey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
+    }
+
+    private X509Certificate loadCertificate(String certstoreFile, String certstoreType, String certstorePass,
+	    String certAlias) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
+	KeyStore keystore = loadKeyStore(certstoreFile, certstoreType, certstorePass);
+	return (X509Certificate) keystore.getCertificate(certAlias);
+    }
+
+    private PrivateKey loadPrivateKey(String keystoreFile, String keystoreType, String keystorePassword,
+	    String keyAlias) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException,
+	    UnrecoverableKeyException {
+	KeyStore keystore = loadKeyStore(keystoreFile, keystoreType, keystorePassword);
+	PrivateKey privatekey = (PrivateKey) keystore.getKey(keyAlias, keystorePassword.toCharArray());
+	return privatekey;
+    }
+
+    private KeyStore loadKeyStore(String keystoreFile, String keystoreType, String keystorePassword)
+	    throws NoSuchAlgorithmException, CertificateException, IOException, KeyStoreException {
+	KeyStore keystore = KeyStore.getInstance(keystoreType);
+	try (InputStream is = new FileInputStream(keystoreFile)) {
+	    keystore.load(is, keystorePassword.toCharArray());
+	    return keystore;
+	}
+    }
+
     private static byte[] invertedByteArray(final byte[] value) {
 	byte[] ret = new byte[value.length];
 	for (int i = 0; i < value.length; i++)
 	    ret[i] = value[value.length - 1 - i];
 	return ret;
-    }
-
-    @Override
-    public X509Certificate getMerchantCertificate() {
-	return certificate;
     }
 }
