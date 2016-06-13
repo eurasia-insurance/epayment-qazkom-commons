@@ -3,7 +3,10 @@ package com.lapsa.kkb.services.impl;
 public interface Constants {
     public static final String KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP = "resource/eurasia36/KKBPKIProperties";
 
-    public static final String PROPERTY_SIGNATURE_ALGORYTHM = "signature.algorythm";
+    public static final String PROPERTY_SIGNATURE_ALGORITHM = "signature.algorithm";
+
+    public static final String PROPERTY_EPAY_URL = "bank.epay.url";
+    public static final String PROPERTY_EPAY_TEMPLATE_NAME = "bank.epay.template";
 
     public static final String PROPERTY_MERCANT_ID = "merchant.id";
     public static final String PROPERTY_MERCANT_NAME = "merchant.name";
@@ -20,6 +23,8 @@ public interface Constants {
 
     public static final String DEFAULT_MERCANT_KEYSTORE_TYPE = "JKS";
     public static final String DEFAULT_MERCANT_CERTSTORE_TYPE = "JKS";
-    public static final String DEFAULT_SIGNATURE_ALG = "SHA1withRSA";
-    public static final String DEFAULT_HASH_ALG = "SHA";
+    public static final String DEFAULT_SIGNATURE_ALGORITHM = "SHA1withRSA";
+    public static final String DEFAULT_HASH_ALGORITHM = "SHA";
+    public static final String DEFAULT_EPAY_URL = "https://testpay.kkb.kz/jsp/process/logon.jsp";
+    public static final String DEFAULT_EPAY_TEMPLATE_NAME = "default.xsl";
 }

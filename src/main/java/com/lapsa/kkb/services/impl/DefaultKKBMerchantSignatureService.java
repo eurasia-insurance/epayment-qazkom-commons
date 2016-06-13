@@ -37,7 +37,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
     private Properties configurationProperties;
-    private String signatureAlgorythm;
+    private String signatureAlgorithm;
 
     @PostConstruct
     public void init() {
@@ -53,7 +53,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     }
 
     private void initProperties() {
-	signatureAlgorythm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORYTHM, DEFAULT_SIGNATURE_ALG);
+	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM, DEFAULT_SIGNATURE_ALGORITHM);
     }
 
     protected void initCertificate()
@@ -107,7 +107,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     @Override
     public byte[] sign(final byte[] data, boolean inverted) throws KKBSignatureOperationFailed {
 	try {
-	    Signature sig = Signature.getInstance(signatureAlgorythm);
+	    Signature sig = Signature.getInstance(signatureAlgorithm);
 	    sig.initSign(privatekey);
 	    sig.update(data);
 	    byte[] signature = sig.sign();
@@ -127,7 +127,7 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     public void verify(final byte[] data, final byte[] signature, boolean inverted)
 	    throws KKBSignatureOperationFailed, KKBWrongSignature {
 	try {
-	    Signature sig = Signature.getInstance(signatureAlgorythm);
+	    Signature sig = Signature.getInstance(signatureAlgorithm);
 	    sig.initVerify(certificate);
 	    sig.update(data);
 	    boolean result = (inverted) ? sig.verify(invertedByteArray(signature)) : sig.verify(signature);

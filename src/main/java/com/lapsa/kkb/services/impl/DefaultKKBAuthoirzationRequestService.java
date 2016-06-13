@@ -36,6 +36,7 @@ import com.lapsa.kkb.xml.KKBXmlSignType;
 @Startup
 @Singleton
 public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRequestService {
+
     private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
     private String merchantId;
