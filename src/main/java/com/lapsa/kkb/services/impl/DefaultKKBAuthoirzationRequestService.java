@@ -1,15 +1,21 @@
 package com.lapsa.kkb.services.impl;
 
+import static com.lapsa.kkb.services.impl.Constants.*;
+
 import java.io.ByteArrayOutputStream;
+import java.io.StringWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Properties;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -27,8 +33,10 @@ import com.lapsa.kkb.xml.KKBXmlMerchantSign;
 import com.lapsa.kkb.xml.KKBXmlOrder;
 import com.lapsa.kkb.xml.KKBXmlSignType;
 
+@Startup
 @Singleton
-public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRequestService, Constants {
+public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRequestService {
+    private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
     private String merchantId;
     private String merchantName;
@@ -41,10 +49,23 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
     @EJB
     private KKBMerchantSignatureService merchantSignatureService;
 
+    @Override
+    public String generateNewOrderId() {
+	UUID uuid = UUID.randomUUID();
+	long lng = Math.abs(uuid.getLeastSignificantBits() / 10000);
+	String id = String.format("%015d", lng);
+	return id;
+    }
+
     @PostConstruct
-    public void init() throws JAXBException {
-	initJAXBMarshaller();
-	initMerchantProperties();
+    public void init() {
+	try {
+	    initJAXBMarshaller();
+	    initMerchantProperties();
+	} catch (JAXBException e) {
+	    logger.log(Level.SEVERE, String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName()),
+		    e);
+	}
     }
 
     private void initMerchantProperties() {
@@ -55,7 +76,7 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
     private void initJAXBMarshaller() throws JAXBException {
 	JAXBContext jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlDocument.class);
 	jaxbMarshaller = jaxbContext.createMarshaller();
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
     }
 
@@ -91,17 +112,24 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 	    KKBXmlMerchant merchant = generateMerchant(orderId, amount, currency);
 	    KKBXmlMerchantSign merchantSign = generateSignature(merchant);
 	    KKBXmlDocument document = generateDocument(merchant, merchantSign);
-	    byte[] documentBytes = generateDocumentBytes(document);
-	    return Base64.getEncoder().encodeToString(documentBytes);
+	    String xml = generateDocumentXML(document);
+	    return xml;
 	} catch (JAXBException | KKBSignatureOperationFailed e) {
 	    throw new KKBEncodingException(e);
 	}
     }
 
+    @SuppressWarnings("unused")
     private byte[] generateDocumentBytes(KKBXmlDocument document) throws JAXBException {
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	jaxbMarshaller.marshal(document, baos);
 	return baos.toByteArray();
+    }
+
+    private String generateDocumentXML(KKBXmlDocument document) throws JAXBException {
+	StringWriter baos = new StringWriter();
+	jaxbMarshaller.marshal(document, baos);
+	return baos.toString();
     }
 
     private KKBXmlDocument generateDocument(KKBXmlMerchant merchant, KKBXmlMerchantSign merchantSign) {

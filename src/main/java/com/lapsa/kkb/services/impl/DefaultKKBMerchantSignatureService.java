@@ -1,5 +1,7 @@
 package com.lapsa.kkb.services.impl;
 
+import static com.lapsa.kkb.services.impl.Constants.*;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -13,17 +15,22 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
 import com.lapsa.kkb.api.KKBSignatureOperationFailed;
 import com.lapsa.kkb.api.KKBWrongSignature;
 
+@Startup
 @Singleton
-public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureService, Constants {
+public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureService {
+    private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
     private X509Certificate certificate;
     private PrivateKey privatekey;
@@ -33,11 +40,16 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
     private String signatureAlgorythm;
 
     @PostConstruct
-    public void init() throws UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException,
-	    KeyStoreException, IOException {
-	initProperties();
-	initPrivateKey();
-	initCertificate();
+    public void init() {
+	try {
+	    initProperties();
+	    initPrivateKey();
+	    initCertificate();
+	} catch (UnrecoverableKeyException | NoSuchAlgorithmException | CertificateException | KeyStoreException
+		| IOException e) {
+	    logger.log(Level.SEVERE, String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName()),
+		    e);
+	}
     }
 
     private void initProperties() {
