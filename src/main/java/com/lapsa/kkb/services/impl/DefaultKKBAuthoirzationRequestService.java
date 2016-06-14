@@ -7,7 +7,6 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,9 +18,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import com.lapsa.fin.FinCurrency;
 import com.lapsa.kkb.api.KKBAuthoirzationRequestService;
-import com.lapsa.kkb.api.KKBAuthorizationRequest;
+import com.lapsa.kkb.api.KKBAuthorization;
+import com.lapsa.kkb.api.KKBAuthorizationPayment;
 import com.lapsa.kkb.api.KKBEncodingException;
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
 import com.lapsa.kkb.api.KKBSignatureOperationFailed;
@@ -37,7 +36,6 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 
     private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
-    private String merchantId;
     private String merchantName;
 
     private Marshaller jaxbMarshaller;
@@ -47,14 +45,6 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 
     @EJB
     private KKBMerchantSignatureService merchantSignatureService;
-
-    @Override
-    public String generateNewOrderId() {
-	UUID uuid = UUID.randomUUID();
-	long lng = Math.abs(uuid.getLeastSignificantBits() / 10000);
-	String id = String.format("%015d", lng);
-	return id;
-    }
 
     @PostConstruct
     public void init() {
@@ -68,7 +58,6 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
     }
 
     private void initMerchantProperties() {
-	merchantId = configurationProperties.getProperty(PROPERTY_MERCHANT_ID);
 	merchantName = configurationProperties.getProperty(PROPERTY_MERCHANT_NAME);
     }
 
@@ -80,14 +69,9 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
     }
 
     @Override
-    public String encodeRequest(KKBAuthorizationRequest request) throws KKBEncodingException {
-	return encodeRequest(request.getOrderId(), request.getAmount(), request.getCurrency());
-    }
-
-    @Override
-    public String encodeRequest(String orderId, double amount, FinCurrency currency) throws KKBEncodingException {
+    public String encodeRequest(KKBAuthorization request) throws KKBEncodingException {
 	try {
-	    KKBXmlMerchant merchant = generateMerchant(orderId, amount, currency);
+	    KKBXmlMerchant merchant = generateMerchant(request);
 	    KKBXmlMerchantSign merchantSign = generateMerchantSign(merchant);
 	    KKBXmlDocument document = generateDocument(merchant, merchantSign);
 	    String xml = generateDocumentXML(document);
@@ -97,24 +81,26 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
 	}
     }
 
-    private KKBXmlMerchant generateMerchant(String orderId, double amount, FinCurrency currency) {
+    // PRIVATE & PROTECTED
+
+    private KKBXmlMerchant generateMerchant(KKBAuthorization request) {
 	KKBXmlMerchant merchant = new KKBXmlMerchant();
 	BigInteger serialNumber = merchantSignatureService.getMerchantCertificate().getSerialNumber();
 	merchant.setCertificateSerialNumber(serialNumber);
 	merchant.setName(merchantName);
 
 	KKBXmlOrder order = new KKBXmlOrder();
-	merchant.setOrders(new ArrayList<>());
-	merchant.getOrders().add(order);
-	order.setOrderId(orderId);
-	order.setAmount(amount);
-	order.setFinCurrency(currency);
-
-	KKBXmlDepartment department = new KKBXmlDepartment();
+	merchant.setOrder(order);
+	order.setOrderId(request.getOrderId());
+	order.setAmount(request.getTotalAmount());
+	order.setFinCurrency(request.getCurrency());
 	order.setDepartments(new ArrayList<>());
-	order.getDepartments().add(department);
-	department.setMerchantId(merchantId);
-	department.setAmount(amount);
+	for (KKBAuthorizationPayment p : request.getPayments().values()) {
+	    KKBXmlDepartment department = new KKBXmlDepartment();
+	    order.getDepartments().add(department);
+	    department.setMerchantId(p.getMerchantId());
+	    department.setAmount(p.getAmount());
+	}
 	return merchant;
     }
 
