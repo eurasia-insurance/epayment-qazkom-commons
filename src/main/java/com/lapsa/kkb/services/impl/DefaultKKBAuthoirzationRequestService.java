@@ -68,8 +68,8 @@ public class DefaultKKBAuthoirzationRequestService implements KKBAuthoirzationRe
     }
 
     private void initMerchantProperties() {
-	merchantId = configurationProperties.getProperty(PROPERTY_MERCANT_ID);
-	merchantName = configurationProperties.getProperty(PROPERTY_MERCANT_NAME);
+	merchantId = configurationProperties.getProperty(PROPERTY_MERCHANT_ID);
+	merchantName = configurationProperties.getProperty(PROPERTY_MERCHANT_NAME);
     }
 
     private void initJAXBMarshaller() throws JAXBException {

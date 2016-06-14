@@ -104,21 +104,21 @@ public class DefaultKKBMerchantSignatureService implements KKBMerchantSignatureS
 
     protected void initCertificate()
 	    throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
-	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_FILE);
-	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_TYPE,
-		DEFAULT_MERCANT_CERTSTORE_TYPE);
-	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_PASSWORD);
-	String certAlias = configurationProperties.getProperty(PROPERTY_MERCANT_CERTSTORE_CERTALIAS);
+	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_FILE);
+	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_TYPE,
+		DEFAULT_MERCHANT_CERTSTORE_TYPE);
+	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_PASSWORD);
+	String certAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_CERTALIAS);
 	certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
     }
 
     protected void initPrivateKey() throws NoSuchAlgorithmException, CertificateException, KeyStoreException,
 	    IOException, UnrecoverableKeyException {
-	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_FILE);
-	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_TYPE,
-		DEFAULT_MERCANT_KEYSTORE_TYPE);
-	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_PASSWORD);
-	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCANT_KEYSTORE_KEYALIAS);
+	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_FILE);
+	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_TYPE,
+		DEFAULT_MERCHANT_KEYSTORE_TYPE);
+	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_PASSWORD);
+	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_KEYALIAS);
 	privateKey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
     }
 
