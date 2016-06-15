@@ -23,13 +23,6 @@
 		<!-- internal -->
 		<dependency>
 			<groupId>com.lapsa.kkb-lib</groupId>
-			<artifactId>kkb-jaxb</artifactId>
-			<version>${kkb-lib.version}</version>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.lapsa.kkb-lib</groupId>
 			<artifactId>kkb-services</artifactId>
 			<version>${kkb-lib.version}</version>
 			<scope>compile</scope>

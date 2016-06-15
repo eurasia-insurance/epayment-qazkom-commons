@@ -1,0 +1,48 @@
+<document> 
+   <bank name="Kazkommertsbank JSC">
+      <customer name="John Cardholder" mail="klient@mymail.com" phone="223322"> // Имя покупателя указанное в системе авторизации
+         <!-- Описание данного блока см. в пункте "Описание XML документа для отправки в систему авторизации"-->
+         <merchant cert_id="7269C18D00010000005E" name="Shop Name">
+            <order order_id="000282" amount="3100" currency="398">
+               <department merchant_id="90028101" amount="3100" RL="ASDFG" />
+            </order>
+         </merchant>
+         <merchant_sign type="RSA"/>
+         <!-- Описание данного блока см. в пункте "Описание XML документа для отправки в систему авторизации"-->
+      </customer>
+      <!-- Блок подписи документа покупателем -->
+      <customer_sign type="SSL">4817C411000100000084
+<!--       // type - тип подписи -->
+<!--          4817C411000100000084 //Если Тип подписи SSL то это серийный номер сертификата,  -->
+<!--          //Если Тип подписи RSA то это цифровая подпись -->
+<!--          //Если Тип подписи none то поле остается пустым -->
+         </customer_sign>
+      <!-- Блок подписи документа покупателем -->
+
+      <results timestamp="2006-11-22 12:20:30 ">
+<!--       // timestamp - время проведения платежа -->
+         <payment merchant_id="90050801" amount="320.50" reference="109600746891" approval_code="730190" response_code="00" Secure="No" card_bin="KAZ" c_hash="6A2D7673A8EEF25A2C33D67CB5AAD091"/>
+<!--          // Результат транзакции  -->
+<!--          // merchant_id - ID продавца в платежной системе -->
+<!--          // amount - сумма проведенной транзакции -->
+<!--          // reference - номер обращения к платежной системе -->
+<!--          // approval_code - код авторизации -->
+<!--          // response_code - код результата авторизации.  -->
+<!--          // Должен иметь значение "00" (два нуля), в противном случае свяжитесь, пожалуйста,  -->
+<!--          // с администратором системы авторизации -->
+<!--          // Secure- Yes/No признак, что транзакция была 3DSecure или нет  -->
+<!--          // card_bin- Страна эмитент карты -->
+<!--          // c_hash- Хэш карты  -->
+
+      </results>
+   </bank>
+   <!-- Блок подписи документа банком -->
+   <bank_sign cert_id="00c183d690" type="SHA/RSA">
+<!--    // cert_id - серийный номер сертификата -->
+<!--    //type - тип подписи  -->
+      JI3RZMEvexNlDmKsOQhe0pzHuKijnbhvnLu99qh7h+Ju8HvSfGNbEJxXUL58M94tXvu7w0BXSY7M
+      HePGqz32JuMLAncuzyMwq845linW/sH/WvbZ+6SSYfxDMnvgX0S/pKxbhSXs7lGVBngXOwq7Bhsk
+      8GcDUkWAM5UAsKpEKoI= 
+   </bank_sign>
+   <!-- Блок подписи документа банком -->
+</document>

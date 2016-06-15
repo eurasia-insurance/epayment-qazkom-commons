@@ -1,0 +1,28 @@
+<document>
+<!-- Блок заказа-->
+   <merchant cert_id="00c183d70b" name="Shop Name"> 
+<!--    // cert_id - Серийный номер сертификата -->
+<!--    // name - имя магазина(сайта) -->
+         <order order_id="000282" amount="3100" currency="398"> 
+<!--          // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ знаков, максимально -15) -->
+<!--          // amount - сумма заказа,  -->
+<!--          // currency - код валюты оплаты [ 398 - тенге ] -->
+               <department merchant_id="92061101" amount="1300" abonent_id="" terminal="" phone="22233355" RL="ASDFG" />
+<!--                // merchant_id - ID продавца в платежной системе -->
+<!--                // amount - сумма оплаты данному продавцу -->
+<!--                // abonent_id, terminal, phone - дополнительные поля для продавца, можно не указывать -->
+<!--                // RL - дополнительное поле, для транспортных компаний- Номер брони, можно не указывать. Транслуруется по всем отчетам и выпискам -->
+         </order>
+   </merchant> 
+<!-- Конец блока заказа-->
+<!-- Блок цифровой подписи документа-->
+   <merchant_sign type="RSA"> 
+<!--    // type - Тип подписи  -->
+   <!-- Подпись -->
+      p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4
+      ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498
+      pU9HGuGAoDVjB+NtrHk=
+   <!-- Подпись -->
+   </merchant_sign> 
+<!-- Блок цифровой подписи документа-->
+</document>
