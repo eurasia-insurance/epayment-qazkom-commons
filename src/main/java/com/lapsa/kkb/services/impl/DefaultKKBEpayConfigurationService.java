@@ -6,7 +6,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -17,8 +16,7 @@ import com.lapsa.kkb.api.KKBEpayConfigurationService;
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
 
 @Singleton
-public class DefaultKKBEpayConfigurationService implements KKBEpayConfigurationService {
-    private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+public class DefaultKKBEpayConfigurationService extends KKBGenericService implements KKBEpayConfigurationService {
 
     private URL bankEpayURL;
 

@@ -4,6 +4,7 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.util.Properties;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -11,13 +12,14 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBAuthoirzationBuilder;
-import com.lapsa.kkb.api.KKBAuthorization;
-import com.lapsa.kkb.api.KKBAuthorizationPayment;
+import com.lapsa.kkb.api.KKBFormatException;
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
+import com.lapsa.kkb.api.KKBPaymentOrderBuilder;
+import com.lapsa.kkb.core.KKBPaymentOperation;
+import com.lapsa.kkb.core.KKBPaymentOrder;
 
 @Singleton
-public class DefaultKKBAuthoirzationBuilder implements KKBAuthoirzationBuilder {
+public class DefaultKKBAuthoirzationBuilder extends KKBGenericService implements KKBPaymentOrderBuilder {
     private String merchantId;
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
@@ -44,29 +46,33 @@ public class DefaultKKBAuthoirzationBuilder implements KKBAuthoirzationBuilder {
     }
 
     @Override
-    public KKBAuthorization buildAuthorization(double amount) {
-	return buildAuthorization(generateNewOrderId(), amount, FinCurrency.KZT);
+    public KKBPaymentOrder buildNewPayment(double amount) {
+	return buildNewPayment(generateNewOrderId(), amount, FinCurrency.KZT);
     }
 
     @Override
-    public KKBAuthorization buildAuthorization(double amount, FinCurrency currency) {
-	return buildAuthorization(generateNewOrderId(), amount, currency);
+    public KKBPaymentOrder buildNewPayment(double amount, FinCurrency currency) {
+	return buildNewPayment(generateNewOrderId(), amount, currency);
     }
 
     @Override
-    public KKBAuthorization buildAuthorization(String orderId, double amount) {
-	return buildAuthorization(orderId, amount, FinCurrency.KZT);
+    public KKBPaymentOrder buildNewPayment(String orderId, double amount) {
+	return buildNewPayment(orderId, amount, FinCurrency.KZT);
     }
 
     @Override
-    public KKBAuthorization buildAuthorization(String orderId, double amount, FinCurrency currency) {
-	KKBAuthorization authorization = new KKBAuthorization();
-	authorization.setOrderId(orderId);
-	authorization.setCurrency(currency);
-	KKBAuthorizationPayment payment = new KKBAuthorizationPayment();
-	payment.setAmount(amount);
-	payment.setMerchantId(merchantId);
-	authorization.getPayments().put(merchantId, payment);
-	return authorization;
+    public KKBPaymentOrder buildNewPayment(String orderId, double amount, FinCurrency currency) {
+	KKBPaymentOrder order = new KKBPaymentOrder();
+	order.setOrderId(orderId);
+	order.setCurrency(currency);
+	KKBPaymentOperation operation = new KKBPaymentOperation();
+	operation.setAmount(amount);
+	operation.setMerchantId(merchantId);
+	try {
+	    order.addOperation(operation);
+	} catch (KKBFormatException e) {
+	    logger.log(Level.WARNING, "error while building new payment", e);
+	}
+	return order;
     }
 }
