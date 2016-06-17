@@ -12,12 +12,12 @@ import javax.ejb.Singleton;
 
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
-import com.lapsa.kkb.api.KKBPaymentOrderBuilder;
+import com.lapsa.kkb.api.KKBPaymentOrderBuilderService;
 import com.lapsa.kkb.core.KKBPaymentOperation;
 import com.lapsa.kkb.core.KKBPaymentOrder;
 
 @Singleton
-public class DefaultKKBAuthoirzationBuilder extends KKBGenericService implements KKBPaymentOrderBuilder {
+public class DefaultKKBPaymentOrderBuilderService extends KKBGenericService implements KKBPaymentOrderBuilderService {
     private String merchantId;
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
