@@ -94,7 +94,7 @@ public class DefaultKKBPaymentOrderService extends KKBGenericService
     }
 
     @Override
-    public String encodeRequest(KKBPaymentOrder request) throws KKBServiceError {
+    public String composeRequest(KKBPaymentOrder request) throws KKBServiceError {
 	try {
 	    KKBXmlMerchant merchant = generateMerchant(request);
 	    KKBXmlMerchantSign merchantSign = generateMerchantSign(merchant);
@@ -174,8 +174,6 @@ public class DefaultKKBPaymentOrderService extends KKBGenericService
     private void initJAXB() throws JAXBException {
 	JAXBContext jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlDocument.class);
 	jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	jaxbUnmarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-	jaxbUnmarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 	jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);

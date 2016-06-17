@@ -8,14 +8,14 @@ import javax.ejb.EJB;
 import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBPaymentOrderBuilderService;
+import com.lapsa.kkb.api.KKBPaymentOrderFactory;
 import com.lapsa.kkb.core.KKBPaymentOperation;
 import com.lapsa.kkb.core.KKBPaymentOrder;
 
-public class KKBPaymentOrderBuilderServiceTestCase extends ArquillianBaseTestCase {
+public class KKBPaymentOrderFactoryTestCase extends ArquillianBaseTestCase {
 
     @EJB
-    private KKBPaymentOrderBuilderService paymentOrderBuilderService;
+    private KKBPaymentOrderFactory paymentOrderBuilderService;
 
     @Test
     public void testGenerateNewOrderId() {
