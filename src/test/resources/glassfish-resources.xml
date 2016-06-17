@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+	<custom-resource
+		factory-class="org.glassfish.resources.custom.factory.PropertiesFactory"
+		res-type="java.util.Properties" jndi-name="resource/eurasia36/KKBPKIProperties">
+		<property name="merchant.id" value="92061103" />
+		<property name="merchant.name" value="Test shop 3" />
+		<property name="merchant.key.keystore" value="C:/Users/vadim.isaev/kkb.jks" />
+		<property name="merchant.key.storetype" value="JKS" />
+		<property name="merchant.key.storepass" value="1q2w3e4r" />
+		<property name="merchant.key.alias" value="cert" />
+		<property name="merchant.cert.keystore" value="C:/Users/vadim.isaev/kkb.jks" />
+		<property name="merchant.cert.storetype" value="JKS" />
+		<property name="merchant.cert.storepass" value="1q2w3e4r" />
+		<property name="merchant.cert.alias" value="cert" />
+		<property name="bank.epay.url" value="https://testpay.kkb.kz/jsp/process/logon.jsp" />
+		<property name="bank.epay.template" value="default.xsl" />
+		<property name="signature.algorithm" value="SHA1withRSA" />
+		<property name="bank.cert.keystore" value="C:/Users/vadim.isaev/kkb.jks" />
+		<property name="bank.cert.storetype" value="JKS" />
+		<property name="bank.cert.storepass" value="1q2w3e4r" />
+		<property name="bank.cert.alias" value="kkbca" />
+	</custom-resource>
+</resources>

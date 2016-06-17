@@ -4,7 +4,6 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.util.Properties;
 import java.util.UUID;
-import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -12,7 +11,6 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBFormatException;
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
 import com.lapsa.kkb.api.KKBPaymentOrderBuilder;
 import com.lapsa.kkb.core.KKBPaymentOperation;
@@ -68,11 +66,7 @@ public class DefaultKKBAuthoirzationBuilder extends KKBGenericService implements
 	KKBPaymentOperation operation = new KKBPaymentOperation();
 	operation.setAmount(amount);
 	operation.setMerchantId(merchantId);
-	try {
-	    order.addOperation(operation);
-	} catch (KKBFormatException e) {
-	    logger.log(Level.WARNING, "error while building new payment", e);
-	}
+	order.addOperation(operation);
 	return order;
     }
 }
