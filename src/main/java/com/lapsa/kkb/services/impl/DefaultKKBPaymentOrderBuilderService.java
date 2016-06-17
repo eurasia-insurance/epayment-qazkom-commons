@@ -44,22 +44,22 @@ public class DefaultKKBPaymentOrderBuilderService extends KKBGenericService impl
     }
 
     @Override
-    public KKBPaymentOrder buildNewPayment(double amount) {
-	return buildNewPayment(generateNewOrderId(), amount, FinCurrency.KZT);
+    public KKBPaymentOrder buildNewPaymentOrder(double amount) {
+	return buildNewPaymentOrder(generateNewOrderId(), amount, FinCurrency.KZT);
     }
 
     @Override
-    public KKBPaymentOrder buildNewPayment(double amount, FinCurrency currency) {
-	return buildNewPayment(generateNewOrderId(), amount, currency);
+    public KKBPaymentOrder buildNewPaymentOrder(double amount, FinCurrency currency) {
+	return buildNewPaymentOrder(generateNewOrderId(), amount, currency);
     }
 
     @Override
-    public KKBPaymentOrder buildNewPayment(String orderId, double amount) {
-	return buildNewPayment(orderId, amount, FinCurrency.KZT);
+    public KKBPaymentOrder buildNewPaymentOrder(String orderId, double amount) {
+	return buildNewPaymentOrder(orderId, amount, FinCurrency.KZT);
     }
 
     @Override
-    public KKBPaymentOrder buildNewPayment(String orderId, double amount, FinCurrency currency) {
+    public KKBPaymentOrder buildNewPaymentOrder(String orderId, double amount, FinCurrency currency) {
 	KKBPaymentOrder order = new KKBPaymentOrder();
 	order.setOrderId(orderId);
 	order.setCurrency(currency);
