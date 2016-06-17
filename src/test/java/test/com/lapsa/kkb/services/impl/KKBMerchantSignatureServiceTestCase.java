@@ -10,10 +10,10 @@ import javax.ejb.EJB;
 
 import org.junit.Test;
 
-import com.lapsa.kkb.api.KKBMerchantSignatureService;
-import com.lapsa.kkb.api.KKBServiceError;
-import com.lapsa.kkb.api.KKBSignatureOperationFailed;
-import com.lapsa.kkb.api.KKBWrongSignature;
+import com.lapsa.kkb.services.KKBMerchantSignatureService;
+import com.lapsa.kkb.services.KKBServiceError;
+import com.lapsa.kkb.services.KKBSignatureOperationFailed;
+import com.lapsa.kkb.services.KKBWrongSignature;
 
 public class KKBMerchantSignatureServiceTestCase extends ArquillianBaseTestCase {
 

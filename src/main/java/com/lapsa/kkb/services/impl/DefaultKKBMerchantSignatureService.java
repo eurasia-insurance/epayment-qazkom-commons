@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
 
-import com.lapsa.kkb.api.KKBMerchantSignatureService;
+import com.lapsa.kkb.services.KKBMerchantSignatureService;
 
 @Singleton
 public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSignerAndVerifierService

@@ -8,9 +8,9 @@ import javax.ejb.EJB;
 import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBPaymentOrderFactory;
 import com.lapsa.kkb.core.KKBPaymentOperation;
 import com.lapsa.kkb.core.KKBPaymentOrder;
+import com.lapsa.kkb.services.KKBPaymentOrderFactory;
 
 public class KKBPaymentOrderFactoryTestCase extends ArquillianBaseTestCase {
 

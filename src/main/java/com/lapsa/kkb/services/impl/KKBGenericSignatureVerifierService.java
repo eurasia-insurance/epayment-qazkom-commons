@@ -5,11 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.SignatureException;
 
-import com.lapsa.kkb.api.KKBServiceError;
-import com.lapsa.kkb.api.KKBSignatureVerifierService;
-import com.lapsa.kkb.api.KKBWrongSignature;
 import com.lapsa.kkb.core.KKBSignature;
 import com.lapsa.kkb.core.KKBSingatureStatus;
+import com.lapsa.kkb.services.KKBServiceError;
+import com.lapsa.kkb.services.KKBSignatureVerifierService;
+import com.lapsa.kkb.services.KKBWrongSignature;
 
 public abstract class KKBGenericSignatureVerifierService extends KKBGenericCryptographyService
 	implements KKBSignatureVerifierService {

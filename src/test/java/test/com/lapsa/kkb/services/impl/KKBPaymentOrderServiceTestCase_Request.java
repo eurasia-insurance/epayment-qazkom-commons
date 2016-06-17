@@ -8,11 +8,11 @@ import javax.ejb.EJB;
 import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBBankSignatureService;
-import com.lapsa.kkb.api.KKBPaymentOrderFactory;
-import com.lapsa.kkb.api.KKBPaymentOrderService;
-import com.lapsa.kkb.api.KKBServiceError;
 import com.lapsa.kkb.core.KKBPaymentOrder;
+import com.lapsa.kkb.services.KKBBankSignatureService;
+import com.lapsa.kkb.services.KKBPaymentOrderFactory;
+import com.lapsa.kkb.services.KKBPaymentOrderService;
+import com.lapsa.kkb.services.KKBServiceError;
 
 public class KKBPaymentOrderServiceTestCase_Request extends ArquillianBaseTestCase {
 

@@ -11,10 +11,10 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBMerchantSignatureService;
-import com.lapsa.kkb.api.KKBPaymentOrderFactory;
 import com.lapsa.kkb.core.KKBPaymentOperation;
 import com.lapsa.kkb.core.KKBPaymentOrder;
+import com.lapsa.kkb.services.KKBMerchantSignatureService;
+import com.lapsa.kkb.services.KKBPaymentOrderFactory;
 
 @Singleton
 public class DefaultKKBPaymentOrderFactory extends KKBGenericService implements KKBPaymentOrderFactory {

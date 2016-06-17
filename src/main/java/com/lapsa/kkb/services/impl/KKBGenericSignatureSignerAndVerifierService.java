@@ -6,10 +6,10 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
-import com.lapsa.kkb.api.KKBSignatureOperationFailed;
-import com.lapsa.kkb.api.KKBSingatureSignerService;
 import com.lapsa.kkb.core.KKBSignature;
 import com.lapsa.kkb.core.KKBSingatureStatus;
+import com.lapsa.kkb.services.KKBSignatureOperationFailed;
+import com.lapsa.kkb.services.KKBSingatureSignerService;
 
 public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGenericSignatureVerifierService
 	implements KKBSingatureSignerService {

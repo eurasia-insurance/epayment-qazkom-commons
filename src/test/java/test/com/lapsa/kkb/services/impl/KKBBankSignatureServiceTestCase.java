@@ -10,9 +10,9 @@ import javax.ejb.EJB;
 
 import org.junit.Test;
 
-import com.lapsa.kkb.api.KKBBankSignatureService;
-import com.lapsa.kkb.api.KKBServiceError;
-import com.lapsa.kkb.api.KKBWrongSignature;
+import com.lapsa.kkb.services.KKBBankSignatureService;
+import com.lapsa.kkb.services.KKBServiceError;
+import com.lapsa.kkb.services.KKBWrongSignature;
 import com.sun.pkg.util.Base64;
 
 public class KKBBankSignatureServiceTestCase extends ArquillianBaseTestCase {

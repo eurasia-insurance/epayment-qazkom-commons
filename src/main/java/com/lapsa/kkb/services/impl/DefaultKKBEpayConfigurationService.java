@@ -12,8 +12,8 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
-import com.lapsa.kkb.api.KKBEpayConfigurationService;
-import com.lapsa.kkb.api.KKBMerchantSignatureService;
+import com.lapsa.kkb.services.KKBEpayConfigurationService;
+import com.lapsa.kkb.services.KKBMerchantSignatureService;
 
 @Singleton
 public class DefaultKKBEpayConfigurationService extends KKBGenericService implements KKBEpayConfigurationService {
