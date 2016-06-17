@@ -8,21 +8,14 @@ import java.security.cert.X509Certificate;
 
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import com.lapsa.kkb.api.KKBMerchantSignatureService;
 import com.lapsa.kkb.api.KKBServiceError;
 import com.lapsa.kkb.api.KKBSignatureOperationFailed;
 import com.lapsa.kkb.api.KKBWrongSignature;
-import com.lapsa.kkb.services.impl.DefaultKKBMerchantSignatureService;
 
-@RunWith(Arquillian.class)
-public class KKBMerchantSignatureServiceTestCase {
+public class KKBMerchantSignatureServiceTestCase extends ArquillianBaseTestCase {
 
     private static final byte[] TEST_SIGNATURE_DATA = "sdgfhdjghfdskjghkjfehg8754th5g4ignu5".getBytes();
 
@@ -49,14 +42,6 @@ public class KKBMerchantSignatureServiceTestCase {
 	    -105, 35, 67, 62, 73, -119, 76, 109, 91, 87, 67, -60, -9, -93, -107, -64, 26, -14, -89, -117, -38, 68, 76,
 	    17, 91, -29, -24, -93, 37, -43, -30, 72, 107, -11, 54, 101, 66, -20, 32, -37, 70, 54, -79, -21, 23, -99,
 	    116, -74, 75 };
-
-    @Deployment
-    public static JavaArchive createDeployment() {
-	JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
-	jar.addPackages(true, DefaultKKBMerchantSignatureService.class.getPackage());
-	System.out.println(jar.toString(true));
-	return jar;
-    }
 
     @EJB
     private KKBMerchantSignatureService merchantSignatureService;
