@@ -1,0 +1,80 @@
+package test.com.lapsa.kkb.services.impl;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
+import javax.ejb.EJB;
+
+import org.junit.Test;
+
+import com.lapsa.fin.FinCurrency;
+import com.lapsa.kkb.api.KKBPaymentOrderBuilderService;
+import com.lapsa.kkb.core.KKBPaymentOperation;
+import com.lapsa.kkb.core.KKBPaymentOrder;
+
+public class KKBPaymentOrderBuilderServiceTestCase extends ArquillianBaseTestCase {
+
+    @EJB
+    private KKBPaymentOrderBuilderService paymentOrderBuilderService;
+
+    @Test
+    public void testGenerateNewOrderId() {
+	String id = paymentOrderBuilderService.generateNewOrderId();
+	assertThat(id, allOf(not(nullValue()), not(equalTo(""))));
+	assertThat(id.length(), lessThanOrEqualTo(15));
+    }
+
+    @Test
+    public void testBuildNewPaymentOrder_Amount() {
+	double amount = 500;
+	KKBPaymentOrder order = paymentOrderBuilderService.buildNewPaymentOrder(amount);
+	assertThat(order, not(nullValue()));
+	assertThat(order.getOrderId(), not(nullValue()));
+	assertThat(order.getTotalAmount(), equalTo(amount));
+	assertThat(order.getCurrency(), equalTo(FinCurrency.KZT));
+	assertThat(order.getOperationsList(),
+		allOf(not(nullValue()), not(emptyCollectionOf(KKBPaymentOperation.class)), hasSize(1)));
+	assertTrue(order.hasOperationMerchant(TestConstants.TEST_MERCHANT_ID));
+	KKBPaymentOperation oper = order.getOperationToMerchant(TestConstants.TEST_MERCHANT_ID);
+	assertThat(oper, not(nullValue()));
+	assertThat(oper.getAmount(), equalTo(amount));
+	assertThat(oper.getMerchantId(), equalTo(TestConstants.TEST_MERCHANT_ID));
+    }
+
+    @Test
+    public void testBuildNewPaymentOrder_AmountAndOrderId() {
+	double amount = 500;
+	String orderId = "21321312";
+	KKBPaymentOrder order = paymentOrderBuilderService.buildNewPaymentOrder(orderId, amount);
+	assertThat(order, not(nullValue()));
+	assertThat(order.getOrderId(), not(nullValue()));
+	assertThat(order.getTotalAmount(), equalTo(amount));
+	assertThat(order.getCurrency(), equalTo(FinCurrency.KZT));
+	assertThat(order.getOperationsList(),
+		allOf(not(nullValue()), not(emptyCollectionOf(KKBPaymentOperation.class)), hasSize(1)));
+	assertTrue(order.hasOperationMerchant(TestConstants.TEST_MERCHANT_ID));
+	KKBPaymentOperation oper = order.getOperationToMerchant(TestConstants.TEST_MERCHANT_ID);
+	assertThat(oper, not(nullValue()));
+	assertThat(oper.getAmount(), equalTo(amount));
+	assertThat(oper.getMerchantId(), equalTo(TestConstants.TEST_MERCHANT_ID));
+    }
+
+    @Test
+    public void testBuildNewPaymentOrder_AmountAndOrderIdAndCurrency() {
+	double amount = 500;
+	String orderId = "21321312";
+	KKBPaymentOrder order = paymentOrderBuilderService.buildNewPaymentOrder(orderId, amount, FinCurrency.KZT);
+	assertThat(order, not(nullValue()));
+	assertThat(order.getOrderId(), not(nullValue()));
+	assertThat(order.getTotalAmount(), equalTo(amount));
+	assertThat(order.getCurrency(), equalTo(FinCurrency.KZT));
+	assertThat(order.getOperationsList(),
+		allOf(not(nullValue()), not(emptyCollectionOf(KKBPaymentOperation.class)), hasSize(1)));
+	assertTrue(order.hasOperationMerchant(TestConstants.TEST_MERCHANT_ID));
+	KKBPaymentOperation oper = order.getOperationToMerchant(TestConstants.TEST_MERCHANT_ID);
+	assertThat(oper, not(nullValue()));
+	assertThat(oper.getAmount(), equalTo(amount));
+	assertThat(oper.getMerchantId(), equalTo(TestConstants.TEST_MERCHANT_ID));
+    }
+
+}
