@@ -13,7 +13,7 @@
 	<version>1.0-rc1-SNAPSHOT</version>
 	<packaging>ejb</packaging>
 
-	<name>KKB Lib : Services : Default implementation</name>
+	<name>KKB Lib : Services API : Default implementation</name>
 
 	<properties>
 		<kkb-lib.version>1.0-rc1-SNAPSHOT</kkb-lib.version>
