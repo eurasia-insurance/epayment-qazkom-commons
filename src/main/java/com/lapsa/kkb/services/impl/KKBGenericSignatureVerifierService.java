@@ -28,9 +28,12 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
 	    boolean result = (inverted) ? sig.verify(invertedByteArray(signature)) : sig.verify(signature);
 	    if (!result)
 		throw new KKBWrongSignature();
-	} catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
+	} catch (InvalidKeyException | NoSuchAlgorithmException e) {
 	    throw new KKBServiceError(e);
+	} catch (SignatureException e) {
+	    throw new KKBWrongSignature(e);
 	}
+
     }
 
     @Override

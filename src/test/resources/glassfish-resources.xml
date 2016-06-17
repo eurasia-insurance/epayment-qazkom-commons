@@ -6,18 +6,18 @@
 		res-type="java.util.Properties" jndi-name="resource/eurasia36/KKBPKIProperties">
 		<property name="merchant.id" value="92061103" />
 		<property name="merchant.name" value="Test shop 3" />
-		<property name="merchant.key.keystore" value="C:/Users/vadim.isaev/kkb.jks" />
+		<property name="merchant.key.keystore" value="src/test/keys/kkb.jks" />
 		<property name="merchant.key.storetype" value="JKS" />
 		<property name="merchant.key.storepass" value="1q2w3e4r" />
 		<property name="merchant.key.alias" value="cert" />
-		<property name="merchant.cert.keystore" value="C:/Users/vadim.isaev/kkb.jks" />
+		<property name="merchant.cert.keystore" value="src/test/keys/kkb.jks" />
 		<property name="merchant.cert.storetype" value="JKS" />
 		<property name="merchant.cert.storepass" value="1q2w3e4r" />
 		<property name="merchant.cert.alias" value="cert" />
 		<property name="bank.epay.url" value="https://testpay.kkb.kz/jsp/process/logon.jsp" />
 		<property name="bank.epay.template" value="default.xsl" />
 		<property name="signature.algorithm" value="SHA1withRSA" />
-		<property name="bank.cert.keystore" value="C:/Users/vadim.isaev/kkb.jks" />
+		<property name="bank.cert.keystore" value="src/test/keys/kkb.jks" />
 		<property name="bank.cert.storetype" value="JKS" />
 		<property name="bank.cert.storepass" value="1q2w3e4r" />
 		<property name="bank.cert.alias" value="kkbca" />
