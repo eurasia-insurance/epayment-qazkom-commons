@@ -31,14 +31,14 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/kkb-services-impl-default.git</connection>
-		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/vadim.isaev/kkb-services-impl-default.git</developerConnection>
+		<connection>scm:git:https://gitrepo.theeurasia.kz/lapsa/kkb-services-impl-default.git</connection>
+		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/lapsa/kkb-services-impl-default.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>https://gitrepo.theeurasia.kz/vadim.isaev/kkb-services-impl-default/issues</url>
+		<url>https://gitrepo.theeurasia.kz/lapsa/kkb-services-impl-default/issues</url>
 	</issueManagement>
 
 </project>
