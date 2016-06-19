@@ -33,14 +33,29 @@ public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSigne
 
     @PostConstruct
     public void init() {
+	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
+		DEFAULT_SIGNATURE_ALGORITHM);
+
+	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_FILE);
+	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_TYPE,
+		DEFAULT_MERCHANT_KEYSTORE_TYPE);
+	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_PASSWORD);
+	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_KEYALIAS);
+
+	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_FILE);
+	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_TYPE,
+		DEFAULT_MERCHANT_CERTSTORE_TYPE);
+	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_PASSWORD);
+	String certAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_CERTALIAS);
+
 	try {
-	    initProperties();
-	    initPrivateKey();
-	    initCertificate();
-	} catch (UnrecoverableKeyException | NoSuchAlgorithmException | CertificateException | KeyStoreException
-		| IOException e) {
-	    logger.log(Level.SEVERE, String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName()),
-		    e);
+	    privateKey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
+	    certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
+	} catch (NoSuchAlgorithmException | CertificateException | KeyStoreException | IOException
+		| UnrecoverableKeyException e) {
+	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
+	    logger.log(Level.SEVERE, message, e);
+	    throw new RuntimeException(message, e);
 	}
     }
 
@@ -57,32 +72,5 @@ public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSigne
     @Override
     protected PrivateKey getPrivateKey() {
 	return privateKey;
-    }
-
-    // PRIVATE
-
-    private void initProperties() {
-	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
-		DEFAULT_SIGNATURE_ALGORITHM);
-    }
-
-    protected void initCertificate()
-	    throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
-	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_FILE);
-	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_TYPE,
-		DEFAULT_MERCHANT_CERTSTORE_TYPE);
-	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_PASSWORD);
-	String certAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_CERTALIAS);
-	certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
-    }
-
-    protected void initPrivateKey() throws NoSuchAlgorithmException, CertificateException, KeyStoreException,
-	    IOException, UnrecoverableKeyException {
-	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_FILE);
-	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_TYPE,
-		DEFAULT_MERCHANT_KEYSTORE_TYPE);
-	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_PASSWORD);
-	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_KEYALIAS);
-	privateKey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
     }
 }

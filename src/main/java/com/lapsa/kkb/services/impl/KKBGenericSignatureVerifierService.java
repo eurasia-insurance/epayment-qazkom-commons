@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.SignatureException;
 
-import com.lapsa.kkb.core.KKBSignature;
+import com.lapsa.kkb.core.KKBSignedData;
 import com.lapsa.kkb.core.KKBSingatureStatus;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBSignatureVerifierService;
@@ -38,9 +38,9 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
 
     @Override
     @SuppressWarnings("deprecation")
-    public void verify(KKBSignature signedData) throws KKBServiceError, KKBWrongSignature {
+    public void verify(KKBSignedData signedData) throws KKBServiceError, KKBWrongSignature {
 	try {
-	    verify(signedData.getData(), signedData.getSignature(), signedData.isInverted());
+	    verify(signedData.getData(), signedData.getDigest(), signedData.isInverted());
 	    signedData.setStatus(KKBSingatureStatus.CHECKED_VALID);
 	} catch (KKBWrongSignature e) {
 	    signedData.setStatus(KKBSingatureStatus.CHECKED_INVALID);

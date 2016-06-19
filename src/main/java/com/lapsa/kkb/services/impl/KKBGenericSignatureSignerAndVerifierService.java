@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
-import com.lapsa.kkb.core.KKBSignature;
+import com.lapsa.kkb.core.KKBSignedData;
 import com.lapsa.kkb.core.KKBSingatureStatus;
 import com.lapsa.kkb.services.KKBSignatureOperationFailed;
 import com.lapsa.kkb.services.KKBSingatureSignerService;
@@ -25,8 +25,8 @@ public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGen
 	    Signature sig = Signature.getInstance(getSignatureAlgorithm());
 	    sig.initSign(getPrivateKey());
 	    sig.update(data);
-	    byte[] signatureBytes = sig.sign();
-	    return (inverted) ? invertedByteArray(signatureBytes) : signatureBytes;
+	    byte[] digest = sig.sign();
+	    return (inverted) ? invertedByteArray(digest) : digest;
 	} catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
 	    throw new KKBSignatureOperationFailed(e);
 	}
@@ -34,9 +34,9 @@ public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGen
 
     @Override
     @SuppressWarnings("deprecation")
-    public void signData(KKBSignature signature) throws KKBSignatureOperationFailed {
-	signature.setStatus(KKBSingatureStatus.UNCHECKED);
-	signature.setSignature(sign(signature.getData(), signature.isInverted()));
+    public void signData(KKBSignedData signedData) throws KKBSignatureOperationFailed {
+	signedData.setStatus(KKBSingatureStatus.UNCHECKED);
+	signedData.setDigest(sign(signedData.getData(), signedData.isInverted()));
     }
 
     protected abstract PrivateKey getPrivateKey();

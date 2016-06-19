@@ -35,8 +35,9 @@ public class DefaultKKBEpayConfigurationService extends KKBGenericService implem
 	    bankEpayURL = new URL(bankEpayURLString);
 	    templateName = configurationProperties.getProperty(PROPERTY_BANK_EPAY_TEMPLATE, DEFAULT_EPAY_TEMPLATE_NAME);
 	} catch (MalformedURLException e) {
-	    logger.log(Level.SEVERE, String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName()),
-		    e);
+	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
+	    logger.log(Level.SEVERE, message, e);
+	    throw new RuntimeException(message, e);
 	}
     }
 

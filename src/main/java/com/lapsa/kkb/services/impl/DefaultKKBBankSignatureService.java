@@ -28,13 +28,21 @@ public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierS
 
     @PostConstruct
     public void init() {
+	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
+		DEFAULT_SIGNATURE_ALGORITHM);
+
+	String certstoreFile = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_FILE);
+	String certstoreType = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_TYPE,
+		DEFAULT_BANK_CERTSTORE_TYPE);
+	String certstorePass = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_PASSWORD);
+	String certAlias = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_CERTALIAS);
 	try {
-	    initProperties();
-	    initCertificate();
+	    certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
 	} catch (NoSuchAlgorithmException | CertificateException | KeyStoreException
 		| IOException e) {
-	    logger.log(Level.SEVERE, String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName()),
-		    e);
+	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
+	    logger.log(Level.SEVERE, message, e);
+	    throw new RuntimeException(message, e);
 	}
     }
 
@@ -47,22 +55,4 @@ public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierS
     public String getSignatureAlgorithm() {
 	return signatureAlgorithm;
     }
-
-    // PRIVATE
-
-    private void initProperties() {
-	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
-		DEFAULT_SIGNATURE_ALGORITHM);
-    }
-
-    private void initCertificate()
-	    throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
-	String certstoreFile = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_FILE);
-	String certstoreType = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_TYPE,
-		DEFAULT_BANK_CERTSTORE_TYPE);
-	String certstorePass = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_PASSWORD);
-	String certAlias = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_CERTALIAS);
-	certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
-    }
-
 }

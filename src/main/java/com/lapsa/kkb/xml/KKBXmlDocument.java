@@ -1,6 +1,7 @@
 package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -26,6 +27,9 @@ public class KKBXmlDocument implements Serializable {
 
     @XmlElementRef
     private KKBXmlBankSign bankSign;
+
+    @XmlElementRef
+    private List<KKBXmlItem> items;
 
     // GENERATED
 
@@ -59,5 +63,13 @@ public class KKBXmlDocument implements Serializable {
 
     public void setBankSign(KKBXmlBankSign bankSign) {
 	this.bankSign = bankSign;
+    }
+
+    public List<KKBXmlItem> getItems() {
+	return items;
+    }
+
+    public void setItems(List<KKBXmlItem> items) {
+	this.items = items;
     }
 }
