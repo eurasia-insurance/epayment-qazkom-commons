@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.kkb.lapsa.com/response"
-	xmlns:tns="http://xml.kkb.lapsa.com/response" elementFormDefault="qualified">
+	xmlns:tns="http://xml.kkb.lapsa.com/response" elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<simpleType name="bank_name_type">
 		<restriction base="string" />

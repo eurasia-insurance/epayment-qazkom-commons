@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://xml.kkb.lapsa.com/response" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xml.kkb.lapsa.com/response response-schema.xsd ">
+	xsi:schemaLocation="http://xml.kkb.lapsa.com/response response-schema.xsd " xsi:noNamespaceSchemaLocation="response-schema.xsd">
 
 	<bank name="Kazkommertsbank JSC">
 		<customer name="MR CARD" mail="vadim.isaev@me.com" phone="">
