@@ -44,13 +44,12 @@ public class KKBPaymentRequestDocumentComposer implements KKBXmlDocumentComposer
 	    xmlDocument.setMerchant(xmlMerchant);
 	    xmlDocument.setMerchantSign(xmlMerchantSign);
 	    return xmlDocument;
-	} catch (KKBSignatureOperationFailed | JAXBException e) {
+	} catch (JAXBException e) {
 	    throw new KKBServiceError(e);
 	}
     }
 
-    private KKBXmlMerchantSign composeXmlMerchantSign(KKBSignedData signature)
-	    throws JAXBException, KKBSignatureOperationFailed {
+    private KKBXmlMerchantSign composeXmlMerchantSign(KKBSignedData signature) {
 	KKBXmlMerchantSign xmlMerchantSign = new KKBXmlMerchantSign();
 	xmlMerchantSign.setSignType(KKBXmlSignType.RSA);
 	xmlMerchantSign.setSignature(signature.getDigest());
