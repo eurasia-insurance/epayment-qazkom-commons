@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://xml.kkb.lapsa.com/response" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xml.kkb.lapsa.com/response response-schema.xsd ">
+
+	<bank name="Kazkommertsbank JSC">
+		<customer name="MR CARD" mail="vadim.isaev@me.com" phone="">
+			<merchant cert_id="c183d70b" name="Test shop 3">
+				<order order_id="484902574738032" amount="2382.05" currency="398">
+					<department merchant_id="92061103" amount="2382.05" />
+				</order>
+			</merchant>
+			<merchant_sign type="RSA" />
+		</customer>
+		<customer_sign type="RSA" />
+		<results timestamp="2016-06-14 15:18:02">
+			<payment merchant_id="92061103" card="440564-XX-XXXX-6150"
+				amount="2382.05" reference="160614151802" approval_code="151802"
+				response_code="00" Secure="Yes" card_bin=""
+				c_hash="13988BBF7C6649F799F36A4808490A3E" />
+		</results>
+	</bank>
+	<bank_sign cert_id="00c183d690" type="SHA/RSA">uHWuUQ938FNwU3ZkEip2/HGSL6niFomLvmklkg1mWOiGPCzEcQoFc5XFfTYnLwin3qtl3JsnO/yysFAjXFOBYfe5txQIWo5rnCzQ7/97n7jDHUHx58rqTLPzWwb70bYE3DuZch/cvS2gyFBbstUkzik+0YDJ/FuMwmTU4Kl/dBc=</bank_sign>
+</document>

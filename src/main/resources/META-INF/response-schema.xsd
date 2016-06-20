@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/NewXMLSchema"
-	xmlns:tns="http://www.example.org/NewXMLSchema" elementFormDefault="qualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.kkb.lapsa.com/response"
+	xmlns:tns="http://xml.kkb.lapsa.com/response" elementFormDefault="qualified">
 
 	<simpleType name="bank_name_type">
 		<restriction base="string" />
@@ -14,7 +14,9 @@
 	</simpleType>
 
 	<simpleType name="merchant_id_type">
-		<restriction base="string" />
+		<restriction base="string">
+			<minLength value="1" />
+		</restriction>
 	</simpleType>
 
 	<simpleType name="amount_type">
@@ -22,12 +24,6 @@
 			<minInclusive value="0" />
 		</restriction>
 	</simpleType>
-
-	<complexType name="department_type">
-		<attribute name="merchant_id" type="tns:merchant_id_type"
-			use="required" />
-		<attribute name="amount" type="tns:amount_type" use="required" />
-	</complexType>
 
 	<simpleType name="order_id_type">
 		<restriction base="string">
@@ -43,47 +39,12 @@
 		</restriction>
 	</simpleType>
 
-	<complexType name="order_type">
-		<sequence>
-			<element name="department" type="tns:department_type"
-				minOccurs="1" maxOccurs="unbounded" />
-		</sequence>
-		<attribute name="order_id" type="tns:order_id_type" use="required" />
-		<attribute name="amount" type="tns:amount_type" use="required" />
-		<attribute name="currency" type="tns:currency_type" use="required" />
-	</complexType>
-
-	<complexType name="merchant_type">
-		<sequence>
-			<element name="order" type="tns:order_type" minOccurs="1"
-				maxOccurs="unbounded" />
-		</sequence>
-		<attribute name="cert_id" type="tns:merchant_cert_id_type" />
-		<attribute name="name" type="tns:merchant_name_type" />
-	</complexType>
-
-
 	<simpleType name="merchant_sign_type_type">
 		<restriction base="string">
 			<enumeration value="RSA" />
 		</restriction>
 	</simpleType>
 
-	<complexType name="merchant_sign_type">
-		<attribute name="type" type="tns:merchant_sign_type_type" />
-	</complexType>
-
-	<complexType name="customer_type">
-		<sequence>
-			<element name="merchant" type="tns:merchant_type" minOccurs="1"
-				maxOccurs="1" />
-			<element name="merchant_sign" type="tns:merchant_sign_type"
-				minOccurs="1" maxOccurs="1" />
-		</sequence>
-		<attribute name="name" type="string" />
-		<attribute name="mail" type="string" />
-		<attribute name="phone" type="string" />
-	</complexType>
 
 	<simpleType name="customer_sign_type_type">
 		<restriction base="string">
@@ -91,16 +52,11 @@
 		</restriction>
 	</simpleType>
 
-	<complexType name="customer_sign_type">
-		<attribute name="type" type="tns:customer_sign_type_type" />
-	</complexType>
-
 	<simpleType name="timestamp_type">
 		<restriction base="string">
 			<length value="19" />
 		</restriction>
 	</simpleType>
-
 
 	<simpleType name="card_type">
 		<restriction base="string">
@@ -141,6 +97,72 @@
 		<restriction base="string" />
 	</simpleType>
 
+	<simpleType name="bank_cert_id_type">
+		<restriction base="string" />
+	</simpleType>
+
+	<simpleType name="merchant_cert_id_type">
+		<restriction base="string" />
+	</simpleType>
+
+	<simpleType name="bank_cert_type_type">
+		<restriction base="string">
+			<enumeration value="SHA/RSA" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="digest_type">
+		<restriction base="base64Binary">
+			<whiteSpace value="collapse" />
+			<minLength value="1" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="department_type">
+		<attribute name="merchant_id" type="tns:merchant_id_type"
+			use="required" />
+		<attribute name="amount" type="tns:amount_type" use="required" />
+	</complexType>
+
+	<complexType name="order_type">
+		<sequence>
+			<element name="department" type="tns:department_type"
+				minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="order_id" type="tns:order_id_type" use="required" />
+		<attribute name="amount" type="tns:amount_type" use="required" />
+		<attribute name="currency" type="tns:currency_type" use="required" />
+	</complexType>
+
+	<complexType name="merchant_type">
+		<sequence>
+			<element name="order" type="tns:order_type" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="cert_id" type="tns:merchant_cert_id_type" />
+		<attribute name="name" type="tns:merchant_name_type" />
+	</complexType>
+
+	<complexType name="merchant_sign_type">
+		<attribute name="type" type="tns:merchant_sign_type_type" />
+	</complexType>
+
+	<complexType name="customer_type">
+		<sequence>
+			<element name="merchant" type="tns:merchant_type" minOccurs="1"
+				maxOccurs="1" />
+			<element name="merchant_sign" type="tns:merchant_sign_type"
+				minOccurs="1" maxOccurs="1" />
+		</sequence>
+		<attribute name="name" type="string" />
+		<attribute name="mail" type="string" />
+		<attribute name="phone" type="string" />
+	</complexType>
+
+	<complexType name="customer_sign_type">
+		<attribute name="type" type="tns:customer_sign_type_type" />
+	</complexType>
+
 	<complexType name="payment_type">
 		<attribute name="merchant_id" type="tns:merchant_id_type"
 			use="required" />
@@ -175,27 +197,6 @@
 		</sequence>
 		<attribute name="name" type="tns:bank_name_type" use="required" />
 	</complexType>
-
-	<simpleType name="bank_cert_id_type">
-		<restriction base="string" />
-	</simpleType>
-
-	<simpleType name="merchant_cert_id_type">
-		<restriction base="string" />
-	</simpleType>
-
-	<simpleType name="bank_cert_type_type">
-		<restriction base="string">
-			<enumeration value="SHA/RSA" />
-		</restriction>
-	</simpleType>
-
-	<simpleType name="digest_type">
-		<restriction base="base64Binary">
-			<whiteSpace value="collapse" />
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
 
 	<complexType name="bank_sign_type">
 		<simpleContent>
