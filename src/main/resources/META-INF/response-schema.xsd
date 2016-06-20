@@ -1,222 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.kkb.lapsa.com/response"
-	xmlns:tns="http://xml.kkb.lapsa.com/response" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://xml.kkb.lapsa.com/response" xmlns:tns="http://xml.kkb.lapsa.com/response"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-	<simpleType name="bank_name_type">
-		<restriction base="string" />
-	</simpleType>
+	<xs:simpleType name="bank_name_type">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
 
 
-	<simpleType name="merchant_name_type">
-		<restriction base="string">
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="merchant_name_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="merchant_id_type">
-		<restriction base="string">
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="merchant_id_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="amount_type">
-		<restriction base="double">
-			<minInclusive value="0" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="amount_type">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="order_id_type">
-		<restriction base="string">
-			<minLength value="1" />
-			<maxLength value="15" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="order_id_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:maxLength value="15" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="currency_type">
-		<restriction base="string">
+	<xs:simpleType name="currency_type">
+		<xs:restriction base="xs:string">
 			<!-- KZT -->
-			<enumeration value="398" />
-		</restriction>
-	</simpleType>
+			<xs:enumeration value="398" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="merchant_sign_type_type">
-		<restriction base="string">
-			<enumeration value="RSA" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="merchant_sign_type_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RSA" />
+		</xs:restriction>
+	</xs:simpleType>
 
 
-	<simpleType name="customer_sign_type_type">
-		<restriction base="string">
-			<enumeration value="RSA" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="customer_sign_type_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RSA" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="timestamp_type">
-		<restriction base="string">
-			<length value="19" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="timestamp_type">
+		<xs:restriction base="xs:string">
+			<xs:length value="19" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="card_type">
-		<restriction base="string">
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="card_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="reference_type">
-		<restriction base="string">
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="reference_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="approval_code_type">
-		<restriction base="string">
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="approval_code_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="response_code_type">
-		<restriction base="string">
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="response_code_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="Secure_type">
-		<restriction base="string">
-			<enumeration value="Yes" />
-			<enumeration value="No" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="Secure_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="card_bin_type">
-		<restriction base="string" />
-	</simpleType>
+	<xs:simpleType name="card_bin_type">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
 
-	<simpleType name="c_hash_type">
-		<restriction base="string" />
-	</simpleType>
+	<xs:simpleType name="c_hash_type">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
 
-	<simpleType name="bank_cert_id_type">
-		<restriction base="string" />
-	</simpleType>
+	<xs:simpleType name="bank_cert_id_type">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
 
-	<simpleType name="merchant_cert_id_type">
-		<restriction base="string" />
-	</simpleType>
+	<xs:simpleType name="merchant_cert_id_type">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
 
-	<simpleType name="bank_cert_type_type">
-		<restriction base="string">
-			<enumeration value="SHA/RSA" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="bank_cert_type_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SHA/RSA" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<simpleType name="digest_type">
-		<restriction base="base64Binary">
-			<whiteSpace value="collapse" />
-			<minLength value="1" />
-		</restriction>
-	</simpleType>
+	<xs:simpleType name="digest_type">
+		<xs:restriction base="xs:base64Binary">
+			<xs:whiteSpace value="collapse" />
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
 
-	<complexType name="department_type">
-		<attribute name="merchant_id" type="tns:merchant_id_type"
+	<xs:complexType name="department_type">
+		<xs:attribute name="merchant_id" type="tns:merchant_id_type"
 			use="required" />
-		<attribute name="amount" type="tns:amount_type" use="required" />
-	</complexType>
+		<xs:attribute name="amount" type="tns:amount_type" use="required" />
+	</xs:complexType>
 
-	<complexType name="order_type">
-		<sequence>
-			<element name="department" type="tns:department_type"
+	<xs:complexType name="order_type">
+		<xs:sequence>
+			<xs:element name="department" type="tns:department_type"
 				minOccurs="1" maxOccurs="unbounded" />
-		</sequence>
-		<attribute name="order_id" type="tns:order_id_type" use="required" />
-		<attribute name="amount" type="tns:amount_type" use="required" />
-		<attribute name="currency" type="tns:currency_type" use="required" />
-	</complexType>
+		</xs:sequence>
+		<xs:attribute name="order_id" type="tns:order_id_type"
+			use="required" />
+		<xs:attribute name="amount" type="tns:amount_type" use="required" />
+		<xs:attribute name="currency" type="tns:currency_type"
+			use="required" />
+	</xs:complexType>
 
-	<complexType name="merchant_type">
-		<sequence>
-			<element name="order" type="tns:order_type" minOccurs="1"
+	<xs:complexType name="merchant_type">
+		<xs:sequence>
+			<xs:element name="order" type="tns:order_type" minOccurs="1"
 				maxOccurs="unbounded" />
-		</sequence>
-		<attribute name="cert_id" type="tns:merchant_cert_id_type" />
-		<attribute name="name" type="tns:merchant_name_type" />
-	</complexType>
+		</xs:sequence>
+		<xs:attribute name="cert_id" type="tns:merchant_cert_id_type" />
+		<xs:attribute name="name" type="tns:merchant_name_type" />
+	</xs:complexType>
 
-	<complexType name="merchant_sign_type">
-		<attribute name="type" type="tns:merchant_sign_type_type" />
-	</complexType>
+	<xs:complexType name="merchant_sign_type">
+		<xs:attribute name="type" type="tns:merchant_sign_type_type" />
+	</xs:complexType>
 
-	<complexType name="customer_type">
-		<sequence>
-			<element name="merchant" type="tns:merchant_type" minOccurs="1"
-				maxOccurs="1" />
-			<element name="merchant_sign" type="tns:merchant_sign_type"
+	<xs:complexType name="customer_type">
+		<xs:sequence>
+			<xs:element name="merchant" type="tns:merchant_type"
 				minOccurs="1" maxOccurs="1" />
-		</sequence>
-		<attribute name="name" type="string" />
-		<attribute name="mail" type="string" />
-		<attribute name="phone" type="string" />
-	</complexType>
-
-	<complexType name="customer_sign_type">
-		<attribute name="type" type="tns:customer_sign_type_type" />
-	</complexType>
-
-	<complexType name="payment_type">
-		<attribute name="merchant_id" type="tns:merchant_id_type"
-			use="required" />
-		<attribute name="card" type="tns:card_type" use="optional" />
-		<attribute name="amount" type="tns:amount_type" use="required" />
-		<attribute name="reference" type="tns:reference_type" use="required" />
-		<attribute name="approval_code" type="tns:approval_code_type"
-			use="required" />
-		<attribute name="response_code" type="tns:response_code_type"
-			use="required" />
-		<attribute name="Secure" type="tns:Secure_type" use="required" />
-		<attribute name="card_bin" type="tns:card_bin_type" use="optional" />
-		<attribute name="c_hash" type="tns:c_hash_type" use="required" />
-	</complexType>
-
-	<complexType name="results_type">
-		<sequence>
-			<element name="payment" type="tns:payment_type" minOccurs="1"
-				maxOccurs="unbounded"></element>
-		</sequence>
-		<attribute name="timestamp" type="tns:timestamp_type" use="required" />
-	</complexType>
-
-	<complexType name="bank_type">
-		<sequence>
-			<element name="customer" type="tns:customer_type" minOccurs="1"
-				maxOccurs="1" />
-			<element name="customer_sign" type="tns:customer_sign_type"
+			<xs:element name="merchant_sign" type="tns:merchant_sign_type"
 				minOccurs="1" maxOccurs="1" />
-			<element name="results" type="tns:results_type" minOccurs="1"
-				maxOccurs="1" />
-		</sequence>
-		<attribute name="name" type="tns:bank_name_type" use="required" />
-	</complexType>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="mail" type="xs:string" />
+		<xs:attribute name="phone" type="xs:string" />
+	</xs:complexType>
 
-	<complexType name="bank_sign_type">
-		<simpleContent>
-			<extension base="tns:digest_type">
-				<attribute name="cert_id" type="tns:bank_cert_id_type"
+	<xs:complexType name="customer_sign_type">
+		<xs:attribute name="type" type="tns:customer_sign_type_type" />
+	</xs:complexType>
+
+	<xs:complexType name="payment_type">
+		<xs:attribute name="merchant_id" type="tns:merchant_id_type"
+			use="required" />
+		<xs:attribute name="card" type="tns:card_type" use="optional" />
+		<xs:attribute name="amount" type="tns:amount_type" use="required" />
+		<xs:attribute name="reference" type="tns:reference_type"
+			use="required" />
+		<xs:attribute name="approval_code" type="tns:approval_code_type"
+			use="required" />
+		<xs:attribute name="response_code" type="tns:response_code_type"
+			use="required" />
+		<xs:attribute name="Secure" type="tns:Secure_type" use="required" />
+		<xs:attribute name="card_bin" type="tns:card_bin_type"
+			use="optional" />
+		<xs:attribute name="c_hash" type="tns:c_hash_type" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="results_type">
+		<xs:sequence>
+			<xs:element name="payment" type="tns:payment_type"
+				minOccurs="1" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="timestamp" type="tns:timestamp_type"
+			use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="bank_type">
+		<xs:sequence>
+			<xs:element name="customer" type="tns:customer_type"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="customer_sign" type="tns:customer_sign_type"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="results" type="tns:results_type"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="name" type="tns:bank_name_type" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="bank_sign_type">
+		<xs:simpleContent>
+			<xs:extension base="tns:digest_type">
+				<xs:attribute name="cert_id" type="tns:bank_cert_id_type"
 					use="required" />
-				<attribute name="type" type="tns:bank_cert_type_type" use="required" />
-			</extension>
-		</simpleContent>
-	</complexType>
+				<xs:attribute name="type" type="tns:bank_cert_type_type"
+					use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 
-	<complexType name="document_type">
-		<sequence>
-			<element name="bank" type="tns:bank_type" minOccurs="1"
+	<xs:complexType name="document_type">
+		<xs:sequence>
+			<xs:element name="bank" type="tns:bank_type" minOccurs="1"
 				maxOccurs="1" />
-			<element name="bank_sign" type="tns:bank_sign_type"
+			<xs:element name="bank_sign" type="tns:bank_sign_type"
 				minOccurs="1" maxOccurs="1" />
-		</sequence>
-	</complexType>
+		</xs:sequence>
+	</xs:complexType>
 
-	<element name="document" type="tns:document_type" />
+	<xs:element name="document" type="tns:document_type" />
 
-</schema>
+</xs:schema>
