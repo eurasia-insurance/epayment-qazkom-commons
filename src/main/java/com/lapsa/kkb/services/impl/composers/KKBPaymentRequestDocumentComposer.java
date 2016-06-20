@@ -23,9 +23,7 @@ public class KKBPaymentRequestDocumentComposer implements KKBXmlDocumentComposer
 
     private final String merchantId;
     private final String merchantName;
-
     private final Marshaller jaxbMarshaller;
-
     private final KKBMerchantSignatureService merchantSignatureService;
 
     public KKBPaymentRequestDocumentComposer(String merchantId, String merchantName, Marshaller jaxbMarshaller,
