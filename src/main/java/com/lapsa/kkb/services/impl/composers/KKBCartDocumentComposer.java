@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBOrderItem;
 import com.lapsa.kkb.services.KKBServiceError;
-import com.lapsa.kkb.services.impl.KKBXmlDocumentComposer;
 import com.lapsa.kkb.xml.KKBXmlDocument;
 import com.lapsa.kkb.xml.KKBXmlItem;
 

@@ -12,7 +12,6 @@ import com.lapsa.kkb.core.KKBSignedData;
 import com.lapsa.kkb.services.KKBMerchantSignatureService;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBSignatureOperationFailed;
-import com.lapsa.kkb.services.impl.KKBXmlDocumentComposer;
 import com.lapsa.kkb.xml.KKBXmlDepartment;
 import com.lapsa.kkb.xml.KKBXmlDocument;
 import com.lapsa.kkb.xml.KKBXmlMerchant;
