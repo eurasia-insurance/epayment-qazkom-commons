@@ -24,7 +24,7 @@ import com.lapsa.kkb.xml.KKBXmlBankSign;
 import com.lapsa.kkb.xml.KKBXmlCustomer;
 import com.lapsa.kkb.xml.KKBXmlCustomerSign;
 import com.lapsa.kkb.xml.KKBXmlDepartment;
-import com.lapsa.kkb.xml.KKBXmlDocument;
+import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
 import com.lapsa.kkb.xml.KKBXmlMerchant;
 import com.lapsa.kkb.xml.KKBXmlMerchantSign;
 import com.lapsa.kkb.xml.KKBXmlOrder;
@@ -37,7 +37,7 @@ public class KKBDocumentResponseOKTest {
 
     private JAXBContext jaxbContext;
 
-    private static final KKBXmlDocument TEST_DOCUMENT_AS_OBJECT;
+    private static final KKBXmlDocumentResponse TEST_DOCUMENT_AS_OBJECT;
 
     private static final String TEST_DOCUMENT_AS_PLAINTEXT = ""
 	    + "<document>"
@@ -67,7 +67,7 @@ public class KKBDocumentResponseOKTest {
 	    + "</document>";
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new KKBXmlDocument();
+	TEST_DOCUMENT_AS_OBJECT = new KKBXmlDocumentResponse();
 
 	KKBXmlBank bank = new KKBXmlBank();
 	TEST_DOCUMENT_AS_OBJECT.setBank(bank);
@@ -138,7 +138,7 @@ public class KKBDocumentResponseOKTest {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlBank.class, KKBXmlDocument.class);
+	jaxbContext = JAXBContext.newInstance(KKBXmlBank.class, KKBXmlDocumentResponse.class);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class KKBDocumentResponseOKTest {
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 
-    private String getDocumentString(KKBXmlDocument document, boolean formatted) throws JAXBException {
+    private String getDocumentString(KKBXmlDocumentResponse document, boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);

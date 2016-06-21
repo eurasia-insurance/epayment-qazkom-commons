@@ -1,7 +1,6 @@
 package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,14 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-public class KKBXmlDocument implements Serializable {
-    private static final long serialVersionUID = 6600231531045791922L;
-
-    @XmlElementRef
-    private KKBXmlMerchant merchant;
-
-    @XmlElementRef
-    private KKBXmlMerchantSign merchantSign;
+public class KKBXmlDocumentResponse implements Serializable {
+    private static final long serialVersionUID = -4584256521781984693L;
 
     @XmlElementRef
     private KKBXmlBank bank;
@@ -28,26 +21,7 @@ public class KKBXmlDocument implements Serializable {
     @XmlElementRef
     private KKBXmlBankSign bankSign;
 
-    @XmlElementRef
-    private List<KKBXmlItem> items;
-
     // GENERATED
-
-    public KKBXmlMerchant getMerchant() {
-	return merchant;
-    }
-
-    public void setMerchant(KKBXmlMerchant merchant) {
-	this.merchant = merchant;
-    }
-
-    public KKBXmlMerchantSign getMerchantSign() {
-	return merchantSign;
-    }
-
-    public void setMerchantSign(KKBXmlMerchantSign merchantSign) {
-	this.merchantSign = merchantSign;
-    }
 
     public KKBXmlBank getBank() {
 	return bank;
@@ -63,13 +37,5 @@ public class KKBXmlDocument implements Serializable {
 
     public void setBankSign(KKBXmlBankSign bankSign) {
 	this.bankSign = bankSign;
-    }
-
-    public List<KKBXmlItem> getItems() {
-	return items;
-    }
-
-    public void setItems(List<KKBXmlItem> items) {
-	this.items = items;
     }
 }

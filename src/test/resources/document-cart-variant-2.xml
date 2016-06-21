@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../main/resources/META-INF/document-cart-schema.xsd">
+	<!-- // Далее информация в удобной для Вас форме. Может отличаться от предложенной. -->
+	<item number="1" name="Телефонный аппарат" quantity="2" amount="1000" />
+	<item number="2" name="Шнур 2м." quantity="2" amount="200" />
+	<!-- // item number= необходимо перечислить все пункты корзины -->
+	<!-- // name -Наименование товара/услуги -->
+	<!-- // quantity - количество -->
+	<!-- // amount - сумма по этому наименованию -->
+</document> 

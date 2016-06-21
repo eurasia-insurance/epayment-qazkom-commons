@@ -286,6 +286,25 @@
 		</xs:simpleContent>
 	</xs:complexType>
 
+	<xs:simpleType name="ts_item_number">
+		<xs:restriction base="xs:positiveInteger" />
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_item_name">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_item_quantity">
+		<xs:restriction base="xs:positiveInteger" />
+	</xs:simpleType>
+
+	<xs:complexType name="tc_item">
+		<xs:attribute name="number" type="ts_item_number" />
+		<xs:attribute name="name" type="ts_item_name" />
+		<xs:attribute name="quantity" type="ts_item_quantity" />
+		<xs:attribute name="amount" type="ts_amount" />
+	</xs:complexType>
+
 	<xs:complexType name="tc_response_document">
 		<xs:sequence>
 			<xs:element name="bank" type="tc_bank" minOccurs="1"
@@ -301,6 +320,13 @@
 				maxOccurs="1" />
 			<xs:element name="merchant_sign" type="tc_merchant_sign"
 				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tc_cart_document">
+		<xs:sequence>
+			<xs:element name="item" type="tc_item" minOccurs="1"
+				maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 

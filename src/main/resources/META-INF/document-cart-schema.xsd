@@ -331,6 +331,6 @@
 	</xs:complexType>
 
 	<!-- ROOT element -->
-	<xs:element name="document" type="tc_response_document" />
+	<xs:element name="document" type="tc_cart_document" />
 
 </xs:schema>

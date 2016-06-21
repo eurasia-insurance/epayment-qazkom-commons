@@ -1,10 +1,12 @@
-package com.lapsa.kkb.services.impl;
+package com.lapsa.kkb.services.impl.composers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Logger;
+import java.io.StringWriter;
 
 import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -12,8 +14,20 @@ import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
-public abstract class KKBGenericService {
-    protected Logger logger = Logger.getLogger(this.getClass().getName());
+import com.lapsa.kkb.services.KKBServiceError;
+import com.lapsa.kkb.services.impl.KKBGenericService;
+
+public abstract class BaseDocumentHelper {
+
+    protected String generateXML(Object document, Marshaller marshaller) throws KKBServiceError {
+	try {
+	    StringWriter output = new StringWriter();
+	    marshaller.marshal(document, output);
+	    return output.toString();
+	} catch (JAXBException e) {
+	    throw new KKBServiceError(e);
+	}
+    }
 
     protected Schema loadSchemaFromResource(String resourceName) throws SAXException, IOException {
 	try (InputStream is = KKBGenericService.class

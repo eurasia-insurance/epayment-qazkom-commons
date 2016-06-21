@@ -38,6 +38,7 @@ public interface Constants {
 
     public static final String SCHEMA_RESPONSE = "/META-INF/document-response-schema.xsd";
     public static final String SCHEMA_REQUEST = "/META-INF/document-request-schema.xsd";
+    public static final String SCHEMA_CART = "/META-INF/document-cart-schema.xsd";
 
 
 }

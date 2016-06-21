@@ -2,21 +2,12 @@ package com.lapsa.kkb.services.impl;
 
 import static com.lapsa.kkb.services.impl.Constants.*;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.validation.Schema;
-
-import org.xml.sax.SAXException;
 
 import com.lapsa.kkb.core.KKBCartDocument;
 import com.lapsa.kkb.core.KKBOrder;
@@ -27,8 +18,6 @@ import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.impl.composers.KKBCartDocumentComposer;
 import com.lapsa.kkb.services.impl.composers.KKBPaymentRequestDocumentComposer;
 import com.lapsa.kkb.services.impl.composers.KKBXmlDocumentComposer;
-import com.lapsa.kkb.xml.KKBXmlDocument;
-import com.lapsa.kkb.xml.KKBXmlMerchant;
 
 @Singleton
 public class DefaultKKBDocumentComposerService extends KKBGenericService
@@ -36,8 +25,6 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
 
     private String merchantId;
     private String merchantName;
-
-    private Marshaller marshaller;
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
     private Properties configurationProperties;
@@ -47,59 +34,28 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
 
     @PostConstruct
     public void init() {
-	try {
-	    Schema schema = loadSchemaFromResource(SCHEMA_REQUEST);
-	    JAXBContext jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlDocument.class);
-	    marshaller = jaxbContext.createMarshaller();
-	    marshaller.setSchema(schema);
-	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-	    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-	} catch (JAXBException | IOException | SAXException e) {
-	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
-	    logger.log(Level.SEVERE, message, e);
-	    throw new RuntimeException(message, e);
-	}
 	merchantId = configurationProperties.getProperty(PROPERTY_MERCHANT_ID);
 	merchantName = configurationProperties.getProperty(PROPERTY_MERCHANT_NAME);
     }
 
     @Override
     public KKBPaymentRequestDocument composeRequest(KKBOrder order) throws KKBServiceError {
-	try {
-	    KKBXmlDocumentComposer composer = new KKBPaymentRequestDocumentComposer(merchantId, merchantName,
-		    marshaller, merchantSignatureService);
-	    KKBXmlDocument xmlDocument = composer.composeXmlDocument(order);
-	    String xml = generateXML(xmlDocument);
-	    KKBPaymentRequestDocument request = new KKBPaymentRequestDocument();
-	    request.setContent(xml);
-	    order.addRequest(request);
-	    return request;
-	} catch (JAXBException e) {
-	    throw new KKBServiceError(e);
-	}
+	KKBXmlDocumentComposer composer = new KKBPaymentRequestDocumentComposer(merchantId, merchantName,
+		merchantSignatureService);
+	String xml = composer.composeXmlDocument(order);
+	KKBPaymentRequestDocument doc = new KKBPaymentRequestDocument();
+	doc.setContent(xml);
+	order.addRequest(doc);
+	return doc;
     }
 
     @Override
     public KKBCartDocument composeCart(KKBOrder order) throws KKBServiceError {
-	try {
-	    KKBXmlDocumentComposer composer = new KKBCartDocumentComposer();
-	    KKBXmlDocument xmlDocument = composer.composeXmlDocument(order);
-	    String xml = generateXML(xmlDocument);
-	    KKBCartDocument cart = new KKBCartDocument();
-	    cart.setContent(xml);
-	    order.setCart(cart);
-	    return cart;
-	} catch (JAXBException e) {
-	    throw new KKBServiceError(e);
-	}
+	KKBXmlDocumentComposer composer = new KKBCartDocumentComposer();
+	String xml = composer.composeXmlDocument(order);
+	KKBCartDocument cart = new KKBCartDocument();
+	cart.setContent(xml);
+	order.setCart(cart);
+	return cart;
     }
-
-    // PRIVATE
-
-    private String generateXML(KKBXmlDocument xmlDocument) throws JAXBException {
-	StringWriter output = new StringWriter();
-	marshaller.marshal(xmlDocument, output);
-	return output.toString();
-    }
-
 }

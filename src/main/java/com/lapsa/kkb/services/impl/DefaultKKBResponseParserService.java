@@ -14,17 +14,22 @@ import javax.ejb.Singleton;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
 
 import org.xml.sax.SAXException;
 
+import com.lapsa.kkb.core.KKBPaymentRequestDocument;
+import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.services.KKBBankSignatureService;
 import com.lapsa.kkb.services.KKBFormatException;
 import com.lapsa.kkb.services.KKBResponseParserService;
 import com.lapsa.kkb.services.KKBServiceError;
+import com.lapsa.kkb.services.KKBValidationErrorException;
 import com.lapsa.kkb.services.KKBWrongSignature;
-import com.lapsa.kkb.xml.KKBXmlDocument;
-import com.lapsa.kkb.xml.KKBXmlMerchant;
+import com.lapsa.kkb.services.impl.validators.KKBRequestResponseValidator;
+import com.lapsa.kkb.services.impl.validators.KKBXmlMerchantEqualsValidator;
+import com.lapsa.kkb.services.impl.validators.KKBRequestResponsePaymentLinesEqualsValidator;
+import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
+import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
 
 @Singleton
 public class DefaultKKBResponseParserService extends KKBGenericService
@@ -35,7 +40,12 @@ public class DefaultKKBResponseParserService extends KKBGenericService
 	    | Pattern.DOTALL;
     private static final Pattern BANK_REGEX_PATTERN = Pattern.compile(BANK_REGEX, BANK_REGEX_FLAGS);
 
-    private Unmarshaller unmarshaller;
+    private Unmarshaller responseUnmarshaller;
+    private Unmarshaller requestUnmarshaller;
+
+    private KKBRequestResponseValidator[] validators = new KKBRequestResponseValidator[] {
+	    new KKBXmlMerchantEqualsValidator(), new KKBRequestResponsePaymentLinesEqualsValidator()
+    };
 
     // @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
     // private Properties configurationProperties;
@@ -46,10 +56,13 @@ public class DefaultKKBResponseParserService extends KKBGenericService
     @PostConstruct
     public void init() {
 	try {
-	    Schema schema = loadSchemaFromResource(SCHEMA_RESPONSE);
-	    JAXBContext jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlDocument.class);
-	    unmarshaller = jaxbContext.createUnmarshaller();
-	    unmarshaller.setSchema(schema);
+	    JAXBContext responseJAXBContext = JAXBContext.newInstance(KKBXmlDocumentResponse.class);
+	    responseUnmarshaller = responseJAXBContext.createUnmarshaller();
+	    responseUnmarshaller.setSchema(loadSchemaFromResource(SCHEMA_RESPONSE));
+
+	    JAXBContext requestJAXBContext = JAXBContext.newInstance(KKBXmlDocumentRequest.class);
+	    requestUnmarshaller = requestJAXBContext.createUnmarshaller();
+	    requestUnmarshaller.setSchema(loadSchemaFromResource(SCHEMA_REQUEST));
 	} catch (SAXException | IOException | JAXBException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
 	    logger.log(Level.SEVERE, message, e);
@@ -60,7 +73,8 @@ public class DefaultKKBResponseParserService extends KKBGenericService
     @Override
     public String parseOrderId(String response) throws KKBServiceError, KKBFormatException {
 	try {
-	    KKBXmlDocument xmlDocument = (KKBXmlDocument) unmarshaller.unmarshal(new StringReader(response));
+	    KKBXmlDocumentResponse xmlDocument = (KKBXmlDocumentResponse) responseUnmarshaller
+		    .unmarshal(new StringReader(response));
 	    return xmlDocument.getBank().getCustomer().getSourceMerchant().getOrder().getOrderId();
 	} catch (JAXBException e) {
 	    throw new KKBFormatException(e);
@@ -74,11 +88,28 @@ public class DefaultKKBResponseParserService extends KKBGenericService
 	bankSignatureService.verify(data, sign);
     }
 
+    @Override
+    public void validateOrderResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
+	    throws KKBFormatException, KKBValidationErrorException {
+	try {
+	    KKBXmlDocumentRequest xmlRequestDocument = (KKBXmlDocumentRequest) requestUnmarshaller
+		    .unmarshal(new StringReader(request.getContent()));
+	    KKBXmlDocumentResponse xmlResponseDocument = (KKBXmlDocumentResponse) responseUnmarshaller
+		    .unmarshal(new StringReader(response.getContent()));
+	    for (KKBRequestResponseValidator validator : validators)
+		validator.validate(xmlRequestDocument, xmlResponseDocument);
+
+	} catch (JAXBException e) {
+	    throw new KKBFormatException(e);
+	}
+    }
+
     // PRIVATE
 
     private byte[] parseBankSignDataFromResponse(String response) throws KKBFormatException {
 	try {
-	    KKBXmlDocument xmlDocument = (KKBXmlDocument) unmarshaller.unmarshal(new StringReader(response));
+	    KKBXmlDocumentResponse xmlDocument = (KKBXmlDocumentResponse) responseUnmarshaller
+		    .unmarshal(new StringReader(response));
 	    return xmlDocument.getBankSign().getSignature();
 	} catch (JAXBException e) {
 	    throw new KKBFormatException(e);
@@ -92,5 +123,4 @@ public class DefaultKKBResponseParserService extends KKBGenericService
 	throw new KKBFormatException(
 		String.format("<bank /> element is null or empty at the response string: '%1$s'", response));
     }
-
 }

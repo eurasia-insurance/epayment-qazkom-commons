@@ -1,11 +1,17 @@
 package com.lapsa.kkb.services.impl.composers;
 
+import static com.lapsa.kkb.services.impl.Constants.*;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
+import org.xml.sax.SAXException;
 
 import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBSignedData;
@@ -13,37 +19,47 @@ import com.lapsa.kkb.services.KKBMerchantSignatureService;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBSignatureOperationFailed;
 import com.lapsa.kkb.xml.KKBXmlDepartment;
-import com.lapsa.kkb.xml.KKBXmlDocument;
+import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
 import com.lapsa.kkb.xml.KKBXmlMerchant;
 import com.lapsa.kkb.xml.KKBXmlMerchantSign;
 import com.lapsa.kkb.xml.KKBXmlOrder;
 import com.lapsa.kkb.xml.KKBXmlSignType;
 
-public class KKBPaymentRequestDocumentComposer implements KKBXmlDocumentComposer {
+public class KKBPaymentRequestDocumentComposer extends BaseDocumentHelper implements KKBXmlDocumentComposer {
 
     private final String merchantId;
     private final String merchantName;
-    private final Marshaller marshaller;
     private final KKBMerchantSignatureService merchantSignatureService;
 
-    public KKBPaymentRequestDocumentComposer(String merchantId, String merchantName, Marshaller jaxbMarshaller,
-	    KKBMerchantSignatureService merchantSignatureService) {
+    private final Marshaller marshaller;
+
+    public KKBPaymentRequestDocumentComposer(String merchantId, String merchantName,
+	    KKBMerchantSignatureService merchantSignatureService) throws KKBServiceError {
 	this.merchantId = merchantId;
 	this.merchantName = merchantName;
-	this.marshaller = jaxbMarshaller;
 	this.merchantSignatureService = merchantSignatureService;
+
+	try {
+	    JAXBContext jaxbContext = JAXBContext.newInstance(KKBXmlDocumentRequest.class, KKBXmlMerchant.class);
+	    marshaller = jaxbContext.createMarshaller();
+	    marshaller.setSchema(loadSchemaFromResource(SCHEMA_REQUEST));
+	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+	    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+	} catch (JAXBException | SAXException | IOException e) {
+	    throw new KKBServiceError(e);
+	}
     }
 
     @Override
-    public KKBXmlDocument composeXmlDocument(KKBOrder order) throws KKBServiceError {
+    public String composeXmlDocument(KKBOrder order) throws KKBServiceError {
 	try {
 	    KKBXmlMerchant xmlMerchant = composeXmlMerchant(order);
 	    KKBSignedData signature = composeMerchantKKBSignature(xmlMerchant);
 	    KKBXmlMerchantSign xmlMerchantSign = composeXmlMerchantSign(signature);
-	    KKBXmlDocument xmlDocument = new KKBXmlDocument();
+	    KKBXmlDocumentRequest xmlDocument = new KKBXmlDocumentRequest();
 	    xmlDocument.setMerchant(xmlMerchant);
 	    xmlDocument.setMerchantSign(xmlMerchantSign);
-	    return xmlDocument;
+	    return generateXML(xmlDocument, marshaller);
 	} catch (JAXBException e) {
 	    throw new KKBServiceError(e);
 	}

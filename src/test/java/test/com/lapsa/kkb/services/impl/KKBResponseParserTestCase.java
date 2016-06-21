@@ -46,5 +46,4 @@ public class KKBResponseParserTestCase extends ArquillianBaseTestCase {
     public void testValidateSignatureFailed() throws KKBServiceError, KKBFormatException, KKBWrongSignature {
 	responseParserService.validateSignature(VALIDATE_SIGNATURE_FAILED_RESPONSE);
     }
-
 }
