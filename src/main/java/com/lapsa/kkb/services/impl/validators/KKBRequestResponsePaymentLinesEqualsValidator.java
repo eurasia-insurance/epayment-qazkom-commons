@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lapsa.kkb.services.KKBValidationErrorException;
+import com.lapsa.kkb.services.impl.ResponseParserErrorCode;
 import com.lapsa.kkb.xml.KKBXmlDepartment;
 import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
 import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
@@ -27,13 +28,13 @@ public class KKBRequestResponsePaymentLinesEqualsValidator implements KKBRequest
 	Set<String> resMerchants = resLines.keySet();
 
 	if (!reqMerchants.containsAll(resMerchants) || !resMerchants.containsAll(reqMerchants))
-	    throw ValidationErrorCode.VLDT001.generateException();
+	    throw ResponseParserErrorCode.VLDT001.generateValidationException();
 
 	for (String reqMerchantId : reqMerchants) {
 	    KKBXmlDepartment req = reqLines.get(reqMerchantId);
 	    KKBXmlPayment res = resLines.get(reqMerchantId);
 	    if (req.getAmount() != res.getAmount())
-		throw ValidationErrorCode.VLDT002.generateException(reqMerchantId, req.getAmount(), res.getAmount());
+		throw ResponseParserErrorCode.VLDT002.generateValidationException(reqMerchantId, req.getAmount(), res.getAmount());
 	}
     }
 

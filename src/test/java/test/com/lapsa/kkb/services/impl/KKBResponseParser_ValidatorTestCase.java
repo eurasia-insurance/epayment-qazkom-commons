@@ -10,16 +10,16 @@ import org.junit.Test;
 import com.lapsa.kkb.core.KKBPaymentRequestDocument;
 import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.services.KKBFormatException;
-import com.lapsa.kkb.services.KKBResponseParserService;
+import com.lapsa.kkb.services.KKBResponseService;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBValidationErrorException;
 import com.lapsa.kkb.services.KKBWrongSignature;
-import com.lapsa.kkb.services.impl.validators.ValidationErrorCode;
+import com.lapsa.kkb.services.impl.ResponseParserErrorCode;
 
 public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase {
 
     @EJB
-    private KKBResponseParserService responseParserService;
+    private KKBResponseService responseParserService;
 
     private static final String VALIDATE_SIGNATURE_RESPONSE = ""
 	    + "<document><bank name=\"Kazkommertsbank JSC\"><customer name=\"MR CARDHOLDER\" mail=\"vadim.isaev@me.com\" "
@@ -62,7 +62,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     public void testValidateOrderResponse_OK() throws KKBValidationErrorException, KKBFormatException {
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_OK_REQUEST);
 	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(VALIDATE_ORDER_RESPONSE_OK_RESPONSE);
-	responseParserService.validateOrderResponse(request, response);
+	responseParserService.validateResponse(request, response);
     }
 
     private static final String VALIDATE_ORDER_RESPONSE_FAIL_MCINE_REQUEST = ""
@@ -88,7 +88,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_FAIL_MCINE_REQUEST);
 	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(
 		VALIDATE_ORDER_RESPONSE_FAIL_MCINE_RESPONSE);
-	expectValidationException(ValidationErrorCode.VLDT003, request, response);
+	expectValidationException(ResponseParserErrorCode.VLDT003, request, response);
     }
 
     private static final String VALIDATE_ORDER_RESPONSE_FAIL_PLMIDNTS_REQUEST = ""
@@ -114,7 +114,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
 		VALIDATE_ORDER_RESPONSE_FAIL_PLMIDNTS_REQUEST);
 	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(
 		VALIDATE_ORDER_RESPONSE_FAIL_PLMIDNTS_RESPONSE);
-	expectValidationException(ValidationErrorCode.VLDT001, request, response);
+	expectValidationException(ResponseParserErrorCode.VLDT001, request, response);
     }
 
     private static final String VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_REQUEST = ""
@@ -145,15 +145,15 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_REQUEST);
 	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(
 		VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_RESPONSE);
-	expectValidationException(ValidationErrorCode.VLDT002, request, response);
+	expectValidationException(ResponseParserErrorCode.VLDT002, request, response);
     }
 
     // PRIVATE
 
-    private void expectValidationException(ValidationErrorCode code, KKBPaymentRequestDocument request,
+    private void expectValidationException(ResponseParserErrorCode code, KKBPaymentRequestDocument request,
 	    KKBPaymentResponseDocument response) throws KKBFormatException {
 	try {
-	    responseParserService.validateOrderResponse(request, response);
+	    responseParserService.validateResponse(request, response);
 	    fail(String.format("%1$s with %2$s code must be thrown",
 		    KKBValidationErrorException.class.getSimpleName(), code.name()));
 	} catch (KKBValidationErrorException e) {

@@ -21,7 +21,7 @@ import com.lapsa.kkb.core.KKBPaymentRequestDocument;
 import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.services.KKBBankSignatureService;
 import com.lapsa.kkb.services.KKBFormatException;
-import com.lapsa.kkb.services.KKBResponseParserService;
+import com.lapsa.kkb.services.KKBResponseService;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBValidationErrorException;
 import com.lapsa.kkb.services.KKBWrongSignature;
@@ -32,8 +32,8 @@ import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
 import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
 
 @Singleton
-public class DefaultKKBResponseParserService extends KKBGenericService
-	implements KKBResponseParserService {
+public class DefaultKKBResponseService extends KKBGenericService
+	implements KKBResponseService {
 
     private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";
     private static final int BANK_REGEX_FLAGS = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.MULTILINE
@@ -71,6 +71,11 @@ public class DefaultKKBResponseParserService extends KKBGenericService
     }
 
     @Override
+    public String parseOrderId(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException {
+	return parseOrderId(response.getContent());
+    }
+
+    @Override
     public String parseOrderId(String response) throws KKBServiceError, KKBFormatException {
 	try {
 	    KKBXmlDocumentResponse xmlDocument = (KKBXmlDocumentResponse) responseUnmarshaller
@@ -82,6 +87,12 @@ public class DefaultKKBResponseParserService extends KKBGenericService
     }
 
     @Override
+    public void validateSignature(KKBPaymentResponseDocument response)
+	    throws KKBServiceError, KKBFormatException, KKBWrongSignature {
+	validateSignature(response.getContent());
+    }
+
+    @Override
     public void validateSignature(String response) throws KKBFormatException, KKBServiceError, KKBWrongSignature {
 	byte[] data = parseBankElementDataFromResponse(response);
 	byte[] sign = parseBankSignDataFromResponse(response);
@@ -89,7 +100,7 @@ public class DefaultKKBResponseParserService extends KKBGenericService
     }
 
     @Override
-    public void validateOrderResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
+    public void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException {
 	try {
 	    KKBXmlDocumentRequest xmlRequestDocument = (KKBXmlDocumentRequest) requestUnmarshaller
@@ -98,7 +109,6 @@ public class DefaultKKBResponseParserService extends KKBGenericService
 		    .unmarshal(new StringReader(response.getContent()));
 	    for (KKBRequestResponseValidator validator : validators)
 		validator.validate(xmlRequestDocument, xmlResponseDocument);
-
 	} catch (JAXBException e) {
 	    throw new KKBFormatException(e);
 	}
@@ -120,7 +130,6 @@ public class DefaultKKBResponseParserService extends KKBGenericService
 	Matcher matcher = BANK_REGEX_PATTERN.matcher(response);
 	if (matcher.find())
 	    return matcher.group().getBytes();
-	throw new KKBFormatException(
-		String.format("<bank /> element is null or empty at the response string: '%1$s'", response));
+	throw ResponseParserErrorCode.FRMT001.generateFormatException(response);
     }
 }
