@@ -304,6 +304,6 @@
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:element name="document" type="tc_response_document" />
+	<xs:element name="document" type="tc_request_document" />
 
 </xs:schema>
