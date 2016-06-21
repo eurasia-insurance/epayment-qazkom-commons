@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:simpleType name="ts_bank_name">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_merchant_name">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_merchant_id">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_amount">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_order_id">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:maxLength value="15" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_currency">
+		<xs:restriction base="xs:string">
+			<!-- KZT -->
+			<xs:enumeration value="398" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_merchant_sign_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RSA" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_timestamp">
+		<xs:restriction base="xs:string">
+			<xs:length value="19" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_card">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_reference">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_approval_code">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_response_code">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_Secure">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_card_bin">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_c_hash">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_bank_cert_id">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_bank_cert_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SHA/RSA" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_merchant_cert_id">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_abonent_id">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_terminal">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_phone">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_RL">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_department">
+		<xs:attribute name="merchant_id" type="ts_merchant_id"
+			use="required" />
+		<xs:attribute name="amount" type="ts_amount" use="required" />
+		<xs:attribute name="abonent_id" type="ts_abonent_id" use="optional" />
+		<xs:attribute name="terminal" type="ts_terminal" use="optional" />
+		<xs:attribute name="phone" type="ts_phone" use="optional" />
+		<xs:attribute name="RL" type="ts_RL" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_order">
+		<xs:sequence>
+			<xs:element name="department" type="tc_department"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="order_id" type="ts_order_id" use="required" />
+		<xs:attribute name="amount" type="ts_amount" use="required" />
+		<xs:attribute name="currency" type="ts_currency" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_merchant">
+		<xs:sequence>
+			<xs:element name="order" type="tc_order" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- cert_id - Серийный номер сертификата -->
+		<!-- name - имя магазина (сайта) -->
+		<xs:attribute name="cert_id" type="ts_merchant_cert_id" />
+		<xs:attribute name="name" type="ts_merchant_name" />
+	</xs:complexType>
+
+	<xs:simpleType name="ts_mandatory_base64_digest">
+		<xs:restriction base="xs:base64Binary">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_non_mandatory_base64_digest">
+		<xs:restriction base="xs:base64Binary">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_merchant_sign">
+		<xs:simpleContent>
+			<xs:extension base="ts_mandatory_base64_digest">
+				<xs:attribute name="type" type="ts_merchant_sign_type"
+					use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="tc_customer_merchant_sign">
+		<xs:simpleContent>
+			<xs:extension base="ts_non_mandatory_base64_digest">
+				<xs:attribute name="type" type="ts_merchant_sign_type"
+					use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="tc_customer">
+		<xs:sequence>
+			<xs:element name="merchant" type="tc_merchant" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="merchant_sign" type="tc_customer_merchant_sign"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="mail" type="xs:string" />
+		<xs:attribute name="phone" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_payment">
+		<xs:attribute name="merchant_id" type="ts_merchant_id"
+			use="required" />
+		<xs:attribute name="card" type="ts_card" use="optional" />
+		<xs:attribute name="amount" type="ts_amount" use="required" />
+		<xs:attribute name="reference" type="ts_reference" use="required" />
+		<xs:attribute name="approval_code" type="ts_approval_code"
+			use="required" />
+		<xs:attribute name="response_code" type="ts_response_code"
+			use="required" />
+		<xs:attribute name="Secure" type="ts_Secure" use="required" />
+		<xs:attribute name="card_bin" type="ts_card_bin" use="optional" />
+		<xs:attribute name="c_hash" type="ts_c_hash" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_results">
+		<xs:sequence>
+			<xs:element name="payment" type="tc_payment" minOccurs="1"
+				maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="timestamp" type="ts_timestamp" use="required" />
+	</xs:complexType>
+
+	<xs:simpleType name="ts_non_mandatory_ssl_serial">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_customer_sign_type">
+		<xs:restriction base="xs:string">
+			<!-- RSA - то это цифровая подпись -->
+			<xs:enumeration value="RSA" />
+			<!-- SSL - то это серийный номер сертификата, -->
+			<xs:enumeration value="SSL" />
+			<!-- none - то поле остается пустым -->
+			<xs:enumeration value="none" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_customer_sign">
+		<xs:simpleContent>
+			<xs:extension base="ts_non_mandatory_ssl_serial">
+				<xs:attribute name="type" type="ts_customer_sign_type" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="tc_bank">
+		<xs:sequence>
+			<xs:element name="customer" type="tc_customer" minOccurs="1"
+				maxOccurs="1" />
+			<xs:choice>
+				<xs:element name="customer_sign" type="tc_customer_sign"
+					minOccurs="1" maxOccurs="1" />
+			</xs:choice>
+			<xs:element name="results" type="tc_results" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="name" type="ts_bank_name" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_bank_sign">
+		<xs:simpleContent>
+			<xs:extension base="ts_mandatory_base64_digest">
+				<xs:attribute name="cert_id" type="ts_bank_cert_id"
+					use="required" />
+				<xs:attribute name="type" type="ts_bank_cert_type" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="tc_response_document">
+		<xs:sequence>
+			<xs:element name="bank" type="tc_bank" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="bank_sign" type="tc_bank_sign"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="tc_request_document">
+		<xs:sequence>
+			<xs:element name="merchant" type="tc_merchant" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="merchant_sign" type="tc_merchant_sign"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="document-request" type="tc_request_document" />
+	<xs:element name="document-response" type="tc_response_document" />
+
+</xs:schema>
