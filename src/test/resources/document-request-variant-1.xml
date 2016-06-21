@@ -1,4 +1,5 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../main/resources/META-INF/document-request-schema.xsd">
 <!-- Блок заказа-->
    <merchant cert_id="00c183d70b" name="Shop Name"> 
 <!--    // cert_id - Серийный номер сертификата -->

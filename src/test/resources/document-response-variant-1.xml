@@ -1,6 +1,7 @@
-<document> 
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../main/resources/META-INF/document-response-schema.xsd"> 
    <bank name="Kazkommertsbank JSC">
-      <customer name="John Cardholder" mail="klient@mymail.com" phone="223322"> // Имя покупателя указанное в системе авторизации
+      <customer name="John Cardholder" mail="klient@mymail.com" phone="223322"> <!--       Имя покупателя указанное в системе авторизации --> 
          <!-- Описание данного блока см. в пункте "Описание XML документа для отправки в систему авторизации"-->
          <merchant cert_id="7269C18D00010000005E" name="Shop Name">
             <order order_id="000282" amount="3100" currency="398">
