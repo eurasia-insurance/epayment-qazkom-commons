@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -28,6 +31,27 @@ public class KKBXmlResults implements Serializable {
 
     @XmlElementRef
     private List<KKBXmlPayment> payments;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlResults that = (KKBXmlResults) other;
+	return new EqualsBuilder()
+		.append(timestamp, that.timestamp)
+		.append(payments, that.payments)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(19, 39)
+		.append(timestamp)
+		.append(payments)
+		.toHashCode();
+    }
 
     // GENERATED
 

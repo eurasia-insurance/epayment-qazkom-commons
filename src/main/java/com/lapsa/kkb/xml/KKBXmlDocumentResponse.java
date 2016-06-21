@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
@@ -20,6 +23,27 @@ public class KKBXmlDocumentResponse implements Serializable {
 
     @XmlElementRef
     private KKBXmlBankSign bankSign;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlDocumentResponse that = (KKBXmlDocumentResponse) other;
+	return new EqualsBuilder()
+		.append(bank, that.bank)
+		.append(bankSign, that.bankSign)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(17, 37)
+		.append(bank.hashCode())
+		.append(bankSign.hashCode())
+		.toHashCode();
+    }
 
     // GENERATED
 

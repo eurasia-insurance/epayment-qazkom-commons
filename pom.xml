@@ -28,6 +28,14 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
+		<!-- external -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 	</dependencies>
 
 	<scm>

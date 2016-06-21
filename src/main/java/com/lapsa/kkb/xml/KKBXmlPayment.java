@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.lapsa.country.Country;
 import com.lapsa.country.CountryXmlAdapter;
 
@@ -54,6 +57,41 @@ public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
     // c_hash- Хэш карты
     @XmlAttribute(name = "c_hash")
     private String cardHash;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlPayment that = (KKBXmlPayment) other;
+	return new EqualsBuilder()
+		.appendSuper(super.equals(that))
+		.append(merchantId, that.merchantId)
+		.append(reference, that.reference)
+		.append(approvalCode, that.approvalCode)
+		.append(responseCode, that.responseCode)
+		.append(secureType, that.secureType)
+		.append(cardCountry, that.cardCountry)
+		.append(cardNumberMasked, that.cardNumberMasked)
+		.append(cardHash, that.cardHash)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(19, 39)
+		.appendSuper(super.hashCode())
+		.append(merchantId)
+		.append(reference)
+		.append(approvalCode)
+		.append(responseCode)
+		.append(secureType)
+		.append(cardCountry)
+		.append(cardNumberMasked)
+		.append(cardHash)
+		.toHashCode();
+    }
 
     // GENERATED
 

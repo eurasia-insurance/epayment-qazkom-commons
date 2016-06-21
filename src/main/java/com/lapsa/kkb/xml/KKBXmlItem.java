@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "item")
@@ -26,6 +29,31 @@ public class KKBXmlItem extends KKBXmlGenericAmount implements Serializable {
     // quantity - количество
     @XmlAttribute(name = "quantity")
     private int quantity;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlItem that = (KKBXmlItem) other;
+	return new EqualsBuilder()
+		.appendSuper(super.equals(that))
+		.append(number, that.number)
+		.append(name, that.name)
+		.append(quantity, that.quantity)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(17, 37)
+		.appendSuper(super.hashCode())
+		.append(number)
+		.append(name)
+		.append(quantity)
+		.toHashCode();
+    }
 
     // GENERATED
 

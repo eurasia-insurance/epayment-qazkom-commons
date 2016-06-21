@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
@@ -22,6 +25,27 @@ public abstract class KKBXmlGenericSign implements Serializable {
     private KKBXmlSignType signType;
 
     private byte[] signature;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlGenericSign that = (KKBXmlGenericSign) other;
+	return new EqualsBuilder()
+		.append(signType, that.signType)
+		.append(signature, that.signature)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(17, 37)
+		.append(signType)
+		.append(signature)
+		.toHashCode();
+    }
 
     // type - тип подписи
     @XmlAttribute(name = "type")

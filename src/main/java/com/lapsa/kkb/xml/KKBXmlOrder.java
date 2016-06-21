@@ -11,11 +11,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "order")
 public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Serializable {
-
     private static final long serialVersionUID = -2920050474132203303L;
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ
@@ -25,6 +27,30 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Seria
 
     @XmlElementRef
     private List<KKBXmlDepartment> departments;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlOrder that = (KKBXmlOrder) other;
+	return new EqualsBuilder()
+		.appendSuper(super.equals(that))
+		.append(orderId, that.orderId)
+		.append(departments, that.departments)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(19, 39)
+		.appendSuper(super.hashCode())
+		.append(orderId)
+		.append(departments)
+		.toHashCode();
+    }
+
 
     // GENERATED
 

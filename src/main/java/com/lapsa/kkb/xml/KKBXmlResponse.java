@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "response")
@@ -25,6 +28,29 @@ public class KKBXmlResponse implements Serializable {
 
     @XmlElementRef
     private KKBXmlSession session;
+
+    @Override
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	KKBXmlResponse that = (KKBXmlResponse) other;
+	return new EqualsBuilder()
+		.append(orderId, that.orderId)
+		.append(error, that.error)
+		.append(session, that.session)
+		.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+	return new HashCodeBuilder(19, 39)
+		.append(orderId)
+		.append(error)
+		.append(session)
+		.toHashCode();
+    }
 
     // GENERATED
 
