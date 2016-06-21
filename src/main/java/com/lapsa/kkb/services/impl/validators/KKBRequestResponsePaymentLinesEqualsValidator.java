@@ -26,20 +26,14 @@ public class KKBRequestResponsePaymentLinesEqualsValidator implements KKBRequest
 	Set<String> reqMerchants = reqLines.keySet();
 	Set<String> resMerchants = resLines.keySet();
 
-	if (!reqMerchants.containsAll(resMerchants) || resMerchants.containsAll(reqMerchants))
-	    throw new KKBValidationErrorException(
-		    "Request pay merchantId's set is not equals to response result merchantId's set");
+	if (!reqMerchants.containsAll(resMerchants) || !resMerchants.containsAll(reqMerchants))
+	    throw ValidationErrorCode.VLDT001.generateException();
 
 	for (String reqMerchantId : reqMerchants) {
-	    if (!resLines.containsKey(reqMerchantId))
-		throw new KKBValidationErrorException(String.format(
-			"Request pay to merchantId = '%1$s' is not present at the response result", reqMerchantId));
 	    KKBXmlDepartment req = reqLines.get(reqMerchantId);
 	    KKBXmlPayment res = resLines.get(reqMerchantId);
 	    if (req.getAmount() != res.getAmount())
-		throw new KKBValidationErrorException(String.format(
-			"Request pay to merchantId = '%1$s' with amount = '%2$d' is not equals to response result amount = '%3$d'",
-			reqMerchantId, req.getAmount(), res.getAmount()));
+		throw ValidationErrorCode.VLDT002.generateException(reqMerchantId, req.getAmount(), res.getAmount());
 	}
     }
 
