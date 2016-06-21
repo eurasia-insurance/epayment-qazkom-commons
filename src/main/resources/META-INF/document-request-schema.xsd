@@ -304,6 +304,10 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<!-- ROOT element -->
 	<xs:element name="document" type="tc_request_document" />
+
+	<!-- ELEMENT FOR signature GENERATION -->
+	<xs:element name="merchant" type="tc_merchant" />
 
 </xs:schema>
