@@ -2,6 +2,7 @@ package com.lapsa.kkb.services.impl;
 
 import static com.lapsa.kkb.services.impl.Constants.*;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -13,6 +14,9 @@ import javax.ejb.Singleton;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.validation.Schema;
+
+import org.xml.sax.SAXException;
 
 import com.lapsa.kkb.core.KKBCartDocument;
 import com.lapsa.kkb.core.KKBOrder;
@@ -33,7 +37,7 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
     private String merchantId;
     private String merchantName;
 
-    private Marshaller jaxbMarshaller;
+    private Marshaller marshaller;
 
     @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
     private Properties configurationProperties;
@@ -44,11 +48,13 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
     @PostConstruct
     public void init() {
 	try {
+	    Schema schema = loadSchemaFromResource(SCHEMA_REQUEST);
 	    JAXBContext jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlDocument.class);
-	    jaxbMarshaller = jaxbContext.createMarshaller();
-	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-	    jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-	} catch (JAXBException e) {
+	    marshaller = jaxbContext.createMarshaller();
+	    marshaller.setSchema(schema);
+	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+	    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+	} catch (JAXBException | IOException | SAXException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
 	    logger.log(Level.SEVERE, message, e);
 	    throw new RuntimeException(message, e);
@@ -61,7 +67,7 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
     public KKBPaymentRequestDocument composeRequest(KKBOrder order) throws KKBServiceError {
 	try {
 	    KKBXmlDocumentComposer composer = new KKBPaymentRequestDocumentComposer(merchantId, merchantName,
-		    jaxbMarshaller, merchantSignatureService);
+		    marshaller, merchantSignatureService);
 	    KKBXmlDocument xmlDocument = composer.composeXmlDocument(order);
 	    String xml = generateXML(xmlDocument);
 	    KKBPaymentRequestDocument request = new KKBPaymentRequestDocument();
@@ -92,7 +98,7 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
 
     private String generateXML(KKBXmlDocument xmlDocument) throws JAXBException {
 	StringWriter output = new StringWriter();
-	jaxbMarshaller.marshal(xmlDocument, output);
+	marshaller.marshal(xmlDocument, output);
 	return output.toString();
     }
 

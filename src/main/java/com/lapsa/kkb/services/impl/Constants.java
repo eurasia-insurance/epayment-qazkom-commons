@@ -34,4 +34,10 @@ public interface Constants {
     public static final String DEFAULT_HASH_ALGORITHM = "SHA";
     public static final String DEFAULT_EPAY_URL = "https://testpay.kkb.kz/jsp/process/logon.jsp";
     public static final String DEFAULT_EPAY_TEMPLATE_NAME = "default.xsl";
+
+
+    public static final String SCHEMA_RESPONSE = "/META-INF/document-response-schema.xsd";
+    public static final String SCHEMA_REQUEST = "/META-INF/document-request-schema.xsd";
+
+
 }

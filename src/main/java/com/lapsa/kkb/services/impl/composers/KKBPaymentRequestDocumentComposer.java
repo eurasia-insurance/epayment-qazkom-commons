@@ -23,14 +23,14 @@ public class KKBPaymentRequestDocumentComposer implements KKBXmlDocumentComposer
 
     private final String merchantId;
     private final String merchantName;
-    private final Marshaller jaxbMarshaller;
+    private final Marshaller marshaller;
     private final KKBMerchantSignatureService merchantSignatureService;
 
     public KKBPaymentRequestDocumentComposer(String merchantId, String merchantName, Marshaller jaxbMarshaller,
 	    KKBMerchantSignatureService merchantSignatureService) {
 	this.merchantId = merchantId;
 	this.merchantName = merchantName;
-	this.jaxbMarshaller = jaxbMarshaller;
+	this.marshaller = jaxbMarshaller;
 	this.merchantSignatureService = merchantSignatureService;
     }
 
@@ -59,7 +59,7 @@ public class KKBPaymentRequestDocumentComposer implements KKBXmlDocumentComposer
     private KKBSignedData composeMerchantKKBSignature(KKBXmlMerchant xmlMerchant)
 	    throws JAXBException, KKBSignatureOperationFailed {
 	ByteArrayOutputStream output = new ByteArrayOutputStream();
-	jaxbMarshaller.marshal(xmlMerchant, output);
+	marshaller.marshal(xmlMerchant, output);
 	byte[] signatureDta = output.toByteArray();
 	byte[] signatureDigest = merchantSignatureService.sign(signatureDta);
 	KKBSignedData singature = new KKBSignedData();
