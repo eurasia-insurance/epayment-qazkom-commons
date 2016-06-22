@@ -114,6 +114,12 @@ public class DefaultKKBResponseService extends KKBGenericService
 	}
     }
 
+
+    @Override
+    public KKBPaymentResponseDocument parseResponseDocument(String response) throws KKBFormatException {
+	return new KKBPaymentResponseDocument(response);
+    }
+
     // PRIVATE
 
     private byte[] parseBankSignDataFromResponse(String response) throws KKBFormatException {
