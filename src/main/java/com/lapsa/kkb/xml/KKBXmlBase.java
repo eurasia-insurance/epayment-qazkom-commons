@@ -2,6 +2,9 @@ package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public abstract class KKBXmlBase implements Serializable {
     private static final long serialVersionUID = -1060980014181989772L;
 
@@ -10,9 +13,16 @@ public abstract class KKBXmlBase implements Serializable {
     protected abstract int getMultiplier();
 
     @Override
-    public abstract int hashCode();
+    public int hashCode() {
+	return HashCodeBuilder.reflectionHashCode(getPrime(), getMultiplier(), this, false);
+    }
 
     @Override
-    public abstract boolean equals(Object other);
-
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	return EqualsBuilder.reflectionEquals(this, other, false);
+    }
 }

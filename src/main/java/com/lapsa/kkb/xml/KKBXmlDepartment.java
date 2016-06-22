@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 @XmlRootElement(name = "department")
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -47,35 +44,6 @@ public class KKBXmlDepartment extends KKBXmlGenericAmount {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlDepartment that = (KKBXmlDepartment) other;
-	return new EqualsBuilder()
-		.appendSuper(super.equals(that))
-		.append(merchantId, that.merchantId)
-		.append(abonentId, that.abonentId)
-		.append(terminal, that.terminal)
-		.append(phone, that.phone)
-		.append(airticketBookingNumber, that.airticketBookingNumber)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.appendSuper(super.hashCode())
-		.append(merchantId)
-		.append(abonentId)
-		.append(terminal)
-		.append(phone)
-		.append(airticketBookingNumber)
-		.toHashCode();
     }
 
     // GENERATED

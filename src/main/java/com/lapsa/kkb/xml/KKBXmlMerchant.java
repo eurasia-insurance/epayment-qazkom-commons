@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import com.lapsa.kkb.xml.adapter.KKBCertificateSeriaNumberToHEXStringXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -44,29 +41,6 @@ public class KKBXmlMerchant extends KKBXmlBase {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlMerchant that = (KKBXmlMerchant) other;
-	return new EqualsBuilder()
-		.append(certificateSerialNumber, that.certificateSerialNumber)
-		.append(name, that.name)
-		.append(order, that.order)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(certificateSerialNumber)
-		.append(name)
-		.append(order)
-		.toHashCode();
     }
 
     // GENERATED

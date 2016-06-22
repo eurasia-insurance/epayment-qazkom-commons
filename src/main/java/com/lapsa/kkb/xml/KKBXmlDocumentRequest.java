@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
@@ -32,27 +29,6 @@ public class KKBXmlDocumentRequest extends KKBXmlBase {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlDocumentRequest that = (KKBXmlDocumentRequest) other;
-	return new EqualsBuilder()
-		.append(merchant, that.merchant)
-		.append(merchantSign, that.merchantSign)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(merchant.hashCode())
-		.append(merchantSign.hashCode())
-		.toHashCode();
     }
 
     // GENERATED

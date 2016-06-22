@@ -8,15 +8,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "bank")
 public class KKBXmlBank extends KKBXmlBase {
     private static final long serialVersionUID = -5468834860872828233L;
-    private static final int PRIME =  3;
+    private static final int PRIME = 3;
     private static final int MULTIPLIER = 3;
 
     @XmlAttribute(name = "name")
@@ -39,31 +36,6 @@ public class KKBXmlBank extends KKBXmlBase {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlBank that = (KKBXmlBank) other;
-	return new EqualsBuilder()
-		.append(name, that.name)
-		.append(customer, that.customer)
-		.append(customerSign, that.customerSign)
-		.append(results, that.results)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(name)
-		.append(customer)
-		.append(customerSign)
-		.append(results)
-		.toHashCode();
     }
 
     // GENERATED

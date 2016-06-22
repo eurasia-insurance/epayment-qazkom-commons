@@ -9,15 +9,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 public class KKBXmlDocumentCart extends KKBXmlBase {
     private static final long serialVersionUID = 3608474540394112006L;
-    private static final int PRIME =  17;
+    private static final int PRIME = 17;
     private static final int MULTIPLIER = 17;
 
     @XmlElementRef
@@ -31,25 +28,6 @@ public class KKBXmlDocumentCart extends KKBXmlBase {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlDocumentCart that = (KKBXmlDocumentCart) other;
-	return new EqualsBuilder()
-		.append(items, that.items)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(items.hashCode())
-		.toHashCode();
     }
 
     // GENERATED

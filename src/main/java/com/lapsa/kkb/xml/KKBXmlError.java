@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -54,31 +51,6 @@ public class KKBXmlError extends KKBXmlBase {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlError that = (KKBXmlError) other;
-	return new EqualsBuilder()
-		.append(type, that.type)
-		.append(time, that.time)
-		.append(code, that.code)
-		.append(message, that.message)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(type)
-		.append(time)
-		.append(code)
-		.append(message)
-		.toHashCode();
     }
 
     // GENERATED

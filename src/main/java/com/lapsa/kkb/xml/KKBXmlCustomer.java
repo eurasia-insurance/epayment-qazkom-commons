@@ -8,15 +8,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "customer")
 public class KKBXmlCustomer extends KKBXmlBase {
     private static final long serialVersionUID = -2444954410632492009L;
-    private static final int PRIME =  7;
+    private static final int PRIME = 7;
     private static final int MULTIPLIER = 7;
 
     // Имя покупателя указанное в системе авторизации
@@ -47,33 +44,6 @@ public class KKBXmlCustomer extends KKBXmlBase {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlCustomer that = (KKBXmlCustomer) other;
-	return new EqualsBuilder()
-		.append(name, that.name)
-		.append(emailAddress, that.emailAddress)
-		.append(phone, that.phone)
-		.append(sourceMerchant, that.sourceMerchant)
-		.append(sourceMerchantSign, that.sourceMerchantSign)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(name)
-		.append(emailAddress)
-		.append(phone)
-		.append(sourceMerchant)
-		.append(sourceMerchantSign)
-		.toHashCode();
     }
 
     // GENERATED

@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "order")
@@ -37,29 +34,6 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBXmlOrder that = (KKBXmlOrder) other;
-	return new EqualsBuilder()
-		.appendSuper(super.equals(that))
-		.append(orderId, that.orderId)
-		.append(departments, that.departments)
-		.isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.appendSuper(super.hashCode())
-		.append(orderId)
-		.append(departments)
-		.toHashCode();
     }
 
     // GENERATED
