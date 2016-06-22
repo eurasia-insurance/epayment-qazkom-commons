@@ -1,7 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -16,8 +14,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "response")
-public class KKBXmlResponse implements Serializable {
+public class KKBXmlResponse extends KKBXmlBase {
     private static final long serialVersionUID = -4672326400778882641L;
+    private static final int PRIME = 53;
+    private static final int MULTIPLIER = 53;
 
     // order_id - номер заказа
     @XmlAttribute(name = "order_id")
@@ -28,6 +28,16 @@ public class KKBXmlResponse implements Serializable {
 
     @XmlElementRef
     private KKBXmlSession session;
+
+    @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -45,7 +55,7 @@ public class KKBXmlResponse implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(19, 39)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(orderId)
 		.append(error)
 		.append(session)

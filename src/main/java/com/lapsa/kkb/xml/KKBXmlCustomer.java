@@ -1,7 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -16,8 +14,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "customer")
-public class KKBXmlCustomer implements Serializable {
+public class KKBXmlCustomer extends KKBXmlBase {
     private static final long serialVersionUID = -2444954410632492009L;
+    private static final int PRIME =  7;
+    private static final int MULTIPLIER = 7;
 
     // Имя покупателя указанное в системе авторизации
     @XmlAttribute(name = "name")
@@ -40,6 +40,16 @@ public class KKBXmlCustomer implements Serializable {
     private KKBXmlMerchantSign sourceMerchantSign;
 
     @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
+
+    @Override
     public boolean equals(Object other) {
 	if (other == null || other.getClass() != getClass())
 	    return false;
@@ -57,7 +67,7 @@ public class KKBXmlCustomer implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(17, 37)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(name)
 		.append(emailAddress)
 		.append(phone)

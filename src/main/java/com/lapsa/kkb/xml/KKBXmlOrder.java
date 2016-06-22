@@ -1,6 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -17,8 +16,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "order")
-public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Serializable {
+public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency {
     private static final long serialVersionUID = -2920050474132203303L;
+    private static final int PRIME = 43;
+    private static final int MULTIPLIER = 43;
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ
     // знаков, максимально -15)
@@ -27,6 +28,16 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Seria
 
     @XmlElementRef
     private List<KKBXmlDepartment> departments;
+
+    @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -44,13 +55,12 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Seria
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(19, 39)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.appendSuper(super.hashCode())
 		.append(orderId)
 		.append(departments)
 		.toHashCode();
     }
-
 
     // GENERATED
 

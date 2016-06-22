@@ -1,6 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
 import java.util.Currency;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -18,7 +17,7 @@ import com.lapsa.fin.FinCurrency;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
-public abstract class KKBXmlGenericAmountAndCurrency extends KKBXmlGenericAmount implements Serializable {
+public abstract class KKBXmlGenericAmountAndCurrency extends KKBXmlGenericAmount {
     private static final long serialVersionUID = 2825883640597086167L;
 
     // currency - код валюты оплаты [ 398 - тенге ]
@@ -40,7 +39,7 @@ public abstract class KKBXmlGenericAmountAndCurrency extends KKBXmlGenericAmount
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(41, 17)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.appendSuper(super.hashCode())
 		.append(currencyCode)
 		.toHashCode();

@@ -1,6 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
 import java.util.Base64;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -18,7 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
-public abstract class KKBXmlGenericSign implements Serializable {
+public abstract class KKBXmlGenericSign extends KKBXmlBase {
 
     private static final long serialVersionUID = -2302481811822001881L;
 
@@ -41,7 +40,7 @@ public abstract class KKBXmlGenericSign implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(17, 37)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(signType)
 		.append(signature)
 		.toHashCode();

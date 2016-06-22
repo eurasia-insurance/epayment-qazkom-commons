@@ -1,7 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -15,14 +13,26 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-public class KKBXmlDocumentRequest implements Serializable {
+public class KKBXmlDocumentRequest extends KKBXmlBase {
     private static final long serialVersionUID = -731496654503607621L;
+    private static final int PRIME = 19;
+    private static final int MULTIPLIER = 19;
 
     @XmlElementRef
     private KKBXmlMerchant merchant;
 
     @XmlElementRef
     private KKBXmlMerchantSign merchantSign;
+
+    @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -39,7 +49,7 @@ public class KKBXmlDocumentRequest implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(17, 37)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(merchant.hashCode())
 		.append(merchantSign.hashCode())
 		.toHashCode();

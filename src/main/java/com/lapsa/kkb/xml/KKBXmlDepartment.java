@@ -1,7 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -15,8 +13,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlRootElement(name = "department")
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class KKBXmlDepartment extends KKBXmlGenericAmount implements Serializable {
+public class KKBXmlDepartment extends KKBXmlGenericAmount {
     private static final long serialVersionUID = -1021696352173990619L;
+    private static final int PRIME =  13;
+    private static final int MULTIPLIER = 13;
 
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")
@@ -40,6 +40,16 @@ public class KKBXmlDepartment extends KKBXmlGenericAmount implements Serializabl
     private String airticketBookingNumber;
 
     @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
+
+    @Override
     public boolean equals(Object other) {
 	if (other == null || other.getClass() != getClass())
 	    return false;
@@ -58,7 +68,7 @@ public class KKBXmlDepartment extends KKBXmlGenericAmount implements Serializabl
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(21, 9)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.appendSuper(super.hashCode())
 		.append(merchantId)
 		.append(abonentId)

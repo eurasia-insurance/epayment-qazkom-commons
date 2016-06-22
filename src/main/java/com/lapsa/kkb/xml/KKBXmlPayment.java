@@ -1,7 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -19,8 +17,10 @@ import com.lapsa.country.CountryXmlAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "payment")
-public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
+public class KKBXmlPayment extends KKBXmlGenericAmount {
     private static final long serialVersionUID = 7475444480605786934L;
+    private static final int PRIME = 47;
+    private static final int MULTIPLIER = 47;
 
     // Результат транзакции
     // merchant_id - ID продавца в платежной системе
@@ -59,6 +59,16 @@ public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
     private String cardHash;
 
     @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
+
+    @Override
     public boolean equals(Object other) {
 	if (other == null || other.getClass() != getClass())
 	    return false;
@@ -80,7 +90,7 @@ public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(19, 39)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.appendSuper(super.hashCode())
 		.append(merchantId)
 		.append(reference)

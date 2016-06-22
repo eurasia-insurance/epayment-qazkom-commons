@@ -1,6 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +20,10 @@ import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "results")
-public class KKBXmlResults implements Serializable {
+public class KKBXmlResults extends KKBXmlBase {
     private static final long serialVersionUID = 6908878974430643451L;
+    private static final int PRIME = 59;
+    private static final int MULTIPLIER = 59;
 
     // timestamp - время проведения платежа
     @XmlAttribute(name = "timestamp")
@@ -31,6 +32,16 @@ public class KKBXmlResults implements Serializable {
 
     @XmlElementRef
     private List<KKBXmlPayment> payments;
+
+    @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -47,7 +58,7 @@ public class KKBXmlResults implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(19, 39)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(timestamp)
 		.append(payments)
 		.toHashCode();

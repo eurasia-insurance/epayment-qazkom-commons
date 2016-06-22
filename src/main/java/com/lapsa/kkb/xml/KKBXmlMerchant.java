@@ -1,6 +1,5 @@
 package com.lapsa.kkb.xml;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -20,8 +19,10 @@ import com.lapsa.kkb.xml.adapter.KKBCertificateSeriaNumberToHEXStringXmlAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "merchant")
-public class KKBXmlMerchant implements Serializable {
+public class KKBXmlMerchant extends KKBXmlBase {
     private static final long serialVersionUID = -671497891323516467L;
+    private static final int PRIME = 37;
+    private static final int MULTIPLIER = 37;
 
     // cert_id - Серийный номер сертификата
     @XmlAttribute(name = "cert_id")
@@ -34,6 +35,16 @@ public class KKBXmlMerchant implements Serializable {
 
     @XmlElementRef
     private KKBXmlOrder order;
+
+    @Override
+    protected int getPrime() {
+	return PRIME;
+    }
+
+    @Override
+    protected int getMultiplier() {
+	return MULTIPLIER;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -51,7 +62,7 @@ public class KKBXmlMerchant implements Serializable {
 
     @Override
     public int hashCode() {
-	return new HashCodeBuilder(17, 37)
+	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(certificateSerialNumber)
 		.append(name)
 		.append(order)
