@@ -45,7 +45,7 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
 	String xml = composer.composeXmlDocument(order);
 	KKBPaymentRequestDocument doc = new KKBPaymentRequestDocument();
 	doc.setContent(xml);
-	order.addRequest(doc);
+	order.setLastRequest(doc);
 	return doc;
     }
 
@@ -55,7 +55,7 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
 	String xml = composer.composeXmlDocument(order);
 	KKBCartDocument cart = new KKBCartDocument();
 	cart.setContent(xml);
-	order.setCart(cart);
+	order.setLastCart(cart);
 	return cart;
     }
 }
