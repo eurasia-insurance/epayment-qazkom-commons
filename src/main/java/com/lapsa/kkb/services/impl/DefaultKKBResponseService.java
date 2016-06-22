@@ -17,6 +17,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.xml.sax.SAXException;
 
+import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBPaymentRequestDocument;
 import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.services.KKBBankSignatureService;
@@ -100,6 +101,11 @@ public class DefaultKKBResponseService extends KKBGenericService
     }
 
     @Override
+    public void validateResponse(KKBOrder order) throws KKBFormatException, KKBValidationErrorException {
+	validateResponse(order.getLastRequest(), order.getLastResponse());
+    }
+
+    @Override
     public void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException {
 	try {
@@ -112,12 +118,6 @@ public class DefaultKKBResponseService extends KKBGenericService
 	} catch (JAXBException e) {
 	    throw new KKBFormatException(e);
 	}
-    }
-
-
-    @Override
-    public KKBPaymentResponseDocument parseResponseDocument(String response) throws KKBFormatException {
-	return new KKBPaymentResponseDocument(response);
     }
 
     // PRIVATE
@@ -138,4 +138,5 @@ public class DefaultKKBResponseService extends KKBGenericService
 	    return matcher.group().getBytes();
 	throw ResponseParserErrorCode.FRMT001.generateFormatException(response);
     }
+
 }

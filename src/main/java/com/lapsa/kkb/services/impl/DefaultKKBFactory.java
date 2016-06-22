@@ -4,10 +4,12 @@ import java.util.UUID;
 
 import javax.ejb.Singleton;
 
+import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.services.KKBFactory;
 
 @Singleton
-public class DefaultKKBPaymentOrderFactory extends KKBGenericService implements KKBFactory {
+public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
+
     @Override
     public String generateNewOrderId() {
 	UUID uuid = UUID.randomUUID();
@@ -15,4 +17,10 @@ public class DefaultKKBPaymentOrderFactory extends KKBGenericService implements 
 	String id = String.format("%015d", lng);
 	return id;
     }
+
+    @Override
+    public KKBPaymentResponseDocument buildResponseDocument(String response) {
+	return new KKBPaymentResponseDocument(response);
+    }
+
 }
