@@ -31,7 +31,7 @@ public class KKBDocumentComposerServiceTestCase extends ArquillianBaseTestCase {
     private static final String COMPOSE_RESPONSE_ORDER_ID = "484902574738032";
     private static final FinCurrency COMPOSE_RESPONSE_CURRENCY = FinCurrency.KZT;
     private static final double COMPOSE_RESPONSE_AMOUNT = 2382.05;
-    private static final String COMPOSE_REQUEST_DOCUMENT = "<document><merchant cert_id=\"c183d70b\" name=\"Test shop 3\"><order amount=\"2382.05\" currency=\"398\" order_id=\"484902574738032\"><department amount=\"2382.05\" merchant_id=\"92061103\"/></order></merchant><merchant_sign type=\"RSA\">qiqkubnAmw2lf9hAxk1vQh/00oUPSp+XiEjC9wQYegF2vMYW5ag33IxnbWOov5r4L2Fn0EZo8aXNYnljVOTO9I7D8bwZ1ftl2IFs40fVkhsZqmA+Rk5AeWHekZPl4CYnLX0gDwGj3BN1SQsbntnS4YVy9eXuY/ftX1xcrT9avSw=</merchant_sign></document>";
+    private static final String COMPOSE_REQUEST_DOCUMENT = "<document><merchant cert_id=\"c183d70b\" name=\"Test shop 3\"><order order_id=\"484902574738032\" currency=\"398\" amount=\"2382.05\"><department merchant_id=\"92061103\" amount=\"2382.05\"/></order></merchant><merchant_sign type=\"RSA\">0SeH7sjQH1U/wYRn9AKM8q1Zujjs1zMaF5M0Gm+6k4KiPG6yAXaqazBzcUU/LC/fMR5n4CoqFv/+MMvHaQw+htvBDH0Fe6svazqZZMQnKVQVkfXg9Z2y88xipGt+daya5OK/lqTvMGh1ACgEObGv95/nXledaPDpU4oexQcaySg=</merchant_sign></document>";
 
     @Test
     public void testComposeRequest() throws KKBServiceError {
@@ -54,7 +54,7 @@ public class KKBDocumentComposerServiceTestCase extends ArquillianBaseTestCase {
     private static final String COMPOSE_CART_ORDER_ID = "484902574738032";
     private static final FinCurrency COMPOSE_CART_CURRENCY = FinCurrency.KZT;
     private static final double COMPOSE_CART_AMOUNT = 2382.05;
-    private static final Object COMPOSE_CART_DOCUMENT = "<document><item amount=\"2382.05\" name=\"POLICY\" number=\"1\" quantity=\"1\"/></document>";
+    private static final Object COMPOSE_CART_DOCUMENT = "<document><item name=\"POLICY\" number=\"1\" quantity=\"1\" amount=\"2382.05\"/></document>";
 
     @Test
     public void testComposeCart() throws KKBServiceError {

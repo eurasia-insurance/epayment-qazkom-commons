@@ -29,7 +29,7 @@ public class KKBDocumentReuestTest {
 
     private static final String EXAMPLE_DOCUMENT_AUTH_XML = "/document-request-variant-1.xml";
 
-    private static final String TEST_DOCUMENT_AS_PLAINTEXT = "<document><merchant cert_id=\"c183d70b\" name=\"Shop Name\"><order amount=\"3100\" currency=\"398\" order_id=\"000282\"><department amount=\"1300\" RL=\"ASDFG\" merchant_id=\"92061101\" phone=\"22233355\"/></order></merchant><merchant_sign type=\"RSA\">p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498pU9HGuGAoDVjB+NtrHk=</merchant_sign></document>";
+    private static final String TEST_DOCUMENT_AS_PLAINTEXT = "<document><merchant cert_id=\"c183d70b\" name=\"Shop Name\"><order order_id=\"000282\" currency=\"398\" amount=\"3100\"><department RL=\"ASDFG\" merchant_id=\"92061101\" phone=\"22233355\" amount=\"1300\"/></order></merchant><merchant_sign type=\"RSA\">p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498pU9HGuGAoDVjB+NtrHk=</merchant_sign></document>";
 
     private static final KKBXmlDocumentRequest TEST_DOCUMENT_AS_OBJECT;
 
