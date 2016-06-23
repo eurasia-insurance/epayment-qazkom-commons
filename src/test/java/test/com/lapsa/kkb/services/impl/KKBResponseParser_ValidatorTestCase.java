@@ -61,8 +61,14 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     @Test
     public void testValidateOrderResponse_OK() throws KKBValidationErrorException, KKBFormatException {
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_OK_REQUEST);
-	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(VALIDATE_ORDER_RESPONSE_OK_RESPONSE);
+	KKBPaymentResponseDocument response = genRespDoc(VALIDATE_ORDER_RESPONSE_OK_RESPONSE);
 	responseParserService.validateResponse(request, response);
+    }
+
+    protected KKBPaymentResponseDocument genRespDoc(String content) {
+	KKBPaymentResponseDocument doc = new KKBPaymentResponseDocument();
+	doc.setContent(content);
+	return doc;
     }
 
     private static final String VALIDATE_ORDER_RESPONSE_FAIL_MCINE_REQUEST = ""
@@ -86,8 +92,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     @Test
     public void testValidateOrderResponse_Fail_MerchantCertIdNotEquals() throws KKBFormatException {
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_FAIL_MCINE_REQUEST);
-	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(
-		VALIDATE_ORDER_RESPONSE_FAIL_MCINE_RESPONSE);
+	KKBPaymentResponseDocument response = genRespDoc(VALIDATE_ORDER_RESPONSE_FAIL_MCINE_RESPONSE);
 	expectValidationException(ResponseParserErrorCode.VLDT003, request, response);
     }
 
@@ -112,8 +117,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     public void testValidateOrderResponse_Fail_PaymentLinesMerchantIdsIsNotTheSame() throws KKBFormatException {
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(
 		VALIDATE_ORDER_RESPONSE_FAIL_PLMIDNTS_REQUEST);
-	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(
-		VALIDATE_ORDER_RESPONSE_FAIL_PLMIDNTS_RESPONSE);
+	KKBPaymentResponseDocument response = genRespDoc(VALIDATE_ORDER_RESPONSE_FAIL_PLMIDNTS_RESPONSE);
 	expectValidationException(ResponseParserErrorCode.VLDT001, request, response);
     }
 
@@ -143,8 +147,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     public void testValidateOrderResponse_Fail_PaymentLinesAmountsIsNotTheSame()
 	    throws KKBValidationErrorException, KKBFormatException {
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_REQUEST);
-	KKBPaymentResponseDocument response = new KKBPaymentResponseDocument(
-		VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_RESPONSE);
+	KKBPaymentResponseDocument response = genRespDoc(VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_RESPONSE);
 	expectValidationException(ResponseParserErrorCode.VLDT002, request, response);
     }
 

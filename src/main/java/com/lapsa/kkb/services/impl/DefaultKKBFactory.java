@@ -6,6 +6,7 @@ import javax.ejb.Singleton;
 
 import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.services.KKBFactory;
+import com.lapsa.kkb.services.KKBFormatException;
 
 @Singleton
 public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
@@ -19,8 +20,12 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
     }
 
     @Override
-    public KKBPaymentResponseDocument buildResponseDocument(String response) {
-	return new KKBPaymentResponseDocument(response);
+    public KKBPaymentResponseDocument buildResponseDocument(String response) throws KKBFormatException {
+	if (response == null || response.equals(""))
+	    throw new KKBFormatException("Response is empty");
+	KKBPaymentResponseDocument doc = new KKBPaymentResponseDocument();
+	doc.setContent(response);
+	return doc;
     }
 
 }
