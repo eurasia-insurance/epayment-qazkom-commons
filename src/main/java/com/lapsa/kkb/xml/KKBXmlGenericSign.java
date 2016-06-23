@@ -8,22 +8,26 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
-@XmlAccessorType(XmlAccessType.PROPERTY)
+import org.eclipse.persistence.oxm.annotations.XmlValueExtension;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
 public abstract class KKBXmlGenericSign extends KKBXmlBase {
-
     private static final long serialVersionUID = -2302481811822001881L;
 
+    @XmlAttribute(name = "type")
     private KKBXmlSignType signType;
 
+    @XmlValue
+    @XmlValueExtension
     private byte[] signature;
 
+    // GENERATED
+
     // type - тип подписи
-    @XmlAttribute(name = "type")
     public KKBXmlSignType getSignType() {
 	return signType;
     }
@@ -33,7 +37,6 @@ public abstract class KKBXmlGenericSign extends KKBXmlBase {
     }
 
     // подпись
-    @XmlValue
     public byte[] getSignature() {
 	return signature;
     }
@@ -42,7 +45,6 @@ public abstract class KKBXmlGenericSign extends KKBXmlBase {
 	this.signature = (signature != null && signature.length == 0) ? null : signature;
     }
 
-    @XmlTransient
     public String getSignatureEncoded() {
 	return Base64.getEncoder().encodeToString(signature);
     }
