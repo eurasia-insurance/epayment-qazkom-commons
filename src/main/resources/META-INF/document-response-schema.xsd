@@ -330,6 +330,52 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:simpleType name="ts_error_message">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_error_type_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="system" />
+			<xs:enumeration value="auth" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_error_code">
+		<xs:restriction base="xs:string">
+			<xs:length value="2" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_error_type">
+		<xs:simpleContent>
+			<xs:extension base="ts_error_message">
+				<xs:attribute name="type" type="ts_error_type_type"
+					use="required" />
+				<xs:attribute name="time" type="ts_timestamp" use="required" />
+				<xs:attribute name="code" type="ts_error_code" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="ts_session_id">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
+	<xs:complexType name="tc_session_type">
+		<xs:attribute name="id" type="ts_session_id" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_response">
+		<xs:sequence>
+			<xs:element name="error" type="tc_error_type" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="session" type="tc_session_type"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="order_id" type="ts_order_id" />
+	</xs:complexType>
+
 	<!-- ROOT element -->
 	<xs:element name="document" type="tc_response_document" />
 

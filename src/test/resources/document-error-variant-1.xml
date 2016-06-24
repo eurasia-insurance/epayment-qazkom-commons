@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../main/resources/META-INF/document-error-schema.xsd"
+	order_id="123456">
+	<!-- // order_id - номер заказа -->
+	<error type="system" time="2006-11-22 12:20:30" code="00">Error Message</error>
+	<!-- // type - тип ошибки: -->
+	<!-- //system - ошибка при работе в системе авторизации, например неправильно 
+		введеный параметр -->
+	<!-- //auth - ошибка авторизации, в данном случае указывается код ошибки 
+		в атрибуте code -->
+	<!-- // code - код ошибки для типа ошибки auth, в случае ошибки типа system 
+		значение всегда равно 99 -->
+	<!-- // time - время отправки ответа -->
+	<session id="1234654656545" />
+	<!-- // id - служебный номер сессии -->
+</response>
