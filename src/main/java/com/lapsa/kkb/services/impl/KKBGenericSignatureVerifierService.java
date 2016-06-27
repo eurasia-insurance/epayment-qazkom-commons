@@ -4,7 +4,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.SignatureException;
-import java.util.Base64;
 
 import com.lapsa.kkb.core.KKBSignedData;
 import com.lapsa.kkb.core.KKBSingatureStatus;
@@ -35,8 +34,7 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
 	    byte[] digest = (inverted) ? invertedByteArray(signature) : signature;
 	    try {
 		if (!sig.verify(digest))
-		    throw new KKBWrongSignature(String.format("Signature '%1$s' is wrong for certificate '%2$s'",
-			    Base64.getEncoder().encodeToString(digest),
+		    throw new KKBWrongSignature(String.format("Signature is wrong for certificate '%1$s'",
 			    getSignatureCertificate().getSubjectX500Principal().getName("RFC2253")));
 	    } catch (SignatureException e) {
 		throw new KKBFormatException(e);
