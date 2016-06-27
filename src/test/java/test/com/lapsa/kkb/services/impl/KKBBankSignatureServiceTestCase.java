@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import org.junit.Test;
 
 import com.lapsa.kkb.services.KKBBankSignatureService;
+import com.lapsa.kkb.services.KKBFormatException;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBWrongSignature;
 import com.sun.pkg.util.Base64;
@@ -51,7 +52,7 @@ public class KKBBankSignatureServiceTestCase extends ArquillianBaseTestCase {
 		    + "OBYfe5txQIWo5rnCzQ7/97n7jDHUHx58rqTLPzWwb70bYE3DuZch/cvS2gyFBbstUkzik+0YDJ/FuMwmTU4Kl/dBc=");
 
     @Test
-    public void testVerify_Success() throws KKBServiceError, KKBWrongSignature {
+    public void testVerify_Success() throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	bankSignatureService.verify(VERIFY_SUCCESS_SIGNATURE_DATA, VERIFY_SUCCESS_SIGNATURE_DIGEST);
     }
 
@@ -82,7 +83,7 @@ public class KKBBankSignatureServiceTestCase extends ArquillianBaseTestCase {
 	    -79, -21, 23, -99, 116, -74, 75 };
 
     @Test(expected = KKBWrongSignature.class)
-    public void testVerify_Fail_Invalid() throws KKBServiceError, KKBWrongSignature {
+    public void testVerify_Fail_Invalid() throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	bankSignatureService.verify(VERIFY_FAIL_INVALID_SIGNATURE_DATA, VERIFY_FAIL_INVALID_SIGNATURE_DIGEST);
     }
 
@@ -112,8 +113,8 @@ public class KKBBankSignatureServiceTestCase extends ArquillianBaseTestCase {
 	    -38, 68, 76, 17, 91, -29, -24, -93, 37, -43, -30, 72, 107, -11, 54, 101, 66, -20, 32, -37, 70, 54, -79, -21,
 	    23, -99, 116, -74, 75 };
 
-    @Test(expected = KKBWrongSignature.class)
-    public void testVerify_Fail_Broken() throws KKBServiceError, KKBWrongSignature {
+    @Test(expected = KKBFormatException.class)
+    public void testVerify_Fail_Broken() throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	bankSignatureService.verify(VERIFY_FAIL_BROKEN_SIGNATURE_DATA, VERIFY_FAIL_BROKEN_SIGNATURE_DIGEST);
     }
 }
