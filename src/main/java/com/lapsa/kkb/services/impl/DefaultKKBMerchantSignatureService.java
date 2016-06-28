@@ -28,7 +28,7 @@ public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSigne
 
     private X509Certificate certificate;
 
-    @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
+    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
     private Properties configurationProperties;
 
     @PostConstruct

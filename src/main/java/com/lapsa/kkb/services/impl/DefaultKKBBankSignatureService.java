@@ -23,7 +23,7 @@ public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierS
 
     private X509Certificate certificate;
 
-    @Resource(lookup = KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP)
+    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
     private Properties configurationProperties;
 
     @PostConstruct
