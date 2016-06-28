@@ -3,7 +3,7 @@
 <resources>
 	<custom-resource
 		factory-class="org.glassfish.resources.custom.factory.PropertiesFactory"
-		res-type="java.util.Properties" jndi-name="resource/kkbEpay/ConfigurationProperties">
+		res-type="java.util.Properties" jndi-name="kkbEpay/resource/ConfigurationProperties">
 		<property name="merchant.id" value="92061103" />
 		<property name="merchant.name" value="Test shop 3" />
 		<property name="merchant.key.keystore" value="src/test/keys/kkb.jks" />

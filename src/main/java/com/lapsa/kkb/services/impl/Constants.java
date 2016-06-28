@@ -1,7 +1,7 @@
 package com.lapsa.kkb.services.impl;
 
 public interface Constants {
-    public static final String KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP = "resource/kkbEpay/ConfigurationProperties";
+    public static final String KKB_PKI_CONFIGURATION_PROPERTIES_LOOKUP = "kkbEpay/resource/ConfigurationProperties";
 
     public static final String PROPERTY_SIGNATURE_ALGORITHM = "signature.algorithm";
 
