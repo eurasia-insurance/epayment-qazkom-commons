@@ -1,10 +1,15 @@
 package com.lapsa.kkb.services.impl;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.ejb.Singleton;
 
+import com.lapsa.fin.FinCurrency;
+import com.lapsa.kkb.core.KKBOrder;
+import com.lapsa.kkb.core.KKBOrderItem;
 import com.lapsa.kkb.core.KKBPaymentResponseDocument;
+import com.lapsa.kkb.core.KKBPaymentStatus;
 import com.lapsa.kkb.services.KKBFactory;
 import com.lapsa.kkb.services.KKBFormatException;
 
@@ -28,4 +33,32 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 	return doc;
     }
 
+    @Override
+    public KKBOrder generateNewOrder(FinCurrency currency, double cost, String product) {
+	@SuppressWarnings("deprecation")
+	KKBOrder order = new KKBOrder();
+	order.setId(generateNewOrderId());
+	order.setCreated(new Date());
+	order.setStatus(KKBPaymentStatus.NEW);
+	order.setCurrency(currency);
+	generateNewOrderItem(product, cost, 1, order);
+	return order;
+    }
+
+    @Override
+    public KKBOrderItem generateNewOrderItem(String product, double cost, int quantity) {
+	@SuppressWarnings("deprecation")
+	KKBOrderItem i = new KKBOrderItem();
+	i.setCost(cost);
+	i.setQuantity(quantity);
+	i.setName(product);
+	return i;
+    }
+
+    @Override
+    public KKBOrderItem generateNewOrderItem(String product, double cost, int quantity, KKBOrder order) {
+	KKBOrderItem i = generateNewOrderItem(product, cost, quantity);
+	order.addItem(i);
+	return i;
+    }
 }
