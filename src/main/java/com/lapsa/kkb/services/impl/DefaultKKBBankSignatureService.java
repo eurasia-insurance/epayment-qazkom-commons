@@ -13,10 +13,12 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 import com.lapsa.kkb.services.KKBBankSignatureService;
 
 @Singleton
+@Startup
 public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierService
 	implements KKBBankSignatureService {
     private String signatureAlgorithm;

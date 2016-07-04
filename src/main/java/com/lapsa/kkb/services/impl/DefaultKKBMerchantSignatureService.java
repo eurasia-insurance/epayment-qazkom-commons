@@ -15,10 +15,12 @@ import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 import com.lapsa.kkb.services.KKBMerchantSignatureService;
 
 @Singleton
+@Startup
 public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSignerAndVerifierService
 	implements KKBMerchantSignatureService {
 
