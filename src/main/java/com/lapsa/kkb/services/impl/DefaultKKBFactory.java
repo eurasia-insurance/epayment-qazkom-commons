@@ -35,7 +35,6 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 
     @Override
     public KKBOrder generateNewOrder(FinCurrency currency, double cost, String product) {
-	@SuppressWarnings("deprecation")
 	KKBOrder order = new KKBOrder();
 	order.setId(generateNewOrderId());
 	order.setCreated(new Date());
@@ -47,7 +46,6 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 
     @Override
     public KKBOrderItem generateNewOrderItem(String product, double cost, int quantity) {
-	@SuppressWarnings("deprecation")
 	KKBOrderItem i = new KKBOrderItem();
 	i.setCost(cost);
 	i.setQuantity(quantity);
