@@ -18,12 +18,12 @@ public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGen
 	implements KKBSingatureSignerService {
 
     @Override
-    public byte[] sign(byte[] data) throws KKBSignatureOperationFailed {
+    public byte[] sign(final byte[] data) throws KKBSignatureOperationFailed {
 	return sign(data, true);
     }
 
     @Override
-    public byte[] sign(byte[] data, boolean inverted) throws KKBSignatureOperationFailed {
+    public byte[] sign(final byte[] data, final boolean inverted) throws KKBSignatureOperationFailed {
 	try {
 	    Signature sig = Signature.getInstance(getSignatureAlgorithm());
 	    sig.initSign(getPrivateKey());
@@ -43,7 +43,7 @@ public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGen
 
     @Override
     @SuppressWarnings("deprecation")
-    public void signData(KKBSignedData signedData) throws KKBSignatureOperationFailed {
+    public void signData(final KKBSignedData signedData) throws KKBSignatureOperationFailed {
 	signedData.setStatus(KKBSingatureStatus.UNCHECKED);
 	signedData.setDigest(sign(signedData.getData(), signedData.isInverted()));
     }

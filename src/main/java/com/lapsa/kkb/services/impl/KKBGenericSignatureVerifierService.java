@@ -16,12 +16,12 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
 	implements KKBSignatureVerifierService {
 
     @Override
-    public void verify(byte[] data, byte[] signature) throws KKBServiceError, KKBWrongSignature, KKBFormatException {
+    public void verify(final byte[] data, final byte[] signature) throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	verify(data, signature, true);
     }
 
     @Override
-    public void verify(byte[] data, byte[] signature, boolean inverted)
+    public void verify(final byte[] data, final byte[] signature, final boolean inverted)
 	    throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	try {
 	    Signature sig = Signature.getInstance(getSignatureAlgorithm());
@@ -46,7 +46,7 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
 
     @Override
     @SuppressWarnings("deprecation")
-    public void verify(KKBSignedData signedData) throws KKBServiceError, KKBWrongSignature, KKBFormatException {
+    public void verify(final KKBSignedData signedData) throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	try {
 	    verify(signedData.getData(), signedData.getDigest(), signedData.isInverted());
 	    signedData.setStatus(KKBSingatureStatus.CHECKED_VALID);
