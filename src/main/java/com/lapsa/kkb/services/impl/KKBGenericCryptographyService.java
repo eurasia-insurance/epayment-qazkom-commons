@@ -23,7 +23,10 @@ public abstract class KKBGenericCryptographyService extends KKBGenericService {
     protected static X509Certificate loadCertificate(String certstoreFile, String certstoreType, String certstorePass,
 	    String certAlias) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
 	KeyStore keystore = loadKeyStore(certstoreFile, certstoreType, certstorePass);
-	return (X509Certificate) keystore.getCertificate(certAlias);
+	X509Certificate certificate = (X509Certificate) keystore.getCertificate(certAlias);
+	if (certificate == null)
+	    throw new KeyStoreException(String.format("There is no Certificate entry with alias '%1$s'", certAlias));
+	return certificate;
     }
 
     protected static PrivateKey loadPrivateKey(String keystoreFile, String keystoreType, String keystorePassword,
@@ -31,6 +34,8 @@ public abstract class KKBGenericCryptographyService extends KKBGenericService {
 	    UnrecoverableKeyException {
 	KeyStore keystore = loadKeyStore(keystoreFile, keystoreType, keystorePassword);
 	PrivateKey privatekey = (PrivateKey) keystore.getKey(keyAlias, keystorePassword.toCharArray());
+	if (privatekey == null)
+	    throw new KeyStoreException(String.format("There is no PrivateKey entry with alias '%1$s'", keyAlias));
 	return privatekey;
     }
 
