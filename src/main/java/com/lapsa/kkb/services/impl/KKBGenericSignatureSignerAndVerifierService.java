@@ -8,8 +8,11 @@ import java.security.SignatureException;
 
 import com.lapsa.kkb.core.KKBSignedData;
 import com.lapsa.kkb.core.KKBSingatureStatus;
+import com.lapsa.kkb.services.KKBFormatException;
+import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBSignatureOperationFailed;
 import com.lapsa.kkb.services.KKBSingatureSignerService;
+import com.lapsa.kkb.services.KKBWrongSignature;
 
 public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGenericSignatureVerifierService
 	implements KKBSingatureSignerService {
@@ -26,7 +29,13 @@ public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGen
 	    sig.initSign(getPrivateKey());
 	    sig.update(data);
 	    byte[] digest = sig.sign();
-	    return (inverted) ? invertedByteArray(digest) : digest;
+	    digest = (inverted) ? invertedByteArray(digest) : digest;
+	    try {
+		verify(data, digest, inverted);
+	    } catch (KKBServiceError | KKBWrongSignature | KKBFormatException e) {
+		throw new KKBSignatureOperationFailed("Can't verify signature after signing", e);
+	    }
+	    return digest;
 	} catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
 	    throw new KKBSignatureOperationFailed(e);
 	}
