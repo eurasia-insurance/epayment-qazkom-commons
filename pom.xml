@@ -16,7 +16,7 @@
 	<name>KKB Lib : Helper Services API : Default implementation</name>
 
 	<properties>
-		<kkb-lib.version>1.0-SNAPSHOT</kkb-lib.version>
+		<kkb-lib.version>1.0</kkb-lib.version>
 	</properties>
 
 	<dependencyManagement>
