@@ -54,14 +54,14 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:git:http://gitlab.lapsa.tech/lapsa/kkb-services-impl-default.git</connection>
-		<developerConnection>scm:git:http://gitlab.lapsa.tech/lapsa/kkb-services-impl-default.git</developerConnection>
+		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/kkb-services-impl-default.git</connection>
+		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/kkb-services-impl-default.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>http://gitlab.lapsa.tech/lapsa/kkb-services-impl-default/issues</url>
+		<url>https://gitlab.lapsa.tech/lapsa/kkb-services-impl-default/issues</url>
 	</issueManagement>
 
 </project>
