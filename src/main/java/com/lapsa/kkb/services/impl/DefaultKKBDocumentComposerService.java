@@ -2,6 +2,7 @@ package com.lapsa.kkb.services.impl;
 
 import static com.lapsa.kkb.services.impl.Constants.*;
 
+import java.util.Date;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -44,6 +45,7 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
 		merchantSignatureService);
 	String xml = composer.composeXmlDocument(order);
 	KKBPaymentRequestDocument doc = new KKBPaymentRequestDocument();
+	doc.setCreated(new Date());
 	doc.setContent(xml);
 	order.setLastRequest(doc);
 	return doc;
@@ -53,9 +55,10 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
     public KKBCartDocument composeCart(KKBOrder order) throws KKBServiceError {
 	KKBXmlDocumentComposer composer = new KKBCartDocumentComposer();
 	String xml = composer.composeXmlDocument(order);
-	KKBCartDocument cart = new KKBCartDocument();
-	cart.setContent(xml);
-	order.setLastCart(cart);
-	return cart;
+	KKBCartDocument doc = new KKBCartDocument();
+	doc.setCreated(new Date());
+	doc.setContent(xml);
+	order.setLastCart(doc);
+	return doc;
     }
 }

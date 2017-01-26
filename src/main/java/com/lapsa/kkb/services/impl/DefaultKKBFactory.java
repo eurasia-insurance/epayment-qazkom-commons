@@ -29,6 +29,7 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 	if (response == null || response.equals(""))
 	    throw new KKBFormatException("Response is empty");
 	KKBPaymentResponseDocument doc = new KKBPaymentResponseDocument();
+	doc.setCreated(new Date());
 	doc.setContent(response);
 	return doc;
     }
@@ -41,6 +42,7 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 	order.setStatus(KKBPaymentStatus.NEW);
 	order.setCurrency(currency);
 	generateNewOrderItem(product, cost, 1, order);
+	order.calculateTotalAmount();
 	return order;
     }
 
