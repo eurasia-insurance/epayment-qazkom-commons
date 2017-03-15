@@ -36,8 +36,13 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 
     @Override
     public KKBOrder generateNewOrder(FinCurrency currency, double cost, String product) {
+	return generateNewOrder(generateNewOrderId(), currency, cost, product);
+    }
+
+    @Override
+    public KKBOrder generateNewOrder(String orderId, FinCurrency currency, double cost, String product) {
 	KKBOrder order = new KKBOrder();
-	order.setId(generateNewOrderId());
+	order.setId(orderId);
 	order.setCreated(new Date());
 	order.setStatus(KKBPaymentStatus.NEW);
 	order.setCurrency(currency);
