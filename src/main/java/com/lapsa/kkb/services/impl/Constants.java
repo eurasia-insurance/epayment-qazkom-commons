@@ -26,6 +26,8 @@ public interface Constants {
     public static final String PROPERTY_BANK_CERTSTORE_PASSWORD = "bank.cert.storepass";
     public static final String PROPERTY_BANK_CERTSTORE_CERTALIAS = "bank.cert.alias";
 
+    public static final String PROPERTY_MARKET_PAYMENT_URL = "market.payment.url";
+
     public static final String DEFAULT_MERCHANT_KEYSTORE_TYPE = "JKS";
     public static final String DEFAULT_MERCHANT_CERTSTORE_TYPE = "JKS";
     public static final String DEFAULT_BANK_CERTSTORE_TYPE = "JKS";
@@ -35,10 +37,8 @@ public interface Constants {
     public static final String DEFAULT_EPAY_URL = "https://testpay.kkb.kz/jsp/process/logon.jsp";
     public static final String DEFAULT_EPAY_TEMPLATE_NAME = "default.xsl";
 
-
     public static final String SCHEMA_RESPONSE = "/META-INF/document-response-schema.xsd";
     public static final String SCHEMA_REQUEST = "/META-INF/document-request-schema.xsd";
     public static final String SCHEMA_CART = "/META-INF/document-cart-schema.xsd";
-
 
 }
