@@ -1,8 +1,14 @@
 package com.lapsa.kkb.services.impl;
 
+import static com.lapsa.kkb.services.impl.Constants.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
+import java.util.Properties;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.ejb.Singleton;
 
 import com.lapsa.fin.FinCurrency;
@@ -15,6 +21,22 @@ import com.lapsa.kkb.services.KKBFormatException;
 
 @Singleton
 public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
+
+    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
+    private Properties configurationProperties;
+
+    @Override
+    public URL generatePaymentPageUrl(String orderId) {
+	String paymentUrlPattern = configurationProperties.getProperty(Constants.PROPERTY_MARKET_PAYMENT_URL);
+	String parsed = paymentUrlPattern.replace("$ORDER_ID", orderId);
+	URL ret;
+	try {
+	    ret = new URL(parsed);
+	    return ret;
+	} catch (MalformedURLException e) {
+	    throw new RuntimeException(e);
+	}
+    }
 
     @Override
     public String generateNewOrderId() {
@@ -66,4 +88,5 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 	order.addItem(i);
 	return i;
     }
+
 }
