@@ -16,7 +16,7 @@
 
 	<properties>
 		<!-- APIs -->
-		<kkb-lib.version>1.4-SNAPSHOT</kkb-lib.version>
+		<kkb-lib.version>1.4</kkb-lib.version>
 	</properties>
 
 	<dependencyManagement>
