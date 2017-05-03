@@ -9,14 +9,14 @@
 
 	<groupId>com.lapsa.kkb-lib</groupId>
 	<artifactId>kkb-services-impl-default</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	<version>3.0-SNAPSHOT</version>
 	<packaging>ejb</packaging>
 
 	<name>KKB Lib : Helper Services API : Default implementation</name>
 
 	<properties>
 		<!-- APIs -->
-		<kkb-lib.version>1.4</kkb-lib.version>
+		<kkb-lib.version>3.0</kkb-lib.version>
 	</properties>
 
 	<dependencyManagement>
