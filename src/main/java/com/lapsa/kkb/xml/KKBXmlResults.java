@@ -24,7 +24,7 @@ public class KKBXmlResults extends KKBXmlBase {
 
     // timestamp - время проведения платежа
     @XmlAttribute(name = "timestamp")
-    @XmlJavaTypeAdapter(value = KKBTimestampXmlAdapter.class)
+    @XmlJavaTypeAdapter(KKBTimestampXmlAdapter.class)
     private Date timestamp;
 
     @XmlElementRef
