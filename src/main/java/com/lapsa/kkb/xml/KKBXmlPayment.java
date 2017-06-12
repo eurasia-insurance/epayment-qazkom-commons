@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.country.Country;
-import com.lapsa.country.CountryXmlAdapter;
+import com.lapsa.country.jaxb.JAXBCountryAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -44,7 +44,7 @@ public class KKBXmlPayment extends KKBXmlGenericAmount {
 
     // card_bin- Страна эмитент карты
     @XmlAttribute(name = "card_bin")
-    @XmlJavaTypeAdapter(CountryXmlAdapter.class)
+    @XmlJavaTypeAdapter(JAXBCountryAdapter.class)
     private Country cardCountry;
 
     // card - маскированный номер карты

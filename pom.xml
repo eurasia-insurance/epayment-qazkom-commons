@@ -27,6 +27,11 @@
 				<artifactId>kkb-services</artifactId>
 				<version>${kkb-lib.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.lapsa.international-lib</groupId>
+				<artifactId>international-core</artifactId>
+				<version>${international-lib.version}</version>
+			</dependency>
 			<!-- external -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -41,6 +46,12 @@
 		<dependency>
 			<groupId>com.lapsa.kkb-lib</groupId>
 			<artifactId>kkb-services</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.lapsa.international-lib</groupId>
+			<artifactId>international-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>

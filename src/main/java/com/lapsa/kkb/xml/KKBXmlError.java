@@ -31,7 +31,7 @@ public class KKBXmlError extends KKBXmlBase {
 
     // time - время отправки ответа
     @XmlAttribute(name = "time")
-    @XmlJavaTypeAdapter(value = KKBTimestampXmlAdapter.class)
+    @XmlJavaTypeAdapter(KKBTimestampXmlAdapter.class)
     private Date time;
 
     // code - код ошибки для типа ошибки auth, в случае ошибки типа system
