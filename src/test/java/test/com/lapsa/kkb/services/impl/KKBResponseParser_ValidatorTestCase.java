@@ -3,6 +3,9 @@ package test.com.lapsa.kkb.services.impl;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+import java.time.Instant;
+import java.util.Date;
+
 import javax.ejb.EJB;
 
 import org.junit.Test;
@@ -149,6 +152,48 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_REQUEST);
 	KKBPaymentResponseDocument response = genRespDoc(VALIDATE_ORDER_RESPONSE_FAIL_PLAMNTS_RESPONSE);
 	expectValidationException(ResponseParserErrorCode.VLDT002, request, response);
+    }
+
+    private static final String PARSE_REFERENCE_OK = ""
+	    + "<document><bank name=\"Kazkommertsbank JSC\"><customer name=\"MR CARDHOLDER\" "
+	    + "mail=\"vadim.isaev@me.com\" phone=\"87019377979\"><merchant cert_id=\"c183d70b\" "
+	    + "name=\"Test shop 3\"><order order_id=\"600982718179637\" amount=\"5212.39\" "
+	    + "currency=\"398\"><department merchant_id=\"92061103\" amount=\"5212.39\"/>"
+	    + "</order></merchant><merchant_sign type=\"RSA\"/></customer><customer_sign "
+	    + "type=\"RSA\"/><results timestamp=\"2016-06-21 15:20:15\"><payment merchant_id=\"92061103\" "
+	    + "card=\"440564-XX-XXXX-6150\" amount=\"5212.39\" reference=\"160621152015\" "
+	    + "approval_code=\"152015\" response_code=\"00\" Secure=\"No\" card_bin=\"\" "
+	    + "c_hash=\"13988BBF7C6649F799F36A4808490A3E\"/></results></bank><bank_sign "
+	    + "cert_id=\"00c183d690\" type=\"SHA/RSA\">4ZKQA/tYgGju6XZuQV61/PE1j72bvp9OXV/4S8GgyCvK4W"
+	    + "X+wT8oPtQS4q7PhK2+PgJtON/MM8QczdzVYYxrWG10zDNfaK3MzgDcO+RqTe5E10fYr31Dlm4bvda6AGWJJ08"
+	    + "vcjSbWmXt92fZTVQJ/u9zDYzwS0QHpexH4Pa0AGE=</bank_sign></document>";
+
+    @Test
+    public void testParseReference_OK() throws KKBServiceError, KKBFormatException {
+	KKBPaymentResponseDocument response = genRespDoc(PARSE_REFERENCE_OK);
+	String ref = responseParserService.parsePaymentReferences(response);
+	assertThat(ref, allOf(notNullValue(), equalTo("160621152015")));
+    }
+
+    private static final String PARSE_TIMESTAMP_OK = ""
+	    + "<document><bank name=\"Kazkommertsbank JSC\"><customer name=\"MR CARDHOLDER\" "
+	    + "mail=\"vadim.isaev@me.com\" phone=\"87019377979\"><merchant cert_id=\"c183d70b\" "
+	    + "name=\"Test shop 3\"><order order_id=\"600982718179637\" amount=\"5212.39\" "
+	    + "currency=\"398\"><department merchant_id=\"92061103\" amount=\"5212.39\"/>"
+	    + "</order></merchant><merchant_sign type=\"RSA\"/></customer><customer_sign "
+	    + "type=\"RSA\"/><results timestamp=\"2016-06-21 15:20:15\"><payment merchant_id=\"92061103\" "
+	    + "card=\"440564-XX-XXXX-6150\" amount=\"5212.39\" reference=\"160621152015\" "
+	    + "approval_code=\"152015\" response_code=\"00\" Secure=\"No\" card_bin=\"\" "
+	    + "c_hash=\"13988BBF7C6649F799F36A4808490A3E\"/></results></bank><bank_sign "
+	    + "cert_id=\"00c183d690\" type=\"SHA/RSA\">4ZKQA/tYgGju6XZuQV61/PE1j72bvp9OXV/4S8GgyCvK4W"
+	    + "X+wT8oPtQS4q7PhK2+PgJtON/MM8QczdzVYYxrWG10zDNfaK3MzgDcO+RqTe5E10fYr31Dlm4bvda6AGWJJ08"
+	    + "vcjSbWmXt92fZTVQJ/u9zDYzwS0QHpexH4Pa0AGE=</bank_sign></document>";
+
+    @Test
+    public void testParseTimestamp_OK() throws KKBServiceError, KKBFormatException {
+	KKBPaymentResponseDocument response = genRespDoc(PARSE_TIMESTAMP_OK);
+	Date ref = responseParserService.parsePaymentTimestamp(response);
+	assertThat(ref, allOf(notNullValue(), equalTo(Date.from(Instant.parse("2016-06-21T15:20:15Z")))));
     }
 
     // PRIVATE
