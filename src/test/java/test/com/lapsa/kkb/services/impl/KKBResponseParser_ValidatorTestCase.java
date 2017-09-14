@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -194,6 +196,8 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
 	KKBPaymentResponseDocument response = genRespDoc(PARSE_TIMESTAMP_OK);
 	Date ref = responseParserService.parsePaymentTimestamp(response);
 	assertThat(ref, allOf(notNullValue(), equalTo(Date.from(Instant.parse("2016-06-21T15:20:15Z")))));
+	assertThat(ref.toInstant(),
+		equalTo(LocalDateTime.parse("2016-06-21T15:20:15").atZone(ZoneId.systemDefault()).toInstant()));
     }
 
     // PRIVATE
