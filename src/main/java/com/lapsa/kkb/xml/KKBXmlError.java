@@ -1,6 +1,6 @@
 package com.lapsa.kkb.xml;
 
-import java.util.Date;
+import java.time.Instant;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,7 +32,7 @@ public class KKBXmlError extends KKBXmlBase {
     // time - время отправки ответа
     @XmlAttribute(name = "time")
     @XmlJavaTypeAdapter(KKBTimestampXmlAdapter.class)
-    private Date time;
+    private Instant time;
 
     // code - код ошибки для типа ошибки auth, в случае ошибки типа system
     // значение всегда равно 99
@@ -63,11 +63,11 @@ public class KKBXmlError extends KKBXmlBase {
 	this.type = type;
     }
 
-    public Date getTime() {
+    public Instant getTime() {
 	return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Instant time) {
 	this.time = time;
     }
 

@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 
 import javax.ejb.EJB;
 
@@ -22,6 +21,8 @@ import com.lapsa.kkb.services.KKBWrongSignature;
 import com.lapsa.kkb.services.impl.ResponseParserErrorCode;
 
 public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase {
+
+    private static final ZoneId KKB_ZONE = ZoneId.of("Asia/Almaty");
 
     @EJB
     private KKBResponseService responseParserService;
@@ -194,10 +195,9 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     @Test
     public void testParseTimestamp_OK() throws KKBServiceError, KKBFormatException {
 	KKBPaymentResponseDocument response = genRespDoc(PARSE_TIMESTAMP_OK);
-	Date ref = responseParserService.parsePaymentTimestamp(response);
-	assertThat(ref, allOf(notNullValue(), equalTo(Date.from(Instant.parse("2016-06-21T15:20:15Z")))));
-	assertThat(ref.toInstant(),
-		equalTo(LocalDateTime.parse("2016-06-21T15:20:15").atZone(ZoneId.systemDefault()).toInstant()));
+	Instant ref = responseParserService.parsePaymentTimestamp(response);
+	assertThat(ref, allOf(notNullValue(),
+		equalTo(LocalDateTime.parse("2016-06-21T15:20:15").atZone(KKB_ZONE).toInstant())));
     }
 
     // PRIVATE

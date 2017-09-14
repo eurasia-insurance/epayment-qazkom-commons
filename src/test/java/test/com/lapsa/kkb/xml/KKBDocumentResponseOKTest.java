@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 
 import java.io.StringWriter;
 import java.math.BigInteger;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -83,8 +83,10 @@ public class KKBDocumentResponseOKTest {
 
 	KKBXmlResults results = new KKBXmlResults();
 	bank.setResults(results);
+
+	// 2006-11-22 12:20:30
 	LocalDateTime ldt = LocalDateTime.of(2006, 11, 22, 12, 20, 30);
-	Date timestamp = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+	Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
 	results.setTimestamp(timestamp);
 
 	KKBXmlPayment payment = new KKBXmlPayment();

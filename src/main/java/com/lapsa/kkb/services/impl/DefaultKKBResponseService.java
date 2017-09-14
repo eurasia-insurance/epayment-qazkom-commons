@@ -4,7 +4,7 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.Date;
+import java.time.Instant;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -132,13 +132,13 @@ public class DefaultKKBResponseService extends KKBGenericService
     }
 
     @Override
-    public Date parsePaymentTimestamp(KKBPaymentResponseDocument response)
+    public Instant parsePaymentTimestamp(KKBPaymentResponseDocument response)
 	    throws KKBServiceError, KKBFormatException {
 	return parsePaymentTimestamp(response.getContent());
     }
 
     @Override
-    public Date parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException {
+    public Instant parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException {
 	KKBXmlDocumentResponse xmlDocument = unmarshallResponse(response);
 	return xmlDocument.getBank().getResults().getTimestamp();
     }

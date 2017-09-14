@@ -1,6 +1,6 @@
 package com.lapsa.kkb.xml;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -25,7 +25,7 @@ public class KKBXmlResults extends KKBXmlBase {
     // timestamp - время проведения платежа
     @XmlAttribute(name = "timestamp")
     @XmlJavaTypeAdapter(KKBTimestampXmlAdapter.class)
-    private Date timestamp;
+    private Instant timestamp;
 
     @XmlElementRef
     private List<KKBXmlPayment> payments;
@@ -42,11 +42,11 @@ public class KKBXmlResults extends KKBXmlBase {
 
     // GENERATED
 
-    public Date getTimestamp() {
+    public Instant getTimestamp() {
 	return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Instant timestamp) {
 	this.timestamp = timestamp;
     }
 

@@ -1,26 +1,29 @@
 package com.lapsa.kkb.xml.adapter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class KKBTimestampXmlAdapter extends XmlAdapter<String, Date> {
+public class KKBTimestampXmlAdapter extends XmlAdapter<String, Instant> {
 
-    private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String KKB_TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final DateTimeFormatter KKB_TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern(KKB_TIMESTAMP_PATTERN);
+    private static final ZoneId KKB_ZONE = ZoneId.of("Asia/Almaty");
 
     @Override
-    public Date unmarshal(String v) throws Exception {
+    public Instant unmarshal(String v) throws Exception {
 	if (v == null)
 	    return null;
-	return format.parse(v.trim());
+	return LocalDateTime.parse(v, KKB_TIMESTAMP_FORMATTER).atZone(KKB_ZONE).toInstant();
     }
 
     @Override
-    public String marshal(Date v) throws Exception {
+    public String marshal(Instant v) throws Exception {
 	if (v == null)
 	    return null;
-	return format.format(v);
+	return v.atZone(KKB_ZONE).format(KKB_TIMESTAMP_FORMATTER);
     }
 }
