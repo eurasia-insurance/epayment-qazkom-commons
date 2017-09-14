@@ -4,9 +4,11 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.time.Instant;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -26,9 +28,9 @@ import com.lapsa.kkb.services.KKBResponseService;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBValidationErrorException;
 import com.lapsa.kkb.services.KKBWrongSignature;
+import com.lapsa.kkb.services.impl.validators.KKBRequestResponsePaymentLinesEqualsValidator;
 import com.lapsa.kkb.services.impl.validators.KKBRequestResponseValidator;
 import com.lapsa.kkb.services.impl.validators.KKBXmlMerchantEqualsValidator;
-import com.lapsa.kkb.services.impl.validators.KKBRequestResponsePaymentLinesEqualsValidator;
 import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
 import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
 
@@ -78,22 +80,13 @@ public class DefaultKKBResponseService extends KKBGenericService
 
     @Override
     public void validateResponseXmlFormat(KKBPaymentResponseDocument response) throws KKBFormatException {
-	try {
-	    responseUnmarshaller.unmarshal(new StringReader(response.getContent()));
-	} catch (JAXBException e) {
-	    throw ResponseParserErrorCode.FRMT001.generateFormatException(e, response);
-	}
+	unmarshallResponse(response.getContent());
     }
 
     @Override
     public String parseOrderId(String response) throws KKBServiceError, KKBFormatException {
-	try {
-	    KKBXmlDocumentResponse xmlDocument = (KKBXmlDocumentResponse) responseUnmarshaller
-		    .unmarshal(new StringReader(response));
-	    return xmlDocument.getBank().getCustomer().getSourceMerchant().getOrder().getOrderId();
-	} catch (JAXBException e) {
-	    throw ResponseParserErrorCode.FRMT001.generateFormatException(e, response);
-	}
+	KKBXmlDocumentResponse xmlDocument = unmarshallResponse(response);
+	return xmlDocument.getBank().getCustomer().getSourceMerchant().getOrder().getOrderId();
     }
 
     @Override
@@ -117,28 +110,44 @@ public class DefaultKKBResponseService extends KKBGenericService
     @Override
     public void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException {
-	try {
-	    KKBXmlDocumentRequest xmlRequestDocument = (KKBXmlDocumentRequest) requestUnmarshaller
-		    .unmarshal(new StringReader(request.getContent()));
-	    KKBXmlDocumentResponse xmlResponseDocument = (KKBXmlDocumentResponse) responseUnmarshaller
-		    .unmarshal(new StringReader(response.getContent()));
-	    for (KKBRequestResponseValidator validator : validators)
-		validator.validate(xmlRequestDocument, xmlResponseDocument);
-	} catch (JAXBException e) {
-	    throw ResponseParserErrorCode.FRMT001.generateFormatException(e, response);
-	}
+	KKBXmlDocumentResponse xmlResponseDocument = unmarshallResponse(response.getContent());
+	KKBXmlDocumentRequest xmlRequestDocument = unmarshallRequest(request.getContent());
+	for (KKBRequestResponseValidator validator : validators)
+	    validator.validate(xmlRequestDocument, xmlResponseDocument);
+    }
+
+    @Override
+    public String parsePaymentReferences(KKBPaymentResponseDocument response)
+	    throws KKBServiceError, KKBFormatException {
+	return parsePaymentReferences(response.getContent());
+    }
+
+    @Override
+    public String parsePaymentReferences(String response) throws KKBServiceError, KKBFormatException {
+	KKBXmlDocumentResponse xmlDocument = unmarshallResponse(response);
+	return xmlDocument.getBank().getResults().getPayments()//
+		.stream() //
+		.map(c -> c.getReference()) //
+		.collect(Collectors.joining(","));
+    }
+
+    @Override
+    public Instant parsePaymentTimestamp(KKBPaymentResponseDocument response)
+	    throws KKBServiceError, KKBFormatException {
+	return parsePaymentTimestamp(response.getContent());
+    }
+
+    @Override
+    public Instant parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException {
+	KKBXmlDocumentResponse xmlDocument = unmarshallResponse(response);
+	return xmlDocument.getBank().getResults().getTimestamp();
     }
 
     // PRIVATE
 
     private byte[] parseBankSignDataFromResponse(String response) throws KKBFormatException {
-	try {
-	    KKBXmlDocumentResponse xmlDocument = (KKBXmlDocumentResponse) responseUnmarshaller
-		    .unmarshal(new StringReader(response));
-	    return xmlDocument.getBankSign().getSignature();
-	} catch (JAXBException e) {
-	    throw ResponseParserErrorCode.FRMT001.generateFormatException(e, response);
-	}
+	KKBXmlDocumentResponse xmlDocument = unmarshallResponse(response);
+	return xmlDocument.getBankSign().getSignature();
     }
 
     private byte[] parseBankElementDataFromResponse(String response) throws KKBFormatException {
@@ -146,6 +155,26 @@ public class DefaultKKBResponseService extends KKBGenericService
 	if (matcher.find())
 	    return matcher.group().getBytes();
 	throw ResponseParserErrorCode.FRMT002.generateFormatException(response);
+    }
+
+    private KKBXmlDocumentResponse unmarshallResponse(String response) throws KKBFormatException {
+	try {
+	    KKBXmlDocumentResponse doc = (KKBXmlDocumentResponse) responseUnmarshaller
+		    .unmarshal(new StringReader(response));
+	    return doc;
+	} catch (JAXBException e) {
+	    throw ResponseParserErrorCode.FRMT001.generateFormatException(e, response);
+	}
+    }
+
+    private KKBXmlDocumentRequest unmarshallRequest(String request) throws KKBFormatException {
+	try {
+	    KKBXmlDocumentRequest doc = (KKBXmlDocumentRequest) requestUnmarshaller
+		    .unmarshal(new StringReader(request));
+	    return doc;
+	} catch (JAXBException e) {
+	    throw ResponseParserErrorCode.FRMT001.generateFormatException(e, request);
+	}
     }
 
 }

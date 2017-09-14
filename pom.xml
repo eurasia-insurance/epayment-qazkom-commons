@@ -16,7 +16,7 @@
 
 	<properties>
 		<!-- APIs -->
-		<kkb-lib.version>3.1</kkb-lib.version>
+		<kkb-lib.version>3.2-SNAPSHOT</kkb-lib.version>
 	</properties>
 
 	<dependencyManagement>
@@ -26,11 +26,6 @@
 				<groupId>com.lapsa.kkb-lib</groupId>
 				<artifactId>kkb-services</artifactId>
 				<version>${kkb-lib.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lapsa.international-lib</groupId>
-				<artifactId>international-core</artifactId>
-				<version>${international-lib.version}</version>
 			</dependency>
 			<!-- external -->
 			<dependency>
@@ -46,12 +41,6 @@
 		<dependency>
 			<groupId>com.lapsa.kkb-lib</groupId>
 			<artifactId>kkb-services</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.lapsa.international-lib</groupId>
-			<artifactId>international-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
