@@ -14,10 +14,8 @@ import javax.ejb.Singleton;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBOrderItem;
-import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.core.KKBPaymentStatus;
 import com.lapsa.kkb.services.KKBFactory;
-import com.lapsa.kkb.services.KKBFormatException;
 
 @Singleton
 public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
@@ -44,16 +42,6 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 	long lng = Math.abs(uuid.getLeastSignificantBits() / 10000);
 	String id = String.format("%015d", lng);
 	return id;
-    }
-
-    @Override
-    public KKBPaymentResponseDocument buildResponseDocument(String response) throws KKBFormatException {
-	if (response == null || response.equals(""))
-	    throw new KKBFormatException("Response is empty");
-	KKBPaymentResponseDocument doc = new KKBPaymentResponseDocument();
-	doc.setCreated(new Date());
-	doc.setContent(response);
-	return doc;
     }
 
     @Override
