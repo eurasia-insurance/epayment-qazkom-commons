@@ -4,7 +4,7 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -53,11 +53,10 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
     public KKBOrder generateNewOrder(String orderId, FinCurrency currency, double cost, String product) {
 	KKBOrder order = new KKBOrder();
 	order.setId(orderId);
-	order.setCreated(new Date());
+	order.setCreated(Instant.now());
 	order.setStatus(KKBPaymentStatus.NEW);
 	order.setCurrency(currency);
 	generateNewOrderItem(product, cost, 1, order);
-	order.calculateTotalAmount();
 	return order;
     }
 

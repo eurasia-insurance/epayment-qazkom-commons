@@ -5,8 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.SignatureException;
 
+import com.lapsa.kkb.core.KKBSignatureStatus;
 import com.lapsa.kkb.core.KKBSignedData;
-import com.lapsa.kkb.core.KKBSingatureStatus;
 import com.lapsa.kkb.services.KKBFormatException;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBSignatureVerifierService;
@@ -16,7 +16,8 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
 	implements KKBSignatureVerifierService {
 
     @Override
-    public void verify(final byte[] data, final byte[] signature) throws KKBServiceError, KKBWrongSignature, KKBFormatException {
+    public void verify(final byte[] data, final byte[] signature)
+	    throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	verify(data, signature, true);
     }
 
@@ -45,13 +46,12 @@ public abstract class KKBGenericSignatureVerifierService extends KKBGenericCrypt
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void verify(final KKBSignedData signedData) throws KKBServiceError, KKBWrongSignature, KKBFormatException {
 	try {
 	    verify(signedData.getData(), signedData.getDigest(), signedData.isInverted());
-	    signedData.setStatus(KKBSingatureStatus.CHECKED_VALID);
+	    signedData.setStatus(KKBSignatureStatus.CHECKED_VALID);
 	} catch (KKBWrongSignature e) {
-	    signedData.setStatus(KKBSingatureStatus.CHECKED_INVALID);
+	    signedData.setStatus(KKBSignatureStatus.CHECKED_INVALID);
 	    throw e;
 	}
     }
