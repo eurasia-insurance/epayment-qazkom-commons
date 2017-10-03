@@ -17,6 +17,7 @@
 	<properties>
 		<!-- APIs -->
 		<kkb-lib.version>3.2-SNAPSHOT</kkb-lib.version>
+		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
 	</properties>
 
 	<dependencyManagement>
@@ -27,11 +28,11 @@
 				<artifactId>kkb-services</artifactId>
 				<version>${kkb-lib.version}</version>
 			</dependency>
-			<!-- external -->
+			<!-- test -->
 			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.4</version>
+				<groupId>com.lapsa.lapsa-lib</groupId>
+				<artifactId>lapsa-arquillian-test</artifactId>
+				<version>${lapsa-lib.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -50,12 +51,11 @@
 			<artifactId>javax.ejb-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- external -->
+		<!-- test -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
+			<groupId>com.lapsa.lapsa-lib</groupId>
+			<artifactId>lapsa-arquillian-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
