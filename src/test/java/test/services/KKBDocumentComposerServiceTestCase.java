@@ -35,8 +35,7 @@ public class KKBDocumentComposerServiceTestCase extends ArquillianBaseTestCase {
 
     @Test
     public void testComposeRequest() throws KKBServiceError {
-	KKBOrder order = new KKBOrder();
-	order.setId(COMPOSE_RESPONSE_ORDER_ID);
+	KKBOrder order = new KKBOrder(COMPOSE_RESPONSE_ORDER_ID);
 	order.setCurrency(COMPOSE_RESPONSE_CURRENCY);
 
 	KKBOrderItem item = new KKBOrderItem();
@@ -58,8 +57,7 @@ public class KKBDocumentComposerServiceTestCase extends ArquillianBaseTestCase {
 
     @Test
     public void testComposeCart() throws KKBServiceError {
-	KKBOrder order = new KKBOrder();
-	order.setId(COMPOSE_CART_ORDER_ID);
+	KKBOrder order = new KKBOrder(COMPOSE_CART_ORDER_ID);
 	order.setCurrency(COMPOSE_CART_CURRENCY);
 
 	KKBOrderItem item = new KKBOrderItem();
