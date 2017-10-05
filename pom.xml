@@ -18,6 +18,7 @@
 		<!-- APIs -->
 		<kkb-lib.version>3.2-SNAPSHOT</kkb-lib.version>
 		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
+		<lapsa-arquillian-test.version>1.0-SNAPSHOT</lapsa-arquillian-test.version>
 	</properties>
 
 	<dependencyManagement>
@@ -30,9 +31,9 @@
 			</dependency>
 			<!-- test -->
 			<dependency>
-				<groupId>com.lapsa.lapsa-lib</groupId>
+				<groupId>tech.lapsa.lapsa</groupId>
 				<artifactId>lapsa-arquillian-test</artifactId>
-				<version>${lapsa-lib.version}</version>
+				<version>${lapsa-arquillian-test.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -53,7 +54,7 @@
 		</dependency>
 		<!-- test -->
 		<dependency>
-			<groupId>com.lapsa.lapsa-lib</groupId>
+			<groupId>tech.lapsa.lapsa</groupId>
 			<artifactId>lapsa-arquillian-test</artifactId>
 			<scope>test</scope>
 		</dependency>
