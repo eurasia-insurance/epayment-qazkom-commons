@@ -1,4 +1,4 @@
-package test.com.lapsa.kkb.xml;
+package test.xml;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -17,8 +17,8 @@ import javax.xml.bind.Marshaller;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lapsa.country.Country;
 import com.lapsa.fin.FinCurrency;
+import com.lapsa.international.country.Country;
 import com.lapsa.kkb.xml.KKBXmlBank;
 import com.lapsa.kkb.xml.KKBXmlBankSign;
 import com.lapsa.kkb.xml.KKBXmlCustomer;

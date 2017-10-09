@@ -45,6 +45,6 @@ public abstract class KKBXmlGenericAmountAndCurrency extends KKBXmlGenericAmount
     }
 
     public void setFinCurrency(FinCurrency finCurrency) {
-	this.currencyCode = (finCurrency == null) ? 0 : finCurrency.getNumericCode();
+	this.currencyCode = (finCurrency == null) ? 0 : finCurrency.getCurrency().getNumericCode();
     }
 }

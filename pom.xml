@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.lapsa.maven.pom</groupId>
-		<artifactId>javaee7-ejb-parent</artifactId>
-		<version>2.0</version>
+		<groupId>tech.lapsa.maven</groupId>
+		<artifactId>maven-general</artifactId>
+		<version>3.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.lapsa.kkb-lib</groupId>
@@ -15,41 +15,59 @@
 	<name>KKB Lib : Helper Services API : Default implementation</name>
 
 	<properties>
-		<!-- APIs -->
+		<!-- BOMS -->
+		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
+		<!-- tech -->
+		<lapsa-arquillian-test.version>1.0-SNAPSHOT</lapsa-arquillian-test.version>
+		<!-- oldies -->
 		<kkb-lib.version>3.2-SNAPSHOT</kkb-lib.version>
+		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- internal -->
+			<!-- BOMS -->
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-javaee-bom</artifactId>
+				<version>${javax-javaee-bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.lapsa</groupId>
+				<artifactId>lapsa-arquillian-test</artifactId>
+				<version>${lapsa-arquillian-test.version}</version>
+			</dependency>
+			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.kkb-lib</groupId>
 				<artifactId>kkb-services</artifactId>
 				<version>${kkb-lib.version}</version>
 			</dependency>
-			<!-- external -->
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.4</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- internal -->
+		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.lapsa</groupId>
+			<artifactId>lapsa-arquillian-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- oldies -->
 		<dependency>
 			<groupId>com.lapsa.kkb-lib</groupId>
 			<artifactId>kkb-services</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- external -->
+		<!-- JavaEE -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
+			<groupId>javax.ejb</groupId>
+			<artifactId>javax.ejb-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

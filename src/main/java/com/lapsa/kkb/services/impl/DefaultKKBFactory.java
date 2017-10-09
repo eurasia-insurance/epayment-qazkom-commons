@@ -4,7 +4,7 @@ import static com.lapsa.kkb.services.impl.Constants.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -14,10 +14,8 @@ import javax.ejb.Singleton;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBOrderItem;
-import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 import com.lapsa.kkb.core.KKBPaymentStatus;
 import com.lapsa.kkb.services.KKBFactory;
-import com.lapsa.kkb.services.KKBFormatException;
 
 @Singleton
 public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
@@ -47,29 +45,17 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
     }
 
     @Override
-    public KKBPaymentResponseDocument buildResponseDocument(String response) throws KKBFormatException {
-	if (response == null || response.equals(""))
-	    throw new KKBFormatException("Response is empty");
-	KKBPaymentResponseDocument doc = new KKBPaymentResponseDocument();
-	doc.setCreated(new Date());
-	doc.setContent(response);
-	return doc;
-    }
-
-    @Override
     public KKBOrder generateNewOrder(FinCurrency currency, double cost, String product) {
 	return generateNewOrder(generateNewOrderId(), currency, cost, product);
     }
 
     @Override
     public KKBOrder generateNewOrder(String orderId, FinCurrency currency, double cost, String product) {
-	KKBOrder order = new KKBOrder();
-	order.setId(orderId);
-	order.setCreated(new Date());
+	KKBOrder order = new KKBOrder(orderId);
+	order.setCreated(Instant.now());
 	order.setStatus(KKBPaymentStatus.NEW);
 	order.setCurrency(currency);
 	generateNewOrderItem(product, cost, 1, order);
-	order.calculateTotalAmount();
 	return order;
     }
 

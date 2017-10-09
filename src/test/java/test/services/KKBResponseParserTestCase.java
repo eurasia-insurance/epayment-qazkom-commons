@@ -1,4 +1,4 @@
-package test.com.lapsa.kkb.services.impl;
+package test.services;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;

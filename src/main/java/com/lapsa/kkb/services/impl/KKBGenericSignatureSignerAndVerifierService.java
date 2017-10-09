@@ -6,8 +6,8 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
+import com.lapsa.kkb.core.KKBSignatureStatus;
 import com.lapsa.kkb.core.KKBSignedData;
-import com.lapsa.kkb.core.KKBSingatureStatus;
 import com.lapsa.kkb.services.KKBFormatException;
 import com.lapsa.kkb.services.KKBServiceError;
 import com.lapsa.kkb.services.KKBSignatureOperationFailed;
@@ -42,9 +42,8 @@ public abstract class KKBGenericSignatureSignerAndVerifierService extends KKBGen
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void signData(final KKBSignedData signedData) throws KKBSignatureOperationFailed {
-	signedData.setStatus(KKBSingatureStatus.UNCHECKED);
+	signedData.setStatus(KKBSignatureStatus.UNCHECKED);
 	signedData.setDigest(sign(signedData.getData(), signedData.isInverted()));
     }
 

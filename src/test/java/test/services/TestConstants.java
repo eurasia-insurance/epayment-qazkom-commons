@@ -1,4 +1,4 @@
-package test.com.lapsa.kkb.services.impl;
+package test.services;
 
 public interface TestConstants {
 
