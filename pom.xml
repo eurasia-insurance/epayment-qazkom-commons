@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.lapsa.maven.pom</groupId>
-		<artifactId>javaee7-app-parent</artifactId>
+		<groupId>tech.lapsa.maven</groupId>
+		<artifactId>maven-general</artifactId>
 		<version>3.0-SNAPSHOT</version>
 	</parent>
 
@@ -16,8 +16,10 @@
 
 	<properties>
 		<!-- BOMS -->
-		<lapsa-bom.version>1.0-SNAPSHOT</lapsa-bom.version>
-		<!-- APIs -->
+		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
+		<!-- tech -->
+		<lapsa-arquillian-test.version>1.0-SNAPSHOT</lapsa-arquillian-test.version>
+		<!-- oldies -->
 		<kkb-lib.version>3.2-SNAPSHOT</kkb-lib.version>
 		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
 	</properties>
@@ -26,13 +28,19 @@
 		<dependencies>
 			<!-- BOMS -->
 			<dependency>
-				<groupId>tech.lapsa.lapsa</groupId>
-				<artifactId>lapsa-bom</artifactId>
-				<version>${lapsa-bom.version}</version>
-				<type>pom</type>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-javaee-bom</artifactId>
+				<version>${javax-javaee-bom.version}</version>
 				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
-			<!-- internal -->
+			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.lapsa</groupId>
+				<artifactId>lapsa-arquillian-test</artifactId>
+				<version>${lapsa-arquillian-test.version}</version>
+			</dependency>
+			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.kkb-lib</groupId>
 				<artifactId>kkb-services</artifactId>
@@ -42,7 +50,13 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- internal -->
+		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.lapsa</groupId>
+			<artifactId>lapsa-arquillian-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- oldies -->
 		<dependency>
 			<groupId>com.lapsa.kkb-lib</groupId>
 			<artifactId>kkb-services</artifactId>
@@ -54,12 +68,6 @@
 			<groupId>javax.ejb</groupId>
 			<artifactId>javax.ejb-api</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<!-- test -->
-		<dependency>
-			<groupId>tech.lapsa.lapsa</groupId>
-			<artifactId>lapsa-arquillian-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
