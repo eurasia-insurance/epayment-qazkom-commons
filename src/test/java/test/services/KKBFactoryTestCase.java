@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.ejb.EJB;
@@ -26,9 +27,9 @@ public class KKBFactoryTestCase extends ArquillianBaseTestCase {
     }
 
     @Test
-    public void testGeneratePaymentURL() throws MalformedURLException {
+    public void testGeneratePaymentURL() throws URISyntaxException {
 	String id = "66778899";
 	URI uri = factory.generatePaymentPageUrl(id);
-	assertThat(uri, allOf(notNullValue(), is(new URL("http://localhost:8080/order/payment/?order=66778899"))));
+	assertThat(uri, allOf(notNullValue(), is(new URI("http://localhost:8080/order/payment/?order=66778899"))));
     }
 }
