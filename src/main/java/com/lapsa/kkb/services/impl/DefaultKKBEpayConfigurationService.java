@@ -2,8 +2,8 @@ package com.lapsa.kkb.services.impl;
 
 import static com.lapsa.kkb.services.impl.Constants.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -18,7 +18,7 @@ import com.lapsa.kkb.services.KKBMerchantSignatureService;
 @Singleton
 public class DefaultKKBEpayConfigurationService extends KKBGenericService implements KKBEpayConfigurationService {
 
-    private URL bankEpayURL;
+    private URI bankEpayURI;
 
     private String templateName;
 
@@ -32,9 +32,9 @@ public class DefaultKKBEpayConfigurationService extends KKBGenericService implem
     public void init() {
 	try {
 	    String bankEpayURLString = configurationProperties.getProperty(PROPERTY_BANK_EPAY_URL, DEFAULT_EPAY_URL);
-	    bankEpayURL = new URL(bankEpayURLString);
+	    bankEpayURI = new URI(bankEpayURLString);
 	    templateName = configurationProperties.getProperty(PROPERTY_BANK_EPAY_TEMPLATE, DEFAULT_EPAY_TEMPLATE_NAME);
-	} catch (MalformedURLException e) {
+	} catch (URISyntaxException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
 	    logger.log(Level.SEVERE, message, e);
 	    throw new RuntimeException(message, e);
@@ -42,8 +42,8 @@ public class DefaultKKBEpayConfigurationService extends KKBGenericService implem
     }
 
     @Override
-    public URL getEpayURL() {
-	return bankEpayURL;
+    public URI getEpayURI() {
+	return bankEpayURI;
     }
 
     @Override

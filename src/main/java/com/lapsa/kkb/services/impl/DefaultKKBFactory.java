@@ -2,8 +2,8 @@ package com.lapsa.kkb.services.impl;
 
 import static com.lapsa.kkb.services.impl.Constants.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Properties;
 import java.util.UUID;
@@ -24,14 +24,12 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
     private Properties configurationProperties;
 
     @Override
-    public URL generatePaymentPageUrl(String orderId) {
+    public URI generatePaymentPageUrl(String orderId) {
 	String paymentUrlPattern = configurationProperties.getProperty(Constants.PROPERTY_MARKET_PAYMENT_URL);
 	String parsed = paymentUrlPattern.replace("$ORDER_ID", orderId);
-	URL ret;
 	try {
-	    ret = new URL(parsed);
-	    return ret;
-	} catch (MalformedURLException e) {
+	    return new URI(parsed);
+	} catch (URISyntaxException e) {
 	    throw new RuntimeException(e);
 	}
     }
