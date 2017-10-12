@@ -1,6 +1,6 @@
 package com.lapsa.kkb.services.impl;
 
-import static com.lapsa.kkb.services.impl.Constants.*;
+import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 
 import java.time.Instant;
 import java.util.Properties;
@@ -27,16 +27,16 @@ public class DefaultKKBDocumentComposerService extends KKBGenericService
     private String merchantId;
     private String merchantName;
 
-    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
-    private Properties configurationProperties;
+    @Resource(lookup = JNDI_QAZKOM_CONFIG)
+    private Properties qazkomConfig;
 
     @EJB
     private KKBMerchantSignatureService merchantSignatureService;
 
     @PostConstruct
     public void init() {
-	merchantId = configurationProperties.getProperty(PROPERTY_MERCHANT_ID);
-	merchantName = configurationProperties.getProperty(PROPERTY_MERCHANT_NAME);
+	merchantId = qazkomConfig.getProperty(PROPERTY_MERCHANT_ID);
+	merchantName = qazkomConfig.getProperty(PROPERTY_MERCHANT_NAME);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.lapsa.kkb.services.impl;
 
-public interface Constants {
-    public static final String JNDI_PROPERTIES_CONFIGURATION = "epayment/resource/qazkom/Configuration";
+public interface QazkomConstants {
+    public static final String JNDI_QAZKOM_CONFIG = "epayment/resource/qazkom/Configuration";
 
     public static final String PROPERTY_SIGNATURE_ALGORITHM = "signature.algorithm";
 
@@ -25,8 +25,6 @@ public interface Constants {
     public static final String PROPERTY_BANK_CERTSTORE_TYPE = "bank.cert.storetype";
     public static final String PROPERTY_BANK_CERTSTORE_PASSWORD = "bank.cert.storepass";
     public static final String PROPERTY_BANK_CERTSTORE_CERTALIAS = "bank.cert.alias";
-
-    public static final String PROPERTY_MARKET_PAYMENT_URL = "market.payment.url";
 
     public static final String DEFAULT_MERCHANT_KEYSTORE_TYPE = "JKS";
     public static final String DEFAULT_MERCHANT_CERTSTORE_TYPE = "JKS";

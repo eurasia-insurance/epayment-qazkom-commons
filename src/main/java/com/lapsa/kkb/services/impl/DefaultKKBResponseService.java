@@ -1,6 +1,6 @@
 package com.lapsa.kkb.services.impl;
 
-import static com.lapsa.kkb.services.impl.Constants.*;
+import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -49,9 +49,6 @@ public class DefaultKKBResponseService extends KKBGenericService
     private KKBRequestResponseValidator[] validators = new KKBRequestResponseValidator[] {
 	    new KKBXmlMerchantEqualsValidator(), new KKBRequestResponsePaymentLinesEqualsValidator()
     };
-
-    // @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
-    // private Properties configurationProperties;
 
     @EJB
     private KKBBankSignatureService bankSignatureService;

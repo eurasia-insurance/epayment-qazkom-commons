@@ -1,6 +1,6 @@
 package com.lapsa.kkb.services.impl;
 
-import static com.lapsa.kkb.services.impl.Constants.*;
+import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 
 import java.io.IOException;
 import java.security.KeyStoreException;
@@ -30,25 +30,25 @@ public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSigne
 
     private X509Certificate certificate;
 
-    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
-    private Properties configurationProperties;
+    @Resource(lookup = JNDI_QAZKOM_CONFIG)
+    private Properties qazkomConfig;
 
     @PostConstruct
     public void init() {
-	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
+	signatureAlgorithm = qazkomConfig.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
 		DEFAULT_SIGNATURE_ALGORITHM);
 
-	String keystoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_FILE);
-	String keystoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_TYPE,
+	String keystoreFile = qazkomConfig.getProperty(PROPERTY_MERCHANT_KEYSTORE_FILE);
+	String keystoreType = qazkomConfig.getProperty(PROPERTY_MERCHANT_KEYSTORE_TYPE,
 		DEFAULT_MERCHANT_KEYSTORE_TYPE);
-	String keystorePassword = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_PASSWORD);
-	String keyAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_KEYSTORE_KEYALIAS);
+	String keystorePassword = qazkomConfig.getProperty(PROPERTY_MERCHANT_KEYSTORE_PASSWORD);
+	String keyAlias = qazkomConfig.getProperty(PROPERTY_MERCHANT_KEYSTORE_KEYALIAS);
 
-	String certstoreFile = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_FILE);
-	String certstoreType = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_TYPE,
+	String certstoreFile = qazkomConfig.getProperty(PROPERTY_MERCHANT_CERTSTORE_FILE);
+	String certstoreType = qazkomConfig.getProperty(PROPERTY_MERCHANT_CERTSTORE_TYPE,
 		DEFAULT_MERCHANT_CERTSTORE_TYPE);
-	String certstorePass = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_PASSWORD);
-	String certAlias = configurationProperties.getProperty(PROPERTY_MERCHANT_CERTSTORE_CERTALIAS);
+	String certstorePass = qazkomConfig.getProperty(PROPERTY_MERCHANT_CERTSTORE_PASSWORD);
+	String certAlias = qazkomConfig.getProperty(PROPERTY_MERCHANT_CERTSTORE_CERTALIAS);
 
 	try {
 	    privateKey = loadPrivateKey(keystoreFile, keystoreType, keystorePassword, keyAlias);
