@@ -24,6 +24,17 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
     private Properties configurationProperties;
 
     @Override
+    public URI generatePaymentPageUrl(String orderId) {
+	String paymentUrlPattern = configurationProperties.getProperty(Constants.PROPERTY_MARKET_PAYMENT_URL);
+	String parsed = paymentUrlPattern.replace("$ORDER_ID", orderId);
+	try {
+	    return new URI(parsed);
+	} catch (URISyntaxException e) {
+	    throw new RuntimeException(e);
+	}
+    }
+
+    @Override
     public String generateNewOrderId() {
 	UUID uuid = UUID.randomUUID();
 	long lng = Math.abs(uuid.getLeastSignificantBits() / 10000);
