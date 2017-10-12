@@ -26,8 +26,6 @@ public interface Constants {
     public static final String PROPERTY_BANK_CERTSTORE_PASSWORD = "bank.cert.storepass";
     public static final String PROPERTY_BANK_CERTSTORE_CERTALIAS = "bank.cert.alias";
 
-    public static final String PROPERTY_MARKET_PAYMENT_URL = "market.payment.url";
-
     public static final String DEFAULT_MERCHANT_KEYSTORE_TYPE = "JKS";
     public static final String DEFAULT_MERCHANT_CERTSTORE_TYPE = "JKS";
     public static final String DEFAULT_BANK_CERTSTORE_TYPE = "JKS";

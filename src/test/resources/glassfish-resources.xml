@@ -21,6 +21,5 @@
 		<property name="bank.cert.storetype" value="JKS" />
 		<property name="bank.cert.storepass" value="1q2w3e4r" />
 		<property name="bank.cert.alias" value="kkbca" />
-		<property name="market.payment.url" value="http://localhost:8080/order/payment/?order=$ORDER_ID" />
 	</custom-resource>
 </resources>
