@@ -31,8 +31,8 @@
 				<groupId>tech.lapsa.javax</groupId>
 				<artifactId>javax-javaee-bom</artifactId>
 				<version>${javax-javaee-bom.version}</version>
-				<scope>import</scope>
 				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<!-- tech -->
 			<dependency>
@@ -43,8 +43,10 @@
 			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.kkb-lib</groupId>
-				<artifactId>kkb-services</artifactId>
+				<artifactId>kkb-root</artifactId>
 				<version>${kkb-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
