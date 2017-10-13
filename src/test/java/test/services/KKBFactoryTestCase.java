@@ -29,7 +29,7 @@ public class KKBFactoryTestCase extends ArquillianBaseTestCase {
     @Test
     public void testGeneratePaymentURL() throws URISyntaxException {
 	String id = "66778899";
-	URI uri = factory.generatePaymentPageUrl(id);
+	URI uri = factory.generateDefaultPaymentURI(id);
 	assertThat(uri, allOf(notNullValue(), is(new URI("http://localhost:8080/order/payment/?order=66778899"))));
     }
 }
