@@ -1,6 +1,6 @@
 package com.lapsa.kkb.services.impl.composers;
 
-import static com.lapsa.kkb.services.impl.Constants.*;
+import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,7 +1,5 @@
 package com.lapsa.kkb.services.impl;
 
-import static com.lapsa.kkb.services.impl.Constants.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
@@ -20,13 +18,13 @@ import com.lapsa.kkb.services.KKBFactory;
 @Singleton
 public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 
-    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
-    private Properties configurationProperties;
+    @Resource(lookup = Constants.JNDI_CONFIG)
+    private Properties epaymentConfig;
 
     @Override
-    public URI generatePaymentPageUrl(String orderId) {
-	String paymentUrlPattern = configurationProperties.getProperty(Constants.PROPERTY_MARKET_PAYMENT_URL);
-	String parsed = paymentUrlPattern.replace("$ORDER_ID", orderId);
+    public URI generateDefaultPaymentURI(String invoiceId) {
+	String pattern = epaymentConfig.getProperty(Constants.PROPERTY_DEFAULT_PAYMENT_URI_PATTERN);
+	String parsed = pattern.replace("@INVOICE_ID@", invoiceId);
 	try {
 	    return new URI(parsed);
 	} catch (URISyntaxException e) {

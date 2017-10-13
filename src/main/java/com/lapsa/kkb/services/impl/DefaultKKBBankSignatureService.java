@@ -1,6 +1,6 @@
 package com.lapsa.kkb.services.impl;
 
-import static com.lapsa.kkb.services.impl.Constants.*;
+import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 
 import java.io.IOException;
 import java.security.KeyStoreException;
@@ -25,19 +25,19 @@ public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierS
 
     private X509Certificate certificate;
 
-    @Resource(lookup = JNDI_PROPERTIES_CONFIGURATION)
-    private Properties configurationProperties;
+    @Resource(lookup = JNDI_QAZKOM_CONFIG)
+    private Properties qazkomConfig;
 
     @PostConstruct
     public void init() {
-	signatureAlgorithm = configurationProperties.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
+	signatureAlgorithm = qazkomConfig.getProperty(PROPERTY_SIGNATURE_ALGORITHM,
 		DEFAULT_SIGNATURE_ALGORITHM);
 
-	String certstoreFile = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_FILE);
-	String certstoreType = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_TYPE,
+	String certstoreFile = qazkomConfig.getProperty(PROPERTY_BANK_CERTSTORE_FILE);
+	String certstoreType = qazkomConfig.getProperty(PROPERTY_BANK_CERTSTORE_TYPE,
 		DEFAULT_BANK_CERTSTORE_TYPE);
-	String certstorePass = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_PASSWORD);
-	String certAlias = configurationProperties.getProperty(PROPERTY_BANK_CERTSTORE_CERTALIAS);
+	String certstorePass = qazkomConfig.getProperty(PROPERTY_BANK_CERTSTORE_PASSWORD);
+	String certAlias = qazkomConfig.getProperty(PROPERTY_BANK_CERTSTORE_CERTALIAS);
 	try {
 	    certificate = loadCertificate(certstoreFile, certstoreType, certstorePass, certAlias);
 	} catch (NoSuchAlgorithmException | CertificateException | KeyStoreException
