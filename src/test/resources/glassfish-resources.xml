@@ -3,6 +3,13 @@
 <resources>
 	<custom-resource
 		factory-class="org.glassfish.resources.custom.factory.PropertiesFactory"
+		res-type="java.util.Properties" jndi-name="epayment/resource/Configuration">
+		<property name="default-payment-uri.pattern"
+			value="http://localhost:8080/order/payment/?order=@INVOICE_ID@" />
+	</custom-resource>
+
+	<custom-resource
+		factory-class="org.glassfish.resources.custom.factory.PropertiesFactory"
 		res-type="java.util.Properties" jndi-name="epayment/resource/qazkom/Configuration">
 		<property name="merchant.id" value="92061103" />
 		<property name="merchant.name" value="Test shop 3" />
@@ -21,6 +28,5 @@
 		<property name="bank.cert.storetype" value="JKS" />
 		<property name="bank.cert.storepass" value="1q2w3e4r" />
 		<property name="bank.cert.alias" value="kkbca" />
-		<property name="market.payment.url" value="http://localhost:8080/order/payment/?order=$ORDER_ID" />
 	</custom-resource>
 </resources>
