@@ -23,8 +23,8 @@ public class DefaultKKBFactory extends KKBGenericService implements KKBFactory {
 
     @Override
     public URI generateDefaultPaymentURI(String invoiceId) {
-	String paymentUrlPattern = epaymentConfig.getProperty(Constants.PROPERTY_PAYMENT_URL_PATTERN);
-	String parsed = paymentUrlPattern.replace("@INVOICE_ID@", invoiceId);
+	String pattern = epaymentConfig.getProperty(Constants.PROPERTY_DEFAULT_PAYMENT_URI_PATTERN);
+	String parsed = pattern.replace("@INVOICE_ID@", invoiceId);
 	try {
 	    return new URI(parsed);
 	} catch (URISyntaxException e) {
