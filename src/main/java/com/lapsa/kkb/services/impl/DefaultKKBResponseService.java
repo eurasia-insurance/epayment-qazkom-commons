@@ -83,15 +83,6 @@ public class DefaultKKBResponseService extends KKBGenericService
     }
 
     @Override
-    public String parseOrderId(KKBPaymentResponseDocument response, boolean formatVerified) {
-	try {
-	    return parseOrderId(response);
-	} catch (KKBFormatException e) {
-	    throw new IllegalStateException("Invalid format", e);
-	}
-    }
-
-    @Override
     public String parseOrderId(String response) throws KKBServiceError, KKBFormatException {
 	KKBXmlDocumentResponse xmlDocument = unmarshallResponse(response);
 	return xmlDocument.getBank().getCustomer().getSourceMerchant().getOrder().getOrderId();
@@ -106,16 +97,6 @@ public class DefaultKKBResponseService extends KKBGenericService
     }
 
     @Override
-    public void validateSignature(KKBPaymentResponseDocument response, boolean formatVerified)
-	    throws KKBServiceError, KKBWrongSignature {
-	try {
-	    validateSignature(response);
-	} catch (KKBFormatException e) {
-	    throw new IllegalStateException("Invalid format", e);
-	}
-    }
-
-    @Override
     public void validateSignature(String response) throws KKBFormatException, KKBServiceError, KKBWrongSignature {
 	byte[] data = parseBankElementDataFromResponse(response);
 	byte[] sign = parseBankSignDataFromResponse(response);
@@ -124,22 +105,14 @@ public class DefaultKKBResponseService extends KKBGenericService
 
     //
 
+    @Deprecated
     @Override
-    public void validateResponse(KKBOrder order) throws KKBFormatException, KKBValidationErrorException {
-	validateResponse(order.getLastRequest(), order.getLastResponse());
+    public void validateResponseWithRequest(KKBOrder order) throws KKBFormatException, KKBValidationErrorException {
+	validateResponseWithRequest(order.getLastRequest(), order.getLastResponse());
     }
 
     @Override
-    public void validateResponse(KKBOrder order, boolean formatVerified) throws KKBValidationErrorException {
-	try {
-	    validateResponse(order);
-	} catch (KKBFormatException e) {
-	    throw new IllegalStateException("Invalid format", e);
-	}
-    }
-
-    @Override
-    public void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
+    public void validateResponseWithRequest(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException {
 	KKBXmlDocumentResponse xmlResponseDocument = unmarshallResponse(response.getContent());
 	KKBXmlDocumentRequest xmlRequestDocument = unmarshallRequest(request.getContent());
@@ -153,15 +126,6 @@ public class DefaultKKBResponseService extends KKBGenericService
     public String parsePaymentReferences(KKBPaymentResponseDocument response)
 	    throws KKBServiceError, KKBFormatException {
 	return parsePaymentReferences(response.getContent());
-    }
-
-    @Override
-    public String parsePaymentReferences(KKBPaymentResponseDocument response, boolean formatVerified) {
-	try {
-	    return parsePaymentReferences(response);
-	} catch (KKBFormatException e) {
-	    throw new IllegalStateException("Invalid format", e);
-	}
     }
 
     @Override
@@ -179,15 +143,6 @@ public class DefaultKKBResponseService extends KKBGenericService
     public Instant parsePaymentTimestamp(KKBPaymentResponseDocument response)
 	    throws KKBServiceError, KKBFormatException {
 	return parsePaymentTimestamp(response.getContent());
-    }
-
-    @Override
-    public Instant parsePaymentTimestamp(KKBPaymentResponseDocument response, boolean formatVerified) {
-	try {
-	    return parsePaymentTimestamp(response);
-	} catch (KKBFormatException e) {
-	    throw new IllegalStateException("Invalid format", e);
-	}
     }
 
     @Override

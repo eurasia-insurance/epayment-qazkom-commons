@@ -68,7 +68,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     public void testValidateOrderResponse_OK() throws KKBValidationErrorException, KKBFormatException {
 	KKBPaymentRequestDocument request = new KKBPaymentRequestDocument(VALIDATE_ORDER_RESPONSE_OK_REQUEST);
 	KKBPaymentResponseDocument response = genRespDoc(VALIDATE_ORDER_RESPONSE_OK_RESPONSE);
-	responseParserService.validateResponse(request, response);
+	responseParserService.validateResponseWithRequest(request, response);
     }
 
     protected KKBPaymentResponseDocument genRespDoc(String content) {
@@ -205,7 +205,7 @@ public class KKBResponseParser_ValidatorTestCase extends ArquillianBaseTestCase 
     private void expectValidationException(ResponseParserErrorCode code, KKBPaymentRequestDocument request,
 	    KKBPaymentResponseDocument response) throws KKBFormatException {
 	try {
-	    responseParserService.validateResponse(request, response);
+	    responseParserService.validateResponseWithRequest(request, response);
 	    fail(String.format("%1$s with %2$s code must be thrown",
 		    KKBValidationErrorException.class.getSimpleName(), code.name()));
 	} catch (KKBValidationErrorException e) {
