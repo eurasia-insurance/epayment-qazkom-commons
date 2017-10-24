@@ -20,7 +20,7 @@ import tech.lapsa.java.commons.logging.MyLogger;
 public class DefaultKKBEpayConfigurationService extends KKBGenericService implements KKBEpayConfigurationService {
 
     private static final MyLogger logger = MyLogger.newBuilder() //
-	    .withPackageNameOf(KKBEpayConfigurationService.class) //
+	    .withNameOf(KKBEpayConfigurationService.class) //
 	    .build();
 
     private URI bankEpayURI;

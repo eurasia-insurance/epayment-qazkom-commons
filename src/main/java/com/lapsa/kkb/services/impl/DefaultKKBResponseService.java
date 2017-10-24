@@ -40,7 +40,7 @@ public class DefaultKKBResponseService extends KKBGenericService
 	implements KKBResponseService {
 
     private static final MyLogger logger = MyLogger.newBuilder() //
-	    .withPackageNameOf(KKBResponseService.class) //
+	    .withNameOf(KKBResponseService.class) //
 	    .build();
 
     private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";

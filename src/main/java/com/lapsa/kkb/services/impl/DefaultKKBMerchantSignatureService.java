@@ -26,7 +26,7 @@ public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSigne
 	implements KKBMerchantSignatureService {
 
     private static final MyLogger logger = MyLogger.newBuilder() //
-	    .withPackageNameOf(KKBMerchantSignatureService.class) //
+	    .withNameOf(KKBMerchantSignatureService.class) //
 	    .build();
 
     private String signatureAlgorithm;

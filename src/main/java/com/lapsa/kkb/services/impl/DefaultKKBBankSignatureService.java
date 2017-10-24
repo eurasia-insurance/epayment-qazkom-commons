@@ -24,7 +24,7 @@ public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierS
 	implements KKBBankSignatureService {
 
     private static final MyLogger logger = MyLogger.newBuilder() //
-	    .withPackageNameOf(KKBBankSignatureService.class) //
+	    .withNameOf(KKBBankSignatureService.class) //
 	    .build();
 
     private String signatureAlgorithm;
