@@ -8,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -17,10 +16,17 @@ import javax.ejb.Startup;
 
 import com.lapsa.kkb.services.KKBBankSignatureService;
 
+import tech.lapsa.java.commons.logging.MyLogger;
+
 @Singleton
 @Startup
 public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierService
 	implements KKBBankSignatureService {
+
+    private static final MyLogger logger = MyLogger.newBuilder() //
+	    .withPackageNameOf(KKBBankSignatureService.class) //
+	    .build();
+
     private String signatureAlgorithm;
 
     private X509Certificate certificate;
@@ -43,7 +49,7 @@ public class DefaultKKBBankSignatureService extends KKBGenericSignatureVerifierS
 	} catch (NoSuchAlgorithmException | CertificateException | KeyStoreException
 		| IOException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
-	    logger.log(Level.SEVERE, message, e);
+	    logger.SEVERE.log(e, message);
 	    throw new RuntimeException(message, e);
 	}
     }

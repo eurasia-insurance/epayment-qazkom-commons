@@ -5,7 +5,6 @@ import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 import java.io.IOException;
 import java.io.StringReader;
 import java.time.Instant;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -34,9 +33,15 @@ import com.lapsa.kkb.services.impl.validators.KKBXmlMerchantEqualsValidator;
 import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
 import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
 
+import tech.lapsa.java.commons.logging.MyLogger;
+
 @Singleton
 public class DefaultKKBResponseService extends KKBGenericService
 	implements KKBResponseService {
+
+    private static final MyLogger logger = MyLogger.newBuilder() //
+	    .withPackageNameOf(KKBResponseService.class) //
+	    .build();
 
     private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";
     private static final int BANK_REGEX_FLAGS = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.MULTILINE
@@ -65,7 +70,7 @@ public class DefaultKKBResponseService extends KKBGenericService
 	    requestUnmarshaller.setSchema(loadSchemaFromResource(SCHEMA_REQUEST));
 	} catch (SAXException | IOException | JAXBException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
-	    logger.log(Level.SEVERE, message, e);
+	    logger.SEVERE.log(e, message);
 	    throw new RuntimeException(message, e);
 	}
     }

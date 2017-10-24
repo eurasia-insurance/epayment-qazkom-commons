@@ -10,7 +10,6 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -19,10 +18,16 @@ import javax.ejb.Startup;
 
 import com.lapsa.kkb.services.KKBMerchantSignatureService;
 
+import tech.lapsa.java.commons.logging.MyLogger;
+
 @Singleton
 @Startup
 public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSignerAndVerifierService
 	implements KKBMerchantSignatureService {
+
+    private static final MyLogger logger = MyLogger.newBuilder() //
+	    .withPackageNameOf(KKBMerchantSignatureService.class) //
+	    .build();
 
     private String signatureAlgorithm;
 
@@ -56,7 +61,7 @@ public class DefaultKKBMerchantSignatureService extends KKBGenericSignatureSigne
 	} catch (NoSuchAlgorithmException | CertificateException | KeyStoreException | IOException
 		| UnrecoverableKeyException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
-	    logger.log(Level.SEVERE, message, e);
+	    logger.SEVERE.log(e, message);
 	    throw new RuntimeException(message, e);
 	}
     }

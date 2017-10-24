@@ -5,7 +5,6 @@ import static com.lapsa.kkb.services.impl.QazkomConstants.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -15,8 +14,14 @@ import javax.ejb.Singleton;
 import com.lapsa.kkb.services.KKBEpayConfigurationService;
 import com.lapsa.kkb.services.KKBMerchantSignatureService;
 
+import tech.lapsa.java.commons.logging.MyLogger;
+
 @Singleton
 public class DefaultKKBEpayConfigurationService extends KKBGenericService implements KKBEpayConfigurationService {
+
+    private static final MyLogger logger = MyLogger.newBuilder() //
+	    .withPackageNameOf(KKBEpayConfigurationService.class) //
+	    .build();
 
     private URI bankEpayURI;
 
@@ -36,7 +41,7 @@ public class DefaultKKBEpayConfigurationService extends KKBGenericService implem
 	    templateName = qazkomConfig.getProperty(PROPERTY_BANK_EPAY_TEMPLATE, DEFAULT_EPAY_TEMPLATE_NAME);
 	} catch (URISyntaxException e) {
 	    String message = String.format("Failed to initialize EJB %1$s", this.getClass().getSimpleName());
-	    logger.log(Level.SEVERE, message, e);
+	    logger.SEVERE.log(e, message);
 	    throw new RuntimeException(message, e);
 	}
     }

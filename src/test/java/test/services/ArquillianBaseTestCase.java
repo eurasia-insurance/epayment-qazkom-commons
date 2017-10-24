@@ -1,22 +1,23 @@
 package test.services;
 
-import java.util.logging.Logger;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.Archive;
 import org.junit.runner.RunWith;
 
 import com.lapsa.kkb.services.impl.DefaultKKBMerchantSignatureService;
 
+import tech.lapsa.lapsa.arquillian.archive.ArchiveBuilderFactory;
+
 @RunWith(Arquillian.class)
 public abstract class ArquillianBaseTestCase {
+
     @Deployment
-    public static JavaArchive createDeployment() {
-	JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
-	jar.addPackages(true, DefaultKKBMerchantSignatureService.class.getPackage());
-	Logger.getAnonymousLogger().fine(jar.toString(true));
-	return jar;
+    public static Archive<?> createDeployment() {
+	return ArchiveBuilderFactory.newEjbBuilder() //
+		.withPackageOf(DefaultKKBMerchantSignatureService.class) //
+		.build() //
+		.dumpingTo(System.out::println)
+		.asJavaArchive();
     }
 }

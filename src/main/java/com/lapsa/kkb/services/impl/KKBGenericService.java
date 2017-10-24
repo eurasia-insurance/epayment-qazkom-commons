@@ -2,7 +2,6 @@ package com.lapsa.kkb.services.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -13,7 +12,6 @@ import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 
 public abstract class KKBGenericService {
-    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
     protected Schema loadSchemaFromResource(String resourceName) throws SAXException, IOException {
 	try (InputStream is = KKBGenericService.class
