@@ -1,24 +1,24 @@
-       3 tech.lapsa.qazkom.xml.AXmlAmount
-       5 tech.lapsa.qazkom.xml.AXmlAmountAndCurrency
-       7 tech.lapsa.qazkom.xml.AXmlSign
-      11 tech.lapsa.qazkom.xml.XmlBank
-      13 tech.lapsa.qazkom.xml.XmlBankSign
-      17 tech.lapsa.qazkom.xml.XmlCustomer
-      19 tech.lapsa.qazkom.xml.XmlCustomerSign
-      23 tech.lapsa.qazkom.xml.XmlDepartment
-      29 tech.lapsa.qazkom.xml.XmlDocumentCart
-      31 tech.lapsa.qazkom.xml.XmlDocumentRequest
-      37 tech.lapsa.qazkom.xml.XmlDocumentResponse
-      41 tech.lapsa.qazkom.xml.XmlError
-      43 tech.lapsa.qazkom.xml.XmlItem
-      47 tech.lapsa.qazkom.xml.XmlMerchant
-      53 tech.lapsa.qazkom.xml.XmlMerchantSign
-      59 tech.lapsa.qazkom.xml.XmlOrder
-      61 tech.lapsa.qazkom.xml.XmlPayment
-      67 tech.lapsa.qazkom.xml.XmlResponse
-      71 tech.lapsa.qazkom.xml.XmlResults
-      73 tech.lapsa.qazkom.xml.XmlSession
-      79 tech.lapsa.qazkom.xml.AXmlBase
+       3 tech.lapsa.qazkom.xml.mapping.AXmlAmount
+       5 tech.lapsa.qazkom.xml.mapping.AXmlAmountAndCurrency
+       7 tech.lapsa.qazkom.xml.mapping.AXmlSign
+      11 tech.lapsa.qazkom.xml.mapping.XmlBank
+      13 tech.lapsa.qazkom.xml.mapping.XmlBankSign
+      17 tech.lapsa.qazkom.xml.mapping.XmlCustomer
+      19 tech.lapsa.qazkom.xml.mapping.XmlCustomerSign
+      23 tech.lapsa.qazkom.xml.mapping.XmlDepartment
+      29 tech.lapsa.qazkom.xml.mapping.XmlDocumentCart
+      31 tech.lapsa.qazkom.xml.mapping.XmlDocumentRequest
+      37 tech.lapsa.qazkom.xml.mapping.XmlDocumentResponse
+      41 tech.lapsa.qazkom.xml.mapping.XmlError
+      43 tech.lapsa.qazkom.xml.mapping.XmlItem
+      47 tech.lapsa.qazkom.xml.mapping.XmlMerchant
+      53 tech.lapsa.qazkom.xml.mapping.XmlMerchantSign
+      59 tech.lapsa.qazkom.xml.mapping.XmlOrder
+      61 tech.lapsa.qazkom.xml.mapping.XmlPayment
+      67 tech.lapsa.qazkom.xml.mapping.XmlResponse
+      71 tech.lapsa.qazkom.xml.mapping.XmlResults
+      73 tech.lapsa.qazkom.xml.mapping.XmlSession
+      79 tech.lapsa.qazkom.xml.mapping.AXmlBase
       83 
       89 
       97 

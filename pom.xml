@@ -15,6 +15,8 @@
 	<name>Qazkom Lib : JAXB mapping</name>
 
 	<properties>
+		<!-- BOMS -->
+		<java-commons.version>1.0-SNAPSHOT</java-commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.2-SNAPSHOT</international-lib.version>
 		<fin-lib.version>2.1-SNAPSHOT</fin-lib.version>
@@ -23,6 +25,14 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- BOMS -->
+			<dependency>
+				<groupId>tech.lapsa.java</groupId>
+				<artifactId>java-commons-root</artifactId>
+				<version>${java-commons.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.international-lib</groupId>
@@ -42,6 +52,13 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.java</groupId>
+			<artifactId>java-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 		<!-- odlies -->
 		<dependency>
 			<groupId>com.lapsa.international-lib</groupId>
