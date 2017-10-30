@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,42 +10,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-public class KKBXmlDocumentResponse extends KKBXmlBase {
-    private static final long serialVersionUID = -4584256521781984693L;
-    private static final int PRIME = 23;
-    private static final int MULTIPLIER = 23;
+public class XmlDocumentResponse extends AXmlBase {
 
-    @XmlElementRef
-    private KKBXmlBank bank;
+    private static final long serialVersionUID = 1L;
 
-    @XmlElementRef
-    private KKBXmlBankSign bankSign;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
+    public XmlDocumentResponse() {
+	super(37);
     }
 
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    @XmlElementRef
+    private XmlBank bank;
+
+    @XmlElementRef
+    private XmlBankSign bankSign;
 
     // GENERATED
 
-    public KKBXmlBank getBank() {
+    public XmlBank getBank() {
 	return bank;
     }
 
-    public void setBank(KKBXmlBank bank) {
+    public void setBank(XmlBank bank) {
 	this.bank = bank;
     }
 
-    public KKBXmlBankSign getBankSign() {
+    public XmlBankSign getBankSign() {
 	return bankSign;
     }
 
-    public void setBankSign(KKBXmlBankSign bankSign) {
+    public void setBankSign(XmlBankSign bankSign) {
 	this.bankSign = bankSign;
     }
 }

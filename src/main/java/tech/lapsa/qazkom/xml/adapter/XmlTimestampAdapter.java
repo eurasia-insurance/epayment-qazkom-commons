@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml.adapter;
+package tech.lapsa.qazkom.xml.adapter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class KKBTimestampXmlAdapter extends XmlAdapter<String, Instant> {
+public class XmlTimestampAdapter extends XmlAdapter<String, Instant> {
 
     private static final String KKB_TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final DateTimeFormatter KKB_TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern(KKB_TIMESTAMP_PATTERN);

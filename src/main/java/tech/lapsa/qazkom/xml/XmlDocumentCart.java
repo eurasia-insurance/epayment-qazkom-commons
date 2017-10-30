@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.util.List;
 
@@ -12,31 +12,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-public class KKBXmlDocumentCart extends KKBXmlBase {
-    private static final long serialVersionUID = 3608474540394112006L;
-    private static final int PRIME = 17;
-    private static final int MULTIPLIER = 17;
+public class XmlDocumentCart extends AXmlBase {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlDocumentCart() {
+	super(29);
+    }
 
     @XmlElementRef
-    private List<KKBXmlItem> items;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    private List<XmlItem> items;
 
     // GENERATED
 
-    public List<KKBXmlItem> getItems() {
+    public List<XmlItem> getItems() {
 	return items;
     }
 
-    public void setItems(List<KKBXmlItem> items) {
+    public void setItems(List<XmlItem> items) {
 	this.items = items;
     }
 }

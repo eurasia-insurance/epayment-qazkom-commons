@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.util.Currency;
 
@@ -14,8 +14,20 @@ import com.lapsa.fin.FinCurrency;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
-public abstract class KKBXmlGenericAmountAndCurrency extends KKBXmlGenericAmount {
-    private static final long serialVersionUID = 2825883640597086167L;
+public abstract class AXmlAmountAndCurrency extends AXmlAmount {
+    private static final long serialVersionUID = 1L;
+
+    public AXmlAmountAndCurrency(int prime, int multiplier) {
+	super(prime, multiplier);
+    }
+
+    public AXmlAmountAndCurrency(int prime) {
+	super(prime);
+    }
+
+    public AXmlAmountAndCurrency() {
+	this(5);
+    }
 
     // currency - код валюты оплаты [ 398 - тенге ]
     @XmlAttribute(name = "currency")

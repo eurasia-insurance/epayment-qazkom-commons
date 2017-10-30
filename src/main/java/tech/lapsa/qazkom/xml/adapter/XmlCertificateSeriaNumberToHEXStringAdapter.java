@@ -1,10 +1,10 @@
-package com.lapsa.kkb.xml.adapter;
+package tech.lapsa.qazkom.xml.adapter;
 
 import java.math.BigInteger;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class KKBCertificateSeriaNumberToHEXStringXmlAdapter extends XmlAdapter<String, BigInteger> {
+public class XmlCertificateSeriaNumberToHEXStringAdapter extends XmlAdapter<String, BigInteger> {
 
     private static final int RADIX = 16;
 

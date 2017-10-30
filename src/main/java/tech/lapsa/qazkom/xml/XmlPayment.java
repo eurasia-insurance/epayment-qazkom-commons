@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,10 +14,13 @@ import com.lapsa.international.country.jaxb.JAXBCountryAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "payment")
-public class KKBXmlPayment extends KKBXmlGenericAmount {
-    private static final long serialVersionUID = 7475444480605786934L;
-    private static final int PRIME = 47;
-    private static final int MULTIPLIER = 47;
+public class XmlPayment extends AXmlAmount {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlPayment() {
+	super(61);
+    }
 
     // Результат транзакции
     // merchant_id - ID продавца в платежной системе
@@ -40,7 +43,7 @@ public class KKBXmlPayment extends KKBXmlGenericAmount {
 
     // Secure- Yes/No признак, что транзакция была 3DSecure или нет
     @XmlAttribute(name = "Secure")
-    private KKBXmlSecureType secureType;
+    private XmlSecureType secureType;
 
     // card_bin- Страна эмитент карты
     @XmlAttribute(name = "card_bin")
@@ -54,16 +57,6 @@ public class KKBXmlPayment extends KKBXmlGenericAmount {
     // c_hash- Хэш карты
     @XmlAttribute(name = "c_hash")
     private String cardHash;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
 
     // GENERATED
 
@@ -99,11 +92,11 @@ public class KKBXmlPayment extends KKBXmlGenericAmount {
 	this.responseCode = responseCode;
     }
 
-    public KKBXmlSecureType getSecureType() {
+    public XmlSecureType getSecureType() {
 	return secureType;
     }
 
-    public void setSecureType(KKBXmlSecureType secureType) {
+    public void setSecureType(XmlSecureType secureType) {
 	this.secureType = secureType;
     }
 

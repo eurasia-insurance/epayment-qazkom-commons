@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.time.Instant;
 
@@ -11,15 +11,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
+import tech.lapsa.qazkom.xml.adapter.XmlTimestampAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "error")
-public class KKBXmlError extends KKBXmlBase {
-    private static final long serialVersionUID = -5333156242528681085L;
-    private static final int PRIME = 29;
-    private static final int MULTIPLIER = 29;
+public class XmlError extends AXmlBase {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlError() {
+	super(41);
+    }
 
     // type - тип ошибки:
     // system - ошибка при работе в системе авторизации, например неправильно
@@ -27,11 +30,11 @@ public class KKBXmlError extends KKBXmlBase {
     // auth - ошибка авторизации, в данном случае указывается код ошибки в
     // атрибуте code
     @XmlAttribute(name = "type")
-    private KKBXmlErrorType type;
+    private XmlErrorType type;
 
     // time - время отправки ответа
     @XmlAttribute(name = "time")
-    @XmlJavaTypeAdapter(KKBTimestampXmlAdapter.class)
+    @XmlJavaTypeAdapter(XmlTimestampAdapter.class)
     private Instant time;
 
     // code - код ошибки для типа ошибки auth, в случае ошибки типа system
@@ -43,23 +46,13 @@ public class KKBXmlError extends KKBXmlBase {
     @XmlValue
     private String message;
 
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
-
     // GENERATED
 
-    public KKBXmlErrorType getType() {
+    public XmlErrorType getType() {
 	return type;
     }
 
-    public void setType(KKBXmlErrorType type) {
+    public void setType(XmlErrorType type) {
 	this.type = type;
     }
 

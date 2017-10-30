@@ -1,10 +1,10 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum
-public enum KKBXmlErrorType {
+public enum XmlErrorType {
     // system - ошибка при работе в системе авторизации, например неправильно
     // введеный параметр
     @XmlEnumValue(value = "system") SYSTEM,

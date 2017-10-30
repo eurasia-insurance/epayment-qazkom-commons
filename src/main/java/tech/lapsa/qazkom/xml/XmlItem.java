@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,10 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "item")
-public class KKBXmlItem extends KKBXmlGenericAmount {
-    private static final long serialVersionUID = -5095655869788179295L;
-    private static final int PRIME = 31;
-    private static final int MULTIPLIER = 31;
+public class XmlItem extends AXmlAmount {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlItem() {
+	super(43);
+    }
 
     // item number= необходимо перечислить все пункты корзины
     @XmlAttribute(name = "number")
@@ -26,16 +29,6 @@ public class KKBXmlItem extends KKBXmlGenericAmount {
     // quantity - количество
     @XmlAttribute(name = "quantity")
     private int quantity;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
 
     // GENERATED
 

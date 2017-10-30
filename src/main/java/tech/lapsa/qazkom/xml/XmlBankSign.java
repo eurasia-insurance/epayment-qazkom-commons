@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.math.BigInteger;
 
@@ -10,30 +10,23 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.lapsa.kkb.xml.adapter.KKBCertificateSeriaNumberToHEXStringXmlAdapter;
+import tech.lapsa.qazkom.xml.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "bank_sign")
-public class KKBXmlBankSign extends KKBXmlGenericSign {
-    private static final long serialVersionUID = -4925501165429637554L;
-    private static final int PRIME = 5;
-    private static final int MULTIPLIER = 5;
+public class XmlBankSign extends AXmlSign {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlBankSign() {
+	super(13);
+    }
 
     // cert_id - серийный номер сертификата
     @XmlAttribute(name = "cert_id")
-    @XmlJavaTypeAdapter(KKBCertificateSeriaNumberToHEXStringXmlAdapter.class)
+    @XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
     private BigInteger certificateSerialNumber;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
 
     // GENERATED
 

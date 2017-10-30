@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,10 +11,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "customer")
-public class KKBXmlCustomer extends KKBXmlBase {
-    private static final long serialVersionUID = -2444954410632492009L;
-    private static final int PRIME = 7;
-    private static final int MULTIPLIER = 7;
+public class XmlCustomer extends AXmlBase {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlCustomer() {
+	super(17);
+    }
 
     // Имя покупателя указанное в системе авторизации
     @XmlAttribute(name = "name")
@@ -30,21 +33,11 @@ public class KKBXmlCustomer extends KKBXmlBase {
 
     // исходный запрос
     @XmlElementRef
-    private KKBXmlMerchant sourceMerchant;
+    private XmlMerchant sourceMerchant;
 
     // подпись исходного запроса
     @XmlElementRef
-    private KKBXmlMerchantSign sourceMerchantSign;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    private XmlMerchantSign sourceMerchantSign;
 
     // GENERATED
 
@@ -72,19 +65,19 @@ public class KKBXmlCustomer extends KKBXmlBase {
 	this.phone = phone;
     }
 
-    public KKBXmlMerchant getSourceMerchant() {
+    public XmlMerchant getSourceMerchant() {
 	return sourceMerchant;
     }
 
-    public void setSourceMerchant(KKBXmlMerchant sourceMerchant) {
+    public void setSourceMerchant(XmlMerchant sourceMerchant) {
 	this.sourceMerchant = sourceMerchant;
     }
 
-    public KKBXmlMerchantSign getSourceMerchantSign() {
+    public XmlMerchantSign getSourceMerchantSign() {
 	return sourceMerchantSign;
     }
 
-    public void setSourceMerchantSign(KKBXmlMerchantSign sourceMerchantSign) {
+    public void setSourceMerchantSign(XmlMerchantSign sourceMerchantSign) {
 	this.sourceMerchantSign = sourceMerchantSign;
     }
 

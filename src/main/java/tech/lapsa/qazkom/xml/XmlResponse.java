@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,30 +11,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "response")
-public class KKBXmlResponse extends KKBXmlBase {
-    private static final long serialVersionUID = -4672326400778882641L;
-    private static final int PRIME = 53;
-    private static final int MULTIPLIER = 53;
+public class XmlResponse extends AXmlBase {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlResponse() {
+	super(67);
+    }
 
     // order_id - номер заказа
     @XmlAttribute(name = "order_id")
     private String orderId;
 
     @XmlElementRef
-    private KKBXmlError error;
+    private XmlError error;
 
     @XmlElementRef
-    private KKBXmlSession session;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    private XmlSession session;
 
     // GENERATED
 
@@ -46,19 +39,19 @@ public class KKBXmlResponse extends KKBXmlBase {
 	this.orderId = orderId;
     }
 
-    public KKBXmlError getError() {
+    public XmlError getError() {
 	return error;
     }
 
-    public void setError(KKBXmlError error) {
+    public void setError(XmlError error) {
 	this.error = error;
     }
 
-    public KKBXmlSession getSession() {
+    public XmlSession getSession() {
 	return session;
     }
 
-    public void setSession(KKBXmlSession session) {
+    public void setSession(XmlSession session) {
 	this.session = session;
     }
 

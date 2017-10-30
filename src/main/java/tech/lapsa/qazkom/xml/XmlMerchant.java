@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.math.BigInteger;
 
@@ -11,19 +11,22 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.lapsa.kkb.xml.adapter.KKBCertificateSeriaNumberToHEXStringXmlAdapter;
+import tech.lapsa.qazkom.xml.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "merchant")
-public class KKBXmlMerchant extends KKBXmlBase {
-    private static final long serialVersionUID = -671497891323516467L;
-    private static final int PRIME = 37;
-    private static final int MULTIPLIER = 37;
+public class XmlMerchant extends AXmlBase {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlMerchant() {
+	super(47);
+    }
 
     // cert_id - Серийный номер сертификата
     @XmlAttribute(name = "cert_id")
-    @XmlJavaTypeAdapter(KKBCertificateSeriaNumberToHEXStringXmlAdapter.class)
+    @XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
     private BigInteger certificateSerialNumber;
 
     // name - имя магазина(сайта)
@@ -31,17 +34,7 @@ public class KKBXmlMerchant extends KKBXmlBase {
     private String name;
 
     @XmlElementRef
-    private KKBXmlOrder order;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    private XmlOrder order;
 
     // GENERATED
 
@@ -61,11 +54,11 @@ public class KKBXmlMerchant extends KKBXmlBase {
 	this.name = name;
     }
 
-    public KKBXmlOrder getOrder() {
+    public XmlOrder getOrder() {
 	return order;
     }
 
-    public void setOrder(KKBXmlOrder order) {
+    public void setOrder(XmlOrder order) {
 	this.order = order;
     }
 

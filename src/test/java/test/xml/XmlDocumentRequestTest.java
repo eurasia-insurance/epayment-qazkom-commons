@@ -18,36 +18,37 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.xml.KKBXmlDepartment;
-import com.lapsa.kkb.xml.KKBXmlDocumentRequest;
-import com.lapsa.kkb.xml.KKBXmlMerchant;
-import com.lapsa.kkb.xml.KKBXmlMerchantSign;
-import com.lapsa.kkb.xml.KKBXmlOrder;
-import com.lapsa.kkb.xml.KKBXmlSignType;
 
-public class KKBDocumentReuestTest {
+import tech.lapsa.qazkom.xml.XmlDepartment;
+import tech.lapsa.qazkom.xml.XmlDocumentRequest;
+import tech.lapsa.qazkom.xml.XmlMerchant;
+import tech.lapsa.qazkom.xml.XmlMerchantSign;
+import tech.lapsa.qazkom.xml.XmlOrder;
+import tech.lapsa.qazkom.xml.XmlSignType;
+
+public class XmlDocumentRequestTest {
 
     private static final String EXAMPLE_DOCUMENT_AUTH_XML = "/document-request-variant-1.xml";
 
     private static final String TEST_DOCUMENT_AS_PLAINTEXT = "<document><merchant cert_id=\"c183d70b\" name=\"Shop Name\"><order order_id=\"000282\" currency=\"398\" amount=\"3100\"><department RL=\"ASDFG\" merchant_id=\"92061101\" phone=\"22233355\" amount=\"1300\"/></order></merchant><merchant_sign type=\"RSA\">p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498pU9HGuGAoDVjB+NtrHk=</merchant_sign></document>";
 
-    private static final KKBXmlDocumentRequest TEST_DOCUMENT_AS_OBJECT;
+    private static final XmlDocumentRequest TEST_DOCUMENT_AS_OBJECT;
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new KKBXmlDocumentRequest();
+	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentRequest();
 
-	KKBXmlMerchant merchant = new KKBXmlMerchant();
+	XmlMerchant merchant = new XmlMerchant();
 	TEST_DOCUMENT_AS_OBJECT.setMerchant(merchant);
 	merchant.setCertificateSerialNumber(new BigInteger("00c183d70b", 16));
 	merchant.setName("Shop Name");
 
-	KKBXmlOrder order = new KKBXmlOrder();
+	XmlOrder order = new XmlOrder();
 	merchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setAmount(3100);
 	order.setFinCurrency(FinCurrency.KZT);
 
-	KKBXmlDepartment department = new KKBXmlDepartment();
+	XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("92061101");
@@ -55,9 +56,9 @@ public class KKBDocumentReuestTest {
 	department.setPhone("22233355");
 	department.setAirticketBookingNumber("ASDFG");
 
-	KKBXmlMerchantSign sign = new KKBXmlMerchantSign();
+	XmlMerchantSign sign = new XmlMerchantSign();
 	TEST_DOCUMENT_AS_OBJECT.setMerchantSign(sign);
-	sign.setSignType(KKBXmlSignType.RSA);
+	sign.setSignType(XmlSignType.RSA);
 	sign.setSignature(new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11,
 		-82, 60, -57, -113, 104, 101, -19, -120, -15, -124, 58, -78, 68, -31, -70, 31, -42, 1, 85, 31, 95, 102,
 		-124, 60, -121, -115, -11, -102, -24, -25, -119, -13, 71, -30, 119, 43, -43, 127, 85, -8, 123, 12, -113,
@@ -72,7 +73,7 @@ public class KKBDocumentReuestTest {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlDocumentRequest.class);
+	jaxbContext = JAXBContext.newInstance(XmlMerchant.class, XmlDocumentRequest.class);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class KKBDocumentReuestTest {
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	KKBXmlDocumentRequest loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
+	XmlDocumentRequest loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
 	dumpDocument(loaded, true);
     }
 
@@ -101,7 +102,7 @@ public class KKBDocumentReuestTest {
 	System.out.println(merchantString);
     }
 
-    private String getMerchantString(KKBXmlDocumentRequest document) throws JAXBException {
+    private String getMerchantString(XmlDocumentRequest document) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -110,11 +111,11 @@ public class KKBDocumentReuestTest {
 	return sw.toString();
     }
 
-    private void dumpDocument(KKBXmlDocumentRequest document, boolean formatted) throws JAXBException {
+    private void dumpDocument(XmlDocumentRequest document, boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(KKBXmlDocumentRequest document, boolean formatted) throws JAXBException {
+    private String getDocumentString(XmlDocumentRequest document, boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -123,18 +124,18 @@ public class KKBDocumentReuestTest {
 	return sw.toString();
     }
 
-    private KKBXmlDocumentRequest loadDocument(String resourceName) throws JAXBException {
-	File resourceFile = new File(KKBXmlDocumentRequest.class.getResource(resourceName).getFile());
+    private XmlDocumentRequest loadDocument(String resourceName) throws JAXBException {
+	File resourceFile = new File(XmlDocumentRequest.class.getResource(resourceName).getFile());
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	KKBXmlDocumentRequest document = (KKBXmlDocumentRequest) jaxbUnmarshaller.unmarshal(resourceFile);
+	XmlDocumentRequest document = (XmlDocumentRequest) jaxbUnmarshaller.unmarshal(resourceFile);
 	return document;
     }
 
     @SuppressWarnings("unused")
-    private KKBXmlDocumentRequest loadDocumentFromString(String documentString) throws JAXBException {
+    private XmlDocumentRequest loadDocumentFromString(String documentString) throws JAXBException {
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	StringReader sr = new StringReader(TEST_DOCUMENT_AS_PLAINTEXT);
-	KKBXmlDocumentRequest document = (KKBXmlDocumentRequest) jaxbUnmarshaller.unmarshal(sr);
+	XmlDocumentRequest document = (XmlDocumentRequest) jaxbUnmarshaller.unmarshal(sr);
 	return document;
     }
 

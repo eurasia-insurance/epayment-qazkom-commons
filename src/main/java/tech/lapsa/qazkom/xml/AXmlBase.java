@@ -1,28 +1,49 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlAccessOrder;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorOrder;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class KKBXmlBase implements Serializable {
-    private static final long serialVersionUID = -1060980014181989772L;
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
+@XmlRootElement
+public abstract class AXmlBase implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    protected abstract int getPrime();
+    @XmlTransient
+    private final int PRIME;
+    
+    @XmlTransient
+    private final int MULTIPLIER;
 
-    protected abstract int getMultiplier();
+    public AXmlBase(int prime, int multiplier) {
+	this.PRIME = prime;
+	this.MULTIPLIER = multiplier;
+    }
+
+    public AXmlBase(int prime) {
+	this(prime, prime);
+    }
+    
+    public AXmlBase() {
+	this(79);
+    }
 
     @Override
     public int hashCode() {
-	return HashCodeBuilder.reflectionHashCode(getPrime(), getMultiplier(), this, false);
+	return HashCodeBuilder.reflectionHashCode(PRIME, MULTIPLIER, this, false);
     }
 
     @Override
     public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
 	return EqualsBuilder.reflectionEquals(this, other, false);
     }
 }

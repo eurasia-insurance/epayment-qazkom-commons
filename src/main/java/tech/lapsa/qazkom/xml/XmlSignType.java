@@ -1,10 +1,10 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum
-public enum KKBXmlSignType {
+public enum XmlSignType {
     // Если Тип подписи RSA то это цифровая подпись
     @XmlEnumValue(value = "RSA") RSA,
 

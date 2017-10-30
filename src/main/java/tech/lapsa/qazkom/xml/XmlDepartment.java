@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,10 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "department")
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class KKBXmlDepartment extends KKBXmlGenericAmount {
-    private static final long serialVersionUID = -1021696352173990619L;
-    private static final int PRIME =  13;
-    private static final int MULTIPLIER = 13;
+public class XmlDepartment extends AXmlAmount {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlDepartment() {
+	super(23);
+    }
 
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")
@@ -35,16 +38,6 @@ public class KKBXmlDepartment extends KKBXmlGenericAmount {
     // не указывать. Транслуруется по всем отчетам и выпискам
     @XmlAttribute(name = "RL")
     private String airticketBookingNumber;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
 
     // GENERATED
 

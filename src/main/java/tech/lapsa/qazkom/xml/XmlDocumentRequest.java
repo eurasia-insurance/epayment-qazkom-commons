@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,42 +10,35 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-public class KKBXmlDocumentRequest extends KKBXmlBase {
-    private static final long serialVersionUID = -731496654503607621L;
-    private static final int PRIME = 19;
-    private static final int MULTIPLIER = 19;
+public class XmlDocumentRequest extends AXmlBase {
 
-    @XmlElementRef
-    private KKBXmlMerchant merchant;
+    private static final long serialVersionUID = 1L;
 
-    @XmlElementRef
-    private KKBXmlMerchantSign merchantSign;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
+    public XmlDocumentRequest() {
+	super(31);
     }
 
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    @XmlElementRef
+    private XmlMerchant merchant;
+
+    @XmlElementRef
+    private XmlMerchantSign merchantSign;
 
     // GENERATED
 
-    public KKBXmlMerchant getMerchant() {
+    public XmlMerchant getMerchant() {
 	return merchant;
     }
 
-    public void setMerchant(KKBXmlMerchant merchant) {
+    public void setMerchant(XmlMerchant merchant) {
 	this.merchant = merchant;
     }
 
-    public KKBXmlMerchantSign getMerchantSign() {
+    public XmlMerchantSign getMerchantSign() {
 	return merchantSign;
     }
 
-    public void setMerchantSign(KKBXmlMerchantSign merchantSign) {
+    public void setMerchantSign(XmlMerchantSign merchantSign) {
 	this.merchantSign = merchantSign;
     }
 }

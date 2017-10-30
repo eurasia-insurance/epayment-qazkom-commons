@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml.adapter;
+package tech.lapsa.qazkom.xml.adapter;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;
@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class KKBAmountXmlAdapter extends XmlAdapter<String, Double> {
+public class XmlAmountAdapter extends XmlAdapter<String, Double> {
     private static final NumberFormat format;
 
     static {
@@ -32,7 +32,7 @@ public class KKBAmountXmlAdapter extends XmlAdapter<String, Double> {
     }
 
     public static void main(String[] args) throws Exception {
-	KKBAmountXmlAdapter z = new KKBAmountXmlAdapter();
+	XmlAmountAdapter z = new XmlAmountAdapter();
 	System.out.println(z.marshal(1234.00d));
 	System.out.println(z.marshal(1234.12d));
 

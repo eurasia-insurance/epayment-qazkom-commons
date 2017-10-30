@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.util.List;
 
@@ -13,10 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "order")
-public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency {
-    private static final long serialVersionUID = -2920050474132203303L;
-    private static final int PRIME = 43;
-    private static final int MULTIPLIER = 43;
+public class XmlOrder extends AXmlAmountAndCurrency {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlOrder() {
+	super(49);
+    }
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ
     // знаков, максимально -15)
@@ -24,17 +27,7 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency {
     private String orderId;
 
     @XmlElementRef
-    private List<KKBXmlDepartment> departments;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
+    private List<XmlDepartment> departments;
 
     // GENERATED
 
@@ -46,11 +39,11 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency {
 	this.orderId = orderId;
     }
 
-    public List<KKBXmlDepartment> getDepartments() {
+    public List<XmlDepartment> getDepartments() {
 	return departments;
     }
 
-    public void setDepartments(List<KKBXmlDepartment> departments) {
+    public void setDepartments(List<XmlDepartment> departments) {
 	this.departments = departments;
     }
 }

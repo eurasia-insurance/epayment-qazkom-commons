@@ -1,10 +1,10 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum
-public enum KKBXmlSecureType {
+public enum XmlSecureType {
     @XmlEnumValue("Yes") SECURED_3D,
     @XmlEnumValue("No") NON_SECURED;
 }

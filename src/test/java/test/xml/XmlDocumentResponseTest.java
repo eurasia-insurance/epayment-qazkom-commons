@@ -19,69 +19,70 @@ import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.country.Country;
-import com.lapsa.kkb.xml.KKBXmlBank;
-import com.lapsa.kkb.xml.KKBXmlBankSign;
-import com.lapsa.kkb.xml.KKBXmlCustomer;
-import com.lapsa.kkb.xml.KKBXmlCustomerSign;
-import com.lapsa.kkb.xml.KKBXmlDepartment;
-import com.lapsa.kkb.xml.KKBXmlDocumentResponse;
-import com.lapsa.kkb.xml.KKBXmlMerchant;
-import com.lapsa.kkb.xml.KKBXmlMerchantSign;
-import com.lapsa.kkb.xml.KKBXmlOrder;
-import com.lapsa.kkb.xml.KKBXmlPayment;
-import com.lapsa.kkb.xml.KKBXmlResults;
-import com.lapsa.kkb.xml.KKBXmlSecureType;
-import com.lapsa.kkb.xml.KKBXmlSignType;
 
-public class KKBDocumentResponseOKTest {
+import tech.lapsa.qazkom.xml.XmlBank;
+import tech.lapsa.qazkom.xml.XmlBankSign;
+import tech.lapsa.qazkom.xml.XmlCustomer;
+import tech.lapsa.qazkom.xml.XmlCustomerSign;
+import tech.lapsa.qazkom.xml.XmlDepartment;
+import tech.lapsa.qazkom.xml.XmlDocumentResponse;
+import tech.lapsa.qazkom.xml.XmlMerchant;
+import tech.lapsa.qazkom.xml.XmlMerchantSign;
+import tech.lapsa.qazkom.xml.XmlOrder;
+import tech.lapsa.qazkom.xml.XmlPayment;
+import tech.lapsa.qazkom.xml.XmlResults;
+import tech.lapsa.qazkom.xml.XmlSecureType;
+import tech.lapsa.qazkom.xml.XmlSignType;
+
+public class XmlDocumentResponseTest {
 
     private JAXBContext jaxbContext;
 
-    private static final KKBXmlDocumentResponse TEST_DOCUMENT_AS_OBJECT;
+    private static final XmlDocumentResponse TEST_DOCUMENT_AS_OBJECT;
 
     private static final String TEST_DOCUMENT_AS_PLAINTEXT = "<document><bank name=\"Kazkommertsbank JSC\"><customer mail=\"klient@mymail.com\" name=\"John Cardholder\" phone=\"223322\"><merchant cert_id=\"7269c18d00010000005e\" name=\"Shop Name\"><order order_id=\"000282\" currency=\"398\" amount=\"3100\"><department RL=\"ASDFG\" merchant_id=\"90028101\" amount=\"3100\"/></order></merchant><merchant_sign type=\"RSA\"/></customer><customer_sign type=\"SSL\">4817C411000100000084</customer_sign><results timestamp=\"2006-11-22 12:20:30\"><payment approval_code=\"730190\" card_bin=\"KAZ\" c_hash=\"6A2D7673A8EEF25A2C33D67CB5AAD091\" merchant_id=\"90050801\" reference=\"109600746891\" response_code=\"00\" Secure=\"No\" amount=\"320.5\"/></results></bank><bank_sign cert_id=\"c183d690\" type=\"SHA/RSA\">JI3RZMEvexNlDmKsOQhe0pzHuKijnbhvnLu99qh7h+Ju8HvSfGNbEJxXUL58M94tXvu7w0BXSY7MHePGqz32JuMLAncuzyMwq845linW/sH/WvbZ+6SSYfxDMnvgX0S/pKxbhSXs7lGVBngXOwq7Bhsk8GcDUkWAM5UAsKpEKoI=</bank_sign></document>";
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new KKBXmlDocumentResponse();
+	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentResponse();
 
-	KKBXmlBank bank = new KKBXmlBank();
+	XmlBank bank = new XmlBank();
 	TEST_DOCUMENT_AS_OBJECT.setBank(bank);
 	bank.setName("Kazkommertsbank JSC");
 
-	KKBXmlCustomer customer = new KKBXmlCustomer();
+	XmlCustomer customer = new XmlCustomer();
 	bank.setCustomer(customer);
 	customer.setEmailAddress("klient@mymail.com");
 	customer.setName("John Cardholder");
 	customer.setPhone("223322");
 
-	KKBXmlMerchant sourceMerchant = new KKBXmlMerchant();
+	XmlMerchant sourceMerchant = new XmlMerchant();
 	customer.setSourceMerchant(sourceMerchant);
 	sourceMerchant.setCertificateSerialNumber(new BigInteger("7269C18D00010000005E", 16));
 	sourceMerchant.setName("Shop Name");
 
-	KKBXmlOrder order = new KKBXmlOrder();
+	XmlOrder order = new XmlOrder();
 	sourceMerchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setFinCurrency(FinCurrency.KZT);
 	order.setAmount(3100);
 
-	KKBXmlDepartment department = new KKBXmlDepartment();
+	XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("90028101");
 	department.setAmount(3100);
 	department.setAirticketBookingNumber("ASDFG");
 
-	KKBXmlMerchantSign sourceMerchantSign = new KKBXmlMerchantSign();
+	XmlMerchantSign sourceMerchantSign = new XmlMerchantSign();
 	customer.setSourceMerchantSign(sourceMerchantSign);
-	sourceMerchantSign.setSignType(KKBXmlSignType.RSA);
+	sourceMerchantSign.setSignType(XmlSignType.RSA);
 
-	KKBXmlCustomerSign customerSign = new KKBXmlCustomerSign();
+	XmlCustomerSign customerSign = new XmlCustomerSign();
 	bank.setCustomerSign(customerSign);
-	customerSign.setSignType(KKBXmlSignType.CERTIFICATE);
+	customerSign.setSignType(XmlSignType.CERTIFICATE);
 	customerSign.setSignatureEncoded("4817C411000100000084");
 
-	KKBXmlResults results = new KKBXmlResults();
+	XmlResults results = new XmlResults();
 	bank.setResults(results);
 
 	// 2006-11-22 12:20:30
@@ -89,7 +90,7 @@ public class KKBDocumentResponseOKTest {
 	Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
 	results.setTimestamp(timestamp);
 
-	KKBXmlPayment payment = new KKBXmlPayment();
+	XmlPayment payment = new XmlPayment();
 	results.setPayments(new ArrayList<>());
 	results.getPayments().add(payment);
 	payment.setAmount(320.5);
@@ -99,12 +100,12 @@ public class KKBDocumentResponseOKTest {
 	payment.setMerchantId("90050801");
 	payment.setReference("109600746891");
 	payment.setResponseCode("00");
-	payment.setSecureType(KKBXmlSecureType.NON_SECURED);
+	payment.setSecureType(XmlSecureType.NON_SECURED);
 
-	KKBXmlBankSign bankSign = new KKBXmlBankSign();
+	XmlBankSign bankSign = new XmlBankSign();
 	TEST_DOCUMENT_AS_OBJECT.setBankSign(bankSign);
 	bankSign.setCertificateSerialNumber(new BigInteger("c183d690", 16));
-	bankSign.setSignType(KKBXmlSignType.SHA_RSA);
+	bankSign.setSignType(XmlSignType.SHA_RSA);
 	bankSign.setSignature(new byte[] { 36, -115, -47, 100, -63, 47, 123, 19, 101, 14, 98, -84, 57, 8, 94, -46, -100,
 		-57, -72, -88, -93, -99, -72, 111, -100, -69, -67, -10, -88, 123, -121, -30, 110, -16, 123, -46, 124,
 		99, 91, 16, -100, 87, 80, -66, 124, 51, -34, 45, 94, -5, -69, -61, 64, 87, 73, -114, -52, 29, -29, -58,
@@ -115,7 +116,7 @@ public class KKBDocumentResponseOKTest {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(KKBXmlBank.class, KKBXmlDocumentResponse.class);
+	jaxbContext = JAXBContext.newInstance(XmlBank.class, XmlDocumentResponse.class);
     }
 
     @Test
@@ -125,7 +126,7 @@ public class KKBDocumentResponseOKTest {
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 
-    private String getDocumentString(KKBXmlDocumentResponse document, boolean formatted) throws JAXBException {
+    private String getDocumentString(XmlDocumentResponse document, boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);

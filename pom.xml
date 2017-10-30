@@ -8,52 +8,33 @@
 		<version>3.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.lapsa.kkb-lib</groupId>
-	<artifactId>kkb-services-impl-default</artifactId>
-	<version>3.1-SNAPSHOT</version>
-	<packaging>ejb</packaging>
+	<groupId>tech.lapsa.qazkom</groupId>
+	<artifactId>qazkom-xml</artifactId>
+	<version>1.0-SNAPSHOT</version>
 
-	<name>KKB Lib : Helper Services API : Default implementation</name>
+	<name>Qazkom Lib : JAXB mapping</name>
 
 	<properties>
-		<!-- BOMS -->
-		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
-		<java-commons-root.version>1.0-SNAPSHOT</java-commons-root.version>
-		<!-- tech -->
-		<lapsa-arquillian-test.version>1.0-SNAPSHOT</lapsa-arquillian-test.version>
 		<!-- oldies -->
-		<kkb-lib.version>3.2-SNAPSHOT</kkb-lib.version>
-		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
+		<international-lib.version>3.2-SNAPSHOT</international-lib.version>
+		<fin-lib.version>2.1-SNAPSHOT</fin-lib.version>
 	</properties>
+
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- BOMS -->
-			<dependency>
-				<groupId>tech.lapsa.javax</groupId>
-				<artifactId>javax-javaee-bom</artifactId>
-				<version>${javax-javaee-bom.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.java</groupId>
-				<artifactId>java-commons-root</artifactId>
-				<version>${java-commons-root.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<!-- tech -->
-			<dependency>
-				<groupId>tech.lapsa.lapsa</groupId>
-				<artifactId>lapsa-arquillian-test</artifactId>
-				<version>${lapsa-arquillian-test.version}</version>
-			</dependency>
 			<!-- oldies -->
 			<dependency>
-				<groupId>com.lapsa.kkb-lib</groupId>
-				<artifactId>kkb-root</artifactId>
-				<version>${kkb-lib.version}</version>
+				<groupId>com.lapsa.international-lib</groupId>
+				<artifactId>international-root</artifactId>
+				<version>${international-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.fin-lib</groupId>
+				<artifactId>fin-root</artifactId>
+				<version>${fin-lib.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -61,42 +42,48 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- tech -->
+		<!-- odlies -->
 		<dependency>
-			<groupId>tech.lapsa.java</groupId>
-			<artifactId>java-commons</artifactId>
+			<groupId>com.lapsa.international-lib</groupId>
+			<artifactId>international-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
 		<dependency>
-			<groupId>tech.lapsa.lapsa</groupId>
-			<artifactId>lapsa-arquillian-test</artifactId>
+			<groupId>com.lapsa.fin-lib</groupId>
+			<artifactId>fin-core</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<!-- external -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- oldies -->
 		<dependency>
-			<groupId>com.lapsa.kkb-lib</groupId>
-			<artifactId>kkb-services</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<!-- JavaEE -->
-		<dependency>
-			<groupId>javax.ejb</groupId>
-			<artifactId>javax.ejb-api</artifactId>
-			<scope>provided</scope>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<scm>
-		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/kkb-services-impl-default.git</connection>
-		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/kkb-services-impl-default.git</developerConnection>
+		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/qazkom/xml.git</connection>
+		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/qazkom/xml.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>https://gitlab.lapsa.tech/lapsa/kkb-services-impl-default/issues</url>
+		<url>https://gitlab.lapsa.tech/lapsa/qazkom/xml/issues</url>
 	</issueManagement>
 
 </project>

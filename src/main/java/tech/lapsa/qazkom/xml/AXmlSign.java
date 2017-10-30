@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import java.io.Serializable;
 import java.util.Base64;
@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -17,41 +18,53 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
-public abstract class KKBXmlGenericSign implements Serializable {
-    private static final long serialVersionUID = -2302481811822001881L;
+public abstract class AXmlSign implements Serializable {
 
-    @XmlAttribute(name = "type")
-    private KKBXmlSignType signType;
+    private static final long serialVersionUID = 1L;
 
-    @XmlValue
-    private byte[] signature;
+    @XmlTransient
+    private final int PRIME;
+    
+    @XmlTransient
+    private final int MULTIPLIER;
 
-    protected abstract int getPrime();
+    public AXmlSign(int prime, int multiplier) {
+	this.PRIME = prime;
+	this.MULTIPLIER = multiplier;
+    }
 
-    protected abstract int getMultiplier();
+    public AXmlSign(int prime) {
+	this(prime, prime);
+    }
+
+    public AXmlSign() {
+	this(7);
+    }
 
     @Override
     public int hashCode() {
-	return HashCodeBuilder.reflectionHashCode(getPrime(), getMultiplier(), this, false);
+	return HashCodeBuilder.reflectionHashCode(PRIME, MULTIPLIER, this, false);
     }
 
     @Override
     public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
 	return EqualsBuilder.reflectionEquals(this, other, false);
     }
+
+    @XmlAttribute(name = "type")
+    private XmlSignType signType;
+
+    @XmlValue
+    private byte[] signature;
 
     // GENERATED
 
     // type - тип подписи
-    public KKBXmlSignType getSignType() {
+    public XmlSignType getSignType() {
 	return signType;
     }
 
-    public void setSignType(KKBXmlSignType signType) {
+    public void setSignType(XmlSignType signType) {
 	this.signType = signType;
     }
 

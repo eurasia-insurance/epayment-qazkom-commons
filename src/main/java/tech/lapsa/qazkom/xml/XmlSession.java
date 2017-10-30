@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package tech.lapsa.qazkom.xml;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,23 +10,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "session")
-public class KKBXmlSession extends KKBXmlBase {
-    private static final long serialVersionUID = -5333156242528681085L;
-    private static final int PRIME = 61;
-    private static final int MULTIPLIER = 61;
+public class XmlSession extends AXmlBase {
+
+    private static final long serialVersionUID = 1L;
+
+    public XmlSession() {
+	super(73);
+    }
 
     @XmlAttribute(name = "id")
     private String id;
-
-    @Override
-    protected int getPrime() {
-	return PRIME;
-    }
-
-    @Override
-    protected int getMultiplier() {
-	return MULTIPLIER;
-    }
 
     // GENERATED
 
