@@ -21,8 +21,8 @@ public final class XmlDocuments {
     private XmlDocuments() {
     }
 
-    private static final Processor<XmlDocumentPayment> PAYMENT_PROCESSOR = Processor.forClass(XmlDocumentPayment.class,
-	    XmlSchemas.PAYMENT_SCHEMA);
+    private static final Processor<XmlDocumentPayment> PAYMENT_PROCESSOR = //
+	    Processor.forClass(XmlDocumentPayment.class, XmlSchemas.PAYMENT_SCHEMA);
 
     // payment
 
@@ -52,8 +52,8 @@ public final class XmlDocuments {
 
     // order
 
-    private static final Processor<XmlDocumentOrder> ORDER_PROCESSOR = Processor.forClass(XmlDocumentOrder.class,
-	    XmlSchemas.ORDER_SCHEMA);
+    private static final Processor<XmlDocumentOrder> ORDER_PROCESSOR = //
+	    Processor.forClass(XmlDocumentOrder.class, XmlSchemas.ORDER_SCHEMA);
 
     public static XmlDocumentOrder parseOrder(String rawXml) throws JAXBException {
 	return ORDER_PROCESSOR.parse(rawXml);
