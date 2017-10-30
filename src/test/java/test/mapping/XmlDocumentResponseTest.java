@@ -117,6 +117,6 @@ public class XmlDocumentResponseTest {
     }
 
     private String getDocumentString(final XmlDocumentPayment document, final boolean formatted) throws JAXBException {
-	return XmlDocuments.PAYMENT_PROCESSOR.composeToString(document);
+	return XmlDocuments.PAYMENT.composeToString(document);
     }
 }

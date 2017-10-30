@@ -91,7 +91,7 @@ public class XmlDocumentRequestTest {
     }
 
     private String getMerchantString(final XmlDocumentOrder document) throws JAXBException {
-	return XmlDocuments.MERCHANG_PROCESSOR.composeToString(document.getMerchant());
+	return XmlDocuments.MERCHANG.composeToString(document.getMerchant());
     }
 
     private void dumpDocument(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
@@ -99,16 +99,10 @@ public class XmlDocumentRequestTest {
     }
 
     private String getDocumentString(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
-	return XmlDocuments.ORDER_PROCESSOR.composeToString(document);
+	return XmlDocuments.ORDER.composeToString(document);
     }
 
     private XmlDocumentOrder loadDocument(final String resourceName) throws JAXBException {
-	return XmlDocuments.ORDER_PROCESSOR.parse(Resources.getAsStream(this.getClass(), resourceName));
+	return XmlDocuments.ORDER.parse(Resources.getAsStream(this.getClass(), resourceName));
     }
-
-    @SuppressWarnings("unused")
-    private XmlDocumentOrder loadDocumentFromString(final String documentString) throws JAXBException {
-	return XmlDocuments.ORDER_PROCESSOR.parse(documentString);
-    }
-
 }

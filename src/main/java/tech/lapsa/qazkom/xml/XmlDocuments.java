@@ -26,14 +26,13 @@ public final class XmlDocuments {
     private XmlDocuments() {
     }
 
-    public static final XmlDocumentTool<XmlDocumentPayment> PAYMENT_PROCESSOR = //
+    public static final XmlDocumentTool<XmlDocumentPayment> PAYMENT = //
 	    XmlDocumentTool.forClass(XmlDocumentPayment.class, XmlSchemas.PAYMENT_SCHEMA);
 
-    public static final XmlDocumentTool<XmlDocumentOrder> ORDER_PROCESSOR = //
+    public static final XmlDocumentTool<XmlDocumentOrder> ORDER = //
 	    XmlDocumentTool.forClass(XmlDocumentOrder.class, XmlSchemas.ORDER_SCHEMA);
 
-    public static final XmlDocumentTool<XmlMerchant> MERCHANG_PROCESSOR = XmlDocumentTool
-	    .forClass(XmlMerchant.class);
+    public static final XmlDocumentTool<XmlMerchant> MERCHANG = XmlDocumentTool.forClass(XmlMerchant.class);
 
     // helper class
 
