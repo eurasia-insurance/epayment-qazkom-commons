@@ -1,11 +1,11 @@
-package test.validation;
+package test;
 
 import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import tech.lapsa.qazkom.xml.validation.XmlSchemas;
+import tech.lapsa.qazkom.xml.XmlSchemas;
 
 public class XmlSchemasTest {
 

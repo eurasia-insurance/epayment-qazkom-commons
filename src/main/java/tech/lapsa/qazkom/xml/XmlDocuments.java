@@ -14,7 +14,6 @@ import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentPayment;
-import tech.lapsa.qazkom.xml.validation.XmlSchemas;
 
 public final class XmlDocuments {
 

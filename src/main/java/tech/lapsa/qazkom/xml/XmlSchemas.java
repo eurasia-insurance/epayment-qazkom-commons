@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.validation;
+package tech.lapsa.qazkom.xml;
 
 import java.io.InputStream;
 
