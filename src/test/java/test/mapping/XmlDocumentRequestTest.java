@@ -3,22 +3,17 @@ package test.mapping;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
 
+import tech.lapsa.java.commons.resources.Resources;
+import tech.lapsa.qazkom.xml.XmlDocuments;
 import tech.lapsa.qazkom.xml.mapping.XmlDepartment;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
@@ -69,13 +64,6 @@ public class XmlDocumentRequestTest {
 
     }
 
-    private JAXBContext jaxbContext;
-
-    @Before
-    public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(XmlMerchant.class, XmlDocumentOrder.class);
-    }
-
     @Test
     public void testSerializeDocument() throws JAXBException {
 	System.out.println();
@@ -103,12 +91,7 @@ public class XmlDocumentRequestTest {
     }
 
     private String getMerchantString(final XmlDocumentOrder document) throws JAXBException {
-	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-	StringWriter sw = new StringWriter();
-	jaxbMarshaller.marshal(document.getMerchant(), sw);
-	return sw.toString();
+	return XmlDocuments.MERCHANG_PROCESSOR.composeToString(document.getMerchant());
     }
 
     private void dumpDocument(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
@@ -116,27 +99,16 @@ public class XmlDocumentRequestTest {
     }
 
     private String getDocumentString(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
-	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-	StringWriter sw = new StringWriter();
-	jaxbMarshaller.marshal(document, sw);
-	return sw.toString();
+	return XmlDocuments.ORDER_PROCESSOR.composeToString(document);
     }
 
     private XmlDocumentOrder loadDocument(final String resourceName) throws JAXBException {
-	File resourceFile = new File(XmlDocumentOrder.class.getResource(resourceName).getFile());
-	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	XmlDocumentOrder document = (XmlDocumentOrder) jaxbUnmarshaller.unmarshal(resourceFile);
-	return document;
+	return XmlDocuments.ORDER_PROCESSOR.parse(Resources.getAsStream(this.getClass(), resourceName));
     }
 
     @SuppressWarnings("unused")
     private XmlDocumentOrder loadDocumentFromString(final String documentString) throws JAXBException {
-	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	StringReader sr = new StringReader(TEST_DOCUMENT_AS_PLAINTEXT);
-	XmlDocumentOrder document = (XmlDocumentOrder) jaxbUnmarshaller.unmarshal(sr);
-	return document;
+	return XmlDocuments.ORDER_PROCESSOR.parse(documentString);
     }
 
 }

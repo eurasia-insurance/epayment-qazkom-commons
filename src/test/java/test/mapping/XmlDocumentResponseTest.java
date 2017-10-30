@@ -3,23 +3,20 @@ package test.mapping;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import java.io.StringWriter;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.country.Country;
 
+import tech.lapsa.qazkom.xml.XmlDocuments;
 import tech.lapsa.qazkom.xml.mapping.XmlBank;
 import tech.lapsa.qazkom.xml.mapping.XmlBankSign;
 import tech.lapsa.qazkom.xml.mapping.XmlCustomer;
@@ -35,8 +32,6 @@ import tech.lapsa.qazkom.xml.mapping.XmlSecureType;
 import tech.lapsa.qazkom.xml.mapping.XmlSignType;
 
 public class XmlDocumentResponseTest {
-
-    private JAXBContext jaxbContext;
 
     private static final XmlDocumentPayment TEST_DOCUMENT_AS_OBJECT;
 
@@ -114,11 +109,6 @@ public class XmlDocumentResponseTest {
 		6, 120, 23, 59, 10, -69, 6, 27, 36, -16, 103, 3, 82, 69, -128, 51, -107, 0, -80, -86, 68, 42, -126 });
     }
 
-    @Before
-    public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(XmlBank.class, XmlDocumentPayment.class);
-    }
-
     @Test
     public void testSerializeDocument() throws JAXBException {
 	String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
@@ -127,11 +117,6 @@ public class XmlDocumentResponseTest {
     }
 
     private String getDocumentString(final XmlDocumentPayment document, final boolean formatted) throws JAXBException {
-	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
-	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-	StringWriter sw = new StringWriter();
-	jaxbMarshaller.marshal(document, sw);
-	return sw.toString();
+	return XmlDocuments.PAYMENT_PROCESSOR.composeToString(document);
     }
 }
