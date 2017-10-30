@@ -126,7 +126,7 @@ public class XmlDocumentResponseTest {
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 
-    private String getDocumentString(XmlDocumentResponse document, boolean formatted) throws JAXBException {
+    private String getDocumentString(final XmlDocumentResponse document, final boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);

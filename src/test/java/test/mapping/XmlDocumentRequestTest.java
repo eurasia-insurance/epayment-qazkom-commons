@@ -102,7 +102,7 @@ public class XmlDocumentRequestTest {
 	System.out.println(merchantString);
     }
 
-    private String getMerchantString(XmlDocumentRequest document) throws JAXBException {
+    private String getMerchantString(final XmlDocumentRequest document) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -111,11 +111,11 @@ public class XmlDocumentRequestTest {
 	return sw.toString();
     }
 
-    private void dumpDocument(XmlDocumentRequest document, boolean formatted) throws JAXBException {
+    private void dumpDocument(final XmlDocumentRequest document, final boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(XmlDocumentRequest document, boolean formatted) throws JAXBException {
+    private String getDocumentString(final XmlDocumentRequest document, final boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -124,7 +124,7 @@ public class XmlDocumentRequestTest {
 	return sw.toString();
     }
 
-    private XmlDocumentRequest loadDocument(String resourceName) throws JAXBException {
+    private XmlDocumentRequest loadDocument(final String resourceName) throws JAXBException {
 	File resourceFile = new File(XmlDocumentRequest.class.getResource(resourceName).getFile());
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	XmlDocumentRequest document = (XmlDocumentRequest) jaxbUnmarshaller.unmarshal(resourceFile);
@@ -132,7 +132,7 @@ public class XmlDocumentRequestTest {
     }
 
     @SuppressWarnings("unused")
-    private XmlDocumentRequest loadDocumentFromString(String documentString) throws JAXBException {
+    private XmlDocumentRequest loadDocumentFromString(final String documentString) throws JAXBException {
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	StringReader sr = new StringReader(TEST_DOCUMENT_AS_PLAINTEXT);
 	XmlDocumentRequest document = (XmlDocumentRequest) jaxbUnmarshaller.unmarshal(sr);
