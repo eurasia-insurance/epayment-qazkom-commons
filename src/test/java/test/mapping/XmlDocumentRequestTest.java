@@ -1,4 +1,4 @@
-package test.xml;
+package test.mapping;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -19,12 +19,12 @@ import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
 
-import tech.lapsa.qazkom.xml.XmlDepartment;
-import tech.lapsa.qazkom.xml.XmlDocumentRequest;
-import tech.lapsa.qazkom.xml.XmlMerchant;
-import tech.lapsa.qazkom.xml.XmlMerchantSign;
-import tech.lapsa.qazkom.xml.XmlOrder;
-import tech.lapsa.qazkom.xml.XmlSignType;
+import tech.lapsa.qazkom.xml.mapping.XmlDepartment;
+import tech.lapsa.qazkom.xml.mapping.XmlDocumentRequest;
+import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
+import tech.lapsa.qazkom.xml.mapping.XmlMerchantSign;
+import tech.lapsa.qazkom.xml.mapping.XmlOrder;
+import tech.lapsa.qazkom.xml.mapping.XmlSignType;
 
 public class XmlDocumentRequestTest {
 

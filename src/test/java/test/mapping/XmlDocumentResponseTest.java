@@ -1,4 +1,4 @@
-package test.xml;
+package test.mapping;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -20,19 +20,19 @@ import org.junit.Test;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.country.Country;
 
-import tech.lapsa.qazkom.xml.XmlBank;
-import tech.lapsa.qazkom.xml.XmlBankSign;
-import tech.lapsa.qazkom.xml.XmlCustomer;
-import tech.lapsa.qazkom.xml.XmlCustomerSign;
-import tech.lapsa.qazkom.xml.XmlDepartment;
-import tech.lapsa.qazkom.xml.XmlDocumentResponse;
-import tech.lapsa.qazkom.xml.XmlMerchant;
-import tech.lapsa.qazkom.xml.XmlMerchantSign;
-import tech.lapsa.qazkom.xml.XmlOrder;
-import tech.lapsa.qazkom.xml.XmlPayment;
-import tech.lapsa.qazkom.xml.XmlResults;
-import tech.lapsa.qazkom.xml.XmlSecureType;
-import tech.lapsa.qazkom.xml.XmlSignType;
+import tech.lapsa.qazkom.xml.mapping.XmlBank;
+import tech.lapsa.qazkom.xml.mapping.XmlBankSign;
+import tech.lapsa.qazkom.xml.mapping.XmlCustomer;
+import tech.lapsa.qazkom.xml.mapping.XmlCustomerSign;
+import tech.lapsa.qazkom.xml.mapping.XmlDepartment;
+import tech.lapsa.qazkom.xml.mapping.XmlDocumentResponse;
+import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
+import tech.lapsa.qazkom.xml.mapping.XmlMerchantSign;
+import tech.lapsa.qazkom.xml.mapping.XmlOrder;
+import tech.lapsa.qazkom.xml.mapping.XmlPayment;
+import tech.lapsa.qazkom.xml.mapping.XmlResults;
+import tech.lapsa.qazkom.xml.mapping.XmlSecureType;
+import tech.lapsa.qazkom.xml.mapping.XmlSignType;
 
 public class XmlDocumentResponseTest {
 

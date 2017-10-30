@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml;
+package tech.lapsa.qazkom.xml.mapping;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;

@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.adapter;
+package tech.lapsa.qazkom.xml.mapping.adapter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
