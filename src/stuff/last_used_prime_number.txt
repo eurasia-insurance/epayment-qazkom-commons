@@ -7,8 +7,8 @@
       19 tech.lapsa.qazkom.xml.mapping.XmlCustomerSign
       23 tech.lapsa.qazkom.xml.mapping.XmlDepartment
       29 tech.lapsa.qazkom.xml.mapping.XmlDocumentCart
-      31 tech.lapsa.qazkom.xml.mapping.XmlDocumentRequest
-      37 tech.lapsa.qazkom.xml.mapping.XmlDocumentResponse
+      31 tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder
+      37 tech.lapsa.qazkom.xml.mapping.XmlDocumentPayment
       41 tech.lapsa.qazkom.xml.mapping.XmlError
       43 tech.lapsa.qazkom.xml.mapping.XmlItem
       47 tech.lapsa.qazkom.xml.mapping.XmlMerchant

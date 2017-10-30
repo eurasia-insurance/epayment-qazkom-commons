@@ -25,7 +25,7 @@ import tech.lapsa.qazkom.xml.mapping.XmlBankSign;
 import tech.lapsa.qazkom.xml.mapping.XmlCustomer;
 import tech.lapsa.qazkom.xml.mapping.XmlCustomerSign;
 import tech.lapsa.qazkom.xml.mapping.XmlDepartment;
-import tech.lapsa.qazkom.xml.mapping.XmlDocumentResponse;
+import tech.lapsa.qazkom.xml.mapping.XmlDocumentPayment;
 import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
 import tech.lapsa.qazkom.xml.mapping.XmlMerchantSign;
 import tech.lapsa.qazkom.xml.mapping.XmlOrder;
@@ -38,12 +38,12 @@ public class XmlDocumentResponseTest {
 
     private JAXBContext jaxbContext;
 
-    private static final XmlDocumentResponse TEST_DOCUMENT_AS_OBJECT;
+    private static final XmlDocumentPayment TEST_DOCUMENT_AS_OBJECT;
 
     private static final String TEST_DOCUMENT_AS_PLAINTEXT = "<document><bank name=\"Kazkommertsbank JSC\"><customer mail=\"klient@mymail.com\" name=\"John Cardholder\" phone=\"223322\"><merchant cert_id=\"7269c18d00010000005e\" name=\"Shop Name\"><order order_id=\"000282\" currency=\"398\" amount=\"3100\"><department RL=\"ASDFG\" merchant_id=\"90028101\" amount=\"3100\"/></order></merchant><merchant_sign type=\"RSA\"/></customer><customer_sign type=\"SSL\">4817C411000100000084</customer_sign><results timestamp=\"2006-11-22 12:20:30\"><payment approval_code=\"730190\" card_bin=\"KAZ\" c_hash=\"6A2D7673A8EEF25A2C33D67CB5AAD091\" merchant_id=\"90050801\" reference=\"109600746891\" response_code=\"00\" Secure=\"No\" amount=\"320.5\"/></results></bank><bank_sign cert_id=\"c183d690\" type=\"SHA/RSA\">JI3RZMEvexNlDmKsOQhe0pzHuKijnbhvnLu99qh7h+Ju8HvSfGNbEJxXUL58M94tXvu7w0BXSY7MHePGqz32JuMLAncuzyMwq845linW/sH/WvbZ+6SSYfxDMnvgX0S/pKxbhSXs7lGVBngXOwq7Bhsk8GcDUkWAM5UAsKpEKoI=</bank_sign></document>";
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentResponse();
+	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentPayment();
 
 	XmlBank bank = new XmlBank();
 	TEST_DOCUMENT_AS_OBJECT.setBank(bank);
@@ -116,7 +116,7 @@ public class XmlDocumentResponseTest {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(XmlBank.class, XmlDocumentResponse.class);
+	jaxbContext = JAXBContext.newInstance(XmlBank.class, XmlDocumentPayment.class);
     }
 
     @Test
@@ -126,7 +126,7 @@ public class XmlDocumentResponseTest {
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 
-    private String getDocumentString(final XmlDocumentResponse document, final boolean formatted) throws JAXBException {
+    private String getDocumentString(final XmlDocumentPayment document, final boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);

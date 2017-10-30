@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-public class XmlDocumentRequest extends AXmlBase {
+public class XmlDocumentOrder extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlDocumentRequest() {
+    public XmlDocumentOrder() {
 	super(31);
     }
 

@@ -20,7 +20,7 @@ import org.junit.Test;
 import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.qazkom.xml.mapping.XmlDepartment;
-import tech.lapsa.qazkom.xml.mapping.XmlDocumentRequest;
+import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
 import tech.lapsa.qazkom.xml.mapping.XmlMerchantSign;
 import tech.lapsa.qazkom.xml.mapping.XmlOrder;
@@ -32,10 +32,10 @@ public class XmlDocumentRequestTest {
 
     private static final String TEST_DOCUMENT_AS_PLAINTEXT = "<document><merchant cert_id=\"c183d70b\" name=\"Shop Name\"><order order_id=\"000282\" currency=\"398\" amount=\"3100\"><department RL=\"ASDFG\" merchant_id=\"92061101\" phone=\"22233355\" amount=\"1300\"/></order></merchant><merchant_sign type=\"RSA\">p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498pU9HGuGAoDVjB+NtrHk=</merchant_sign></document>";
 
-    private static final XmlDocumentRequest TEST_DOCUMENT_AS_OBJECT;
+    private static final XmlDocumentOrder TEST_DOCUMENT_AS_OBJECT;
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentRequest();
+	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentOrder();
 
 	XmlMerchant merchant = new XmlMerchant();
 	TEST_DOCUMENT_AS_OBJECT.setMerchant(merchant);
@@ -73,7 +73,7 @@ public class XmlDocumentRequestTest {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(XmlMerchant.class, XmlDocumentRequest.class);
+	jaxbContext = JAXBContext.newInstance(XmlMerchant.class, XmlDocumentOrder.class);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class XmlDocumentRequestTest {
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	XmlDocumentRequest loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
+	XmlDocumentOrder loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
 	dumpDocument(loaded, true);
     }
 
@@ -102,7 +102,7 @@ public class XmlDocumentRequestTest {
 	System.out.println(merchantString);
     }
 
-    private String getMerchantString(final XmlDocumentRequest document) throws JAXBException {
+    private String getMerchantString(final XmlDocumentOrder document) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -111,11 +111,11 @@ public class XmlDocumentRequestTest {
 	return sw.toString();
     }
 
-    private void dumpDocument(final XmlDocumentRequest document, final boolean formatted) throws JAXBException {
+    private void dumpDocument(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(final XmlDocumentRequest document, final boolean formatted) throws JAXBException {
+    private String getDocumentString(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -124,18 +124,18 @@ public class XmlDocumentRequestTest {
 	return sw.toString();
     }
 
-    private XmlDocumentRequest loadDocument(final String resourceName) throws JAXBException {
-	File resourceFile = new File(XmlDocumentRequest.class.getResource(resourceName).getFile());
+    private XmlDocumentOrder loadDocument(final String resourceName) throws JAXBException {
+	File resourceFile = new File(XmlDocumentOrder.class.getResource(resourceName).getFile());
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	XmlDocumentRequest document = (XmlDocumentRequest) jaxbUnmarshaller.unmarshal(resourceFile);
+	XmlDocumentOrder document = (XmlDocumentOrder) jaxbUnmarshaller.unmarshal(resourceFile);
 	return document;
     }
 
     @SuppressWarnings("unused")
-    private XmlDocumentRequest loadDocumentFromString(final String documentString) throws JAXBException {
+    private XmlDocumentOrder loadDocumentFromString(final String documentString) throws JAXBException {
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	StringReader sr = new StringReader(TEST_DOCUMENT_AS_PLAINTEXT);
-	XmlDocumentRequest document = (XmlDocumentRequest) jaxbUnmarshaller.unmarshal(sr);
+	XmlDocumentOrder document = (XmlDocumentOrder) jaxbUnmarshaller.unmarshal(sr);
 	return document;
     }
 
