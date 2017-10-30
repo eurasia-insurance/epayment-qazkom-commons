@@ -21,11 +21,11 @@ public final class QazkomXmlSchemas {
 
     public static final Schema CART_SCHEMA = fromResource("/META-INF/qazkom/document-cart-schema.xsd");
     public static final Schema ERROR_SCHEMA = fromResource("/META-INF/qazkom/document-error-schema.xsd");
-    public static final Schema REQUEST_SCHEMA = fromResource("/META-INF/qazkom/document-request-schema.xsd");
-    public static final Schema RESPONSE_SCHEMA = fromResource("/META-INF/qazkom/document-response-schema.xsd");
+    public static final Schema ORDER_SCHEMA = fromResource("/META-INF/qazkom/document-request-schema.xsd");
+    public static final Schema PAYMENT_SCHEMA = fromResource("/META-INF/qazkom/document-response-schema.xsd");
 
     public static final Schema[] all() {
-	return new Schema[] { CART_SCHEMA, ERROR_SCHEMA, REQUEST_SCHEMA, RESPONSE_SCHEMA };
+	return new Schema[] { CART_SCHEMA, ERROR_SCHEMA, ORDER_SCHEMA, PAYMENT_SCHEMA };
     }
 
     private static final Schema fromResource(String resource) {
