@@ -5,14 +5,13 @@ import java.util.stream.Stream;
 import org.junit.Assert;
 import org.junit.Test;
 
-import tech.lapsa.qazkom.xml.validation.QazkomXmlSchema;
+import tech.lapsa.qazkom.xml.validation.QazkomXmlSchemas;
 
 public class QazkomXmlSchemaTest {
 
     @Test
     public void allSchemasAvailableTest() {
-	Stream.of(QazkomXmlSchema.values()) //
-		.map(QazkomXmlSchema::getSchema) //
+	Stream.of(QazkomXmlSchemas.all()) //
 		.forEach(Assert::assertNotNull);
     }
 }

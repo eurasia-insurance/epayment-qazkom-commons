@@ -12,28 +12,30 @@ import org.xml.sax.SAXException;
 
 import tech.lapsa.java.commons.resources.Resources;
 
-public enum QazkomXmlSchema {
+public final class QazkomXmlSchemas {
 
-    CART_SCHEMA("/META-INF/qazkom/document-cart-schema.xsd"),
-    ERROR_SCHEMA("/META-INF/qazkom/document-error-schema.xsd"),
-    REQUEST_SCHEMA("/META-INF/qazkom/document-request-schema.xsd"),
-    RESPONSE_SCHEMA("/META-INF/qazkom/document-response-schema.xsd");
+    private QazkomXmlSchemas() {
+    }
 
-    private final Schema schema;
+    private static final SchemaFactory SCHEMA_FACTORY = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-    private QazkomXmlSchema(String resource) {
-	InputStream is = Resources.optionalAsStream(this.getClass(), resource) //
+    public static final Schema CART_SCHEMA = fromResource("/META-INF/qazkom/document-cart-schema.xsd");
+    public static final Schema ERROR_SCHEMA = fromResource("/META-INF/qazkom/document-error-schema.xsd");
+    public static final Schema REQUEST_SCHEMA = fromResource("/META-INF/qazkom/document-request-schema.xsd");
+    public static final Schema RESPONSE_SCHEMA = fromResource("/META-INF/qazkom/document-response-schema.xsd");
+
+    public static final Schema[] all() {
+	return new Schema[] { CART_SCHEMA, ERROR_SCHEMA, REQUEST_SCHEMA, RESPONSE_SCHEMA };
+    }
+
+    private static final Schema fromResource(String resource) {
+	InputStream is = Resources.optionalAsStream(QazkomXmlSchemas.class, resource) //
 		.orElseThrow(() -> new RuntimeException("Resource not found " + resource));
 	Source source = new StreamSource(is);
-	SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 	try {
-	    schema = schemaFactory.newSchema(source);
+	    return SCHEMA_FACTORY.newSchema(source);
 	} catch (SAXException e) {
 	    throw new RuntimeException(e);
 	}
-    }
-
-    public Schema getSchema() {
-	return schema;
     }
 }
