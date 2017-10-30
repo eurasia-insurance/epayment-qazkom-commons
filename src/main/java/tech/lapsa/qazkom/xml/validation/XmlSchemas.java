@@ -12,9 +12,9 @@ import org.xml.sax.SAXException;
 
 import tech.lapsa.java.commons.resources.Resources;
 
-public final class QazkomXmlSchemas {
+public final class XmlSchemas {
 
-    private QazkomXmlSchemas() {
+    private XmlSchemas() {
     }
 
     private static final SchemaFactory SCHEMA_FACTORY = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -29,7 +29,7 @@ public final class QazkomXmlSchemas {
     }
 
     private static final Schema fromResource(String resource) {
-	InputStream is = Resources.optionalAsStream(QazkomXmlSchemas.class, resource) //
+	InputStream is = Resources.optionalAsStream(XmlSchemas.class, resource) //
 		.orElseThrow(() -> new RuntimeException("Resource not found " + resource));
 	Source source = new StreamSource(is);
 	try {
