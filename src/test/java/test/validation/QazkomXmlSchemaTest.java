@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import tech.lapsa.qazkom.xml.validation.QazkomXmlSchema;
 
-public class SchemasMappingTest {
+public class QazkomXmlSchemaTest {
 
     @Test
     public void allSchemasAvailableTest() {
