@@ -48,17 +48,25 @@ public final class XmlDocuments {
 	    this.unmarshaller = unmarshaller;
 	}
 
-	public T parse(InputStream is) throws JAXBException {
+	public T parse(InputStream is) {
 	    MyObjects.requireNonNull(is, "is");
-	    return clazz.cast(unmarshaller.unmarshal(is));
+	    try {
+		return clazz.cast(unmarshaller.unmarshal(is));
+	    } catch (JAXBException e) {
+		throw new IllegalArgumentException("Can not parse input stream", e);
+	    }
 	}
 
-	public T parse(Reader reader) throws JAXBException {
+	public T parse(Reader reader) {
 	    MyObjects.requireNonNull(reader, "reader");
-	    return clazz.cast(unmarshaller.unmarshal(reader));
+	    try {
+		return clazz.cast(unmarshaller.unmarshal(reader));
+	    } catch (JAXBException e) {
+		throw new IllegalArgumentException("Can not parse character stream", e);
+	    }
 	}
 
-	public T parse(String rawXml) throws JAXBException {
+	public T parse(String rawXml) {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    return parse(new StringReader(rawXml));
 	}
@@ -66,7 +74,7 @@ public final class XmlDocuments {
 	public Optional<T> optionalParse(InputStream is) {
 	    try {
 		return MyOptionals.of(parse(is));
-	    } catch (JAXBException e) {
+	    } catch (IllegalArgumentException e) {
 		return Optional.empty();
 	    }
 	}
@@ -74,7 +82,7 @@ public final class XmlDocuments {
 	public Optional<T> optionalParse(Reader reader) {
 	    try {
 		return MyOptionals.of(parse(reader));
-	    } catch (JAXBException e) {
+	    } catch (IllegalArgumentException e) {
 		return Optional.empty();
 	    }
 	}
@@ -82,7 +90,7 @@ public final class XmlDocuments {
 	public Optional<T> optionalParse(String rawXml) {
 	    try {
 		return MyOptionals.of(parse(rawXml));
-	    } catch (JAXBException e) {
+	    } catch (IllegalArgumentException e) {
 		return Optional.empty();
 	    }
 	}
