@@ -20,6 +20,12 @@ public class XmlMerchant extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
+    private static final XmlDocumentTool<XmlMerchant> TOOL = XmlDocumentTool.forClass(XmlMerchant.class);
+
+    public static final XmlDocumentTool<XmlMerchant> getTool() {
+	return TOOL;
+    }
+
     public XmlMerchant() {
 	super(47);
     }
