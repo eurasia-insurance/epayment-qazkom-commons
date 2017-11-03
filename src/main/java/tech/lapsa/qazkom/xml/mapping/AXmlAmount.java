@@ -36,11 +36,11 @@ public abstract class AXmlAmount extends AXmlBase {
 
     // GENERATED
 
-    public double getAmount() {
+    public Double getAmount() {
 	return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
 	this.amount = amount;
     }
 }

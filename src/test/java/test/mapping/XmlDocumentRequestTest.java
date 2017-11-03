@@ -40,14 +40,14 @@ public class XmlDocumentRequestTest {
 	XmlOrder order = new XmlOrder();
 	merchant.setOrder(order);
 	order.setOrderId("000282");
-	order.setAmount(3100);
+	order.setAmount(Double.valueOf(3100));
 	order.setFinCurrency(FinCurrency.KZT);
 
 	XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("92061101");
-	department.setAmount(1300);
+	department.setAmount(Double.valueOf(1300));
 	department.setPhone("22233355");
 	department.setAirticketBookingNumber("ASDFG");
 
@@ -91,7 +91,7 @@ public class XmlDocumentRequestTest {
     }
 
     private String getMerchantString(final XmlDocumentOrder document) throws JAXBException {
-	return XmlDocuments.MERCHANG.composeToString(document.getMerchant());
+	return XmlDocuments.MERCHANT.serializeToString(document.getMerchant());
     }
 
     private void dumpDocument(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
@@ -99,10 +99,10 @@ public class XmlDocumentRequestTest {
     }
 
     private String getDocumentString(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
-	return XmlDocuments.ORDER.composeToString(document);
+	return XmlDocuments.ORDER.serializeToString(document);
     }
 
     private XmlDocumentOrder loadDocument(final String resourceName) throws JAXBException {
-	return XmlDocuments.ORDER.parse(Resources.getAsStream(this.getClass(), resourceName));
+	return XmlDocuments.ORDER.deserializeFrom(Resources.getAsStream(this.getClass(), resourceName));
     }
 }

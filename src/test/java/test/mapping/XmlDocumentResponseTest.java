@@ -59,13 +59,13 @@ public class XmlDocumentResponseTest {
 	sourceMerchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setFinCurrency(FinCurrency.KZT);
-	order.setAmount(3100);
+	order.setAmount(Double.valueOf(3100));
 
 	XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("90028101");
-	department.setAmount(3100);
+	department.setAmount(Double.valueOf(3100));
 	department.setAirticketBookingNumber("ASDFG");
 
 	XmlMerchantSign sourceMerchantSign = new XmlMerchantSign();
@@ -117,6 +117,6 @@ public class XmlDocumentResponseTest {
     }
 
     private String getDocumentString(final XmlDocumentPayment document, final boolean formatted) throws JAXBException {
-	return XmlDocuments.PAYMENT.composeToString(document);
+	return XmlDocuments.PAYMENT.serializeToString(document);
     }
 }
