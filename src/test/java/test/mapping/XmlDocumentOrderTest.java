@@ -13,7 +13,6 @@ import org.junit.Test;
 import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.java.commons.resources.Resources;
-import tech.lapsa.qazkom.xml.XmlDocuments;
 import tech.lapsa.qazkom.xml.mapping.XmlDepartment;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
@@ -21,7 +20,7 @@ import tech.lapsa.qazkom.xml.mapping.XmlMerchantSign;
 import tech.lapsa.qazkom.xml.mapping.XmlOrder;
 import tech.lapsa.qazkom.xml.mapping.XmlSignType;
 
-public class XmlDocumentRequestTest {
+public class XmlDocumentOrderTest {
 
     private static final String EXAMPLE_DOCUMENT_AUTH_XML = "/document-request-variant-1.xml";
 
@@ -82,27 +81,15 @@ public class XmlDocumentRequestTest {
 	dumpDocument(loaded, true);
     }
 
-    @Test
-    public void testGetMerchantString() throws JAXBException {
-	System.out.println();
-	System.out.println("Merchant string");
-	String merchantString = getMerchantString(TEST_DOCUMENT_AS_OBJECT);
-	System.out.println(merchantString);
-    }
-
-    private String getMerchantString(final XmlDocumentOrder document) throws JAXBException {
-	return XmlDocuments.MERCHANT.serializeToString(document.getMerchant());
-    }
-
     private void dumpDocument(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
     private String getDocumentString(final XmlDocumentOrder document, final boolean formatted) throws JAXBException {
-	return XmlDocuments.ORDER.serializeToString(document);
+	return XmlDocumentOrder.getTool().serializeToString(document);
     }
 
     private XmlDocumentOrder loadDocument(final String resourceName) throws JAXBException {
-	return XmlDocuments.ORDER.deserializeFrom(Resources.getAsStream(this.getClass(), resourceName));
+	return XmlDocumentOrder.getTool().deserializeFrom(Resources.getAsStream(this.getClass(), resourceName));
     }
 }
