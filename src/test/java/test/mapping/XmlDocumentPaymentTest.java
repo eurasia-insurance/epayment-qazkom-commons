@@ -16,7 +16,6 @@ import org.junit.Test;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.country.Country;
 
-import tech.lapsa.qazkom.xml.XmlDocuments;
 import tech.lapsa.qazkom.xml.mapping.XmlBank;
 import tech.lapsa.qazkom.xml.mapping.XmlBankSign;
 import tech.lapsa.qazkom.xml.mapping.XmlCustomer;
@@ -31,7 +30,7 @@ import tech.lapsa.qazkom.xml.mapping.XmlResults;
 import tech.lapsa.qazkom.xml.mapping.XmlSecureType;
 import tech.lapsa.qazkom.xml.mapping.XmlSignType;
 
-public class XmlDocumentResponseTest {
+public class XmlDocumentPaymentTest {
 
     private static final XmlDocumentPayment TEST_DOCUMENT_AS_OBJECT;
 
@@ -117,6 +116,6 @@ public class XmlDocumentResponseTest {
     }
 
     private String getDocumentString(final XmlDocumentPayment document, final boolean formatted) throws JAXBException {
-	return XmlDocuments.PAYMENT.serializeToString(document);
+	return XmlDocumentPayment.getTool().serializeToString(document);
     }
 }

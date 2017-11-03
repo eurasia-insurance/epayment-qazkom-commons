@@ -7,12 +7,25 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import tech.lapsa.qazkom.xml.XmlSchemas;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 public class XmlDocumentPayment extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+
+    private static final XmlDocumentTool<XmlDocumentPayment> TOOL = XmlDocumentTool.forClass(XmlDocumentPayment.class,
+	    XmlSchemas.PAYMENT_SCHEMA);
+
+    public static final XmlDocumentTool<XmlDocumentPayment> getTool() {
+	return TOOL;
+    }
+
+    public static XmlDocumentPayment of(String rawXml) {
+	return TOOL.deserializeFrom(rawXml);
+    }
 
     public XmlDocumentPayment() {
 	super(37);
@@ -23,8 +36,6 @@ public class XmlDocumentPayment extends AXmlBase {
 
     @XmlElementRef
     private XmlBankSign bankSign;
-
-    // GENERATED
 
     public XmlBank getBank() {
 	return bank;
@@ -40,5 +51,9 @@ public class XmlDocumentPayment extends AXmlBase {
 
     public void setBankSign(XmlBankSign bankSign) {
 	this.bankSign = bankSign;
+    }
+
+    public String getRawXml() {
+	return TOOL.serializeToString(this);
     }
 }
