@@ -26,6 +26,10 @@ public class XmlMerchant extends AXmlBase {
 	return TOOL;
     }
 
+    public static XmlMerchant of(String rawXml) {
+	return TOOL.deserializeFrom(rawXml);
+    }
+
     public XmlMerchant() {
 	super(47);
     }
@@ -41,8 +45,6 @@ public class XmlMerchant extends AXmlBase {
 
     @XmlElementRef
     private XmlOrder order;
-
-    // GENERATED
 
     public BigInteger getCertificateSerialNumber() {
 	return certificateSerialNumber;
@@ -68,4 +70,7 @@ public class XmlMerchant extends AXmlBase {
 	this.order = order;
     }
 
+    public String getRawXml() {
+	return TOOL.serializeToString(this);
+    }
 }
