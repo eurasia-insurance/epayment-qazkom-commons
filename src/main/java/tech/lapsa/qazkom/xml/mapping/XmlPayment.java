@@ -6,10 +6,8 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.international.country.Country;
-import com.lapsa.international.country.jaxb.JAXBCountryAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -47,7 +45,6 @@ public class XmlPayment extends AXmlAmount {
 
     // card_bin- Страна эмитент карты
     @XmlAttribute(name = "card_bin")
-    @XmlJavaTypeAdapter(JAXBCountryAdapter.class)
     private Country cardCountry;
 
     // card - маскированный номер карты
