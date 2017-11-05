@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.mapping;
+package tech.lapsa.qazkom.xml.bind;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import tech.lapsa.qazkom.xml.XmlSchemas;
+import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)

@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.mapping;
+package tech.lapsa.qazkom.xml.bind;
 
 import java.math.BigInteger;
 
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.qazkom.xml.mapping.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
+import tech.lapsa.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)

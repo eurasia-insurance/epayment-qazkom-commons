@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.mapping;
+package tech.lapsa.qazkom.xml.bind;
 
 import java.math.BigInteger;
 import java.security.Signature;
@@ -19,7 +19,7 @@ import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
-import tech.lapsa.qazkom.xml.XmlSchemas;
+import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)

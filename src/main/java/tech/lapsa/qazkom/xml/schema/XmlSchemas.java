@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml;
+package tech.lapsa.qazkom.xml.schema;
 
 import java.io.InputStream;
 

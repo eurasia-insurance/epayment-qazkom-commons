@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.mapping;
+package tech.lapsa.qazkom.xml.bind;
 
 import java.time.Instant;
 
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.qazkom.xml.mapping.adapter.XmlTimestampAdapter;
+import tech.lapsa.qazkom.xml.bind.adapter.XmlTimestampAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)

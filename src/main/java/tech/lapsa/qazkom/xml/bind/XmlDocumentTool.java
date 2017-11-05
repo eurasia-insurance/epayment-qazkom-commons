@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.mapping;
+package tech.lapsa.qazkom.xml.bind;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Optional;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,6 +18,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 
 import tech.lapsa.java.commons.function.MyObjects;
+import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 
 public final class XmlDocumentTool<T> {
@@ -77,6 +79,14 @@ public final class XmlDocumentTool<T> {
     public T deserializeFrom(String rawXml) throws IllegalArgumentException {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return deserializeFrom(new StringReader(rawXml));
+    }
+
+    public Optional<String> optionalSerializeToString(T document) {
+	try {
+	    return MyOptionals.of(serializeToString(document));
+	} catch (IllegalArgumentException e) {
+	    return Optional.empty();
+	}
     }
 
     public String serializeToString(T document) throws IllegalArgumentException {

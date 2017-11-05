@@ -1,24 +1,24 @@
-       3 tech.lapsa.qazkom.xml.mapping.AXmlAmount
-       5 tech.lapsa.qazkom.xml.mapping.AXmlAmountAndCurrency
-       7 tech.lapsa.qazkom.xml.mapping.AXmlSign
-      11 tech.lapsa.qazkom.xml.mapping.XmlBank
-      13 tech.lapsa.qazkom.xml.mapping.XmlBankSign
-      17 tech.lapsa.qazkom.xml.mapping.XmlCustomer
-      19 tech.lapsa.qazkom.xml.mapping.XmlCustomerSign
-      23 tech.lapsa.qazkom.xml.mapping.XmlDepartment
-      29 tech.lapsa.qazkom.xml.mapping.XmlDocumentCart
-      31 tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder
-      37 tech.lapsa.qazkom.xml.mapping.XmlDocumentPayment
-      41 tech.lapsa.qazkom.xml.mapping.XmlError
-      43 tech.lapsa.qazkom.xml.mapping.XmlItem
-      47 tech.lapsa.qazkom.xml.mapping.XmlMerchant
-      53 tech.lapsa.qazkom.xml.mapping.XmlMerchantSign
-      59 tech.lapsa.qazkom.xml.mapping.XmlOrder
-      61 tech.lapsa.qazkom.xml.mapping.XmlPayment
-      67 tech.lapsa.qazkom.xml.mapping.XmlResponse
-      71 tech.lapsa.qazkom.xml.mapping.XmlResults
-      73 tech.lapsa.qazkom.xml.mapping.XmlSession
-      79 tech.lapsa.qazkom.xml.mapping.AXmlBase
+       3 tech.lapsa.qazkom.xml.bind.AXmlAmount
+       5 tech.lapsa.qazkom.xml.bind.AXmlAmountAndCurrency
+       7 tech.lapsa.qazkom.xml.bind.AXmlSign
+      11 tech.lapsa.qazkom.xml.bind.XmlBank
+      13 tech.lapsa.qazkom.xml.bind.XmlBankSign
+      17 tech.lapsa.qazkom.xml.bind.XmlCustomer
+      19 tech.lapsa.qazkom.xml.bind.XmlCustomerSign
+      23 tech.lapsa.qazkom.xml.bind.XmlDepartment
+      29 tech.lapsa.qazkom.xml.bind.XmlDocumentCart
+      31 tech.lapsa.qazkom.xml.bind.XmlDocumentOrder
+      37 tech.lapsa.qazkom.xml.bind.XmlDocumentPayment
+      41 tech.lapsa.qazkom.xml.bind.XmlError
+      43 tech.lapsa.qazkom.xml.bind.XmlItem
+      47 tech.lapsa.qazkom.xml.bind.XmlMerchant
+      53 tech.lapsa.qazkom.xml.bind.XmlMerchantSign
+      59 tech.lapsa.qazkom.xml.bind.XmlOrder
+      61 tech.lapsa.qazkom.xml.bind.XmlPayment
+      67 tech.lapsa.qazkom.xml.bind.XmlResponse
+      71 tech.lapsa.qazkom.xml.bind.XmlResults
+      73 tech.lapsa.qazkom.xml.bind.XmlSession
+      79 tech.lapsa.qazkom.xml.bind.AXmlBase
       83 
       89 
       97 

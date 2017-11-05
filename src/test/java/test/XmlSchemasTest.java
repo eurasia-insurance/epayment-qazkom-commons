@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 import org.junit.Assert;
 import org.junit.Test;
 
-import tech.lapsa.qazkom.xml.XmlSchemas;
+import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 
 public class XmlSchemasTest {
 

@@ -19,7 +19,7 @@ import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
 import tech.lapsa.java.commons.security.MySignatures;
-import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
+import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
 
 public class XmlDocumentOrderBulderTest {
 
