@@ -17,17 +17,19 @@ import com.lapsa.fin.FinCurrency;
 import tech.lapsa.java.commons.resources.Resources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
+import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
 import tech.lapsa.java.commons.security.MySignatures;
+import tech.lapsa.java.commons.security.MySignatures.Algorithm;
 import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
 
 public class XmlDocumentOrderBulderTest {
 
-    private static final String STORETYPE = "JKS";
+    private static final StoreType STORETYPE = StoreType.JKS;
     private static final String KEYSTORE = "/kkb.jks";
     private static final String STOREPASS = "1q2w3e4r";
     private static final String ALIAS = "cert";
-    private static final String ALGORITHM = "SHA1withRSA";
+    private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
     private static X509Certificate certificate;
     private static Signature forSignature;
