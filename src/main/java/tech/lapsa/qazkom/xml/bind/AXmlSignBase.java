@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement
-public abstract class AXmlSign implements Serializable {
+public abstract class AXmlSignBase implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

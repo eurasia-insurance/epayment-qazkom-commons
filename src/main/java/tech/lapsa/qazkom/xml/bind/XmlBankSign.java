@@ -15,7 +15,7 @@ import tech.lapsa.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAd
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "bank_sign")
-public class XmlBankSign extends AXmlSign {
+public class XmlBankSign extends AXmlSignBase {
 
     private static final long serialVersionUID = 1L;
 

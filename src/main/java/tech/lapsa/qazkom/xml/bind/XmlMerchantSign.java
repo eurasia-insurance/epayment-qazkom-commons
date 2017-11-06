@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "merchant_sign")
-public class XmlMerchantSign extends AXmlSign {
+public class XmlMerchantSign extends AXmlSignBase {
 
     private static final long serialVersionUID = 1L;
 
