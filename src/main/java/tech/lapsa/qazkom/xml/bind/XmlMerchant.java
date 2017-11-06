@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import tech.lapsa.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
+import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -20,7 +21,7 @@ public class XmlMerchant extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final XmlDocumentTool<XmlMerchant> TOOL = XmlDocumentTool.forClass(XmlMerchant.class);
+    private static final XmlDocumentTool<XmlMerchant> TOOL = XmlDocumentTool.forClass(XmlMerchant.class, XmlSchemas.ORDER_SCHEMA);
 
     public static final XmlDocumentTool<XmlMerchant> getTool() {
 	return TOOL;
