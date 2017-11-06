@@ -17,18 +17,6 @@ import com.lapsa.fin.FinCurrency;
 public abstract class AXmlAmountAndCurrency extends AXmlAmount {
     private static final long serialVersionUID = 1L;
 
-    public AXmlAmountAndCurrency(int prime, int multiplier) {
-	super(prime, multiplier);
-    }
-
-    public AXmlAmountAndCurrency(int prime) {
-	super(prime);
-    }
-
-    public AXmlAmountAndCurrency() {
-	this(5);
-    }
-
     // currency - код валюты оплаты [ 398 - тенге ]
     @XmlAttribute(name = "currency")
     private int currencyCode;
@@ -37,26 +25,26 @@ public abstract class AXmlAmountAndCurrency extends AXmlAmount {
 	return currencyCode;
     }
 
-    public void setCurrencyCode(int currencyCode) {
+    public void setCurrencyCode(final int currencyCode) {
 	this.currencyCode = currencyCode;
     }
 
     public Currency getCurrency() {
-	for (Currency c : Currency.getAvailableCurrencies())
+	for (final Currency c : Currency.getAvailableCurrencies())
 	    if (c.getNumericCode() == currencyCode)
 		return c;
 	return null;
     }
 
-    public void setCurrency(Currency currency) {
-	this.currencyCode = (currency == null) ? 0 : currency.getNumericCode();
+    public void setCurrency(final Currency currency) {
+	currencyCode = currency == null ? 0 : currency.getNumericCode();
     }
 
     public FinCurrency getFinCurrency() {
 	return FinCurrency.byNumericCode(currencyCode);
     }
 
-    public void setFinCurrency(FinCurrency finCurrency) {
-	this.currencyCode = (finCurrency == null) ? 0 : finCurrency.getCurrency().getNumericCode();
+    public void setFinCurrency(final FinCurrency finCurrency) {
+	currencyCode = finCurrency == null ? 0 : finCurrency.getCurrency().getNumericCode();
     }
 }

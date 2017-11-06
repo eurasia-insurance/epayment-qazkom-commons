@@ -17,18 +17,6 @@ public abstract class AXmlAmount extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public AXmlAmount(int prime, int multiplier) {
-	super(prime, multiplier);
-    }
-
-    public AXmlAmount(int prime) {
-	super(prime);
-    }
-    
-    public AXmlAmount() {
-	this(3);
-    }
-
     // amount - сумма заказа,
     @XmlAttribute(name = "amount")
     @XmlJavaTypeAdapter(XmlAmountAdapter.class)
@@ -40,7 +28,7 @@ public abstract class AXmlAmount extends AXmlBase {
 	return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(final Double amount) {
 	this.amount = amount;
     }
 }
