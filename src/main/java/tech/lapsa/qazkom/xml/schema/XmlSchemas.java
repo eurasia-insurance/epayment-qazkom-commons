@@ -21,8 +21,8 @@ public final class XmlSchemas {
 
     public static final Schema CART_SCHEMA = fromResource("/META-INF/qazkom/document-cart-schema.xsd");
     public static final Schema ERROR_SCHEMA = fromResource("/META-INF/qazkom/document-error-schema.xsd");
-    public static final Schema ORDER_SCHEMA = fromResource("/META-INF/qazkom/document-request-schema.xsd");
-    public static final Schema PAYMENT_SCHEMA = fromResource("/META-INF/qazkom/document-response-schema.xsd");
+    public static final Schema ORDER_SCHEMA = fromResource("/META-INF/qazkom/document-order-schema.xsd");
+    public static final Schema PAYMENT_SCHEMA = fromResource("/META-INF/qazkom/document-payment-schema.xsd");
 
     public static final Schema[] all() {
 	return new Schema[] { CART_SCHEMA, ERROR_SCHEMA, ORDER_SCHEMA, PAYMENT_SCHEMA };
