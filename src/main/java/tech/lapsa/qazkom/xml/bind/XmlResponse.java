@@ -15,8 +15,9 @@ public class XmlResponse extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlResponse() {
-	super(67);
+    @Override
+    protected int prime() {
+	return 67;
     }
 
     // order_id - номер заказа
@@ -35,7 +36,7 @@ public class XmlResponse extends AXmlBase {
 	return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(final String orderId) {
 	this.orderId = orderId;
     }
 
@@ -43,7 +44,7 @@ public class XmlResponse extends AXmlBase {
 	return error;
     }
 
-    public void setError(XmlError error) {
+    public void setError(final XmlError error) {
 	this.error = error;
     }
 
@@ -51,7 +52,7 @@ public class XmlResponse extends AXmlBase {
 	return session;
     }
 
-    public void setSession(XmlSession session) {
+    public void setSession(final XmlSession session) {
 	this.session = session;
     }
 

@@ -23,12 +23,13 @@ public class XmlDocumentPayment extends AXmlBase {
 	return TOOL;
     }
 
-    public static XmlDocumentPayment of(String rawXml) {
+    public static XmlDocumentPayment of(final String rawXml) {
 	return TOOL.deserializeFrom(rawXml);
     }
 
-    public XmlDocumentPayment() {
-	super(37);
+    @Override
+    protected int prime() {
+	return 37;
     }
 
     @XmlElementRef
@@ -41,7 +42,7 @@ public class XmlDocumentPayment extends AXmlBase {
 	return bank;
     }
 
-    public void setBank(XmlBank bank) {
+    public void setBank(final XmlBank bank) {
 	this.bank = bank;
     }
 
@@ -49,7 +50,7 @@ public class XmlDocumentPayment extends AXmlBase {
 	return bankSign;
     }
 
-    public void setBankSign(XmlBankSign bankSign) {
+    public void setBankSign(final XmlBankSign bankSign) {
 	this.bankSign = bankSign;
     }
 

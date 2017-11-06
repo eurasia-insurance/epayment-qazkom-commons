@@ -14,8 +14,9 @@ public class XmlItem extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlItem() {
-	super(43);
+    @Override
+    protected int prime() {
+	return 43;
     }
 
     // item number= необходимо перечислить все пункты корзины
@@ -36,7 +37,7 @@ public class XmlItem extends AXmlAmount {
 	return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(final int number) {
 	this.number = number;
     }
 
@@ -44,7 +45,7 @@ public class XmlItem extends AXmlAmount {
 	return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
 	this.name = name;
     }
 
@@ -52,7 +53,7 @@ public class XmlItem extends AXmlAmount {
 	return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(final int quantity) {
 	this.quantity = quantity;
     }
 }

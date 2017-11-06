@@ -13,7 +13,8 @@ public class XmlCustomerSign extends AXmlSign {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlCustomerSign() {
-	super(19);
+    @Override
+    protected int prime() {
+	return 19;
     }
 }

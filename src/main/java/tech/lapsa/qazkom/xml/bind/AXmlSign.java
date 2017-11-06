@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -22,32 +21,15 @@ public abstract class AXmlSign implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlTransient
-    private final int PRIME;
-    
-    @XmlTransient
-    private final int MULTIPLIER;
-
-    public AXmlSign(int prime, int multiplier) {
-	this.PRIME = prime;
-	this.MULTIPLIER = multiplier;
-    }
-
-    public AXmlSign(int prime) {
-	this(prime, prime);
-    }
-
-    public AXmlSign() {
-	this(7);
-    }
+    protected abstract int prime();
 
     @Override
     public int hashCode() {
-	return HashCodeBuilder.reflectionHashCode(PRIME, MULTIPLIER, this, false);
+	return HashCodeBuilder.reflectionHashCode(prime(), prime(), this, false);
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
 	return EqualsBuilder.reflectionEquals(this, other, false);
     }
 
@@ -64,7 +46,7 @@ public abstract class AXmlSign implements Serializable {
 	return signType;
     }
 
-    public void setSignType(XmlSignType signType) {
+    public void setSignType(final XmlSignType signType) {
 	this.signType = signType;
     }
 
@@ -73,15 +55,15 @@ public abstract class AXmlSign implements Serializable {
 	return signature;
     }
 
-    public void setSignature(byte[] signature) {
-	this.signature = (signature != null && signature.length == 0) ? null : signature;
+    public void setSignature(final byte[] signature) {
+	this.signature = signature != null && signature.length == 0 ? null : signature;
     }
 
     public String getSignatureEncoded() {
 	return Base64.getEncoder().encodeToString(signature);
     }
 
-    public void setSignatureEncoded(String signatureEncoded) {
-	this.signature = Base64.getDecoder().decode(signatureEncoded);
+    public void setSignatureEncoded(final String signatureEncoded) {
+	signature = Base64.getDecoder().decode(signatureEncoded);
     }
 }

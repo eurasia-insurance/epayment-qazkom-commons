@@ -30,12 +30,13 @@ public class XmlDocumentCart extends AXmlBase {
     private static final XmlDocumentTool<XmlDocumentCart> TOOL = XmlDocumentTool.forClass(XmlDocumentCart.class,
 	    XmlSchemas.CART_SCHEMA);
 
-    public static XmlDocumentCart of(String rawXml) {
+    public static XmlDocumentCart of(final String rawXml) {
 	return TOOL.deserializeFrom(rawXml);
     }
 
-    public XmlDocumentCart() {
-	super(29);
+    @Override
+    protected int prime() {
+	return 29;
     }
 
     @XmlElementRef
@@ -45,7 +46,7 @@ public class XmlDocumentCart extends AXmlBase {
 	return items;
     }
 
-    public void setItems(List<XmlItem> items) {
+    public void setItems(final List<XmlItem> items) {
 	this.items = items;
     }
 
@@ -66,16 +67,16 @@ public class XmlDocumentCart extends AXmlBase {
 	    private final Integer quantity;
 	    private final Double amount;
 
-	    private Its(String name, Integer quantity, Double amount) {
+	    private Its(final String name, final Integer quantity, final Double amount) {
 		this.name = name;
 		this.quantity = quantity;
 		this.amount = amount;
 	    }
 	}
 
-	private List<Its> itms = new ArrayList<>();
+	private final List<Its> itms = new ArrayList<>();
 
-	public XmlDocumentCartBuilder withItem(String name, Integer quantity, Double amount) {
+	public XmlDocumentCartBuilder withItem(final String name, final Integer quantity, final Double amount) {
 	    MyStrings.requireNonEmpty(name, "name");
 	    MyNumbers.requireNonZero(quantity, "quantity");
 	    MyNumbers.requireNonZero(amount, "amount");
@@ -83,9 +84,9 @@ public class XmlDocumentCart extends AXmlBase {
 	    return this;
 	}
 
-	public <T> XmlDocumentCartBuilder withItems(Collection<T> items, Function<T, String> nameMapper,
-		Function<T, Integer> quantityMapper,
-		Function<T, Double> amountMapper) {
+	public <T> XmlDocumentCartBuilder withItems(final Collection<T> items, final Function<T, String> nameMapper,
+		final Function<T, Integer> quantityMapper,
+		final Function<T, Double> amountMapper) {
 	    MyCollections.requireNonEmpty(items, "items");
 	    MyObjects.requireNonNull(nameMapper, "nameMapper");
 	    MyObjects.requireNonNull(quantityMapper, "quantityMapper");
@@ -99,12 +100,12 @@ public class XmlDocumentCart extends AXmlBase {
 	}
 
 	public XmlDocumentCart build() {
-	    AtomicInteger i = new AtomicInteger(1);
-	    XmlDocumentCart doc = new XmlDocumentCart();
+	    final AtomicInteger i = new AtomicInteger(1);
+	    final XmlDocumentCart doc = new XmlDocumentCart();
 	    doc.setItems(MyOptionals.streamOf(itms) //
 		    .orElseThrow(() -> new IllegalArgumentException("Cart must have at least one item")) //
 		    .map(t -> {
-			XmlItem r = new XmlItem();
+			final XmlItem r = new XmlItem();
 			r.setName(t.name);
 			r.setAmount(t.amount);
 			r.setQuantity(t.quantity);

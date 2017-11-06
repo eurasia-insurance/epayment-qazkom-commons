@@ -14,14 +14,14 @@ public class XmlTimestampAdapter extends XmlAdapter<String, Instant> {
     private static final ZoneId KKB_ZONE = ZoneId.of("Asia/Almaty");
 
     @Override
-    public Instant unmarshal(String v) throws Exception {
+    public Instant unmarshal(final String v) throws Exception {
 	if (v == null)
 	    return null;
 	return LocalDateTime.parse(v, KKB_TIMESTAMP_FORMATTER).atZone(KKB_ZONE).toInstant();
     }
 
     @Override
-    public String marshal(Instant v) throws Exception {
+    public String marshal(final Instant v) throws Exception {
 	if (v == null)
 	    return null;
 	return v.atZone(KKB_ZONE).format(KKB_TIMESTAMP_FORMATTER);

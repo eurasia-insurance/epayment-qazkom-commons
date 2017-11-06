@@ -20,8 +20,9 @@ public class XmlError extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlError() {
-	super(41);
+    @Override
+    protected int prime() {
+	return 41;
     }
 
     // type - тип ошибки:
@@ -52,7 +53,7 @@ public class XmlError extends AXmlBase {
 	return type;
     }
 
-    public void setType(XmlErrorType type) {
+    public void setType(final XmlErrorType type) {
 	this.type = type;
     }
 
@@ -60,7 +61,7 @@ public class XmlError extends AXmlBase {
 	return time;
     }
 
-    public void setTime(Instant time) {
+    public void setTime(final Instant time) {
 	this.time = time;
     }
 
@@ -68,7 +69,7 @@ public class XmlError extends AXmlBase {
 	return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(final String code) {
 	this.code = code;
     }
 
@@ -76,7 +77,7 @@ public class XmlError extends AXmlBase {
 	return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
 	this.message = message;
     }
 }

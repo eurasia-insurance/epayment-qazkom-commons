@@ -9,14 +9,14 @@ public class XmlCertificateSeriaNumberToHEXStringAdapter extends XmlAdapter<Stri
     private static final int RADIX = 16;
 
     @Override
-    public BigInteger unmarshal(String v) throws Exception {
+    public BigInteger unmarshal(final String v) throws Exception {
 	if (v == null)
 	    return null;
 	return new BigInteger(v, RADIX);
     }
 
     @Override
-    public String marshal(BigInteger v) throws Exception {
+    public String marshal(final BigInteger v) throws Exception {
 	if (v == null)
 	    return null;
 	return v.toString(RADIX).toLowerCase();

@@ -23,23 +23,23 @@ import tech.lapsa.java.commons.function.MyStrings;
 
 public final class XmlDocumentTool<T> {
 
-    static <Q> XmlDocumentTool<Q> forClass(Class<Q> clazz) {
+    static <Q> XmlDocumentTool<Q> forClass(final Class<Q> clazz) {
 	return forClass(clazz, null);
     }
 
-    static <Q> XmlDocumentTool<Q> forClass(final Class<Q> clazz, Schema schema) {
+    static <Q> XmlDocumentTool<Q> forClass(final Class<Q> clazz, final Schema schema) {
 	try {
-	    JAXBContext context = JAXBContext.newInstance(clazz);
-	    Marshaller marshaller = context.createMarshaller();
+	    final JAXBContext context = JAXBContext.newInstance(clazz);
+	    final Marshaller marshaller = context.createMarshaller();
 	    if (schema != null)
 		marshaller.setSchema(schema);
 	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-	    Unmarshaller unmarshaller = context.createUnmarshaller();
+	    final Unmarshaller unmarshaller = context.createUnmarshaller();
 	    if (schema != null)
 		unmarshaller.setSchema(schema);
 	    return new XmlDocumentTool<Q>(clazz, marshaller, unmarshaller);
-	} catch (JAXBException e) {
+	} catch (final JAXBException e) {
 	    throw new RuntimeException(e);
 	}
     }
@@ -48,53 +48,53 @@ public final class XmlDocumentTool<T> {
     private final Unmarshaller unmarshaller;
     private final Class<T> clazz;
 
-    private XmlDocumentTool(Class<T> clazz, Marshaller marshaller, Unmarshaller unmarshaller) {
+    private XmlDocumentTool(final Class<T> clazz, final Marshaller marshaller, final Unmarshaller unmarshaller) {
 	this.clazz = clazz;
 	this.marshaller = marshaller;
 	this.unmarshaller = unmarshaller;
     }
 
-    public T deserializeFrom(InputStream is) throws IllegalArgumentException {
+    public T deserializeFrom(final InputStream is) throws IllegalArgumentException {
 	MyObjects.requireNonNull(is, "is");
 	try {
 	    return clazz.cast(unmarshaller.unmarshal(is));
-	} catch (UnmarshalException e) {
+	} catch (final UnmarshalException e) {
 	    throw new IllegalArgumentException("Can't deserialize document", e);
 	} catch (JAXBException | IllegalArgumentException e) {
 	    throw new RuntimeException("Error while de-serializing document", e);
 	}
     }
 
-    public T deserializeFrom(Reader reader) throws IllegalArgumentException {
+    public T deserializeFrom(final Reader reader) throws IllegalArgumentException {
 	MyObjects.requireNonNull(reader, "reader");
 	try {
 	    return clazz.cast(unmarshaller.unmarshal(reader));
-	} catch (UnmarshalException e) {
+	} catch (final UnmarshalException e) {
 	    throw new IllegalArgumentException("Can't deserialize document", e);
 	} catch (JAXBException | IllegalArgumentException e) {
 	    throw new RuntimeException("Error while de-serializing document", e);
 	}
     }
 
-    public T deserializeFrom(String rawXml) throws IllegalArgumentException {
+    public T deserializeFrom(final String rawXml) throws IllegalArgumentException {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return deserializeFrom(new StringReader(rawXml));
     }
 
-    public Optional<String> optionalSerializeToString(T document) {
+    public Optional<String> optionalSerializeToString(final T document) {
 	try {
 	    return MyOptionals.of(serializeToString(document));
-	} catch (IllegalArgumentException e) {
+	} catch (final IllegalArgumentException e) {
 	    return Optional.empty();
 	}
     }
 
-    public String serializeToString(T document) throws IllegalArgumentException {
+    public String serializeToString(final T document) throws IllegalArgumentException {
 	MyObjects.requireNonNull(document, "document");
-	StringWriter output = new StringWriter();
+	final StringWriter output = new StringWriter();
 	try {
 	    marshaller.marshal(document, output);
-	} catch (MarshalException e) {
+	} catch (final MarshalException e) {
 	    throw new IllegalArgumentException("Can't serialize document", e);
 	} catch (JAXBException | IllegalArgumentException e) {
 	    throw new RuntimeException("Error while serializing document", e);
@@ -102,12 +102,12 @@ public final class XmlDocumentTool<T> {
 	return output.toString();
     }
 
-    public byte[] serializeToBytes(T document) {
+    public byte[] serializeToBytes(final T document) {
 	MyObjects.requireNonNull(document, "document");
-	ByteArrayOutputStream output = new ByteArrayOutputStream();
+	final ByteArrayOutputStream output = new ByteArrayOutputStream();
 	try {
 	    marshaller.marshal(document, output);
-	} catch (MarshalException e) {
+	} catch (final MarshalException e) {
 	    throw new IllegalArgumentException("Can't serialize document", e);
 	} catch (JAXBException | IllegalArgumentException e) {
 	    throw new RuntimeException("Error while serializing document", e);
@@ -115,22 +115,22 @@ public final class XmlDocumentTool<T> {
 	return output.toByteArray();
     }
 
-    public void serializeTo(T document, Writer output) {
+    public void serializeTo(final T document, final Writer output) {
 	MyObjects.requireNonNull(document, "document");
 	try {
 	    marshaller.marshal(document, output);
-	} catch (MarshalException e) {
+	} catch (final MarshalException e) {
 	    throw new IllegalArgumentException("Can't serialize document", e);
 	} catch (JAXBException | IllegalArgumentException e) {
 	    throw new RuntimeException("Error while serializing document", e);
 	}
     }
 
-    public void serializeTo(T document, OutputStream output) {
+    public void serializeTo(final T document, final OutputStream output) {
 	MyObjects.requireNonNull(document, "document");
 	try {
 	    marshaller.marshal(document, output);
-	} catch (MarshalException e) {
+	} catch (final MarshalException e) {
 	    throw new IllegalArgumentException("Can't serialize document", e);
 	} catch (JAXBException | IllegalArgumentException e) {
 	    throw new RuntimeException("Error while serializing document", e);

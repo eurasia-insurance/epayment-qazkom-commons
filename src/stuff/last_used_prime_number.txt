@@ -1,6 +1,6 @@
-       3 tech.lapsa.qazkom.xml.bind.AXmlAmount
-       5 tech.lapsa.qazkom.xml.bind.AXmlAmountAndCurrency
-       7 tech.lapsa.qazkom.xml.bind.AXmlSign
+       3 
+       5 
+       7 
       11 tech.lapsa.qazkom.xml.bind.XmlBank
       13 tech.lapsa.qazkom.xml.bind.XmlBankSign
       17 tech.lapsa.qazkom.xml.bind.XmlCustomer
@@ -18,7 +18,7 @@
       67 tech.lapsa.qazkom.xml.bind.XmlResponse
       71 tech.lapsa.qazkom.xml.bind.XmlResults
       73 tech.lapsa.qazkom.xml.bind.XmlSession
-      79 tech.lapsa.qazkom.xml.bind.AXmlBase
+      79 
       83 
       89 
       97 
@@ -41,7 +41,7 @@
      181 
      191 
      193 
-     197 com.lapsa.insurance.domain.crm.UserGroup
+     197 
      199 
      211 
      223 

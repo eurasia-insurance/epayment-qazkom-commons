@@ -13,7 +13,8 @@ public class XmlMerchantSign extends AXmlSign {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlMerchantSign() {
-	super(53);
+    @Override
+    protected int prime() {
+	return 53;
     }
 }

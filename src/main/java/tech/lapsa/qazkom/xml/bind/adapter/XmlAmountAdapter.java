@@ -18,21 +18,21 @@ public class XmlAmountAdapter extends XmlAdapter<String, Double> {
     }
 
     @Override
-    public Double unmarshal(String v) throws Exception {
+    public Double unmarshal(final String v) throws Exception {
 	if (v == null)
 	    return null;
 	return format.parse(v).doubleValue();
     }
 
     @Override
-    public String marshal(Double v) throws Exception {
+    public String marshal(final Double v) throws Exception {
 	if (v == null)
 	    return null;
 	return format.format(v);
     }
 
-    public static void main(String[] args) throws Exception {
-	XmlAmountAdapter z = new XmlAmountAdapter();
+    public static void main(final String[] args) throws Exception {
+	final XmlAmountAdapter z = new XmlAmountAdapter();
 	System.out.println(z.marshal(1234.00d));
 	System.out.println(z.marshal(1234.12d));
 

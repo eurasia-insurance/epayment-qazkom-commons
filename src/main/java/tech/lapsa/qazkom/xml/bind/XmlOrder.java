@@ -17,8 +17,9 @@ public class XmlOrder extends AXmlAmountAndCurrency {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlOrder() {
-	super(49);
+    @Override
+    protected int prime() {
+	return 49;
     }
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ
@@ -35,7 +36,7 @@ public class XmlOrder extends AXmlAmountAndCurrency {
 	return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(final String orderId) {
 	this.orderId = orderId;
     }
 
@@ -43,7 +44,7 @@ public class XmlOrder extends AXmlAmountAndCurrency {
 	return departments;
     }
 
-    public void setDepartments(List<XmlDepartment> departments) {
+    public void setDepartments(final List<XmlDepartment> departments) {
 	this.departments = departments;
     }
 }

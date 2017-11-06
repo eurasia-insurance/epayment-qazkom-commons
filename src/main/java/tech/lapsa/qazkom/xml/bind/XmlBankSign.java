@@ -19,8 +19,9 @@ public class XmlBankSign extends AXmlSign {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlBankSign() {
-	super(13);
+    @Override
+    protected int prime() {
+	return 13;
     }
 
     // cert_id - серийный номер сертификата
@@ -34,7 +35,7 @@ public class XmlBankSign extends AXmlSign {
 	return certificateSerialNumber;
     }
 
-    public void setCertificateSerialNumber(BigInteger certificateSerialNumber) {
+    public void setCertificateSerialNumber(final BigInteger certificateSerialNumber) {
 	this.certificateSerialNumber = certificateSerialNumber;
     }
 }

@@ -14,8 +14,9 @@ public class XmlDepartment extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlDepartment() {
-	super(23);
+    @Override
+    protected int prime() {
+	return 23;
     }
 
     // merchant_id - ID продавца в платежной системе
@@ -45,7 +46,7 @@ public class XmlDepartment extends AXmlAmount {
 	return merchantId;
     }
 
-    public void setMerchantId(String merchantId) {
+    public void setMerchantId(final String merchantId) {
 	this.merchantId = merchantId;
     }
 
@@ -53,7 +54,7 @@ public class XmlDepartment extends AXmlAmount {
 	return abonentId;
     }
 
-    public void setAbonentId(String abonentId) {
+    public void setAbonentId(final String abonentId) {
 	this.abonentId = abonentId;
     }
 
@@ -61,7 +62,7 @@ public class XmlDepartment extends AXmlAmount {
 	return terminal;
     }
 
-    public void setTerminal(String terminal) {
+    public void setTerminal(final String terminal) {
 	this.terminal = terminal;
     }
 
@@ -69,7 +70,7 @@ public class XmlDepartment extends AXmlAmount {
 	return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(final String phone) {
 	this.phone = phone;
     }
 
@@ -77,7 +78,7 @@ public class XmlDepartment extends AXmlAmount {
 	return airticketBookingNumber;
     }
 
-    public void setAirticketBookingNumber(String airticketBookingNumber) {
+    public void setAirticketBookingNumber(final String airticketBookingNumber) {
 	this.airticketBookingNumber = airticketBookingNumber;
     }
 }

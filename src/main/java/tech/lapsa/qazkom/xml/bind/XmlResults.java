@@ -21,8 +21,9 @@ public class XmlResults extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlResults() {
-	super(71);
+    @Override
+    protected int prime() {
+	return 71;
     }
 
     // timestamp - время проведения платежа
@@ -39,7 +40,7 @@ public class XmlResults extends AXmlBase {
 	return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public void setTimestamp(final Instant timestamp) {
 	this.timestamp = timestamp;
     }
 
@@ -47,7 +48,7 @@ public class XmlResults extends AXmlBase {
 	return payments;
     }
 
-    public void setPayments(List<XmlPayment> payments) {
+    public void setPayments(final List<XmlPayment> payments) {
 	this.payments = payments;
     }
 

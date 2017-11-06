@@ -35,7 +35,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	return TOOL;
     }
 
-    public static XmlDocumentOrder of(String rawXml) {
+    public static XmlDocumentOrder of(final String rawXml) {
 	return TOOL.deserializeFrom(rawXml);
     }
 
@@ -94,38 +94,38 @@ public class XmlDocumentOrder extends AXmlBase {
 	    MyObjects.requireNonNull(signature, "signature");
 	    MyObjects.requireNonNull(certificate, "certificate");
 
-	    XmlMerchant xmlMerchant = new XmlMerchant();
-	    BigInteger serialNumber = certificate.getSerialNumber();
+	    final XmlMerchant xmlMerchant = new XmlMerchant();
+	    final BigInteger serialNumber = certificate.getSerialNumber();
 	    xmlMerchant.setCertificateSerialNumber(serialNumber);
 	    xmlMerchant.setName(merchantName);
 
-	    XmlOrder xmlOrder = new XmlOrder();
+	    final XmlOrder xmlOrder = new XmlOrder();
 	    xmlMerchant.setOrder(xmlOrder);
 	    xmlOrder.setOrderId(orderNumber);
 	    xmlOrder.setAmount(amount);
 	    xmlOrder.setFinCurrency(currency);
 	    xmlOrder.setDepartments(new ArrayList<>());
 
-	    XmlDepartment xmlDepartment = new XmlDepartment();
+	    final XmlDepartment xmlDepartment = new XmlDepartment();
 	    xmlOrder.getDepartments().add(xmlDepartment);
 	    xmlDepartment.setMerchantId(merchantId);
 	    xmlDepartment.setAmount(amount);
 
-	    byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
+	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
 	    byte[] digest = null;
 	    try {
 		signature.update(data);
 		digest = signature.sign();
 		MyArrays.reverse(digest);
-	    } catch (SignatureException e) {
+	    } catch (final SignatureException e) {
 		throw new RuntimeException("Exception with signature", e);
 	    }
 
-	    XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
+	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
 	    xmlMerchantSign.setSignType(XmlSignType.RSA);
 	    xmlMerchantSign.setSignature(digest);
 
-	    XmlDocumentOrder doc = new XmlDocumentOrder();
+	    final XmlDocumentOrder doc = new XmlDocumentOrder();
 	    doc.setMerchant(xmlMerchant);
 	    doc.setMerchantSign(xmlMerchantSign);
 
@@ -139,13 +139,13 @@ public class XmlDocumentOrder extends AXmlBase {
 	if (merchant == null || merchantSign == null || merchantSign.getSignature() == null)
 	    throw new IllegalStateException("Document is corrupted");
 
-	byte[] data = XmlMerchant.getTool().serializeToBytes(merchant);
-	byte[] sign = merchantSign.getSignature().clone();
+	final byte[] data = XmlMerchant.getTool().serializeToBytes(merchant);
+	final byte[] sign = merchantSign.getSignature().clone();
 	MyArrays.reverse(sign);
 	try {
 	    signature.update(data);
 	    return signature.verify(sign);
-	} catch (SignatureException e) {
+	} catch (final SignatureException e) {
 	    throw new RuntimeException("Exception with signature", e);
 	}
     }
@@ -156,8 +156,9 @@ public class XmlDocumentOrder extends AXmlBase {
 	throw new IllegalStateException("Signature is invalid");
     }
 
-    public XmlDocumentOrder() {
-	super(31);
+    @Override
+    protected int prime() {
+	return 31;
     }
 
     @XmlElementRef
@@ -170,7 +171,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	return merchant;
     }
 
-    public void setMerchant(XmlMerchant merchant) {
+    public void setMerchant(final XmlMerchant merchant) {
 	this.merchant = merchant;
     }
 
@@ -178,7 +179,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	return merchantSign;
     }
 
-    public void setMerchantSign(XmlMerchantSign merchantSign) {
+    public void setMerchantSign(final XmlMerchantSign merchantSign) {
 	this.merchantSign = merchantSign;
     }
 

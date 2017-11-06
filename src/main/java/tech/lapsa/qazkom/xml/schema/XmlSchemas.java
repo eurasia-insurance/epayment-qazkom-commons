@@ -28,13 +28,13 @@ public final class XmlSchemas {
 	return new Schema[] { CART_SCHEMA, ERROR_SCHEMA, ORDER_SCHEMA, PAYMENT_SCHEMA };
     }
 
-    private static final Schema fromResource(String resource) {
-	InputStream is = Resources.optionalAsStream(XmlSchemas.class, resource) //
+    private static final Schema fromResource(final String resource) {
+	final InputStream is = Resources.optionalAsStream(XmlSchemas.class, resource) //
 		.orElseThrow(() -> new RuntimeException("Resource not found " + resource));
-	Source source = new StreamSource(is);
+	final Source source = new StreamSource(is);
 	try {
 	    return SCHEMA_FACTORY.newSchema(source);
-	} catch (SAXException e) {
+	} catch (final SAXException e) {
 	    throw new RuntimeException(e);
 	}
     }

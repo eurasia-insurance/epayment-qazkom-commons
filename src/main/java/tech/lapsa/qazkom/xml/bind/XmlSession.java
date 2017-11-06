@@ -14,8 +14,9 @@ public class XmlSession extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlSession() {
-	super(73);
+    @Override
+    protected int prime() {
+	return 73;
     }
 
     @XmlAttribute(name = "id")
@@ -27,7 +28,7 @@ public class XmlSession extends AXmlBase {
 	return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
 	this.id = id;
     }
 }

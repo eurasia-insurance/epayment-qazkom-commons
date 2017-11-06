@@ -26,12 +26,13 @@ public class XmlMerchant extends AXmlBase {
 	return TOOL;
     }
 
-    public static XmlMerchant of(String rawXml) {
+    public static XmlMerchant of(final String rawXml) {
 	return TOOL.deserializeFrom(rawXml);
     }
 
-    public XmlMerchant() {
-	super(47);
+    @Override
+    protected int prime() {
+	return 47;
     }
 
     // cert_id - Серийный номер сертификата
@@ -50,7 +51,7 @@ public class XmlMerchant extends AXmlBase {
 	return certificateSerialNumber;
     }
 
-    public void setCertificateSerialNumber(BigInteger certificateSerialNumber) {
+    public void setCertificateSerialNumber(final BigInteger certificateSerialNumber) {
 	this.certificateSerialNumber = certificateSerialNumber;
     }
 
@@ -58,7 +59,7 @@ public class XmlMerchant extends AXmlBase {
 	return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
 	this.name = name;
     }
 
@@ -66,7 +67,7 @@ public class XmlMerchant extends AXmlBase {
 	return order;
     }
 
-    public void setOrder(XmlOrder order) {
+    public void setOrder(final XmlOrder order) {
 	this.order = order;
     }
 

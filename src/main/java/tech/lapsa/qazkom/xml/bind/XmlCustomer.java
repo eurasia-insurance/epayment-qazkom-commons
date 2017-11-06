@@ -15,8 +15,9 @@ public class XmlCustomer extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlCustomer() {
-	super(17);
+    @Override
+    protected int prime() {
+	return 17;
     }
 
     // Имя покупателя указанное в системе авторизации
@@ -45,7 +46,7 @@ public class XmlCustomer extends AXmlBase {
 	return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
 	this.name = name;
     }
 
@@ -53,7 +54,7 @@ public class XmlCustomer extends AXmlBase {
 	return emailAddress;
     }
 
-    public void setEmailAddress(String emailAddress) {
+    public void setEmailAddress(final String emailAddress) {
 	this.emailAddress = emailAddress;
     }
 
@@ -61,7 +62,7 @@ public class XmlCustomer extends AXmlBase {
 	return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(final String phone) {
 	this.phone = phone;
     }
 
@@ -69,7 +70,7 @@ public class XmlCustomer extends AXmlBase {
 	return sourceMerchant;
     }
 
-    public void setSourceMerchant(XmlMerchant sourceMerchant) {
+    public void setSourceMerchant(final XmlMerchant sourceMerchant) {
 	this.sourceMerchant = sourceMerchant;
     }
 
@@ -77,7 +78,7 @@ public class XmlCustomer extends AXmlBase {
 	return sourceMerchantSign;
     }
 
-    public void setSourceMerchantSign(XmlMerchantSign sourceMerchantSign) {
+    public void setSourceMerchantSign(final XmlMerchantSign sourceMerchantSign) {
 	this.sourceMerchantSign = sourceMerchantSign;
     }
 

@@ -19,8 +19,9 @@ public class XmlPayment extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
 
-    public XmlPayment() {
-	super(61);
+    @Override
+    protected int prime() {
+	return 61;
     }
 
     // Результат транзакции
@@ -65,7 +66,7 @@ public class XmlPayment extends AXmlAmount {
 	return merchantId;
     }
 
-    public void setMerchantId(String merchantId) {
+    public void setMerchantId(final String merchantId) {
 	this.merchantId = merchantId;
     }
 
@@ -73,7 +74,7 @@ public class XmlPayment extends AXmlAmount {
 	return reference;
     }
 
-    public void setReference(String reference) {
+    public void setReference(final String reference) {
 	this.reference = reference;
     }
 
@@ -81,7 +82,7 @@ public class XmlPayment extends AXmlAmount {
 	return approvalCode;
     }
 
-    public void setApprovalCode(String approvalCode) {
+    public void setApprovalCode(final String approvalCode) {
 	this.approvalCode = approvalCode;
     }
 
@@ -89,7 +90,7 @@ public class XmlPayment extends AXmlAmount {
 	return responseCode;
     }
 
-    public void setResponseCode(String responseCode) {
+    public void setResponseCode(final String responseCode) {
 	this.responseCode = responseCode;
     }
 
@@ -97,7 +98,7 @@ public class XmlPayment extends AXmlAmount {
 	return secureType;
     }
 
-    public void setSecureType(XmlSecureType secureType) {
+    public void setSecureType(final XmlSecureType secureType) {
 	this.secureType = secureType;
     }
 
@@ -105,7 +106,7 @@ public class XmlPayment extends AXmlAmount {
 	return cardCountry;
     }
 
-    public void setCardCountry(Country cardCountry) {
+    public void setCardCountry(final Country cardCountry) {
 	this.cardCountry = cardCountry;
     }
 
@@ -113,7 +114,7 @@ public class XmlPayment extends AXmlAmount {
 	return cardNumberMasked;
     }
 
-    public void setCardNumberMasked(String cardNumberMasked) {
+    public void setCardNumberMasked(final String cardNumberMasked) {
 	this.cardNumberMasked = cardNumberMasked;
     }
 
@@ -121,7 +122,7 @@ public class XmlPayment extends AXmlAmount {
 	return cardHash;
     }
 
-    public void setCardHash(String cardHash) {
+    public void setCardHash(final String cardHash) {
 	this.cardHash = cardHash;
     }
 }

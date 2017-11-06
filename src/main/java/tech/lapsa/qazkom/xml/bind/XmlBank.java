@@ -14,8 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlBank extends AXmlBase {
     private static final long serialVersionUID = -5468834860872828233L;
 
-    public XmlBank() {
-	super(11);
+    @Override
+    protected int prime() {
+	return 11;
     }
 
     @XmlAttribute(name = "name")
@@ -36,7 +37,7 @@ public class XmlBank extends AXmlBase {
 	return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
 	this.name = name;
     }
 
@@ -44,7 +45,7 @@ public class XmlBank extends AXmlBase {
 	return customer;
     }
 
-    public void setCustomer(XmlCustomer customer) {
+    public void setCustomer(final XmlCustomer customer) {
 	this.customer = customer;
     }
 
@@ -52,7 +53,7 @@ public class XmlBank extends AXmlBase {
 	return customerSign;
     }
 
-    public void setCustomerSign(XmlCustomerSign customerSign) {
+    public void setCustomerSign(final XmlCustomerSign customerSign) {
 	this.customerSign = customerSign;
     }
 
@@ -60,7 +61,7 @@ public class XmlBank extends AXmlBase {
 	return results;
     }
 
-    public void setResults(XmlResults results) {
+    public void setResults(final XmlResults results) {
 	this.results = results;
     }
 }

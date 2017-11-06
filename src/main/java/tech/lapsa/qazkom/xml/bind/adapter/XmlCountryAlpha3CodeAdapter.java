@@ -7,17 +7,17 @@ import com.lapsa.international.country.Country;
 public class XmlCountryAlpha3CodeAdapter extends XmlAdapter<String, Country> {
 
     @Override
-    public Country unmarshal(String v) throws Exception {
+    public Country unmarshal(final String v) throws Exception {
 	if (v == null)
 	    return null;
-	Country c = Country.forAlpha3Code(v);
+	final Country c = Country.forAlpha3Code(v);
 	if (c != null)
 	    return c;
 	return Country.OTHR;
     }
 
     @Override
-    public String marshal(Country v) throws Exception {
+    public String marshal(final Country v) throws Exception {
 	if (v == null)
 	    return null;
 	return v.getAlpha3Code();
