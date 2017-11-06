@@ -32,8 +32,8 @@ public class XmlDocumentOrderBulderTest {
     private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
     private static X509Certificate certificate;
-    private static Signature forSignature;
-    private static Signature forVerification;
+    private static Signature sigForSignature;
+    private static Signature sigForVerification;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
@@ -47,13 +47,13 @@ public class XmlDocumentOrderBulderTest {
 	PrivateKey key = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can't find key entry"));
 
-	forSignature = MySignatures.forSignature(key, ALGORITHM) //
+	sigForSignature = MySignatures.forSignature(key, ALGORITHM) //
 		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
 
 	certificate = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
 
-	forVerification = MySignatures.forVerification(certificate, ALGORITHM) //
+	sigForVerification = MySignatures.forVerification(certificate, ALGORITHM) //
 		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
 
     }
@@ -78,7 +78,7 @@ public class XmlDocumentOrderBulderTest {
 		.withCurrency(FinCurrency.KZT) //
 		.withMerchchant("92061103", "Test shop 3") //
 		.withOrderNumber("999999999999") //
-		.signWith(forSignature, certificate) //
+		.signWith(sigForSignature, certificate) //
 		.build();
 	assertThat(o, not(nullValue()));
 	String rawXml = o.getRawXml();
@@ -96,9 +96,9 @@ public class XmlDocumentOrderBulderTest {
     @Test
     public void simpleSignatureVerificationTest() {
 	XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
-	assertTrue("Signature must be VALID", o.validSignature(forVerification));
+	assertTrue("Signature must be VALID", o.validSignature(sigForVerification));
 
 	o.getMerchantSign().getSignature()[0]++; // break the signature
-	assertFalse("Signature must be INVALID", o.validSignature(forVerification));
+	assertFalse("Signature must be INVALID", o.validSignature(sigForVerification));
     }
 }
