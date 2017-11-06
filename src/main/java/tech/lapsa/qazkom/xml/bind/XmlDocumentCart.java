@@ -27,7 +27,7 @@ import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 public class XmlDocumentCart extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final XmlDocumentTool<XmlDocumentCart> TOOL = XmlDocumentTool.forClass(XmlDocumentCart.class,
+    private static final SerializationTool<XmlDocumentCart> TOOL = SerializationTool.forClass(XmlDocumentCart.class,
 	    XmlSchemas.CART_SCHEMA);
 
     public static XmlDocumentCart of(final String rawXml) {

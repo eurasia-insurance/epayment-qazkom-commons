@@ -16,10 +16,10 @@ public class XmlDocumentPayment extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final XmlDocumentTool<XmlDocumentPayment> TOOL = XmlDocumentTool.forClass(XmlDocumentPayment.class,
+    private static final SerializationTool<XmlDocumentPayment> TOOL = SerializationTool.forClass(XmlDocumentPayment.class,
 	    XmlSchemas.PAYMENT_SCHEMA);
 
-    public static final XmlDocumentTool<XmlDocumentPayment> getTool() {
+    public static final SerializationTool<XmlDocumentPayment> getTool() {
 	return TOOL;
     }
 

@@ -21,13 +21,13 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 
-public final class XmlDocumentTool<T> {
+public final class SerializationTool<T> {
 
-    static <Q> XmlDocumentTool<Q> forClass(final Class<Q> clazz) {
+    static <Q> SerializationTool<Q> forClass(final Class<Q> clazz) {
 	return forClass(clazz, null);
     }
 
-    static <Q> XmlDocumentTool<Q> forClass(final Class<Q> clazz, final Schema schema) {
+    static <Q> SerializationTool<Q> forClass(final Class<Q> clazz, final Schema schema) {
 	try {
 	    final JAXBContext context = JAXBContext.newInstance(clazz);
 	    final Marshaller marshaller = context.createMarshaller();
@@ -38,7 +38,7 @@ public final class XmlDocumentTool<T> {
 	    final Unmarshaller unmarshaller = context.createUnmarshaller();
 	    if (schema != null)
 		unmarshaller.setSchema(schema);
-	    return new XmlDocumentTool<Q>(clazz, marshaller, unmarshaller);
+	    return new SerializationTool<Q>(clazz, marshaller, unmarshaller);
 	} catch (final JAXBException e) {
 	    throw new RuntimeException(e);
 	}
@@ -48,7 +48,7 @@ public final class XmlDocumentTool<T> {
     private final Unmarshaller unmarshaller;
     private final Class<T> clazz;
 
-    private XmlDocumentTool(final Class<T> clazz, final Marshaller marshaller, final Unmarshaller unmarshaller) {
+    private SerializationTool(final Class<T> clazz, final Marshaller marshaller, final Unmarshaller unmarshaller) {
 	this.clazz = clazz;
 	this.marshaller = marshaller;
 	this.unmarshaller = unmarshaller;

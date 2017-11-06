@@ -28,10 +28,10 @@ public class XmlDocumentOrder extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final XmlDocumentTool<XmlDocumentOrder> TOOL = XmlDocumentTool.forClass(XmlDocumentOrder.class,
+    private static final SerializationTool<XmlDocumentOrder> TOOL = SerializationTool.forClass(XmlDocumentOrder.class,
 	    XmlSchemas.ORDER_SCHEMA);
 
-    public static final XmlDocumentTool<XmlDocumentOrder> getTool() {
+    public static final SerializationTool<XmlDocumentOrder> getTool() {
 	return TOOL;
     }
 
