@@ -80,8 +80,8 @@ public class XmlDocumentCart extends AXmlBase {
 
 	public XmlDocumentCartBuilder withItem(final String name, final Integer quantity, final Double amount) {
 	    MyStrings.requireNonEmpty(name, "name");
-	    MyNumbers.requireNonZero(quantity, "quantity");
-	    MyNumbers.requireNonZero(amount, "amount");
+	    MyNumbers.requirePositive(quantity, "quantity");
+	    MyNumbers.requirePositive(amount, "amount");
 	    itms.add(new Its(name, quantity, amount));
 	    return this;
 	}
