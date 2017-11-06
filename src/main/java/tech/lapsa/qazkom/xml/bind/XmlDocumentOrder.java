@@ -1,7 +1,6 @@
 package tech.lapsa.qazkom.xml.bind;
 
 import java.math.BigInteger;
-import java.security.Signature;
 import java.security.SignatureException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -19,6 +18,8 @@ import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
+import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -51,7 +52,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	private FinCurrency currency;
 	private String merchantId;
 	private String merchantName;
-	private Signature sigForSignature;
+	private SigningSignature signature;
 	private X509Certificate certificate;
 
 	private XmlDocumentOrderBuilder() {
@@ -79,9 +80,9 @@ public class XmlDocumentOrder extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentOrderBuilder signWith(final Signature sigForSignature, final X509Certificate certificate)
+	public XmlDocumentOrderBuilder signWith(final SigningSignature signature, final X509Certificate certificate)
 		throws IllegalArgumentException {
-	    this.sigForSignature = MyObjects.requireNonNull(sigForSignature, "sigForSignature");
+	    this.signature = MyObjects.requireNonNull(signature, "signature");
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
@@ -92,7 +93,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    MyObjects.requireNonNull(currency, "currency");
 	    MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    MyStrings.requireNonEmpty(merchantName, "merchantName");
-	    MyObjects.requireNonNull(sigForSignature, "sigForSignature");
+	    MyObjects.requireNonNull(signature, "signature");
 	    MyObjects.requireNonNull(certificate, "certificate");
 
 	    final XmlMerchant xmlMerchant = new XmlMerchant();
@@ -113,14 +114,13 @@ public class XmlDocumentOrder extends AXmlBase {
 	    xmlDepartment.setAmount(amount);
 
 	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
-	    byte[] digest = null;
+	    byte[] digest;
 	    try {
-		sigForSignature.update(data);
-		digest = sigForSignature.sign();
-		MyArrays.reverse(digest);
+		digest = signature.sign(data);
 	    } catch (final SignatureException e) {
 		throw new RuntimeException("Signature exception", e);
 	    }
+	    MyArrays.reverse(digest);
 
 	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
 	    xmlMerchantSign.setSignType(XmlSignType.RSA);
@@ -135,23 +135,22 @@ public class XmlDocumentOrder extends AXmlBase {
 
     }
 
-    public boolean validSignature(final Signature signature) {
+    public boolean validSignature(final VerifyingSignature signature) {
 	MyObjects.requireNonNull(signature, "signature");
 	if (merchant == null || merchantSign == null || merchantSign.getSignature() == null)
 	    throw new IllegalStateException("Document is corrupted");
 
 	final byte[] data = XmlMerchant.getTool().serializeToBytes(merchant);
-	final byte[] sign = merchantSign.getSignature().clone();
-	MyArrays.reverse(sign);
+	final byte[] digest = merchantSign.getSignature().clone();
+	MyArrays.reverse(digest);
 	try {
-	    signature.update(data);
-	    return signature.verify(sign);
+	    return signature.verify(data, digest);
 	} catch (final SignatureException e) {
 	    throw new RuntimeException("Exception with signature", e);
 	}
     }
 
-    public XmlDocumentOrder requreValidSignature(final Signature signature) {
+    public XmlDocumentOrder requreValidSignature(final VerifyingSignature signature) {
 	if (validSignature(signature))
 	    return this;
 	throw new IllegalStateException("Signature is invalid");
