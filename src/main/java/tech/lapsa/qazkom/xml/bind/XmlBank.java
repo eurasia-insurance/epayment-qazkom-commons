@@ -12,11 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "bank")
 public class XmlBank extends AXmlBase {
+
     private static final long serialVersionUID = -5468834860872828233L;
+    private static final int PRIME = 11;
 
     @Override
     protected int prime() {
-	return 11;
+	return PRIME;
     }
 
     @XmlAttribute(name = "name")

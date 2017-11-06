@@ -19,10 +19,11 @@ import tech.lapsa.qazkom.xml.bind.adapter.XmlTimestampAdapter;
 public class XmlError extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 41;
 
     @Override
     protected int prime() {
-	return 41;
+	return PRIME;
     }
 
     // type - тип ошибки:

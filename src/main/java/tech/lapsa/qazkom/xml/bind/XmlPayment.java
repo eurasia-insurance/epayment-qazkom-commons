@@ -18,10 +18,11 @@ import tech.lapsa.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
 public class XmlPayment extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 61;
 
     @Override
     protected int prime() {
-	return 61;
+	return PRIME;
     }
 
     // Результат транзакции

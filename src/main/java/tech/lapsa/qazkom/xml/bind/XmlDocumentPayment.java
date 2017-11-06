@@ -15,6 +15,7 @@ import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 public class XmlDocumentPayment extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 37;
 
     private static final SerializationTool<XmlDocumentPayment> TOOL = SerializationTool.forClass(XmlDocumentPayment.class,
 	    XmlSchemas.PAYMENT_SCHEMA);
@@ -29,7 +30,7 @@ public class XmlDocumentPayment extends AXmlBase {
 
     @Override
     protected int prime() {
-	return 37;
+	return PRIME;
     }
 
     @XmlElementRef

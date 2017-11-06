@@ -13,10 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlSession extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 73;
 
     @Override
     protected int prime() {
-	return 73;
+	return PRIME;
     }
 
     @XmlAttribute(name = "id")

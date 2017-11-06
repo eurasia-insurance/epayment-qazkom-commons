@@ -27,6 +27,7 @@ import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 public class XmlDocumentOrder extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 31;
 
     private static final SerializationTool<XmlDocumentOrder> TOOL = SerializationTool.forClass(XmlDocumentOrder.class,
 	    XmlSchemas.ORDER_SCHEMA);
@@ -158,7 +159,7 @@ public class XmlDocumentOrder extends AXmlBase {
 
     @Override
     protected int prime() {
-	return 31;
+	return PRIME;
     }
 
     @XmlElementRef

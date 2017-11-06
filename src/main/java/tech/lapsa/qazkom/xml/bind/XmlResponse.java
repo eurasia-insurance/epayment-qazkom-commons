@@ -14,10 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlResponse extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 67;
 
     @Override
     protected int prime() {
-	return 67;
+	return PRIME;
     }
 
     // order_id - номер заказа

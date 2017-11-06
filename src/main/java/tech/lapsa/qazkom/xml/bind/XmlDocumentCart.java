@@ -27,6 +27,8 @@ import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 public class XmlDocumentCart extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 29;
+
     private static final SerializationTool<XmlDocumentCart> TOOL = SerializationTool.forClass(XmlDocumentCart.class,
 	    XmlSchemas.CART_SCHEMA);
 
@@ -36,7 +38,7 @@ public class XmlDocumentCart extends AXmlBase {
 
     @Override
     protected int prime() {
-	return 29;
+	return PRIME;
     }
 
     @XmlElementRef

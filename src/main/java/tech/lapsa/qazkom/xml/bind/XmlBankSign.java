@@ -18,10 +18,11 @@ import tech.lapsa.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAd
 public class XmlBankSign extends AXmlSignBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 13;
 
     @Override
     protected int prime() {
-	return 13;
+	return PRIME;
     }
 
     // cert_id - серийный номер сертификата

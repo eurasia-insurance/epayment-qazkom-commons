@@ -13,10 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlDepartment extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 23;
 
     @Override
     protected int prime() {
-	return 23;
+	return PRIME;
     }
 
     // merchant_id - ID продавца в платежной системе

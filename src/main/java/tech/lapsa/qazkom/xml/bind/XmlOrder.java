@@ -16,10 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlOrder extends AXmlAmountAndCurrency {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 49;
 
     @Override
     protected int prime() {
-	return 49;
+	return PRIME;
     }
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ

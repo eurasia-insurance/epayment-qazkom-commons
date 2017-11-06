@@ -20,10 +20,11 @@ import tech.lapsa.qazkom.xml.bind.adapter.XmlTimestampAdapter;
 public class XmlResults extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 71;
 
     @Override
     protected int prime() {
-	return 71;
+	return PRIME;
     }
 
     // timestamp - время проведения платежа

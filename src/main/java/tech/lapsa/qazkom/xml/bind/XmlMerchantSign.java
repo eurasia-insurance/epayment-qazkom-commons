@@ -12,9 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlMerchantSign extends AXmlSignBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 53;
 
     @Override
     protected int prime() {
-	return 53;
+	return PRIME;
     }
 }

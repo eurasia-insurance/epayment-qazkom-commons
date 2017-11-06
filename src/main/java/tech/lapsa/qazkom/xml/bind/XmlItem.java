@@ -13,10 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XmlItem extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 43;
 
     @Override
     protected int prime() {
-	return 43;
+	return PRIME;
     }
 
     // item number= необходимо перечислить все пункты корзины

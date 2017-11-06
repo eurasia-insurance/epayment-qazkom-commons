@@ -20,6 +20,7 @@ import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 public class XmlMerchant extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 47;
 
     private static final SerializationTool<XmlMerchant> TOOL = SerializationTool.forClass(XmlMerchant.class, XmlSchemas.ORDER_SCHEMA);
 
@@ -33,7 +34,7 @@ public class XmlMerchant extends AXmlBase {
 
     @Override
     protected int prime() {
-	return 47;
+	return PRIME;
     }
 
     // cert_id - Серийный номер сертификата
