@@ -51,7 +51,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	private FinCurrency currency;
 	private String merchantId;
 	private String merchantName;
-	private Signature signature;
+	private Signature sigForSignature;
 	private X509Certificate certificate;
 
 	private XmlDocumentOrderBuilder() {
@@ -79,9 +79,9 @@ public class XmlDocumentOrder extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentOrderBuilder signWith(final Signature signature, final X509Certificate certificate)
+	public XmlDocumentOrderBuilder signWith(final Signature sigForSignature, final X509Certificate certificate)
 		throws IllegalArgumentException {
-	    this.signature = MyObjects.requireNonNull(signature, "signature");
+	    this.sigForSignature = MyObjects.requireNonNull(sigForSignature, "sigForSignature");
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
@@ -92,7 +92,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    MyObjects.requireNonNull(currency, "currency");
 	    MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    MyStrings.requireNonEmpty(merchantName, "merchantName");
-	    MyObjects.requireNonNull(signature, "signature");
+	    MyObjects.requireNonNull(sigForSignature, "sigForSignature");
 	    MyObjects.requireNonNull(certificate, "certificate");
 
 	    final XmlMerchant xmlMerchant = new XmlMerchant();
@@ -115,11 +115,11 @@ public class XmlDocumentOrder extends AXmlBase {
 	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
 	    byte[] digest = null;
 	    try {
-		signature.update(data);
-		digest = signature.sign();
+		sigForSignature.update(data);
+		digest = sigForSignature.sign();
 		MyArrays.reverse(digest);
 	    } catch (final SignatureException e) {
-		throw new RuntimeException("Exception with signature", e);
+		throw new RuntimeException("Signature exception", e);
 	    }
 
 	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
