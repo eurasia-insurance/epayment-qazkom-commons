@@ -72,8 +72,7 @@ public class XmlDocumentOrderBulderTest {
 	    + "</document>";
 
     @Test
-    public void simpleBuildTest() {
-
+    public void basicTest() {
 	XmlDocumentOrder o = XmlDocumentOrder.builder() //
 		.withAmount(1000d) //
 		.withCurrency(FinCurrency.KZT) //
@@ -87,7 +86,7 @@ public class XmlDocumentOrderBulderTest {
     }
 
     @Test
-    public void simpleDeserializeTest() {
+    public void deserializeTest() {
 	XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
 	assertThat(o, not(nullValue()));
 	String rawXml = o.getRawXml();
@@ -95,7 +94,7 @@ public class XmlDocumentOrderBulderTest {
     }
 
     @Test
-    public void simpleSignatureVerificationTest() {
+    public void signatureVerificationTest() {
 	XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
 	assertTrue("Signature must be VALID", o.validSignature(sigForVerification));
 

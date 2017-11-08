@@ -16,7 +16,7 @@ public class XmlDocumentCartBulderTest {
 	    + "</document>";
 
     @Test
-    public void simpleBuildTest() {
+    public void basicTest() {
 	XmlDocumentCart o = XmlDocumentCart.builder() //
 		.withItem("Apple iPhone X", 1, 1300d) //
 		.withItem("Apple MacBook Pro", 1, 2400d) //
@@ -27,7 +27,7 @@ public class XmlDocumentCartBulderTest {
     }
 
     @Test
-    public void simpleDeserializeTest() {
+    public void deserializeTest() {
 	XmlDocumentCart o = XmlDocumentCart.of(RAW_XML);
 	assertThat(o, not(nullValue()));
 	String rawXml = o.getRawXml();

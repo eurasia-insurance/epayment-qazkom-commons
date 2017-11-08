@@ -76,7 +76,7 @@ public class XmlDocumentPaymentBulderTest {
 	    + "</document>";
 
     @Test
-    public void simpleBuildTest() {
+    public void basicTest() {
 	XmlDocumentPayment o = XmlDocumentPayment.builder() //
 		.ofRawXml(PAYMENT_XML) //
 		.checkingWith(certificate, signature) //
