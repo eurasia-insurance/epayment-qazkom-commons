@@ -1,6 +1,7 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
 import java.math.BigInteger;
+import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
@@ -18,6 +19,8 @@ import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.java.commons.security.MySignatures;
+import tech.lapsa.java.commons.security.MySignatures.Algorithm;
 import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
@@ -51,8 +54,8 @@ public class XmlDocumentOrder extends AXmlBase {
 	private FinCurrency currency;
 	private String merchantId;
 	private String merchantName;
-	private SigningSignature signature;
 	private X509Certificate certificate;
+	private SigningSignature signature;
 
 	private XmlDocumentOrderBuilder() {
 	}
@@ -79,9 +82,11 @@ public class XmlDocumentOrder extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentOrderBuilder signWith(final SigningSignature signature, final X509Certificate certificate)
+	public XmlDocumentOrderBuilder signWith(final PrivateKey privateKey, final X509Certificate certificate)
 		throws IllegalArgumentException {
-	    this.signature = MyObjects.requireNonNull(signature, "signature");
+	    this.signature = MySignatures
+		    .forSignature(MyObjects.requireNonNull(privateKey, "privateKey"), Algorithm.SHA1withRSA)
+		    .orElseThrow(() -> new IllegalArgumentException("Failed proces with private key"));
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
@@ -130,8 +135,10 @@ public class XmlDocumentOrder extends AXmlBase {
 
     }
 
-    public boolean validSignature(final VerifyingSignature signature) {
-	MyObjects.requireNonNull(signature, "signature");
+    public boolean validSignature(final X509Certificate certificate) {
+	VerifyingSignature signature = MySignatures
+		.forVerification(MyObjects.requireNonNull(certificate, "certificate"), Algorithm.SHA1withRSA) //
+		.orElseThrow(() -> new IllegalArgumentException("Failed process with certificate"));
 	if (merchant == null || merchantSign == null || merchantSign.getSignature() == null)
 	    throw new IllegalStateException("Document is corrupted");
 
@@ -141,8 +148,8 @@ public class XmlDocumentOrder extends AXmlBase {
 	return signature.verify(data, digest);
     }
 
-    public XmlDocumentOrder requreValidSignature(final VerifyingSignature signature) {
-	if (validSignature(signature))
+    public XmlDocumentOrder requreValidSignature(final X509Certificate certificate) {
+	if (validSignature(certificate))
 	    return this;
 	throw new IllegalStateException("Signature is invalid");
     }

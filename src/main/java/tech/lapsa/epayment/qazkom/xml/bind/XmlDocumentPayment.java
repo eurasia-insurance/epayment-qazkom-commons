@@ -13,6 +13,8 @@ import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.java.commons.security.MySignatures;
+import tech.lapsa.java.commons.security.MySignatures.Algorithm;
 import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -53,12 +55,9 @@ public class XmlDocumentPayment extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentPaymentBuilder checkingSignatureWith(VerifyingSignature signature) {
-	    this.signature = MyObjects.requireNonNull(signature, "signature");
-	    return this;
-	}
-
-	public XmlDocumentPaymentBuilder checkingCertificateWith(X509Certificate certificate) {
+	public XmlDocumentPaymentBuilder withBankCertificate(X509Certificate certificate) {
+	    this.signature = MySignatures.forVerification(certificate, Algorithm.SHA1withRSA)
+		    .orElseThrow(() -> new IllegalArgumentException("Failed to process with certificate"));
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
@@ -87,13 +86,6 @@ public class XmlDocumentPayment extends AXmlBase {
 	    }
 	    return document;
 	}
-
-	public XmlDocumentPaymentBuilder checkingWith(X509Certificate certificate, VerifyingSignature signature) {
-	    checkingCertificateWith(certificate);
-	    checkingSignatureWith(signature);
-	    return this;
-	}
-
     }
 
     @Override

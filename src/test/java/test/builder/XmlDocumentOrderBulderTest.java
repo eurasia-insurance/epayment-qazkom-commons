@@ -19,10 +19,6 @@ import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
-import tech.lapsa.java.commons.security.MySignatures;
-import tech.lapsa.java.commons.security.MySignatures.Algorithm;
-import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
-import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
 public class XmlDocumentOrderBulderTest {
 
@@ -30,11 +26,9 @@ public class XmlDocumentOrderBulderTest {
     private static final String KEYSTORE = "/kkb.jks";
     private static final String STOREPASS = "1q2w3e4r";
     private static final String ALIAS = "cert";
-    private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
     private static X509Certificate certificate;
-    private static SigningSignature sigForSignature;
-    private static VerifyingSignature sigForVerification;
+    private static PrivateKey key;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
@@ -45,18 +39,11 @@ public class XmlDocumentOrderBulderTest {
 	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
-	PrivateKey key = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
+	key = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can't find key entry"));
-
-	sigForSignature = MySignatures.forSignature(key, ALGORITHM) //
-		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
 
 	certificate = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
-
-	sigForVerification = MySignatures.forVerification(certificate, ALGORITHM) //
-		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
-
     }
 
     private static final String RAW_XML = ""
@@ -78,7 +65,7 @@ public class XmlDocumentOrderBulderTest {
 		.withCurrency(FinCurrency.KZT) //
 		.withMerchchant("92061103", "Test shop 3") //
 		.withOrderNumber("999999999999") //
-		.signWith(sigForSignature, certificate) //
+		.signWith(key, certificate) //
 		.build();
 	assertThat(o, not(nullValue()));
 	String rawXml = o.getRawXml();
@@ -96,9 +83,9 @@ public class XmlDocumentOrderBulderTest {
     @Test
     public void signatureVerificationTest() {
 	XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
-	assertTrue("Signature must be VALID", o.validSignature(sigForVerification));
+	assertTrue("Signature must be VALID", o.validSignature(certificate));
 
 	o.getMerchantSign().getSignature()[0]++; // break the signature
-	assertFalse("Signature must be INVALID", o.validSignature(sigForVerification));
+	assertFalse("Signature must be INVALID", o.validSignature(certificate));
     }
 }

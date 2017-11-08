@@ -15,9 +15,6 @@ import tech.lapsa.java.commons.resources.Resources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
-import tech.lapsa.java.commons.security.MySignatures;
-import tech.lapsa.java.commons.security.MySignatures.Algorithm;
-import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
 public class XmlDocumentPaymentBulderTest {
 
@@ -25,10 +22,8 @@ public class XmlDocumentPaymentBulderTest {
     private static final String KEYSTORE = "/kkb.jks";
     private static final String STOREPASS = "1q2w3e4r";
     private static final String ALIAS = "kkbca-test";
-    private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
-    private static X509Certificate certificate;
-    private static VerifyingSignature signature;
+    private static X509Certificate bankCert;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
@@ -39,12 +34,8 @@ public class XmlDocumentPaymentBulderTest {
 	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
-	certificate = MyCertificates.from(keystore, ALIAS) //
+	bankCert = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
-
-	signature = MySignatures.forVerification(certificate, ALGORITHM) //
-		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
-
     }
 
     private static final String BANK_XML = ""
@@ -79,7 +70,7 @@ public class XmlDocumentPaymentBulderTest {
     public void basicTest() {
 	XmlDocumentPayment o = XmlDocumentPayment.builder() //
 		.ofRawXml(PAYMENT_XML) //
-		.checkingWith(certificate, signature) //
+		.withBankCertificate(bankCert) //
 		.build();
 	assertThat(o, not(nullValue()));
     }
