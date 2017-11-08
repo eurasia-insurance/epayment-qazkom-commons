@@ -8,11 +8,11 @@
 		<version>3.0</version>
 	</parent>
 
-	<groupId>tech.lapsa.qazkom</groupId>
-	<artifactId>qazkom-xml</artifactId>
+	<groupId>tech.lapsa.epayment</groupId>
+	<artifactId>epayment-qazkom-commons</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<name>Qazkom Lib : JAXB mapping</name>
+	<name>Epayment Lib : Qazkom Epay commons</name>
 
 	<properties>
 		<!-- BOMS -->
@@ -93,14 +93,14 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/qazkom/xml.git</connection>
-		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/qazkom/xml.git</developerConnection>
+		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/qazkom-commons.git</connection>
+		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/qazkom-commons.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>https://gitlab.lapsa.tech/lapsa/qazkom/xml/issues</url>
+		<url>https://gitlab.lapsa.tech/lapsa/epayment/qazkom-commons/issues</url>
 	</issueManagement>
 
 </project>

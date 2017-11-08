@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.bind;
+package tech.lapsa.epayment.qazkom.xml.bind;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.international.country.Country;
 
-import tech.lapsa.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
+import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)

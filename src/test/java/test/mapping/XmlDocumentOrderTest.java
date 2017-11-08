@@ -12,13 +12,13 @@ import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
 
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.resources.Resources;
-import tech.lapsa.qazkom.xml.bind.XmlDepartment;
-import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
-import tech.lapsa.qazkom.xml.bind.XmlMerchant;
-import tech.lapsa.qazkom.xml.bind.XmlMerchantSign;
-import tech.lapsa.qazkom.xml.bind.XmlOrder;
-import tech.lapsa.qazkom.xml.bind.XmlSignType;
 
 public class XmlDocumentOrderTest {
 

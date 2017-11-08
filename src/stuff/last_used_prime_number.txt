@@ -1,23 +1,23 @@
        3 
        5 
        7 
-      11 tech.lapsa.qazkom.xml.bind.XmlBank
-      13 tech.lapsa.qazkom.xml.bind.XmlBankSign
-      17 tech.lapsa.qazkom.xml.bind.XmlCustomer
-      19 tech.lapsa.qazkom.xml.bind.XmlCustomerSign
-      23 tech.lapsa.qazkom.xml.bind.XmlDepartment
-      29 tech.lapsa.qazkom.xml.bind.XmlDocumentCart
-      31 tech.lapsa.qazkom.xml.bind.XmlDocumentOrder
-      37 tech.lapsa.qazkom.xml.bind.XmlDocumentPayment
-      41 tech.lapsa.qazkom.xml.bind.XmlError
-      43 tech.lapsa.qazkom.xml.bind.XmlItem
-      47 tech.lapsa.qazkom.xml.bind.XmlMerchant
-      53 tech.lapsa.qazkom.xml.bind.XmlMerchantSign
-      59 tech.lapsa.qazkom.xml.bind.XmlOrder
-      61 tech.lapsa.qazkom.xml.bind.XmlPayment
-      67 tech.lapsa.qazkom.xml.bind.XmlResponse
-      71 tech.lapsa.qazkom.xml.bind.XmlResults
-      73 tech.lapsa.qazkom.xml.bind.XmlSession
+      11 tech.lapsa.epayment.qazkom.xml.bind.XmlBank
+      13 tech.lapsa.epayment.qazkom.xml.bind.XmlBankSign
+      17 tech.lapsa.epayment.qazkom.xml.bind.XmlCustomer
+      19 tech.lapsa.epayment.qazkom.xml.bind.XmlCustomerSign
+      23 tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment
+      29 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart
+      31 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder
+      37 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment
+      41 tech.lapsa.epayment.qazkom.xml.bind.XmlError
+      43 tech.lapsa.epayment.qazkom.xml.bind.XmlItem
+      47 tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant
+      53 tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign
+      59 tech.lapsa.epayment.qazkom.xml.bind.XmlOrder
+      61 tech.lapsa.epayment.qazkom.xml.bind.XmlPayment
+      67 tech.lapsa.epayment.qazkom.xml.bind.XmlResponse
+      71 tech.lapsa.epayment.qazkom.xml.bind.XmlResults
+      73 tech.lapsa.epayment.qazkom.xml.bind.XmlSession
       79 
       83 
       89 

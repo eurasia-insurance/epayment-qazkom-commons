@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tech.lapsa.qazkom.xml.bind.XmlDocumentCart;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 
 public class XmlDocumentCartBulderTest {
 

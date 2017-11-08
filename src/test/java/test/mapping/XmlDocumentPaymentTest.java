@@ -16,19 +16,19 @@ import org.junit.Test;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.country.Country;
 
-import tech.lapsa.qazkom.xml.bind.XmlBank;
-import tech.lapsa.qazkom.xml.bind.XmlBankSign;
-import tech.lapsa.qazkom.xml.bind.XmlCustomer;
-import tech.lapsa.qazkom.xml.bind.XmlCustomerSign;
-import tech.lapsa.qazkom.xml.bind.XmlDepartment;
-import tech.lapsa.qazkom.xml.bind.XmlDocumentPayment;
-import tech.lapsa.qazkom.xml.bind.XmlMerchant;
-import tech.lapsa.qazkom.xml.bind.XmlMerchantSign;
-import tech.lapsa.qazkom.xml.bind.XmlOrder;
-import tech.lapsa.qazkom.xml.bind.XmlPayment;
-import tech.lapsa.qazkom.xml.bind.XmlResults;
-import tech.lapsa.qazkom.xml.bind.XmlSecureType;
-import tech.lapsa.qazkom.xml.bind.XmlSignType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlBankSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlCustomer;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlCustomerSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlResults;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSecureType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 
 public class XmlDocumentPaymentTest {
 

@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.bind;
+package tech.lapsa.epayment.qazkom.xml.bind;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;

@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.bind.adapter;
+package tech.lapsa.epayment.qazkom.xml.bind.adapter;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;

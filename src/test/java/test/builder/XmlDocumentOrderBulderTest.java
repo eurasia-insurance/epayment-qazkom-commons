@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.lapsa.fin.FinCurrency;
 
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.resources.Resources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
@@ -22,7 +23,6 @@ import tech.lapsa.java.commons.security.MySignatures;
 import tech.lapsa.java.commons.security.MySignatures.Algorithm;
 import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
-import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
 
 public class XmlDocumentOrderBulderTest {
 

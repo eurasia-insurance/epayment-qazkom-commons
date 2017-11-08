@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.bind;
+package tech.lapsa.epayment.qazkom.xml.bind;
 
 import java.io.Serializable;
 import java.util.Base64;

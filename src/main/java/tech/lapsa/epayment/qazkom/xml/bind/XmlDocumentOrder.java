@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.bind;
+package tech.lapsa.epayment.qazkom.xml.bind;
 
 import java.math.BigInteger;
 import java.security.SignatureException;
@@ -14,13 +14,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.lapsa.fin.FinCurrency;
 
+import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
-import tech.lapsa.qazkom.xml.schema.XmlSchemas;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)

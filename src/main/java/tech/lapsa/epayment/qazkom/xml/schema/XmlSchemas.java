@@ -1,4 +1,4 @@
-package tech.lapsa.qazkom.xml.schema;
+package tech.lapsa.epayment.qazkom.xml.schema;
 
 import java.io.InputStream;
 
