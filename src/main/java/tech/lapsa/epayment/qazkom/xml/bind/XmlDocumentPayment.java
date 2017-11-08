@@ -88,6 +88,12 @@ public class XmlDocumentPayment extends AXmlBase {
 	    return document;
 	}
 
+	public XmlDocumentPaymentBuilder checkingWith(X509Certificate certificate, VerifyingSignature signature) {
+	    checkingCertificateWith(certificate);
+	    checkingSignatureWith(signature);
+	    return this;
+	}
+
     }
 
     @Override
