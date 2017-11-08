@@ -1,7 +1,6 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
 import java.math.BigInteger;
-import java.security.SignatureException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
@@ -115,11 +114,7 @@ public class XmlDocumentOrder extends AXmlBase {
 
 	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
 	    byte[] digest;
-	    try {
-		digest = signature.sign(data);
-	    } catch (final SignatureException e) {
-		throw new RuntimeException("Signature exception", e);
-	    }
+	    digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
 	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
@@ -143,11 +138,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	final byte[] data = XmlMerchant.getTool().serializeToBytes(merchant);
 	final byte[] digest = merchantSign.getSignature().clone();
 	MyArrays.reverse(digest);
-	try {
-	    return signature.verify(data, digest);
-	} catch (final SignatureException e) {
-	    throw new RuntimeException("Exception with signature", e);
-	}
+	return signature.verify(data, digest);
     }
 
     public XmlDocumentOrder requreValidSignature(final VerifyingSignature signature) {
