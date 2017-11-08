@@ -1,5 +1,10 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+import java.util.stream.Stream.Builder;
+
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -15,6 +20,19 @@ public class XmlBank extends AXmlBase {
 
     private static final long serialVersionUID = -5468834860872828233L;
     private static final int PRIME = 11;
+
+    private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";
+    private static final int BANK_REGEX_FLAGS = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.MULTILINE
+	    | Pattern.DOTALL;
+    private static final Pattern BANK_REGEX_PATTERN = Pattern.compile(BANK_REGEX, BANK_REGEX_FLAGS);
+
+    public static String[] bankXmlElementsFrom(String rawXml) {
+	Matcher matcher = BANK_REGEX_PATTERN.matcher(rawXml);
+	Builder<String> sb = Stream.builder();
+	while (matcher.find())
+	    sb.accept(matcher.group());
+	return sb.build().toArray(String[]::new);
+    }
 
     @Override
     protected int prime() {
