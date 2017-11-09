@@ -12,7 +12,7 @@ import tech.lapsa.java.commons.security.MySignatures;
 @XmlEnum
 public enum XmlSignType {
     // Если Тип подписи RSA то это цифровая подпись
-    @XmlEnumValue(value = "RSA") RSA("RSA", null),
+    @XmlEnumValue(value = "RSA") RSA("SHA1withRSA", null),
 
     @XmlEnumValue(value = "SHA/RSA") SHA_RSA("SHA1withRSA", null),
     @XmlEnumValue(value = "SHA") SHA(null, "SHA1"),

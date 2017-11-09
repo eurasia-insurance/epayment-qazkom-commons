@@ -20,7 +20,6 @@ import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.security.MySignatures;
-import tech.lapsa.java.commons.security.MySignatures.Algorithm;
 import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
@@ -49,13 +48,15 @@ public class XmlDocumentOrder extends AXmlBase {
 
     public static final class XmlDocumentOrderBuilder {
 
+	private static final XmlSignType SIGN_TYPE = XmlSignType.RSA;
+
 	private String orderNumber;
 	private Double amount;
 	private FinCurrency currency;
 	private String merchantId;
 	private String merchantName;
-	private X509Certificate certificate;
-	private SigningSignature signature;
+	private X509Certificate merchantCertificate;
+	private PrivateKey merchantKey;
 
 	private XmlDocumentOrderBuilder() {
 	}
@@ -82,12 +83,10 @@ public class XmlDocumentOrder extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentOrderBuilder signWith(final PrivateKey privateKey, final X509Certificate certificate)
+	public XmlDocumentOrderBuilder signWith(final PrivateKey merchantKey, final X509Certificate certificate)
 		throws IllegalArgumentException {
-	    this.signature = MySignatures
-		    .forSignature(MyObjects.requireNonNull(privateKey, "privateKey"), Algorithm.SHA1withRSA)
-		    .orElseThrow(() -> new IllegalArgumentException("Failed proces with private key"));
-	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
+	    this.merchantCertificate = MyObjects.requireNonNull(certificate, "certificate");
+	    this.merchantKey = MyObjects.requireNonNull(merchantKey, "merchantKey");
 	    return this;
 	}
 
@@ -97,11 +96,11 @@ public class XmlDocumentOrder extends AXmlBase {
 	    MyObjects.requireNonNull(currency, "currency");
 	    MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    MyStrings.requireNonEmpty(merchantName, "merchantName");
-	    MyObjects.requireNonNull(signature, "signature");
-	    MyObjects.requireNonNull(certificate, "certificate");
+	    MyObjects.requireNonNull(merchantKey, "merchantKey");
+	    MyObjects.requireNonNull(merchantCertificate, "merchantCertificate");
 
 	    final XmlMerchant xmlMerchant = new XmlMerchant();
-	    final BigInteger serialNumber = certificate.getSerialNumber();
+	    final BigInteger serialNumber = merchantCertificate.getSerialNumber();
 	    xmlMerchant.setCertificateSerialNumber(serialNumber);
 	    xmlMerchant.setName(merchantName);
 
@@ -117,13 +116,18 @@ public class XmlDocumentOrder extends AXmlBase {
 	    xmlDepartment.setMerchantId(merchantId);
 	    xmlDepartment.setAmount(amount);
 
+	    String signatureAlgorithm = SIGN_TYPE.getSignatureAlgorithmName().get();
+
+	    SigningSignature signature = MySignatures
+		    .forSignature(MyObjects.requireNonNull(merchantKey, "merchantKey"), signatureAlgorithm)
+		    .orElseThrow(() -> new IllegalArgumentException("Failed proces with private key"));
+
 	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
-	    byte[] digest;
-	    digest = signature.sign(data);
+	    byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
 	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
-	    xmlMerchantSign.setSignType(XmlSignType.RSA);
+	    xmlMerchantSign.setSignType(SIGN_TYPE);
 	    xmlMerchantSign.setSignature(digest);
 
 	    final XmlDocumentOrder doc = new XmlDocumentOrder();
@@ -136,9 +140,14 @@ public class XmlDocumentOrder extends AXmlBase {
     }
 
     public boolean validSignature(final X509Certificate certificate) {
+
+	String algorithmName = getMerchantSign().getSignType().getSignatureAlgorithmName() //
+		.orElseThrow(() -> new IllegalArgumentException("No such algorithm"));
+
 	VerifyingSignature signature = MySignatures
-		.forVerification(MyObjects.requireNonNull(certificate, "certificate"), Algorithm.SHA1withRSA) //
+		.forVerification(MyObjects.requireNonNull(certificate, "certificate"), algorithmName) //
 		.orElseThrow(() -> new IllegalArgumentException("Failed process with certificate"));
+
 	if (merchant == null || merchantSign == null || merchantSign.getSignature() == null)
 	    throw new IllegalStateException("Document is corrupted");
 

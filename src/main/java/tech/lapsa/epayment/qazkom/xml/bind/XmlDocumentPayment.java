@@ -14,7 +14,6 @@ import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.security.MySignatures;
-import tech.lapsa.java.commons.security.MySignatures.Algorithm;
 import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -44,7 +43,6 @@ public class XmlDocumentPayment extends AXmlBase {
 
     public static final class XmlDocumentPaymentBuilder {
 	private String rawXml;
-	private VerifyingSignature signature;
 	private X509Certificate certificate;
 
 	private XmlDocumentPaymentBuilder() {
@@ -56,8 +54,6 @@ public class XmlDocumentPayment extends AXmlBase {
 	}
 
 	public XmlDocumentPaymentBuilder withBankCertificate(X509Certificate certificate) {
-	    this.signature = MySignatures.forVerification(certificate, Algorithm.SHA1withRSA)
-		    .orElseThrow(() -> new IllegalArgumentException("Failed to process with certificate"));
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
@@ -66,23 +62,34 @@ public class XmlDocumentPayment extends AXmlBase {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    XmlDocumentPayment document = TOOL.deserializeFrom(rawXml);
 
-	    if (MyObjects.nonNull(signature)) {
-		String[] banks = XmlBank.bankXmlElementsFrom(rawXml);
-		if (banks.length != 1)
-		    throw new IllegalArgumentException(
-			    "Failed to parse for single element <bank> from source XML document");
-		byte[] data = banks[0].getBytes();
-		byte[] digest = document.getBankSign().getSignature();
-		MyArrays.reverse(digest);
-		boolean signatureValid = signature.verify(data, digest);
-		if (!signatureValid)
-		    throw new IllegalStateException("Signature is invalid");
-	    }
 	    if (MyObjects.nonNull(certificate)) {
-		boolean certNumberValid = certificate.getSerialNumber()
-			.equals(document.getBankSign().getCertificateSerialNumber());
-		if (!certNumberValid)
-		    throw new IllegalStateException("Certificate serial number is not valid");
+
+		// checking signature
+		{
+		    String[] banks = XmlBank.bankXmlElementsFrom(rawXml);
+		    if (banks.length != 1)
+			throw new IllegalArgumentException(
+				"Failed to parse for single element <bank> from source XML document");
+		    byte[] data = banks[0].getBytes();
+		    byte[] digest = document.getBankSign().getSignature();
+		    MyArrays.reverse(digest);
+		    String algorithmName = document.getBankSign().getSignType().getSignatureAlgorithmName() //
+			    .orElseThrow(() -> new IllegalArgumentException("No such alogithm for signature"));
+		    VerifyingSignature signature = MySignatures.forVerification(certificate, algorithmName) //
+			    .orElseThrow(
+				    () -> new IllegalArgumentException("Algorithm is not supported " + algorithmName));
+		    boolean signatureValid = signature.verify(data, digest);
+		    if (!signatureValid)
+			throw new IllegalStateException("Signature is invalid");
+		}
+
+		// checking certificate number
+		{
+		    boolean certNumberValid = certificate.getSerialNumber()
+			    .equals(document.getBankSign().getCertificateSerialNumber());
+		    if (!certNumberValid)
+			throw new IllegalStateException("Certificate serial number is not valid");
+		}
 	    }
 	    return document;
 	}
