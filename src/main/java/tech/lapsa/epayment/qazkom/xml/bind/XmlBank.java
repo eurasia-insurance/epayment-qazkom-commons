@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "bank")
@@ -20,6 +22,13 @@ public class XmlBank extends AXmlBase {
 
     private static final long serialVersionUID = -5468834860872828233L;
     private static final int PRIME = 11;
+
+    private static final SerializationTool<XmlBank> TOOL = SerializationTool.forClass(XmlBank.class,
+	    XmlSchemas.PAYMENT_SCHEMA);
+
+    public static final SerializationTool<XmlBank> getTool() {
+	return TOOL;
+    }
 
     private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";
     private static final int BANK_REGEX_FLAGS = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.MULTILINE
@@ -31,7 +40,14 @@ public class XmlBank extends AXmlBase {
 	Builder<String> sb = Stream.builder();
 	while (matcher.find())
 	    sb.accept(matcher.group());
-	return sb.build().toArray(String[]::new);
+	return sb.build().filter(xml -> {
+	    try {
+		return TOOL.deserializeFrom(xml) != null;
+	    } catch (IllegalArgumentException e) {
+		return false;
+	    }
+
+	}).toArray(String[]::new);
     }
 
     @Override

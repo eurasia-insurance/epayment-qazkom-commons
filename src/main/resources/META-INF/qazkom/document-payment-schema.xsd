@@ -376,7 +376,11 @@
 		<xs:attribute name="order_id" type="ts_order_id" />
 	</xs:complexType>
 
-	<!-- ROOT element -->
+	<!-- Main ROOT element -->
 	<xs:element name="document" type="tc_response_document" />
+
+	<!-- Secondary ROOT element bank -->
+	<!-- used for signature VERIFICATION -->
+	<xs:element name="bank" type="tc_bank" />
 
 </xs:schema>

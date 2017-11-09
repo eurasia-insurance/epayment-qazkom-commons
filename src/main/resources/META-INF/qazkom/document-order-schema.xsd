@@ -376,10 +376,11 @@
 		<xs:attribute name="order_id" type="ts_order_id" />
 	</xs:complexType>
 
-	<!-- ROOT element -->
+	<!-- Main ROOT element -->
 	<xs:element name="document" type="tc_request_document" />
 
-	<!-- ELEMENT FOR signature GENERATION -->
+	<!-- Secondary ROOT element merchant -->
+	<!-- Used for signature GENERATION -->
 	<xs:element name="merchant" type="tc_merchant" />
 
 </xs:schema>

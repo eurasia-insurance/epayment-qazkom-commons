@@ -376,7 +376,7 @@
 		<xs:attribute name="order_id" type="ts_order_id" />
 	</xs:complexType>
 
-	<!-- ROOT element -->
+	<!-- Main ROOT element -->
 	<xs:element name="response" type="tc_response" />
 
 </xs:schema>
