@@ -85,7 +85,7 @@ public class XmlDocumentOrder extends AXmlBase {
 
 	public XmlDocumentOrderBuilder signWith(final PrivateKey merchantKey, final X509Certificate certificate)
 		throws IllegalArgumentException {
-	    this.merchantCertificate = MyObjects.requireNonNull(certificate, "certificate");
+	    merchantCertificate = MyObjects.requireNonNull(certificate, "certificate");
 	    this.merchantKey = MyObjects.requireNonNull(merchantKey, "merchantKey");
 	    return this;
 	}
@@ -116,14 +116,14 @@ public class XmlDocumentOrder extends AXmlBase {
 	    xmlDepartment.setMerchantId(merchantId);
 	    xmlDepartment.setAmount(amount);
 
-	    String signatureAlgorithm = SIGN_TYPE.getSignatureAlgorithmName().get();
+	    final String signatureAlgorithm = SIGN_TYPE.getSignatureAlgorithmName().get();
 
-	    SigningSignature signature = MySignatures
+	    final SigningSignature signature = MySignatures
 		    .forSignature(MyObjects.requireNonNull(merchantKey, "merchantKey"), signatureAlgorithm)
 		    .orElseThrow(() -> new IllegalArgumentException("Failed proces with private key"));
 
 	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
-	    byte[] digest = signature.sign(data);
+	    final byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
 	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
@@ -141,10 +141,10 @@ public class XmlDocumentOrder extends AXmlBase {
 
     public boolean validSignature(final X509Certificate certificate) {
 
-	String algorithmName = getMerchantSign().getSignType().getSignatureAlgorithmName() //
+	final String algorithmName = getMerchantSign().getSignType().getSignatureAlgorithmName() //
 		.orElseThrow(() -> new IllegalArgumentException("No such algorithm"));
 
-	VerifyingSignature signature = MySignatures
+	final VerifyingSignature signature = MySignatures
 		.forVerification(MyObjects.requireNonNull(certificate, "certificate"), algorithmName) //
 		.orElseThrow(() -> new IllegalArgumentException("Failed process with certificate"));
 

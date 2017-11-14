@@ -48,44 +48,44 @@ public class XmlDocumentPayment extends AXmlBase {
 	private XmlDocumentPaymentBuilder() {
 	}
 
-	public XmlDocumentPaymentBuilder ofRawXml(String rawXml) {
+	public XmlDocumentPaymentBuilder ofRawXml(final String rawXml) {
 	    this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    return this;
 	}
 
-	public XmlDocumentPaymentBuilder withBankCertificate(X509Certificate certificate) {
+	public XmlDocumentPaymentBuilder withBankCertificate(final X509Certificate certificate) {
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
 
 	public XmlDocumentPayment build() {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
-	    XmlDocumentPayment document = TOOL.deserializeFrom(rawXml);
+	    final XmlDocumentPayment document = TOOL.deserializeFrom(rawXml);
 
 	    if (MyObjects.nonNull(certificate)) {
 
 		// checking signature
 		{
-		    String[] banks = XmlBank.bankXmlElementsFrom(rawXml);
+		    final String[] banks = XmlBank.bankXmlElementsFrom(rawXml);
 		    if (banks.length != 1)
 			throw new IllegalArgumentException(
 				"Failed to parse for single element <bank> from source XML document");
-		    byte[] data = banks[0].getBytes();
-		    byte[] digest = document.getBankSign().getSignature();
+		    final byte[] data = banks[0].getBytes();
+		    final byte[] digest = document.getBankSign().getSignature();
 		    MyArrays.reverse(digest);
-		    String algorithmName = document.getBankSign().getSignType().getSignatureAlgorithmName() //
+		    final String algorithmName = document.getBankSign().getSignType().getSignatureAlgorithmName() //
 			    .orElseThrow(() -> new IllegalArgumentException("No such alogithm for signature"));
-		    VerifyingSignature signature = MySignatures.forVerification(certificate, algorithmName) //
+		    final VerifyingSignature signature = MySignatures.forVerification(certificate, algorithmName) //
 			    .orElseThrow(
 				    () -> new IllegalArgumentException("Algorithm is not supported " + algorithmName));
-		    boolean signatureValid = signature.verify(data, digest);
+		    final boolean signatureValid = signature.verify(data, digest);
 		    if (!signatureValid)
 			throw new IllegalStateException("Signature is invalid");
 		}
 
 		// checking certificate number
 		{
-		    boolean certNumberValid = certificate.getSerialNumber()
+		    final boolean certNumberValid = certificate.getSerialNumber()
 			    .equals(document.getBankSign().getCertificateSerialNumber());
 		    if (!certNumberValid)
 			throw new IllegalStateException("Certificate serial number is not valid");

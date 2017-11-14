@@ -26,7 +26,7 @@ public enum XmlSignType {
     private final Optional<String> signatureAlgorithmName;
     private final Optional<String> digestAlgorithmName;
 
-    private XmlSignType(String signatureAlgorithmName, String digestAlgorithmName) {
+    private XmlSignType(final String signatureAlgorithmName, final String digestAlgorithmName) {
 	if (MyStrings.nonEmpty(signatureAlgorithmName)) {
 	    MySignatures.ofAlgorithm(signatureAlgorithmName) //
 		    .orElseThrow(() -> new IllegalArgumentException(
@@ -45,8 +45,8 @@ public enum XmlSignType {
     }
 
     private XmlSignType() {
-	this.signatureAlgorithmName = Optional.empty();
-	this.digestAlgorithmName = Optional.empty();
+	signatureAlgorithmName = Optional.empty();
+	digestAlgorithmName = Optional.empty();
     }
 
     public Optional<String> getSignatureAlgorithmName() {

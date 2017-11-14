@@ -22,7 +22,8 @@ public class XmlMerchant extends AXmlBase {
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 47;
 
-    private static final SerializationTool<XmlMerchant> TOOL = SerializationTool.forClass(XmlMerchant.class, XmlSchemas.ORDER_SCHEMA);
+    private static final SerializationTool<XmlMerchant> TOOL = SerializationTool.forClass(XmlMerchant.class,
+	    XmlSchemas.ORDER_SCHEMA);
 
     public static final SerializationTool<XmlMerchant> getTool() {
 	return TOOL;

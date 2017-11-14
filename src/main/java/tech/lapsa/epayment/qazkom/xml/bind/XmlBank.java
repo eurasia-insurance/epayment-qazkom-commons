@@ -35,15 +35,15 @@ public class XmlBank extends AXmlBase {
 	    | Pattern.DOTALL;
     private static final Pattern BANK_REGEX_PATTERN = Pattern.compile(BANK_REGEX, BANK_REGEX_FLAGS);
 
-    public static String[] bankXmlElementsFrom(String rawXml) {
-	Matcher matcher = BANK_REGEX_PATTERN.matcher(rawXml);
-	Builder<String> sb = Stream.builder();
+    public static String[] bankXmlElementsFrom(final String rawXml) {
+	final Matcher matcher = BANK_REGEX_PATTERN.matcher(rawXml);
+	final Builder<String> sb = Stream.builder();
 	while (matcher.find())
 	    sb.accept(matcher.group());
 	return sb.build().filter(xml -> {
 	    try {
 		return TOOL.deserializeFrom(xml) != null;
-	    } catch (IllegalArgumentException e) {
+	    } catch (final IllegalArgumentException e) {
 		return false;
 	    }
 
