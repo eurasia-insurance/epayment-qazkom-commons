@@ -10,7 +10,7 @@ import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
-import tech.lapsa.java.commons.resources.Resources;
+import tech.lapsa.java.commons.io.MyResources;
 
 public final class XmlSchemas {
 
@@ -29,7 +29,7 @@ public final class XmlSchemas {
     }
 
     private static final Schema fromResource(final String resource) {
-	final InputStream is = Resources.optionalAsStream(XmlSchemas.class, resource) //
+	final InputStream is = MyResources.optionalAsStream(XmlSchemas.class, resource) //
 		.orElseThrow(() -> new RuntimeException("Resource not found " + resource));
 	final Source source = new StreamSource(is);
 	try {

@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
-import tech.lapsa.java.commons.resources.Resources;
+import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
@@ -33,7 +33,7 @@ public class XmlDocumentOrderBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	InputStream storeStream = Resources.optionalAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
+	InputStream storeStream = MyResources.optionalAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //

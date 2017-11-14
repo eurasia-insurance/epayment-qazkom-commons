@@ -18,7 +18,7 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
-import tech.lapsa.java.commons.resources.Resources;
+import tech.lapsa.java.commons.io.MyResources;
 
 public class XmlDocumentOrderTest {
 
@@ -90,6 +90,6 @@ public class XmlDocumentOrderTest {
     }
 
     private XmlDocumentOrder loadDocument(final String resourceName) throws JAXBException {
-	return XmlDocumentOrder.getTool().deserializeFrom(Resources.getAsStream(this.getClass(), resourceName));
+	return XmlDocumentOrder.getTool().deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
     }
 }
