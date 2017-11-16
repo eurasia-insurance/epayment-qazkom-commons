@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.java.jaxb.adapter.XmlCurrencyAdapter;
+import tech.lapsa.java.jaxb.adapter.XmlCurrencyNumericAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -20,7 +20,7 @@ public abstract class AXmlAmountAndCurrency extends AXmlAmount {
 
     // currency - код валюты оплаты [ 398 - тенге ]
     @XmlAttribute(name = "currency")
-    @XmlJavaTypeAdapter(XmlCurrencyAdapter.class)
+    @XmlJavaTypeAdapter(XmlCurrencyNumericAdapter.class)
     private Currency currency;
 
     public Currency getCurrency() {
