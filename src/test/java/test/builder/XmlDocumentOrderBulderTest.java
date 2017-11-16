@@ -7,11 +7,10 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.util.Currency;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.io.MyResources;
@@ -62,7 +61,7 @@ public class XmlDocumentOrderBulderTest {
     public void basicTest() {
 	XmlDocumentOrder o = XmlDocumentOrder.builder() //
 		.withAmount(1000d) //
-		.withCurrency(FinCurrency.KZT) //
+		.withCurrency(Currency.getInstance("KZT")) //
 		.withMerchchant("92061103", "Test shop 3") //
 		.withOrderNumber("999999999999") //
 		.signWith(key, certificate) //
