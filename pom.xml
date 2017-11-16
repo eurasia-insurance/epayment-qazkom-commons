@@ -17,9 +17,10 @@
 	<properties>
 		<!-- BOMS -->
 		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
+		<!-- tech -->
+		<java-jaxb.commons.version>1.1-SNAPSHOT</java-jaxb.commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.3-SNAPSHOT</international-lib.version>
-		<fin-lib.version>2.1</fin-lib.version>
 	</properties>
 
 
@@ -33,18 +34,17 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.java</groupId>
+				<artifactId>java-jaxb-commons</artifactId>
+				<version>${java-jaxb.commons.version}</version>
+			</dependency>
 			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.international-lib</groupId>
 				<artifactId>international-root</artifactId>
 				<version>${international-lib.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.lapsa.fin-lib</groupId>
-				<artifactId>fin-root</artifactId>
-				<version>${fin-lib.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -59,16 +59,16 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.java</groupId>
+			<artifactId>java-jaxb-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 		<!-- odlies -->
 		<dependency>
 			<groupId>com.lapsa.international-lib</groupId>
 			<artifactId>international-core</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.lapsa.fin-lib</groupId>
-			<artifactId>fin-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
