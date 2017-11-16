@@ -5,12 +5,11 @@ import static org.junit.Assert.*;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
-
-import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
@@ -40,7 +39,7 @@ public class XmlDocumentOrderTest {
 	merchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setAmount(Double.valueOf(3100));
-	order.setFinCurrency(FinCurrency.KZT);
+	order.setCurrency(Currency.getInstance("KZT"));
 
 	XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,8 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
@@ -52,7 +51,7 @@ public class XmlDocumentOrder extends AXmlBase {
 
 	private String orderNumber;
 	private Double amount;
-	private FinCurrency currency;
+	private Currency currency;
 	private String merchantId;
 	private String merchantName;
 	private X509Certificate merchantCertificate;
@@ -71,7 +70,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentOrderBuilder withCurrency(final FinCurrency currency) throws IllegalArgumentException {
+	public XmlDocumentOrderBuilder withCurrency(final Currency currency) throws IllegalArgumentException {
 	    this.currency = MyObjects.requireNonNull(currency, "currency");
 	    return this;
 	}
@@ -108,7 +107,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    xmlMerchant.setOrder(xmlOrder);
 	    xmlOrder.setOrderId(orderNumber);
 	    xmlOrder.setAmount(amount);
-	    xmlOrder.setFinCurrency(currency);
+	    xmlOrder.setCurrency(currency);
 	    xmlOrder.setDepartments(new ArrayList<>());
 
 	    final XmlDepartment xmlDepartment = new XmlDepartment();

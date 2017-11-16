@@ -8,12 +8,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
-import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.country.Country;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
@@ -74,7 +74,7 @@ public class XmlDocumentPaymentTest {
 	XmlOrder order = new XmlOrder();
 	sourceMerchant.setOrder(order);
 	order.setOrderId("000282");
-	order.setFinCurrency(FinCurrency.KZT);
+	order.setCurrency(Currency.getInstance("KZT"));
 	order.setAmount(Double.valueOf(3100));
 
 	XmlDepartment department = new XmlDepartment();
