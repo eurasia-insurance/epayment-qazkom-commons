@@ -15,7 +15,7 @@
       53 tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign
       59 tech.lapsa.epayment.qazkom.xml.bind.XmlOrder
       61 tech.lapsa.epayment.qazkom.xml.bind.XmlPayment
-      67 tech.lapsa.epayment.qazkom.xml.bind.XmlResponse
+      67 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError
       71 tech.lapsa.epayment.qazkom.xml.bind.XmlResults
       73 tech.lapsa.epayment.qazkom.xml.bind.XmlSession
       79 

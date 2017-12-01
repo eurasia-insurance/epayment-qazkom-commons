@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -11,17 +12,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlTimestampAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "error")
-public class XmlError extends AXmlBase {
+public class XmlError implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 41;
 
     @Override
+    public int hashCode() {
+	return HashCodeBuilder.reflectionHashCode(prime(), prime(), this, false);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+	return EqualsBuilder.reflectionEquals(this, other, false);
+    }
+
     protected int prime() {
 	return PRIME;
     }
