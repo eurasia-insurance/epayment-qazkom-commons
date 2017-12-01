@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "response")
-public class XmlResponse extends AXmlBase {
+public class XmlDocumentError extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 67;
