@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
+import tech.lapsa.java.commons.function.MyStrings;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "response")
@@ -15,6 +18,18 @@ public class XmlDocumentError extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 67;
+
+    private static final SerializationTool<XmlDocumentError> TOOL = SerializationTool.forClass(XmlDocumentError.class,
+	    XmlSchemas.ERROR_SCHEMA);
+
+    public static final SerializationTool<XmlDocumentError> getTool() {
+	return TOOL;
+    }
+
+    public static XmlDocumentError of(final String rawXml) {
+	MyStrings.requireNonEmpty(rawXml, "rawXml");
+	return TOOL.deserializeFrom(rawXml);
+    }
 
     @Override
     protected int prime() {
