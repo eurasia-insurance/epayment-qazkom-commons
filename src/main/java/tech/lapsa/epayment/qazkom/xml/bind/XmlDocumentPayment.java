@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.security.MySignatures;
@@ -48,17 +49,18 @@ public class XmlDocumentPayment extends AXmlBase {
 	private XmlDocumentPaymentBuilder() {
 	}
 
-	public XmlDocumentPaymentBuilder ofRawXml(final String rawXml) {
+	public XmlDocumentPaymentBuilder ofRawXml(final String rawXml) throws IllegalArgumentException {
 	    this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    return this;
 	}
 
-	public XmlDocumentPaymentBuilder withBankCertificate(final X509Certificate certificate) {
+	public XmlDocumentPaymentBuilder withBankCertificate(final X509Certificate certificate)
+		throws IllegalArgumentException {
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
 
-	public XmlDocumentPayment build() {
+	public XmlDocumentPayment build() throws IllegalArgumentException, IllegalStateException {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    final XmlDocumentPayment document = TOOL.deserializeFrom(rawXml);
 
@@ -74,13 +76,13 @@ public class XmlDocumentPayment extends AXmlBase {
 		    final byte[] digest = document.getBankSign().getSignature();
 		    MyArrays.reverse(digest);
 		    final String algorithmName = document.getBankSign().getSignType().getSignatureAlgorithmName() //
-			    .orElseThrow(() -> new IllegalArgumentException("No such alogithm for signature"));
+			    .orElseThrow(MyExceptions.illegalArgumentSupplier("No such alogithm for signature"));
 		    final VerifyingSignature signature = MySignatures.forVerification(certificate, algorithmName) //
-			    .orElseThrow(
-				    () -> new IllegalArgumentException("Algorithm is not supported " + algorithmName));
+			    .orElseThrow(MyExceptions.illegalArgumentSupplier("Algorithm is not supported %1$s",
+				    algorithmName));
 		    final boolean signatureValid = signature.verify(data, digest);
 		    if (!signatureValid)
-			throw new IllegalStateException("Signature is invalid");
+			throw MyExceptions.illegalStateFormat("Signature is invalid");
 		}
 
 		// checking certificate number
@@ -88,7 +90,7 @@ public class XmlDocumentPayment extends AXmlBase {
 		    final boolean certNumberValid = certificate.getSerialNumber()
 			    .equals(document.getBankSign().getCertificateSerialNumber());
 		    if (!certNumberValid)
-			throw new IllegalStateException("Certificate serial number is not valid");
+			throw MyExceptions.illegalStateFormat("Certificate serial number is not valid");
 		}
 	    }
 	    return document;

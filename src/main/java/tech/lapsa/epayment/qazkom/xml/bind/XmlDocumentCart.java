@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyCollectors;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
@@ -32,7 +33,7 @@ public class XmlDocumentCart extends AXmlBase {
     private static final SerializationTool<XmlDocumentCart> TOOL = SerializationTool.forClass(XmlDocumentCart.class,
 	    XmlSchemas.CART_SCHEMA);
 
-    public static XmlDocumentCart of(final String rawXml) {
+    public static XmlDocumentCart of(final String rawXml) throws IllegalArgumentException {
 	return TOOL.deserializeFrom(rawXml);
     }
 
@@ -69,27 +70,29 @@ public class XmlDocumentCart extends AXmlBase {
 	    private final Integer quantity;
 	    private final Double amount;
 
-	    private Its(final String name, final Integer quantity, final Double amount) {
-		this.name = name;
-		this.quantity = quantity;
-		this.amount = amount;
+	    private Its(final String name, final Integer quantity, final Double amount)
+		    throws IllegalArgumentException {
+		this.name = MyStrings.requireNonEmpty(name, "name");
+		this.quantity = MyNumbers.requirePositive(quantity, "quantity");
+		this.amount = MyNumbers.requirePositive(amount, "amount");
 	    }
 	}
 
 	private final List<Its> itms = new ArrayList<>();
 
-	public XmlDocumentCartBuilder withItem(final String name, final Integer quantity, final Double amount) {
-	    MyStrings.requireNonEmpty(name, "name");
-	    MyNumbers.requirePositive(quantity, "quantity");
-	    MyNumbers.requirePositive(amount, "amount");
+	public XmlDocumentCartBuilder withItem(final String name, final Integer quantity, final Double amount)
+		throws IllegalArgumentException {
 	    itms.add(new Its(name, quantity, amount));
 	    return this;
 	}
 
-	public <T> XmlDocumentCartBuilder withItems(final Collection<T> items, final Function<T, String> nameMapper,
+	public <T> XmlDocumentCartBuilder withItems(final Collection<T> items,
+		final Function<T, String> nameMapper,
 		final Function<T, Integer> quantityMapper,
-		final Function<T, Double> amountMapper) {
+		final Function<T, Double> amountMapper) throws IllegalArgumentException {
+
 	    MyCollections.requireNonEmpty(items, "items");
+
 	    MyObjects.requireNonNull(nameMapper, "nameMapper");
 	    MyObjects.requireNonNull(quantityMapper, "quantityMapper");
 	    MyObjects.requireNonNull(amountMapper, "amountMapper");
@@ -101,11 +104,11 @@ public class XmlDocumentCart extends AXmlBase {
 	    return this;
 	}
 
-	public XmlDocumentCart build() {
+	public XmlDocumentCart build() throws IllegalArgumentException {
 	    final AtomicInteger i = new AtomicInteger(1);
 	    final XmlDocumentCart doc = new XmlDocumentCart();
 	    doc.setItems(MyOptionals.streamOf(itms) //
-		    .orElseThrow(() -> new IllegalArgumentException("Cart must have at least one item")) //
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Cart must have at least one item")) //
 		    .map(t -> {
 			final XmlItem r = new XmlItem();
 			r.setName(t.name);

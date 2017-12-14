@@ -26,7 +26,7 @@ public class XmlDocumentError extends AXmlBase {
 	return TOOL;
     }
 
-    public static XmlDocumentError of(final String rawXml) {
+    public static XmlDocumentError of(final String rawXml) throws IllegalArgumentException {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
     }
