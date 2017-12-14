@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -21,26 +22,27 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 
-public final class SerializationTool<T> {
+public final class SerializationTool<T extends Serializable> {
 
-    static <Q> SerializationTool<Q> forClass(final Class<Q> clazz) {
+    public static <Q extends Serializable> SerializationTool<Q> forClass(final Class<Q> clazz) {
 	return forClass(clazz, null);
     }
 
-    static <Q> SerializationTool<Q> forClass(final Class<Q> clazz, final Schema schema) {
+    public static <Q extends Serializable> SerializationTool<Q> forClass(final Class<Q> clazz, final Schema schema)
+	    throws IllegalArgumentException {
 	try {
 	    final JAXBContext context = JAXBContext.newInstance(clazz);
 	    final Marshaller marshaller = context.createMarshaller();
-	    if (schema != null)
+	    if (MyObjects.nonNull(schema))
 		marshaller.setSchema(schema);
 	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 	    final Unmarshaller unmarshaller = context.createUnmarshaller();
-	    if (schema != null)
+	    if (MyObjects.nonNull(schema))
 		unmarshaller.setSchema(schema);
 	    return new SerializationTool<Q>(clazz, marshaller, unmarshaller);
 	} catch (final JAXBException e) {
-	    throw new RuntimeException(e);
+	    throw new IllegalArgumentException(e);
 	}
     }
 
@@ -102,7 +104,7 @@ public final class SerializationTool<T> {
 	return output.toString();
     }
 
-    public byte[] serializeToBytes(final T document) {
+    public byte[] serializeToBytes(final T document) throws IllegalArgumentException {
 	MyObjects.requireNonNull(document, "document");
 	final ByteArrayOutputStream output = new ByteArrayOutputStream();
 	try {
@@ -115,7 +117,8 @@ public final class SerializationTool<T> {
 	return output.toByteArray();
     }
 
-    public void serializeTo(final T document, final Writer output) {
+    public void serializeTo(final T document, final Writer output)
+	    throws IllegalArgumentException {
 	MyObjects.requireNonNull(document, "document");
 	try {
 	    marshaller.marshal(document, output);
@@ -126,7 +129,7 @@ public final class SerializationTool<T> {
 	}
     }
 
-    public void serializeTo(final T document, final OutputStream output) {
+    public void serializeTo(final T document, final OutputStream output) throws IllegalArgumentException {
 	MyObjects.requireNonNull(document, "document");
 	try {
 	    marshaller.marshal(document, output);
