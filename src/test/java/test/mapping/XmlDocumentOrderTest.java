@@ -30,18 +30,18 @@ public class XmlDocumentOrderTest {
     static {
 	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentOrder();
 
-	XmlMerchant merchant = new XmlMerchant();
+	final XmlMerchant merchant = new XmlMerchant();
 	TEST_DOCUMENT_AS_OBJECT.setMerchant(merchant);
 	merchant.setCertificateSerialNumber(new BigInteger("00c183d70b", 16));
 	merchant.setName("Shop Name");
 
-	XmlOrder order = new XmlOrder();
+	final XmlOrder order = new XmlOrder();
 	merchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setAmount(Double.valueOf(3100));
 	order.setCurrency(Currency.getInstance("KZT"));
 
-	XmlDepartment department = new XmlDepartment();
+	final XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("92061101");
@@ -49,7 +49,7 @@ public class XmlDocumentOrderTest {
 	department.setPhone("22233355");
 	department.setAirticketBookingNumber("ASDFG");
 
-	XmlMerchantSign sign = new XmlMerchantSign();
+	final XmlMerchantSign sign = new XmlMerchantSign();
 	TEST_DOCUMENT_AS_OBJECT.setMerchantSign(sign);
 	sign.setSignType(XmlSignType.RSA);
 	sign.setSignature(new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11,
@@ -66,7 +66,7 @@ public class XmlDocumentOrderTest {
     public void testSerializeDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Generated document");
-	String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
+	final String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
 	System.out.println(documentString);
 	System.out.println();
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
@@ -76,7 +76,7 @@ public class XmlDocumentOrderTest {
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	XmlDocumentOrder loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
+	final XmlDocumentOrder loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
 	dumpDocument(loaded, true);
     }
 

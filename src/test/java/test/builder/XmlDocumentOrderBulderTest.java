@@ -32,10 +32,10 @@ public class XmlDocumentOrderBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	InputStream storeStream = MyResources.optionalAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optionalAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
-	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
+	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
 	key = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
@@ -59,7 +59,7 @@ public class XmlDocumentOrderBulderTest {
 
     @Test
     public void basicTest() {
-	XmlDocumentOrder o = XmlDocumentOrder.builder() //
+	final XmlDocumentOrder o = XmlDocumentOrder.builder() //
 		.withAmount(1000d) //
 		.withCurrency(Currency.getInstance("KZT")) //
 		.withMerchchant("92061103", "Test shop 3") //
@@ -67,21 +67,21 @@ public class XmlDocumentOrderBulderTest {
 		.signWith(key, certificate) //
 		.build();
 	assertThat(o, not(nullValue()));
-	String rawXml = o.getRawXml();
+	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
     }
 
     @Test
     public void deserializeTest() {
-	XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
+	final XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
 	assertThat(o, not(nullValue()));
-	String rawXml = o.getRawXml();
+	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
     }
 
     @Test
     public void signatureVerificationTest() {
-	XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
+	final XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
 	assertTrue("Signature must be VALID", o.validSignature(certificate));
 
 	o.getMerchantSign().getSignature()[0]++; // break the signature

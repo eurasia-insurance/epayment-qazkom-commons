@@ -17,20 +17,20 @@ public class XmlDocumentCartBulderTest {
 
     @Test
     public void basicTest() {
-	XmlDocumentCart o = XmlDocumentCart.builder() //
+	final XmlDocumentCart o = XmlDocumentCart.builder() //
 		.withItem("Apple iPhone X", 1, 1300d) //
 		.withItem("Apple MacBook Pro", 1, 2400d) //
 		.build();
 	assertThat(o, not(nullValue()));
-	String rawXml = o.getRawXml();
+	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
     }
 
     @Test
     public void deserializeTest() {
-	XmlDocumentCart o = XmlDocumentCart.of(RAW_XML);
+	final XmlDocumentCart o = XmlDocumentCart.of(RAW_XML);
 	assertThat(o, not(nullValue()));
-	String rawXml = o.getRawXml();
+	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
     }
 }

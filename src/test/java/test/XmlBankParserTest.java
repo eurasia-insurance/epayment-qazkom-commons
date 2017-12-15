@@ -33,7 +33,7 @@ public class XmlBankParserTest {
 		+ "<bank_sign cert_id=\"c183d690\" type=\"SHA/RSA\">JI3RZMEvexNlDmKsOQhe0pzHuKijnbhvnLu99qh7h+Ju8HvSfGNbEJxXUL58M94tXvu7w0BXSY7MHePGqz32JuMLAncuzyMwq845linW/sH/WvbZ+6SSYfxDMnvgX0S/pKxbhSXs7lGVBngXOwq7Bhsk8GcDUkWAM5UAsKpEKoI=</bank_sign>"
 		+ "</document>";
 
-	String[] banks = XmlBank.bankXmlElementsFrom(PAYMENT_XML);
+	final String[] banks = XmlBank.bankXmlElementsFrom(PAYMENT_XML);
 	assertThat(banks, allOf(not(nullValue()), array(equalTo(BANK_XML))));
     }
 }
