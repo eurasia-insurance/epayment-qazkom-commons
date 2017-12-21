@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
@@ -37,7 +38,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	return TOOL;
     }
 
-    public static XmlDocumentOrder of(final String rawXml) {
+    public static XmlDocumentOrder of(final String rawXml) throws IllegalArgumentException {
 	return TOOL.deserializeFrom(rawXml);
     }
 
@@ -119,7 +120,7 @@ public class XmlDocumentOrder extends AXmlBase {
 
 	    final SigningSignature signature = MySignatures
 		    .forSignature(MyObjects.requireNonNull(merchantKey, "merchantKey"), signatureAlgorithm)
-		    .orElseThrow(() -> new IllegalArgumentException("Failed proces with private key"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Failed proces with private key"));
 
 	    final byte[] data = XmlMerchant.getTool().serializeToBytes(xmlMerchant);
 	    final byte[] digest = signature.sign(data);
@@ -138,17 +139,19 @@ public class XmlDocumentOrder extends AXmlBase {
 
     }
 
-    public boolean validSignature(final X509Certificate certificate) {
+    public boolean validSignature(final X509Certificate certificate)
+	    throws IllegalStateException, IllegalArgumentException {
 
 	final String algorithmName = getMerchantSign().getSignType().getSignatureAlgorithmName() //
-		.orElseThrow(() -> new IllegalArgumentException("No such algorithm"));
+		.orElseThrow(MyExceptions.illegalStateSupplier("No such algorithm"));
 
 	final VerifyingSignature signature = MySignatures
-		.forVerification(MyObjects.requireNonNull(certificate, "certificate"), algorithmName) //
-		.orElseThrow(() -> new IllegalArgumentException("Failed process with certificate"));
+		.forVerification(MyObjects.requireNonNull(certificate, "certificate"),
+			algorithmName) //
+		.orElseThrow(MyExceptions.illegalArgumentSupplier("Failed process with certificate"));
 
 	if (merchant == null || merchantSign == null || merchantSign.getSignature() == null)
-	    throw new IllegalStateException("Document is corrupted");
+	    throw MyExceptions.illegalStateFormat("Document is corrupted");
 
 	final byte[] data = XmlMerchant.getTool().serializeToBytes(merchant);
 	final byte[] digest = merchantSign.getSignature().clone();
@@ -156,10 +159,11 @@ public class XmlDocumentOrder extends AXmlBase {
 	return signature.verify(data, digest);
     }
 
-    public XmlDocumentOrder requreValidSignature(final X509Certificate certificate) {
+    public XmlDocumentOrder requreValidSignature(final X509Certificate certificate)
+	    throws IllegalStateException, IllegalArgumentException {
 	if (validSignature(certificate))
 	    return this;
-	throw new IllegalStateException("Signature is invalid");
+	throw MyExceptions.illegalStateFormat("Signature is invalid");
     }
 
     @Override

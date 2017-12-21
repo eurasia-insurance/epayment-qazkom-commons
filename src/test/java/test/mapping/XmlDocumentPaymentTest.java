@@ -56,52 +56,52 @@ public class XmlDocumentPaymentTest {
     static {
 	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentPayment();
 
-	XmlBank bank = new XmlBank();
+	final XmlBank bank = new XmlBank();
 	TEST_DOCUMENT_AS_OBJECT.setBank(bank);
 	bank.setName("Kazkommertsbank JSC");
 
-	XmlCustomer customer = new XmlCustomer();
+	final XmlCustomer customer = new XmlCustomer();
 	bank.setCustomer(customer);
 	customer.setEmailAddress("klient@mymail.com");
 	customer.setName("John Cardholder");
 	customer.setPhone("223322");
 
-	XmlMerchant sourceMerchant = new XmlMerchant();
+	final XmlMerchant sourceMerchant = new XmlMerchant();
 	customer.setSourceMerchant(sourceMerchant);
 	sourceMerchant.setCertificateSerialNumber(new BigInteger("7269C18D00010000005E", 16));
 	sourceMerchant.setName("Shop Name");
 
-	XmlOrder order = new XmlOrder();
+	final XmlOrder order = new XmlOrder();
 	sourceMerchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setCurrency(Currency.getInstance("KZT"));
 	order.setAmount(Double.valueOf(3100));
 
-	XmlDepartment department = new XmlDepartment();
+	final XmlDepartment department = new XmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("90028101");
 	department.setAmount(Double.valueOf(3100));
 	department.setAirticketBookingNumber("ASDFG");
 
-	XmlMerchantSign sourceMerchantSign = new XmlMerchantSign();
+	final XmlMerchantSign sourceMerchantSign = new XmlMerchantSign();
 	customer.setSourceMerchantSign(sourceMerchantSign);
 	sourceMerchantSign.setSignType(XmlSignType.RSA);
 
-	XmlCustomerSign customerSign = new XmlCustomerSign();
+	final XmlCustomerSign customerSign = new XmlCustomerSign();
 	bank.setCustomerSign(customerSign);
 	customerSign.setSignType(XmlSignType.CERTIFICATE);
 	customerSign.setSignatureEncoded("4817C411000100000084");
 
-	XmlResults results = new XmlResults();
+	final XmlResults results = new XmlResults();
 	bank.setResults(results);
 
 	// 2006-11-22 12:20:30
-	LocalDateTime ldt = LocalDateTime.of(2006, 11, 22, 12, 20, 30);
-	Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
+	final LocalDateTime ldt = LocalDateTime.of(2006, 11, 22, 12, 20, 30);
+	final Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
 	results.setTimestamp(timestamp);
 
-	XmlPayment payment = new XmlPayment();
+	final XmlPayment payment = new XmlPayment();
 	results.setPayments(new ArrayList<>());
 	results.getPayments().add(payment);
 	payment.setAmount(320.5);
@@ -113,7 +113,7 @@ public class XmlDocumentPaymentTest {
 	payment.setResponseCode("00");
 	payment.setSecureType(XmlSecureType.NON_SECURED);
 
-	XmlBankSign bankSign = new XmlBankSign();
+	final XmlBankSign bankSign = new XmlBankSign();
 	TEST_DOCUMENT_AS_OBJECT.setBankSign(bankSign);
 	bankSign.setCertificateSerialNumber(new BigInteger("c183d690", 16));
 	bankSign.setSignType(XmlSignType.SHA_RSA);
@@ -127,7 +127,7 @@ public class XmlDocumentPaymentTest {
 
     @Test
     public void testSerializeDocument() throws JAXBException {
-	String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
+	final String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
 	System.out.println(documentString);
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }

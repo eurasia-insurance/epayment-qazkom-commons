@@ -35,7 +35,7 @@ public class XmlDocumentErrorTest {
 	    {
 		// 2017-12-01 15:01:51
 		final LocalDateTime ldt = LocalDateTime.of(2017, 12, 1, 15, 1, 51);
-		Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
+		final Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
 		error.setTime(timestamp);
 	    }
 	    error.setCode("05");

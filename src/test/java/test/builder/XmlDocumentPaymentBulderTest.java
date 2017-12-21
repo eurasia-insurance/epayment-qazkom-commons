@@ -28,10 +28,10 @@ public class XmlDocumentPaymentBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	InputStream storeStream = MyResources.optionalAsStream(XmlDocumentPaymentBulderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optionalAsStream(XmlDocumentPaymentBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
-	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
+	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
 	bankCert = MyCertificates.from(keystore, ALIAS) //
@@ -68,7 +68,7 @@ public class XmlDocumentPaymentBulderTest {
 
     @Test
     public void basicTest() {
-	XmlDocumentPayment o = XmlDocumentPayment.builder() //
+	final XmlDocumentPayment o = XmlDocumentPayment.builder() //
 		.ofRawXml(PAYMENT_XML) //
 		.withBankCertificate(bankCert) //
 		.build();
