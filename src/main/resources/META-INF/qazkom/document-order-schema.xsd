@@ -57,6 +57,10 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="ts_exp_date">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
 	<xs:simpleType name="ts_reference">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1" />
@@ -227,6 +231,7 @@
 		<xs:attribute name="Secure" type="ts_Secure" use="required" />
 		<xs:attribute name="card_bin" type="ts_card_bin" use="optional" />
 		<xs:attribute name="c_hash" type="ts_c_hash" use="required" />
+		<xs:attribute name="exp_date" type="ts_exp_date" use="optional" />
 	</xs:complexType>
 
 	<xs:complexType name="tc_results">

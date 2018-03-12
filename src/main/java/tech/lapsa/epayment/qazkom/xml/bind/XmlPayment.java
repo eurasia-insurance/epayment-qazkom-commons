@@ -1,5 +1,7 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
+import java.time.LocalDate;
+
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -10,6 +12,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.international.country.Country;
 
+import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCardExpirationDateAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -60,6 +63,11 @@ public class XmlPayment extends AXmlAmount {
     // c_hash- Хэш карты
     @XmlAttribute(name = "c_hash")
     private String cardHash;
+
+    // exp_date - срок действия карты
+    @XmlAttribute(name = "exp_date")
+    @XmlJavaTypeAdapter(XmlCardExpirationDateAdapter.class)
+    private LocalDate expirationDate;
 
     // GENERATED
 
@@ -125,5 +133,13 @@ public class XmlPayment extends AXmlAmount {
 
     public void setCardHash(final String cardHash) {
 	this.cardHash = cardHash;
+    }
+
+    public LocalDate getExpirationDate() {
+	return expirationDate;
+    }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+	this.expirationDate = expirationDate;
     }
 }
