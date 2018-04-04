@@ -20,10 +20,10 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
+@HashCodePrime(37)
 public class XmlDocumentPayment extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 37;
 
     private static final SerializationTool<XmlDocumentPayment> TOOL = SerializationTool.forClass(
 	    XmlDocumentPayment.class,
@@ -95,11 +95,6 @@ public class XmlDocumentPayment extends AXmlBase {
 	    }
 	    return document;
 	}
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @XmlElementRef

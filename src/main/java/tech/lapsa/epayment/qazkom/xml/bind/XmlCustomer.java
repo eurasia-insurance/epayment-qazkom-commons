@@ -11,15 +11,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "customer")
+@HashCodePrime(17)
 public class XmlCustomer extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 17;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     // Имя покупателя указанное в системе авторизации
     @XmlAttribute(name = "name")

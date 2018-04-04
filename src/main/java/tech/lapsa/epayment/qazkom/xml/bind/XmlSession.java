@@ -10,15 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "session")
+@HashCodePrime(73)
 public class XmlSession extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 73;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     @XmlAttribute(name = "id")
     private String id;

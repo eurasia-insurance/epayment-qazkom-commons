@@ -25,21 +25,16 @@ import tech.lapsa.java.commons.function.MyStrings;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
+@HashCodePrime(29)
 public class XmlDocumentCart extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 29;
 
     private static final SerializationTool<XmlDocumentCart> TOOL = SerializationTool.forClass(XmlDocumentCart.class,
 	    XmlSchemas.CART_SCHEMA);
 
     public static XmlDocumentCart of(final String rawXml) throws IllegalArgumentException {
 	return TOOL.deserializeFrom(rawXml);
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @XmlElementRef

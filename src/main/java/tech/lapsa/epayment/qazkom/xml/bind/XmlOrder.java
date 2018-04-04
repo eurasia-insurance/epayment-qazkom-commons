@@ -13,15 +13,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "order")
+@HashCodePrime(49)
 public class XmlOrder extends AXmlAmountAndCurrency {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 49;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ
     // знаков, максимально -15)

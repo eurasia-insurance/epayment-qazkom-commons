@@ -18,15 +18,10 @@ import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "payment")
+@HashCodePrime(61)
 public class XmlPayment extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 61;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     // Результат транзакции
     // merchant_id - ID продавца в платежной системе
