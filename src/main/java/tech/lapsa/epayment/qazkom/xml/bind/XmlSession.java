@@ -5,26 +5,31 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-@XmlRootElement(name = "session")
 @HashCodePrime(73)
 public class XmlSession extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute(name = "id")
-    private String id;
-
-    // GENERATED
+    private final String id;
 
     public String getId() {
 	return id;
     }
 
-    public void setId(final String id) {
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlSession() {
+	this.id = null;
+    }
+
+    public XmlSession(String id) {
+	super();
 	this.id = id;
     }
 }

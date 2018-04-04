@@ -5,9 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "department")
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlAccessorType(XmlAccessType.FIELD)
 @HashCodePrime(103)
@@ -17,64 +15,74 @@ public class XmlDepartment extends AXmlAmount {
 
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")
-    private String merchantId;
-
-    // abonent_id - дополнительные поля для продавца, можно не указывать
-    @XmlAttribute(name = "abonent_id")
-    private String abonentId;
-
-    // terminal - дополнительные поля для продавца, можно не указывать
-    @XmlAttribute(name = "terminal")
-    private String terminal;
-
-    // phone - дополнительные поля для продавца, можно не указывать
-    @XmlAttribute(name = "phone")
-    private String phone;
-
-    // RL - дополнительное поле, для транспортных компаний- Номер брони, можно
-    // не указывать. Транслуруется по всем отчетам и выпискам
-    @XmlAttribute(name = "RL")
-    private String airticketBookingNumber;
-
-    // GENERATED
+    private final String merchantId;
 
     public String getMerchantId() {
 	return merchantId;
     }
 
-    public void setMerchantId(final String merchantId) {
-	this.merchantId = merchantId;
-    }
+    // abonent_id - дополнительные поля для продавца, можно не указывать
+    @XmlAttribute(name = "abonent_id")
+    private final String abonentId;
 
     public String getAbonentId() {
 	return abonentId;
     }
 
-    public void setAbonentId(final String abonentId) {
-	this.abonentId = abonentId;
-    }
+    // terminal - дополнительные поля для продавца, можно не указывать
+    @XmlAttribute(name = "terminal")
+    private final String terminal;
 
     public String getTerminal() {
 	return terminal;
     }
 
-    public void setTerminal(final String terminal) {
-	this.terminal = terminal;
-    }
+    // phone - дополнительные поля для продавца, можно не указывать
+    @XmlAttribute(name = "phone")
+    private final String phone;
 
     public String getPhone() {
 	return phone;
     }
 
-    public void setPhone(final String phone) {
-	this.phone = phone;
-    }
+    // RL - дополнительное поле, для транспортных компаний- Номер брони, можно
+    // не указывать. Транслуруется по всем отчетам и выпискам
+    @XmlAttribute(name = "RL")
+    private final String airticketBookingNumber;
 
     public String getAirticketBookingNumber() {
 	return airticketBookingNumber;
     }
 
-    public void setAirticketBookingNumber(final String airticketBookingNumber) {
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlDepartment() {
+	super(null);
+	this.merchantId = null;
+	this.abonentId = null;
+	this.terminal = null;
+	this.phone = null;
+	this.airticketBookingNumber = null;
+    }
+
+    public XmlDepartment(Double amount, String merchantId, String abonentId, String terminal, String phone,
+	    String airticketBookingNumber) {
+	super(amount);
+	this.merchantId = merchantId;
+	this.abonentId = abonentId;
+	this.terminal = terminal;
+	this.phone = phone;
 	this.airticketBookingNumber = airticketBookingNumber;
+    }
+
+    public XmlDepartment(Double amount, String merchantId) {
+	super(amount);
+	this.merchantId = merchantId;
+	this.abonentId = null;
+	this.terminal = null;
+	this.phone = null;
+	this.airticketBookingNumber = null;
     }
 }

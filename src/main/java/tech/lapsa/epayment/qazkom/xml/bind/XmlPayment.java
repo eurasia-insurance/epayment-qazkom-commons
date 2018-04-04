@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.international.country.Country;
@@ -17,7 +16,6 @@ import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-@XmlRootElement(name = "payment")
 @HashCodePrime(61)
 public class XmlPayment extends AXmlAmount {
 
@@ -26,115 +24,109 @@ public class XmlPayment extends AXmlAmount {
     // Результат транзакции
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")
-    private String merchantId;
-
-    // reference - номер обращения к платежной системе
-    @XmlAttribute(name = "reference")
-    private String reference;
-
-    // approval_code - код авторизации
-    @XmlAttribute(name = "approval_code")
-    private String approvalCode;
-
-    // response_code - код результата авторизации.
-    // Должен иметь значение "00" (два нуля), в противном случае свяжитесь,
-    // пожалуйста, с администратором системы авторизации
-    @XmlAttribute(name = "response_code")
-    private String responseCode;
-
-    // Secure- Yes/No признак, что транзакция была 3DSecure или нет
-    @XmlAttribute(name = "Secure")
-    private XmlSecureType secureType;
-
-    // card_bin- Страна эмитент карты
-    @XmlAttribute(name = "card_bin")
-    @XmlJavaTypeAdapter(XmlCountryAlpha3CodeAdapter.class)
-    private Country cardCountry;
-
-    // card - маскированный номер карты
-    @XmlAttribute(name = "card")
-    private String cardNumberMasked;
-
-    // c_hash- Хэш карты
-    @XmlAttribute(name = "c_hash")
-    private String cardHash;
-
-    // exp_date - срок действия карты
-    @XmlAttribute(name = "exp_date")
-    @XmlJavaTypeAdapter(XmlCardExpirationDateAdapter.class)
-    private LocalDate expirationDate;
-
-    // GENERATED
+    private final String merchantId;
 
     public String getMerchantId() {
 	return merchantId;
     }
 
-    public void setMerchantId(final String merchantId) {
-	this.merchantId = merchantId;
-    }
+    // reference - номер обращения к платежной системе
+    @XmlAttribute(name = "reference")
+    private final String reference;
 
     public String getReference() {
 	return reference;
     }
 
-    public void setReference(final String reference) {
-	this.reference = reference;
-    }
+    // approval_code - код авторизации
+    @XmlAttribute(name = "approval_code")
+    private final String approvalCode;
 
     public String getApprovalCode() {
 	return approvalCode;
     }
 
-    public void setApprovalCode(final String approvalCode) {
-	this.approvalCode = approvalCode;
-    }
+    // response_code - код результата авторизации.
+    // Должен иметь значение "00" (два нуля), в противном случае свяжитесь,
+    // пожалуйста, с администратором системы авторизации
+    @XmlAttribute(name = "response_code")
+    private final String responseCode;
 
     public String getResponseCode() {
 	return responseCode;
     }
 
-    public void setResponseCode(final String responseCode) {
-	this.responseCode = responseCode;
-    }
+    // Secure- Yes/No признак, что транзакция была 3DSecure или нет
+    @XmlAttribute(name = "Secure")
+    private final XmlSecureType secureType;
 
     public XmlSecureType getSecureType() {
 	return secureType;
     }
 
-    public void setSecureType(final XmlSecureType secureType) {
-	this.secureType = secureType;
-    }
+    // card_bin- Страна эмитент карты
+    @XmlAttribute(name = "card_bin")
+    @XmlJavaTypeAdapter(XmlCountryAlpha3CodeAdapter.class)
+    private final Country cardCountry;
 
     public Country getCardCountry() {
 	return cardCountry;
     }
 
-    public void setCardCountry(final Country cardCountry) {
-	this.cardCountry = cardCountry;
-    }
+    // card - маскированный номер карты
+    @XmlAttribute(name = "card")
+    private final String cardNumberMasked;
 
     public String getCardNumberMasked() {
 	return cardNumberMasked;
     }
 
-    public void setCardNumberMasked(final String cardNumberMasked) {
-	this.cardNumberMasked = cardNumberMasked;
-    }
+    // c_hash- Хэш карты
+    @XmlAttribute(name = "c_hash")
+    private final String cardHash;
 
     public String getCardHash() {
 	return cardHash;
     }
 
-    public void setCardHash(final String cardHash) {
-	this.cardHash = cardHash;
-    }
+    // exp_date - срок действия карты
+    @XmlAttribute(name = "exp_date")
+    @XmlJavaTypeAdapter(XmlCardExpirationDateAdapter.class)
+    private final LocalDate expirationDate;
 
     public LocalDate getExpirationDate() {
 	return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlPayment() {
+	super(null);
+	this.merchantId = null;
+	this.reference = null;
+	this.approvalCode = null;
+	this.responseCode = null;
+	this.secureType = null;
+	this.cardCountry = null;
+	this.cardNumberMasked = null;
+	this.cardHash = null;
+	this.expirationDate = null;
+    }
+
+    public XmlPayment(Double amount, String merchantId, String reference, String approvalCode, String responseCode,
+	    XmlSecureType secureType, Country cardCountry, String cardNumberMasked, String cardHash,
+	    LocalDate expirationDate) {
+	super(amount);
+	this.merchantId = merchantId;
+	this.reference = reference;
+	this.approvalCode = approvalCode;
+	this.responseCode = responseCode;
+	this.secureType = secureType;
+	this.cardCountry = cardCountry;
+	this.cardNumberMasked = cardNumberMasked;
+	this.cardHash = cardHash;
 	this.expirationDate = expirationDate;
     }
 }

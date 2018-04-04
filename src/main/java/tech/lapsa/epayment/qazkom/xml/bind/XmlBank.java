@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -51,48 +51,52 @@ public class XmlBank extends AXmlBase {
     }
 
     @XmlAttribute(name = "name")
-    private String name;
-
-    @XmlElementRef
-    private XmlCustomer customer;
-
-    @XmlElementRef
-    private XmlCustomerSign customerSign;
-
-    @XmlElementRef
-    private XmlResults results;
-
-    // GENERATED
+    private final String name;
 
     public String getName() {
 	return name;
     }
 
-    public void setName(final String name) {
-	this.name = name;
-    }
+    @XmlElement(name = "customer")
+    private final XmlCustomer customer;
 
     public XmlCustomer getCustomer() {
 	return customer;
     }
 
-    public void setCustomer(final XmlCustomer customer) {
-	this.customer = customer;
-    }
+    @XmlElement(name = "customer_sign")
+    private final XmlCustomerSign customerSign;
 
     public XmlCustomerSign getCustomerSign() {
 	return customerSign;
     }
 
-    public void setCustomerSign(final XmlCustomerSign customerSign) {
-	this.customerSign = customerSign;
-    }
+    @XmlElement(name = "results")
+    private final XmlResults results;
 
     public XmlResults getResults() {
 	return results;
     }
 
-    public void setResults(final XmlResults results) {
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlBank() {
+	this.name = null;
+	this.customer = null;
+	this.customerSign = null;
+	this.results = null;
+    }
+
+    public XmlBank(final String name,
+	    final XmlCustomer customer,
+	    final XmlCustomerSign customerSign,
+	    final XmlResults results) {
+	super();
+	this.name = name;
+	this.customer = customer;
+	this.customerSign = customerSign;
 	this.results = results;
     }
 }

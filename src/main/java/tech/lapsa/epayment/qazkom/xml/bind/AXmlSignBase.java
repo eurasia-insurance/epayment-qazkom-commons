@@ -8,12 +8,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-@XmlRootElement
 public abstract class AXmlSignBase implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,36 +27,42 @@ public abstract class AXmlSignBase implements Serializable {
     }
 
     @XmlAttribute(name = "type")
-    private XmlSignType signType;
+    private final XmlSignType signType;
 
-    @XmlValue
-    private byte[] signature;
-
-    // GENERATED
-
-    // type - тип подписи
     public XmlSignType getSignType() {
 	return signType;
     }
 
-    public void setSignType(final XmlSignType signType) {
-	this.signType = signType;
-    }
+    @XmlValue
+    private final byte[] signature;
 
     // подпись
     public byte[] getSignature() {
 	return signature;
     }
 
-    public void setSignature(final byte[] signature) {
-	this.signature = signature != null && signature.length == 0 ? null : signature;
-    }
-
     public String getSignatureEncoded() {
 	return Base64.getEncoder().encodeToString(signature);
     }
 
-    public void setSignatureEncoded(final String signatureEncoded) {
-	signature = Base64.getDecoder().decode(signatureEncoded);
+    protected AXmlSignBase(final XmlSignType signType) {
+	super();
+	this.signType = signType;
+	this.signature = null;
     }
+
+    protected AXmlSignBase(final XmlSignType signType,
+	    final byte[] signature) {
+	super();
+	this.signType = signType;
+	this.signature = signature;
+    }
+
+    protected AXmlSignBase(final XmlSignType signType,
+	    final String signatureEncoded) {
+	super();
+	this.signType = signType;
+	this.signature = Base64.getDecoder().decode(signatureEncoded);
+    }
+
 }
