@@ -17,15 +17,10 @@ import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlTimestampAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "results")
+@HashCodePrime(71)
 public class XmlResults extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 71;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     // timestamp - время проведения платежа
     @XmlAttribute(name = "timestamp")

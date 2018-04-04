@@ -18,10 +18,10 @@ import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "bank")
+@HashCodePrime(11)
 public class XmlBank extends AXmlBase {
 
     private static final long serialVersionUID = -5468834860872828233L;
-    private static final int PRIME = 11;
 
     private static final SerializationTool<XmlBank> TOOL = SerializationTool.forClass(XmlBank.class,
 	    XmlSchemas.PAYMENT_SCHEMA);
@@ -48,11 +48,6 @@ public class XmlBank extends AXmlBase {
 	    }
 
 	}).toArray(String[]::new);
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @XmlAttribute(name = "name")

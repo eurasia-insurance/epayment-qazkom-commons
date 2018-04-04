@@ -9,13 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "merchant_sign")
+@HashCodePrime(53)
 public class XmlMerchantSign extends AXmlSignBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 53;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 }

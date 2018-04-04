@@ -10,15 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "department")
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlAccessorType(XmlAccessType.FIELD)
+@HashCodePrime(103)
 public class XmlDepartment extends AXmlAmount {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 23;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")

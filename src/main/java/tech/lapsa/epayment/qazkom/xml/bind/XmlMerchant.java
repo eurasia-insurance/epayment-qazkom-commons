@@ -17,10 +17,10 @@ import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "merchant")
+@HashCodePrime(47)
 public class XmlMerchant extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 47;
 
     private static final SerializationTool<XmlMerchant> TOOL = SerializationTool.forClass(XmlMerchant.class,
 	    XmlSchemas.ORDER_SCHEMA);
@@ -31,11 +31,6 @@ public class XmlMerchant extends AXmlBase {
 
     public static XmlMerchant of(final String rawXml) {
 	return TOOL.deserializeFrom(rawXml);
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     // cert_id - Серийный номер сертификата

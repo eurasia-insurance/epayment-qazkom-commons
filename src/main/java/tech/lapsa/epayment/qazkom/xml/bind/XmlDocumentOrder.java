@@ -26,10 +26,10 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
+@HashCodePrime(31)
 public class XmlDocumentOrder extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 31;
 
     private static final SerializationTool<XmlDocumentOrder> TOOL = SerializationTool.forClass(XmlDocumentOrder.class,
 	    XmlSchemas.ORDER_SCHEMA);
@@ -164,11 +164,6 @@ public class XmlDocumentOrder extends AXmlBase {
 	if (validSignature(certificate))
 	    return this;
 	throw MyExceptions.illegalStateFormat("Signature is invalid");
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @XmlElementRef

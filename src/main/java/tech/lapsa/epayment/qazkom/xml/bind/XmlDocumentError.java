@@ -14,10 +14,10 @@ import tech.lapsa.java.commons.function.MyStrings;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "response")
+@HashCodePrime(67)
 public class XmlDocumentError extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 67;
 
     private static final SerializationTool<XmlDocumentError> TOOL = SerializationTool.forClass(XmlDocumentError.class,
 	    XmlSchemas.ERROR_SCHEMA);
@@ -29,11 +29,6 @@ public class XmlDocumentError extends AXmlBase {
     public static XmlDocumentError of(final String rawXml) throws IllegalArgumentException {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     // order_id - номер заказа
