@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -33,38 +33,39 @@ public class XmlDocumentError extends AXmlBase {
 
     // order_id - номер заказа
     @XmlAttribute(name = "order_id")
-    private String orderId;
-
-    @XmlElementRef
-    private XmlError error;
-
-    @XmlElementRef
-    private XmlSession session;
-
-    // GENERATED
+    private final String orderId;
 
     public String getOrderId() {
 	return orderId;
     }
 
-    public void setOrderId(final String orderId) {
-	this.orderId = orderId;
-    }
+    @XmlElement(name = "error")
+    private final XmlError error;
 
     public XmlError getError() {
 	return error;
     }
 
-    public void setError(final XmlError error) {
-	this.error = error;
-    }
+    @XmlElement(name = "session")
+    private final XmlSession session;
 
     public XmlSession getSession() {
 	return session;
     }
 
-    public void setSession(final XmlSession session) {
-	this.session = session;
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlDocumentError() {
+	this.orderId = null;
+	this.error = null;
+	this.session = null;
     }
 
+    public XmlDocumentError(String orderId, XmlError error, XmlSession session) {
+	this.orderId = orderId;
+	this.error = error;
+	this.session = session;
+    }
 }

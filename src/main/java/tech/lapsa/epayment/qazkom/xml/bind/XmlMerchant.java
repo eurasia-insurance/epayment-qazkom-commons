@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -36,40 +36,45 @@ public class XmlMerchant extends AXmlBase {
     // cert_id - Серийный номер сертификата
     @XmlAttribute(name = "cert_id")
     @XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
-    private BigInteger certificateSerialNumber;
-
-    // name - имя магазина(сайта)
-    @XmlAttribute(name = "name")
-    private String name;
-
-    @XmlElementRef
-    private XmlOrder order;
+    private final BigInteger certificateSerialNumber;
 
     public BigInteger getCertificateSerialNumber() {
 	return certificateSerialNumber;
     }
 
-    public void setCertificateSerialNumber(final BigInteger certificateSerialNumber) {
-	this.certificateSerialNumber = certificateSerialNumber;
-    }
+    // name - имя магазина(сайта)
+    @XmlAttribute(name = "name")
+    private final String name;
 
     public String getName() {
 	return name;
     }
 
-    public void setName(final String name) {
-	this.name = name;
-    }
+    @XmlElement(name = "order")
+    private final XmlOrder order;
 
     public XmlOrder getOrder() {
 	return order;
     }
 
-    public void setOrder(final XmlOrder order) {
-	this.order = order;
-    }
-
     public String getRawXml() {
 	return TOOL.serializeToString(this);
+    }
+
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlMerchant() {
+	this.certificateSerialNumber = null;
+	this.name = null;
+	this.order = null;
+    }
+
+    public XmlMerchant(BigInteger certificateSerialNumber, String name, XmlOrder order) {
+	super();
+	this.certificateSerialNumber = certificateSerialNumber;
+	this.name = name;
+	this.order = order;
     }
 }

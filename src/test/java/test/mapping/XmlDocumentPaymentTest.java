@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
 
 import javax.xml.bind.JAXBException;
@@ -54,75 +54,53 @@ public class XmlDocumentPaymentTest {
 	    + "</document>";
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentPayment();
 
-	final XmlBank bank = new XmlBank();
-	TEST_DOCUMENT_AS_OBJECT.setBank(bank);
-	bank.setName("Kazkommertsbank JSC");
+	final XmlDepartment department = new XmlDepartment(Double.valueOf(3100), "90028101", null, null, null, "ASDFG");
 
-	final XmlCustomer customer = new XmlCustomer();
-	bank.setCustomer(customer);
-	customer.setEmailAddress("klient@mymail.com");
-	customer.setName("John Cardholder");
-	customer.setPhone("223322");
+	final XmlOrder order = new XmlOrder(Double.valueOf(3100), Currency.getInstance("KZT"), "000282",
+		Arrays.asList(department));
 
-	final XmlMerchant sourceMerchant = new XmlMerchant();
-	customer.setSourceMerchant(sourceMerchant);
-	sourceMerchant.setCertificateSerialNumber(new BigInteger("7269C18D00010000005E", 16));
-	sourceMerchant.setName("Shop Name");
+	final XmlMerchant sourceMerchant = new XmlMerchant(new BigInteger("7269C18D00010000005E", 16), "Shop Name",
+		order);
 
-	final XmlOrder order = new XmlOrder();
-	sourceMerchant.setOrder(order);
-	order.setOrderId("000282");
-	order.setCurrency(Currency.getInstance("KZT"));
-	order.setAmount(Double.valueOf(3100));
+	final XmlMerchantSign sourceMerchantSign = new XmlMerchantSign(XmlSignType.RSA);
 
-	final XmlDepartment department = new XmlDepartment();
-	order.setDepartments(new ArrayList<>());
-	order.getDepartments().add(department);
-	department.setMerchantId("90028101");
-	department.setAmount(Double.valueOf(3100));
-	department.setAirticketBookingNumber("ASDFG");
+	final XmlCustomer customer = new XmlCustomer("John Cardholder", "klient@mymail.com", "223322", sourceMerchant,
+		sourceMerchantSign);
 
-	final XmlMerchantSign sourceMerchantSign = new XmlMerchantSign();
-	customer.setSourceMerchantSign(sourceMerchantSign);
-	sourceMerchantSign.setSignType(XmlSignType.RSA);
+	final XmlCustomerSign customerSign = new XmlCustomerSign(XmlSignType.CERTIFICATE, "4817C411000100000084");
 
-	final XmlCustomerSign customerSign = new XmlCustomerSign();
-	bank.setCustomerSign(customerSign);
-	customerSign.setSignType(XmlSignType.CERTIFICATE);
-	customerSign.setSignatureEncoded("4817C411000100000084");
-
-	final XmlResults results = new XmlResults();
-	bank.setResults(results);
+	final XmlPayment payment = new XmlPayment(320.5,
+		"90050801",
+		"109600746891",
+		"730190",
+		"00",
+		XmlSecureType.NON_SECURED,
+		Country.KAZ,
+		null,
+		"6A2D7673A8EEF25A2C33D67CB5AAD091",
+		null);
 
 	// 2006-11-22 12:20:30
 	final LocalDateTime ldt = LocalDateTime.of(2006, 11, 22, 12, 20, 30);
 	final Instant timestamp = ldt.atZone(ZoneId.of("Asia/Almaty")).toInstant();
-	results.setTimestamp(timestamp);
 
-	final XmlPayment payment = new XmlPayment();
-	results.setPayments(new ArrayList<>());
-	results.getPayments().add(payment);
-	payment.setAmount(320.5);
-	payment.setApprovalCode("730190");
-	payment.setCardCountry(Country.KAZ);
-	payment.setCardHash("6A2D7673A8EEF25A2C33D67CB5AAD091");
-	payment.setMerchantId("90050801");
-	payment.setReference("109600746891");
-	payment.setResponseCode("00");
-	payment.setSecureType(XmlSecureType.NON_SECURED);
+	final XmlResults results = new XmlResults(timestamp, Arrays.asList(payment));
 
-	final XmlBankSign bankSign = new XmlBankSign();
-	TEST_DOCUMENT_AS_OBJECT.setBankSign(bankSign);
-	bankSign.setCertificateSerialNumber(new BigInteger("c183d690", 16));
-	bankSign.setSignType(XmlSignType.SHA_RSA);
-	bankSign.setSignature(new byte[] { 36, -115, -47, 100, -63, 47, 123, 19, 101, 14, 98, -84, 57, 8, 94, -46, -100,
-		-57, -72, -88, -93, -99, -72, 111, -100, -69, -67, -10, -88, 123, -121, -30, 110, -16, 123, -46, 124,
-		99, 91, 16, -100, 87, 80, -66, 124, 51, -34, 45, 94, -5, -69, -61, 64, 87, 73, -114, -52, 29, -29, -58,
-		-85, 61, -10, 38, -29, 11, 2, 119, 46, -49, 35, 48, -85, -50, 57, -106, 41, -42, -2, -63, -1, 90, -10,
-		-39, -5, -92, -110, 97, -4, 67, 50, 123, -32, 95, 68, -65, -92, -84, 91, -123, 37, -20, -18, 81, -107,
-		6, 120, 23, 59, 10, -69, 6, 27, 36, -16, 103, 3, 82, 69, -128, 51, -107, 0, -80, -86, 68, 42, -126 });
+	final XmlBank bank = new XmlBank("Kazkommertsbank JSC", customer, customerSign, results);
+
+	final XmlBankSign bankSign = new XmlBankSign(XmlSignType.SHA_RSA,
+		new byte[] { 36, -115, -47, 100, -63, 47, 123, 19, 101, 14, 98, -84, 57, 8, 94, -46, -100, -57, -72,
+			-88, -93, -99, -72, 111, -100, -69, -67, -10, -88, 123, -121, -30, 110, -16, 123, -46, 124, 99,
+			91, 16, -100, 87, 80, -66, 124, 51, -34, 45, 94, -5, -69, -61, 64, 87, 73, -114, -52, 29, -29,
+			-58, -85, 61, -10, 38, -29, 11, 2, 119, 46, -49, 35, 48, -85, -50, 57, -106, 41, -42, -2, -63,
+			-1, 90, -10, -39, -5, -92, -110, 97, -4, 67, 50, 123, -32, 95, 68, -65, -92, -84, 91, -123, 37,
+			-20, -18, 81, -107, 6, 120, 23, 59, 10, -69, 6, 27, 36, -16, 103, 3, 82, 69, -128, 51, -107, 0,
+			-80, -86, 68, 42, -126 },
+		new BigInteger("c183d690", 16));
+
+	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentPayment(bank, bankSign);
+
     }
 
     @Test

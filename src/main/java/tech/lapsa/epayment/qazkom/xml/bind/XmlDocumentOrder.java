@@ -1,16 +1,15 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
-import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -99,22 +98,11 @@ public class XmlDocumentOrder extends AXmlBase {
 	    MyObjects.requireNonNull(merchantKey, "merchantKey");
 	    MyObjects.requireNonNull(merchantCertificate, "merchantCertificate");
 
-	    final XmlMerchant xmlMerchant = new XmlMerchant();
-	    final BigInteger serialNumber = merchantCertificate.getSerialNumber();
-	    xmlMerchant.setCertificateSerialNumber(serialNumber);
-	    xmlMerchant.setName(merchantName);
+	    final XmlDepartment xmlDepartment = new XmlDepartment(amount, merchantId);
+	    final XmlOrder xmlOrder = new XmlOrder(amount, currency, orderNumber, Arrays.asList(xmlDepartment));
 
-	    final XmlOrder xmlOrder = new XmlOrder();
-	    xmlMerchant.setOrder(xmlOrder);
-	    xmlOrder.setOrderId(orderNumber);
-	    xmlOrder.setAmount(amount);
-	    xmlOrder.setCurrency(currency);
-	    xmlOrder.setDepartments(new ArrayList<>());
-
-	    final XmlDepartment xmlDepartment = new XmlDepartment();
-	    xmlOrder.getDepartments().add(xmlDepartment);
-	    xmlDepartment.setMerchantId(merchantId);
-	    xmlDepartment.setAmount(amount);
+	    final XmlMerchant xmlMerchant = new XmlMerchant(merchantCertificate.getSerialNumber(), merchantName,
+		    xmlOrder);
 
 	    final String signatureAlgorithm = SIGN_TYPE.getSignatureAlgorithmName().get();
 
@@ -126,13 +114,9 @@ public class XmlDocumentOrder extends AXmlBase {
 	    final byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
-	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign();
-	    xmlMerchantSign.setSignType(SIGN_TYPE);
-	    xmlMerchantSign.setSignature(digest);
+	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign(SIGN_TYPE, digest);
 
-	    final XmlDocumentOrder doc = new XmlDocumentOrder();
-	    doc.setMerchant(xmlMerchant);
-	    doc.setMerchantSign(xmlMerchantSign);
+	    final XmlDocumentOrder doc = new XmlDocumentOrder(xmlMerchant, xmlMerchantSign);
 
 	    return doc;
 	}
@@ -166,29 +150,36 @@ public class XmlDocumentOrder extends AXmlBase {
 	throw MyExceptions.illegalStateFormat("Signature is invalid");
     }
 
-    @XmlElementRef
-    private XmlMerchant merchant;
+    @XmlElement(name = "merchant")
+    private final XmlMerchant merchant;
 
-    @XmlElementRef
-    private XmlMerchantSign merchantSign;
+    @XmlElement(name = "merchant_sign")
+    private final XmlMerchantSign merchantSign;
 
     public XmlMerchant getMerchant() {
 	return merchant;
-    }
-
-    public void setMerchant(final XmlMerchant merchant) {
-	this.merchant = merchant;
     }
 
     public XmlMerchantSign getMerchantSign() {
 	return merchantSign;
     }
 
-    public void setMerchantSign(final XmlMerchantSign merchantSign) {
-	this.merchantSign = merchantSign;
-    }
-
     public String getRawXml() {
 	return TOOL.serializeToString(this);
+    }
+
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlDocumentOrder() {
+	this.merchant = null;
+	this.merchantSign = null;
+    }
+
+    public XmlDocumentOrder(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+	super();
+	this.merchant = merchant;
+	this.merchantSign = merchantSign;
     }
 }

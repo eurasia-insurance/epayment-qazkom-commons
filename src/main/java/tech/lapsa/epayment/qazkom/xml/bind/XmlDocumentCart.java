@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -35,21 +35,6 @@ public class XmlDocumentCart extends AXmlBase {
 
     public static XmlDocumentCart of(final String rawXml) throws IllegalArgumentException {
 	return TOOL.deserializeFrom(rawXml);
-    }
-
-    @XmlElementRef
-    private List<XmlItem> items;
-
-    public List<XmlItem> getItems() {
-	return items;
-    }
-
-    public void setItems(final List<XmlItem> items) {
-	this.items = items;
-    }
-
-    public String getRawXml() {
-	return TOOL.serializeToString(this);
     }
 
     public static XmlDocumentCartBuilder builder() {
@@ -101,19 +86,34 @@ public class XmlDocumentCart extends AXmlBase {
 
 	public XmlDocumentCart build() throws IllegalArgumentException {
 	    final AtomicInteger i = new AtomicInteger(1);
-	    final XmlDocumentCart doc = new XmlDocumentCart();
-	    doc.setItems(MyOptionals.streamOf(itms) //
+	    final XmlDocumentCart doc = new XmlDocumentCart(MyOptionals.streamOf(itms) //
 		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Cart must have at least one item")) //
-		    .map(t -> {
-			final XmlItem r = new XmlItem();
-			r.setName(t.name);
-			r.setAmount(t.amount);
-			r.setQuantity(t.quantity);
-			r.setNumber(i.getAndIncrement());
-			return r;
-		    }) //
+		    .map(t -> new XmlItem(t.amount, i.getAndIncrement(), t.name, t.quantity)) //
 		    .collect(MyCollectors.unmodifiableList()));
 	    return doc;
 	}
+    }
+
+    @XmlElement(name = "item")
+    private final List<XmlItem> items;
+
+    public List<XmlItem> getItems() {
+	return items;
+    }
+
+    public String getRawXml() {
+	return TOOL.serializeToString(this);
+    }
+
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlDocumentCart() {
+	this.items = null;
+    }
+
+    public XmlDocumentCart(List<XmlItem> items) {
+	this.items = items == null ? null : MyCollections.unmodifiableOrEmptyList(items);
     }
 }

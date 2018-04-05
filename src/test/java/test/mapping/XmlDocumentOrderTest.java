@@ -4,7 +4,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
 
 import javax.xml.bind.JAXBException;
@@ -28,37 +28,33 @@ public class XmlDocumentOrderTest {
     private static final XmlDocumentOrder TEST_DOCUMENT_AS_OBJECT;
 
     static {
-	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentOrder();
 
-	final XmlMerchant merchant = new XmlMerchant();
-	TEST_DOCUMENT_AS_OBJECT.setMerchant(merchant);
-	merchant.setCertificateSerialNumber(new BigInteger("00c183d70b", 16));
-	merchant.setName("Shop Name");
+	final XmlDepartment department = new XmlDepartment(Double.valueOf(1300),
+		"92061101",
+		null,
+		null,
+		"22233355",
+		"ASDFG");
 
-	final XmlOrder order = new XmlOrder();
-	merchant.setOrder(order);
-	order.setOrderId("000282");
-	order.setAmount(Double.valueOf(3100));
-	order.setCurrency(Currency.getInstance("KZT"));
+	final XmlOrder order = new XmlOrder(Double.valueOf(3100),
+		Currency.getInstance("KZT"),
+		"000282",
+		Arrays.asList(department));
 
-	final XmlDepartment department = new XmlDepartment();
-	order.setDepartments(new ArrayList<>());
-	order.getDepartments().add(department);
-	department.setMerchantId("92061101");
-	department.setAmount(Double.valueOf(1300));
-	department.setPhone("22233355");
-	department.setAirticketBookingNumber("ASDFG");
+	final XmlMerchant merchant = new XmlMerchant(new BigInteger("00c183d70b", 16),
+		"Shop Name",
+		order);
 
-	final XmlMerchantSign sign = new XmlMerchantSign();
-	TEST_DOCUMENT_AS_OBJECT.setMerchantSign(sign);
-	sign.setSignType(XmlSignType.RSA);
-	sign.setSignature(new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11,
-		-82, 60, -57, -113, 104, 101, -19, -120, -15, -124, 58, -78, 68, -31, -70, 31, -42, 1, 85, 31, 95, 102,
-		-124, 60, -121, -115, -11, -102, -24, -25, -119, -13, 71, -30, 119, 43, -43, 127, 85, -8, 123, 12, -113,
-		-45, 33, -72, 27, 18, 82, -105, 69, 114, 95, 62, -2, 60, -46, -20, 110, -51, 101, 37, -18, 54, 119, 87,
-		-30, -58, -6, 51, -124, -108, -110, 96, -34, -97, 3, 19, 13, -14, 24, 67, -122, -34, -110, -13, 86, 10,
-		-36, 102, -61, 76, 78, -58, 31, -113, 124, -91, 79, 71, 26, -31, -128, -96, 53, 99, 7, -29, 109, -84,
-		121 });
+	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA,
+		new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11, -82, 60,
+			-57, -113, 104, 101, -19, -120, -15, -124, 58, -78, 68, -31, -70, 31, -42, 1, 85, 31, 95, 102,
+			-124, 60, -121, -115, -11, -102, -24, -25, -119, -13, 71, -30, 119, 43, -43, 127, 85, -8, 123,
+			12, -113, -45, 33, -72, 27, 18, 82, -105, 69, 114, 95, 62, -2, 60, -46, -20, 110, -51, 101, 37,
+			-18, 54, 119, 87, -30, -58, -6, 51, -124, -108, -110, 96, -34, -97, 3, 19, 13, -14, 24, 67,
+			-122, -34, -110, -13, 86, 10, -36, 102, -61, 76, 78, -58, 31, -113, 124, -91, 79, 71, 26, -31,
+			-128, -96, 53, 99, 7, -29, 109, -84, 121 });
+
+	TEST_DOCUMENT_AS_OBJECT = new XmlDocumentOrder(merchant, merchantSign);
 
     }
 

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -97,29 +97,36 @@ public class XmlDocumentPayment extends AXmlBase {
 	}
     }
 
-    @XmlElementRef
-    private XmlBank bank;
-
-    @XmlElementRef
-    private XmlBankSign bankSign;
+    @XmlElement(name = "bank")
+    private final XmlBank bank;
 
     public XmlBank getBank() {
 	return bank;
     }
 
-    public void setBank(final XmlBank bank) {
-	this.bank = bank;
-    }
+    @XmlElement(name = "bank_sign")
+    private final XmlBankSign bankSign;
 
     public XmlBankSign getBankSign() {
 	return bankSign;
     }
 
-    public void setBankSign(final XmlBankSign bankSign) {
-	this.bankSign = bankSign;
-    }
-
     public String getRawXml() {
 	return TOOL.serializeToString(this);
+    }
+
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlDocumentPayment() {
+	this.bank = null;
+	this.bankSign = null;
+    }
+
+    public XmlDocumentPayment(XmlBank bank, XmlBankSign bankSign) {
+	super();
+	this.bank = bank;
+	this.bankSign = bankSign;
     }
 }

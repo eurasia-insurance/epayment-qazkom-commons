@@ -5,11 +5,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-@XmlRootElement(name = "item")
 @HashCodePrime(43)
 public class XmlItem extends AXmlAmount {
 
@@ -17,39 +15,43 @@ public class XmlItem extends AXmlAmount {
 
     // item number= необходимо перечислить все пункты корзины
     @XmlAttribute(name = "number")
-    private int number;
+    private final Integer number;
 
-    // name -Наименование товара/услуги
-    @XmlAttribute(name = "name")
-    private String name;
-
-    // quantity - количество
-    @XmlAttribute(name = "quantity")
-    private int quantity;
-
-    // GENERATED
-
-    public int getNumber() {
+    public Integer getNumber() {
 	return number;
     }
 
-    public void setNumber(final int number) {
-	this.number = number;
-    }
+    // name -Наименование товара/услуги
+    @XmlAttribute(name = "name")
+    private final String name;
 
     public String getName() {
 	return name;
     }
 
-    public void setName(final String name) {
-	this.name = name;
-    }
+    // quantity - количество
+    @XmlAttribute(name = "quantity")
+    private final Integer quantity;
 
-    public int getQuantity() {
+    public Integer getQuantity() {
 	return quantity;
     }
 
-    public void setQuantity(final int quantity) {
+    /*
+     * Default no-args constructor due to JAXB requirements
+     */
+    @Deprecated
+    public XmlItem() {
+	super(null);
+	this.number = null;
+	this.name = null;
+	this.quantity = null;
+    }
+
+    public XmlItem(Double amount, int number, String name, int quantity) {
+	super(amount);
+	this.number = number;
+	this.name = name;
 	this.quantity = quantity;
     }
 }
