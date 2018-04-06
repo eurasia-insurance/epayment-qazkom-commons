@@ -38,7 +38,7 @@ public abstract class AXmlSignBase implements Serializable {
 
     // подпись
     public byte[] getSignature() {
-	return signature;
+	return signature.clone();
     }
 
     public String getSignatureEncoded() {

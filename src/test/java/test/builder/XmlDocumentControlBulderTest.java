@@ -12,14 +12,14 @@ import java.util.Currency;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
 
-public class XmlDocumentOrderBulderTest {
+public class XmlDocumentControlBulderTest {
 
     private static final StoreType STORETYPE = StoreType.JKS;
     private static final String KEYSTORE = "/kkb.jks";
@@ -32,7 +32,7 @@ public class XmlDocumentOrderBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	final InputStream storeStream = MyResources.optAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optAsStream(XmlDocumentControlBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
@@ -47,33 +47,39 @@ public class XmlDocumentOrderBulderTest {
 
     private static final String RAW_XML = ""
 	    + "<document>"
-	    + "<merchant cert_id=\"c183d70b\" name=\"Test shop 3\">"
-	    + "<order order_id=\"999999999999\" currency=\"398\" amount=\"1000\">"
-	    + "<department merchant_id=\"92061103\" amount=\"1000\"/>"
-	    + "</order>"
+	    + "<merchant id=\"92061103\">"
+	    + "<command type=\"reverse\"/>"
+	    + "<payment amount=\"1000\" approval_code=\"151802\" currency_code=\"398\" orderid=\"484902574738032\" reference=\"160614151802\"/>"
+	    + "<reason>Неверная сумма</reason>"
 	    + "</merchant>"
-	    + "<merchant_sign type=\"RSA\">"
-	    + "qX0o4ZfcG8IiYQlb3fA4LVjshJEx5bH66frVlUiZBrpAFaDfBmxDrXhg/A5deQyVtQoa35x3FDAiAzOu8PPRQYAm9e7CStlUXnjqSdBRjEc7IAxsrz4kZQb340wJZft+5ZyBiHsvkkQVVUmWGvDP3/143d9BSCZ8SPsI7+tcuzw="
+	    + "<merchant_sign cert_id=\"c183d70b\" type=\"RSA\">"
+	    + "8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ="
 	    + "</merchant_sign>"
 	    + "</document>";
 
     @Test
     public void basicTest() {
-	final XmlDocumentOrder o = XmlDocumentOrder.builder() //
+	final XmlControlDocument o = XmlControlDocument.builder() //
+		.withPaymentReference("160614151802") //
+		.withApprovalCode("151802") //
+		.withOrderNumber("484902574738032") //
 		.withAmount(1000d) //
 		.withCurrency(Currency.getInstance("KZT")) //
-		.withMerchchant("92061103", "Test shop 3") //
-		.withOrderNumber("999999999999") //
+		.withMerchantId("92061103") //
 		.signWith(key, certificate) //
+		.prepareCancel("Неверная сумма") //
 		.build();
+
 	assertThat(o, not(nullValue()));
 	final String rawXml = o.getRawXml();
-	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
+	System.out.println(rawXml);
+	assertThat(rawXml, allOf(not(isEmptyOrNullString()),
+		equalTo(RAW_XML)));
     }
 
     @Test
     public void deserializeTest() {
-	final XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
+	final XmlControlDocument o = XmlControlDocument.of(RAW_XML);
 	assertThat(o, not(nullValue()));
 	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
@@ -81,8 +87,10 @@ public class XmlDocumentOrderBulderTest {
 
     @Test
     public void signatureVerificationTest() {
-	final XmlDocumentOrder o = XmlDocumentOrder.of(RAW_XML);
+	final XmlControlDocument o = XmlControlDocument.of(RAW_XML);
 	assertTrue("Signature must be VALID", o.validSignature(certificate));
+
+	o.requreValidSignature(certificate);
 
 	o.getMerchantSign().getSignature()[0]++; // break the signature
 						 // (actually breaking will
