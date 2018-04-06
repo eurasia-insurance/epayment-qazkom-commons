@@ -1,0 +1,15 @@
+<document>
+	<bank name="Kazkommertsbank JSC">
+		<merchant id="92061103">
+			<command type="reverse" />
+			<payment amount="1000" approval_code="151802"
+				currency_code="398" orderid="484902574738032"
+				reference="160614151802" />
+			<reason>Неверная сумма</reason>
+		</merchant>
+		<merchant_sign cert_id="c183d70b" type="RSA">8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ=</merchant_sign>
+		<response code="00" message="Approved"
+			remaining_amount="50.0" />
+	</bank>
+	<bank_sign cert_id="c183d70b" type="RSA">p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498pU9HGuGAoDVjB+NtrHk=</bank_sign>
+</document>
