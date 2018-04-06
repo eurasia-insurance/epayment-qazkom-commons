@@ -31,7 +31,7 @@ public class XmlBankSign extends AXmlSignBase {
      */
     @Deprecated
     public XmlBankSign() {
-	super(null);
+	super();
 	this.certificateSerialNumber = null;
     }
 

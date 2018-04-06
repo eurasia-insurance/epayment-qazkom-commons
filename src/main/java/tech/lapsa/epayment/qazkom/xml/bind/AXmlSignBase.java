@@ -45,24 +45,28 @@ public abstract class AXmlSignBase implements Serializable {
 	return Base64.getEncoder().encodeToString(signature);
     }
 
-    protected AXmlSignBase(final XmlSignType signType) {
+    @Deprecated
+    protected AXmlSignBase() {
+	super();
+	this.signType = null;
+	this.signature = null;
+    }
+
+    public AXmlSignBase(final XmlSignType signType) {
 	super();
 	this.signType = signType;
 	this.signature = null;
     }
 
-    protected AXmlSignBase(final XmlSignType signType,
-	    final byte[] signature) {
+    protected AXmlSignBase(final XmlSignType signType, final byte[] signature) {
 	super();
 	this.signType = signType;
 	this.signature = signature;
     }
 
-    protected AXmlSignBase(final XmlSignType signType,
-	    final String signatureEncoded) {
+    protected AXmlSignBase(final XmlSignType signType, final String signatureEncoded) {
 	super();
 	this.signType = signType;
 	this.signature = Base64.getDecoder().decode(signatureEncoded);
     }
-
 }

@@ -17,7 +17,7 @@ public class XmlCustomerSign extends AXmlSignBase {
      */
     @Deprecated
     public XmlCustomerSign() {
-	super(null);
+	super();
     }
 
     public XmlCustomerSign(XmlSignType signType, byte[] signature) {

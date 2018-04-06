@@ -440,7 +440,7 @@ public class XmlControlDocument extends AXmlBase {
 	 */
 	@Deprecated
 	public XmlMerchantSign() {
-	    super(null);
+	    super();
 	    this.certificateSerialNumber = null;
 	}
 
