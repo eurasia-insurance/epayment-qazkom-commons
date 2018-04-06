@@ -23,12 +23,22 @@ public final class XmlSchemas {
     public static final Schema ERROR_SCHEMA = fromResource("/META-INF/qazkom/document-error-schema.xsd");
     public static final Schema ORDER_SCHEMA = fromResource("/META-INF/qazkom/document-order-schema.xsd");
     public static final Schema PAYMENT_SCHEMA = fromResource("/META-INF/qazkom/document-payment-schema.xsd");
-    public static final Schema CONTROL_REQUEST_SCHEMA = fromResource("/META-INF/qazkom/document-control-request-schema.xsd");
-    public static final Schema CONTROL_RESPONSE_SCHEMA = fromResource("/META-INF/qazkom/document-control-response-schema.xsd");
+    public static final Schema CONTROL_REQUEST_SCHEMA = fromResource(
+	    "/META-INF/qazkom/document-control-request-schema.xsd");
+    public static final Schema CONTROL_RESPONSE_SCHEMA = fromResource(
+	    "/META-INF/qazkom/document-control-response-schema.xsd");
+    public static final Schema STATUS_REQUEST_SCHEMA = fromResource(
+	    "/META-INF/qazkom/document-status-request-schema.xsd");
 
     public static final Schema[] all() {
-	return new Schema[] { CART_SCHEMA, ERROR_SCHEMA, ORDER_SCHEMA, PAYMENT_SCHEMA, CONTROL_REQUEST_SCHEMA,
-		CONTROL_RESPONSE_SCHEMA };
+	return new Schema[] {
+		CART_SCHEMA,
+		ERROR_SCHEMA,
+		ORDER_SCHEMA,
+		PAYMENT_SCHEMA,
+		CONTROL_REQUEST_SCHEMA,
+		CONTROL_RESPONSE_SCHEMA,
+		STATUS_REQUEST_SCHEMA };
     }
 
     private static final Schema fromResource(final String resource) {
