@@ -106,7 +106,6 @@ public class XmlDocumentPaymentTest {
     @Test
     public void testSerializeDocument() throws JAXBException {
 	final String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
-	System.out.println(documentString);
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 
