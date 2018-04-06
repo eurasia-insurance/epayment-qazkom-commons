@@ -78,24 +78,6 @@ public class XmlDocumentControlRequestBulderTest {
     }
 
     @Test
-    public void basicTest2() {
-	final XmlControlRequestDocument o = XmlControlRequestDocument.builder() //
-		.withPaymentReference("180406172521") //
-		.withApprovalCode("172521") //
-		.withOrderNumber("742823204763707") //
-		.withAmount(26431d) //
-		.withCurrency(Currency.getInstance("KZT")) //
-		.withMerchantId("92061103") //
-		.signWith(key, certificate) //
-		.prepareCharge() //
-		.build();
-
-	assertThat(o, not(nullValue()));
-	final String rawXml = o.getRawXml();
-	System.out.println(rawXml);
-    }
-
-    @Test
     public void deserializeTest() {
 	final XmlControlRequestDocument o = XmlControlRequestDocument.of(RAW_XML);
 	assertThat(o, not(nullValue()));
