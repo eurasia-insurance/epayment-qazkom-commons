@@ -1,11 +1,9 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.Currency;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -18,12 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlCommand;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlCommand.XmlType;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlPayment;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlReason;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlAmountAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
+import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.jaxb.adapter.XmlCurrencyNumericAdapter;
 
@@ -36,7 +31,7 @@ public class XmlControlDocument extends AXmlBase {
     private static final long serialVersionUID = 1L;
 
     private static final SerializationTool<XmlControlDocument> TOOL = SerializationTool.forClass(
-	    XmlControlDocument.class);
+	    XmlControlDocument.class, XmlSchemas.CONTROL_SCHEMA);
 
     public static final SerializationTool<XmlControlDocument> getTool() {
 	return TOOL;
@@ -238,6 +233,14 @@ public class XmlControlDocument extends AXmlBase {
 	    this.reason = null;
 	}
 
+	public XmlMerchant(String id, XmlCommand command, XmlPayment payment) {
+	    super();
+	    this.id = id;
+	    this.command = command;
+	    this.payment = payment;
+	    this.reason = null;
+	}
+
 	public XmlMerchant(String id, XmlCommand command, XmlPayment payment, XmlReason reason) {
 	    super();
 	    this.id = id;
@@ -305,17 +308,4 @@ public class XmlControlDocument extends AXmlBase {
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;
     }
-
-    public static void main(String[] args) throws JAXBException, UnsupportedEncodingException {
-	final XmlCommand command = new XmlCommand(XmlType.COMPLETE);
-	final XmlPayment payment = new XmlPayment("21312321", "00", "4546546545645646546", 340.1d,
-		Currency.getInstance("KZT"));
-	final XmlReason reason = new XmlReason("Так надобно");
-	final XmlMerchant merchant = new XmlMerchant("92061103", command, payment, reason);
-	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA, "adsadsadsadsa".getBytes(),
-		new BigInteger("sadsadsadsa".getBytes()));
-	final XmlControlDocument doc = new XmlControlDocument(merchant, merchantSign);
-	getTool().serializeTo(doc, System.out);
-    }
-
 }

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:simpleType name="ts_merchant_id">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_command_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="reverse" />
+			<xs:enumeration value="complete" />
+			<xs:enumeration value="refund" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_command">
+		<xs:attribute name="type" type="ts_command_type" />
+	</xs:complexType>
+
+	<xs:simpleType name="ts_reference">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_approval_code">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_order_id">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:maxLength value="15" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_amount">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_currency">
+		<xs:restriction base="xs:string">
+			<!-- KZT -->
+			<xs:enumeration value="398" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_payment">
+		<xs:attribute name="reference" type="ts_reference" />
+		<xs:attribute name="approval_code"
+			type="ts_approval_code" />
+		<xs:attribute name="orderid" type="ts_order_id" />
+		<xs:attribute name="amount" type="ts_amount" />
+		<xs:attribute name="currency_code" type="ts_currency" />
+	</xs:complexType>
+
+	<xs:complexType name="tc_reason">
+		<xs:simpleContent>
+			<xs:extension base="xs:string" />
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="tc_merchant">
+		<xs:sequence>
+			<xs:element name="command" type="tc_command" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="payment" type="tc_payment" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="reason" type="tc_reason" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="id" type="ts_merchant_id" />
+	</xs:complexType>
+
+	<xs:simpleType name="ts_merchant_cert_id">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_merchant_sign_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RSA" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_mandatory_base64_digest">
+		<xs:restriction base="xs:base64Binary">
+			<xs:minLength value="1" />
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tc_merchant_sign">
+		<xs:simpleContent>
+			<xs:extension base="ts_mandatory_base64_digest">
+				<xs:attribute name="type" type="ts_merchant_sign_type"
+					use="required" />
+				<xs:attribute name="cert_id" type="ts_merchant_cert_id"
+					use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="tc_document">
+		<xs:sequence>
+			<xs:element name="merchant" type="tc_merchant"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="merchant_sign" type="tc_merchant_sign"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<!-- Main ROOT element -->
+	<xs:element name="document" type="tc_document" />
+
+	<!-- Secondary ROOT element merchant -->
+	<!-- Used for signature GENERATION -->
+	<xs:element name="merchant" type="tc_merchant" />
+
+</xs:schema>
