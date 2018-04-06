@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
+import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyStrings;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -24,7 +25,7 @@ public class XmlControlResonseDocument extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final SerializationTool<XmlControlResonseDocument> TOOL = SerializationTool.forClass(XmlControlResonseDocument.class);
+    private static final SerializationTool<XmlControlResonseDocument> TOOL = SerializationTool.forClass(XmlControlResonseDocument.class, XmlSchemas.CONTROL_RESPONSE_SCHEMA);
 
     public static final SerializationTool<XmlControlResonseDocument> getTool() {
 	return TOOL;
