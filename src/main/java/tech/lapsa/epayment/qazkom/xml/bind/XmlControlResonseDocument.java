@@ -184,6 +184,10 @@ public class XmlControlResonseDocument extends AXmlBase {
 	    @XmlAttribute(name = "SessionID")
 	    private final String sessionId;
 
+	    public String getSessionId() {
+	        return sessionId;
+	    }
+
 	    /*
 	     * Default no-args constructor due to JAXB requirements
 	     */
