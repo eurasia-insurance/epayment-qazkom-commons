@@ -181,6 +181,9 @@ public class XmlControlResonseDocument extends AXmlBase {
 		return remainingAmount;
 	    }
 
+	    @XmlAttribute(name = "SessionID")
+	    private final String sessionId;
+
 	    /*
 	     * Default no-args constructor due to JAXB requirements
 	     */
@@ -190,13 +193,15 @@ public class XmlControlResonseDocument extends AXmlBase {
 		this.code = null;
 		this.message = null;
 		this.remainingAmount = null;
+		this.sessionId = null;
 	    }
 
-	    public XmlResponse(String code, String message, Double remainingAmount) {
+	    public XmlResponse(String code, String message, Double remainingAmount, String sessionId) {
 		super();
 		this.code = code;
 		this.message = message;
 		this.remainingAmount = remainingAmount;
+		this.sessionId = sessionId;
 	    }
 	}
 

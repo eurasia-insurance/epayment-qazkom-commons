@@ -44,7 +44,7 @@ public class XmlDocumentControlResponseTest {
 		Base64.getDecoder().decode(
 			"8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ="),
 		new BigInteger("c183d70b", 16));
-	final XmlResponse response = new XmlResponse("00", "Approved", 50d);
+	final XmlResponse response = new XmlResponse("00", "Approved", 50d, null);
 
 	final XmlBank bank = new XmlBank("Kazkommertsbank JSC", merchant, merchantSign, response);
 	final XmlBankSign bankSign = new XmlBankSign(XmlSignType.RSA,
