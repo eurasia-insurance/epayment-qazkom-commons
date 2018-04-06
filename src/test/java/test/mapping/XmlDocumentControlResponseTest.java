@@ -11,12 +11,12 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlCommand;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlCommand.XmlType;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlPayment;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant.XmlReason;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand.XmlType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument.XmlBank;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument.XmlBank.XmlResponse;

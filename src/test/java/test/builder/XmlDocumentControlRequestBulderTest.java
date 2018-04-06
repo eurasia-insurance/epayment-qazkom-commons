@@ -12,14 +12,14 @@ import java.util.Currency;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
 
-public class XmlDocumentControlBulderTest {
+public class XmlDocumentControlRequestBulderTest {
 
     private static final StoreType STORETYPE = StoreType.JKS;
     private static final String KEYSTORE = "/kkb.jks";
@@ -32,7 +32,7 @@ public class XmlDocumentControlBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	final InputStream storeStream = MyResources.optAsStream(XmlDocumentControlBulderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optAsStream(XmlDocumentControlRequestBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
@@ -59,7 +59,7 @@ public class XmlDocumentControlBulderTest {
 
     @Test
     public void basicTest() {
-	final XmlControlDocument o = XmlControlDocument.builder() //
+	final XmlControlRequestDocument o = XmlControlRequestDocument.builder() //
 		.withPaymentReference("160614151802") //
 		.withApprovalCode("151802") //
 		.withOrderNumber("484902574738032") //
@@ -78,8 +78,26 @@ public class XmlDocumentControlBulderTest {
     }
 
     @Test
+    public void basicTest2() {
+	final XmlControlRequestDocument o = XmlControlRequestDocument.builder() //
+		.withPaymentReference("180406172521") //
+		.withApprovalCode("172521") //
+		.withOrderNumber("742823204763707") //
+		.withAmount(26431d) //
+		.withCurrency(Currency.getInstance("KZT")) //
+		.withMerchantId("92061103") //
+		.signWith(key, certificate) //
+		.prepareCharge() //
+		.build();
+
+	assertThat(o, not(nullValue()));
+	final String rawXml = o.getRawXml();
+	System.out.println(rawXml);
+    }
+
+    @Test
     public void deserializeTest() {
-	final XmlControlDocument o = XmlControlDocument.of(RAW_XML);
+	final XmlControlRequestDocument o = XmlControlRequestDocument.of(RAW_XML);
 	assertThat(o, not(nullValue()));
 	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
@@ -87,7 +105,7 @@ public class XmlDocumentControlBulderTest {
 
     @Test
     public void signatureVerificationTest() {
-	final XmlControlDocument o = XmlControlDocument.of(RAW_XML);
+	final XmlControlRequestDocument o = XmlControlRequestDocument.of(RAW_XML);
 	assertTrue("Signature must be VALID", o.validSignature(certificate));
 
 	o.requreValidSignature(certificate);

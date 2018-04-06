@@ -16,8 +16,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlDocument.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
