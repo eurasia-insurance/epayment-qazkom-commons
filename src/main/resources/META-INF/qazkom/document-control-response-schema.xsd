@@ -92,6 +92,18 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="ts_bank_cert_id">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ts_bank_sign_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RSA" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="ts_mandatory_base64_digest">
 		<xs:restriction base="xs:base64Binary">
 			<xs:minLength value="1" />
@@ -153,9 +165,9 @@
 	<xs:complexType name="tc_bank_sign">
 		<xs:simpleContent>
 			<xs:extension base="ts_mandatory_base64_digest">
-				<xs:attribute name="type" type="ts_merchant_sign_type"
+				<xs:attribute name="type" type="ts_bank_sign_type"
 					use="required" />
-				<xs:attribute name="cert_id" type="ts_merchant_cert_id"
+				<xs:attribute name="cert_id" type="ts_bank_cert_id"
 					use="optional" />
 			</xs:extension>
 		</xs:simpleContent>
