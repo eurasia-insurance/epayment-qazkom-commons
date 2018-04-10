@@ -87,7 +87,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
 
 		// checking signature
 		{
-		    final String[] banks = XmlBank2.bankXmlElementsFrom(rawXml);
+		    final String[] banks = XmlBank.bankXmlElementsFrom(rawXml);
 		    if (banks.length != 1)
 			throw new IllegalArgumentException(
 				"Failed to parse for single element <bank> from source XML document");
@@ -120,11 +120,11 @@ public class XmlStatusResponseDocument extends AXmlBase {
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
     @XmlRootElement(name = "bank")
     @HashCodePrime(-1)
-    public static class XmlBank2 extends AXmlBase {
+    public static class XmlBank extends AXmlBase {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final SerializationTool<XmlBank2> TOOL = SerializationTool.forClass(XmlBank2.class,
+	private static final SerializationTool<XmlBank> TOOL = SerializationTool.forClass(XmlBank.class,
 		XmlSchemas.STATUS_RESPONSE_SCHEMA);
 
 	private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";
@@ -558,7 +558,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
 	 * Default no-args constructor due to JAXB requirements
 	 */
 	@Deprecated
-	public XmlBank2() {
+	public XmlBank() {
 	    super();
 	    this.name = null;
 	    this.merchant = null;
@@ -568,9 +568,9 @@ public class XmlStatusResponseDocument extends AXmlBase {
     }
 
     @XmlElement(name = "bank")
-    private final XmlBank2 bank;
+    private final XmlBank bank;
 
-    public XmlBank2 getBank() {
+    public XmlBank getBank() {
 	return bank;
     }
 

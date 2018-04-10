@@ -18,8 +18,8 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank1;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank1.XmlResponse;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank.XmlResponse;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBankSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
@@ -46,7 +46,7 @@ public class XmlDocumentControlResponseTest {
 		new BigInteger("c183d70b", 16));
 	final XmlResponse response = new XmlResponse("00", "Approved", 50d, null);
 
-	final XmlBank1 bank = new XmlBank1("Kazkommertsbank JSC", merchant, merchantSign, response);
+	final XmlBank bank = new XmlBank("Kazkommertsbank JSC", merchant, merchantSign, response);
 	final XmlBankSign bankSign = new XmlBankSign(XmlSignType.RSA,
 		Base64.getDecoder()
 			.decode("p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4" +
