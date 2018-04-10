@@ -77,9 +77,10 @@ public class XmlControlResponseDocument extends AXmlBase {
 
 		// checking signature
 		{
-		    final String[] banks = XmlBank.bankXmlElementsFrom(rawXml);
+		    final String[] banks = XmlBank1.bankXmlElementsFrom(rawXml);
 		    if (banks.length != 1)
-			throw new IllegalArgumentException("Failed to parse for single element <bank> from source XML document");
+			throw new IllegalArgumentException(
+				"Failed to parse for single element <bank> from source XML document");
 		    final byte[] data = banks[0].getBytes();
 		    final byte[] digest = document.getBankSign().getSignature();
 		    MyArrays.reverse(digest);
@@ -107,10 +108,14 @@ public class XmlControlResponseDocument extends AXmlBase {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
+    @XmlRootElement(name = "bank")
     @HashCodePrime(-1)
-    public static class XmlBank extends AXmlBase {
+    public static class XmlBank1 extends AXmlBase {
 
 	private static final long serialVersionUID = 1L;
+
+	private static final SerializationTool<XmlBank1> TOOL = SerializationTool.forClass(XmlBank1.class,
+		XmlSchemas.CONTROL_RESPONSE_SCHEMA);
 
 	private static final String BANK_REGEX = "(\\<bank.*?\\<\\/bank\\>)";
 	private static final int BANK_REGEX_FLAGS = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.MULTILINE
@@ -126,6 +131,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 		try {
 		    return TOOL.deserializeFrom(xml) != null;
 		} catch (final IllegalArgumentException e) {
+		    e.printStackTrace(System.err);
 		    return false;
 		}
 
@@ -185,7 +191,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 	    private final String sessionId;
 
 	    public String getSessionId() {
-	        return sessionId;
+		return sessionId;
 	    }
 
 	    /*
@@ -220,7 +226,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 	 * Default no-args constructor due to JAXB requirements
 	 */
 	@Deprecated
-	public XmlBank() {
+	public XmlBank1() {
 	    super();
 	    this.name = null;
 	    this.merchant = null;
@@ -228,7 +234,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 	    this.response = null;
 	}
 
-	public XmlBank(String name, XmlMerchant merchant, XmlMerchantSign merchantSign, XmlResponse response) {
+	public XmlBank1(String name, XmlMerchant merchant, XmlMerchantSign merchantSign, XmlResponse response) {
 	    super();
 	    this.name = name;
 	    this.merchant = merchant;
@@ -238,9 +244,9 @@ public class XmlControlResponseDocument extends AXmlBase {
     }
 
     @XmlElement(name = "bank")
-    private final XmlBank bank;
+    private final XmlBank1 bank;
 
-    public XmlBank getBank() {
+    public XmlBank1 getBank() {
 	return bank;
     }
 
@@ -291,7 +297,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 	this.bankSign = null;
     }
 
-    public XmlControlResponseDocument(XmlBank bank, XmlBankSign bankSign) {
+    public XmlControlResponseDocument(XmlBank1 bank, XmlBankSign bankSign) {
 	super();
 	this.bank = bank;
 	this.bankSign = bankSign;

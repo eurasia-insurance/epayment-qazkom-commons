@@ -143,10 +143,17 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="ts_session_id">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:complexType name="tc_response">
 		<xs:attribute name="code" type="ts_response_code" />
 		<xs:attribute name="message" type="ts_response_message" />
 		<xs:attribute name="remaining_amount" type="ts_amount" />
+		<xs:attribute name="SessionID" type="ts_session_id" />
 	</xs:complexType>
 
 	<xs:complexType name="tc_bank">
