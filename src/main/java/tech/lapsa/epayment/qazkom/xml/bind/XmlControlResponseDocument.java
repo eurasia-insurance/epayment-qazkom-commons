@@ -31,18 +31,18 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 @HashCodePrime(79)
-public class XmlControlResonseDocument extends AXmlBase {
+public class XmlControlResponseDocument extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final SerializationTool<XmlControlResonseDocument> TOOL = SerializationTool
-	    .forClass(XmlControlResonseDocument.class, XmlSchemas.CONTROL_RESPONSE_SCHEMA);
+    private static final SerializationTool<XmlControlResponseDocument> TOOL = SerializationTool
+	    .forClass(XmlControlResponseDocument.class, XmlSchemas.CONTROL_RESPONSE_SCHEMA);
 
-    public static final SerializationTool<XmlControlResonseDocument> getTool() {
+    public static final SerializationTool<XmlControlResponseDocument> getTool() {
 	return TOOL;
     }
 
-    public static XmlControlResonseDocument of(final String rawXml) {
+    public static XmlControlResponseDocument of(final String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
     }
@@ -69,9 +69,9 @@ public class XmlControlResonseDocument extends AXmlBase {
 	    return this;
 	}
 
-	public XmlControlResonseDocument build() throws IllegalArgumentException, IllegalStateException {
+	public XmlControlResponseDocument build() throws IllegalArgumentException, IllegalStateException {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
-	    final XmlControlResonseDocument document = TOOL.deserializeFrom(rawXml);
+	    final XmlControlResponseDocument document = TOOL.deserializeFrom(rawXml);
 
 	    if (MyObjects.nonNull(certificate)) {
 
@@ -285,13 +285,13 @@ public class XmlControlResonseDocument extends AXmlBase {
      * Default no-args constructor due to JAXB requirements
      */
     @Deprecated
-    public XmlControlResonseDocument() {
+    public XmlControlResponseDocument() {
 	super();
 	this.bank = null;
 	this.bankSign = null;
     }
 
-    public XmlControlResonseDocument(XmlBank bank, XmlBankSign bankSign) {
+    public XmlControlResponseDocument(XmlBank bank, XmlBankSign bankSign) {
 	super();
 	this.bank = bank;
 	this.bankSign = bankSign;

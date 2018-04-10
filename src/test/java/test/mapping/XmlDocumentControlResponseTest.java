@@ -17,10 +17,10 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument.XmlBank;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument.XmlBank.XmlResponse;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResonseDocument.XmlBankSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank.XmlResponse;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBankSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
@@ -30,7 +30,7 @@ public class XmlDocumentControlResponseTest {
 
     private static final String XML = "<document><bank name=\"Kazkommertsbank JSC\"><merchant id=\"92061103\"><command type=\"reverse\"/><payment amount=\"1000\" approval_code=\"151802\" currency_code=\"398\" orderid=\"484902574738032\" reference=\"160614151802\"/><reason>Неверная сумма</reason></merchant><merchant_sign cert_id=\"c183d70b\" type=\"RSA\">8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ=</merchant_sign><response code=\"00\" message=\"Approved\" remaining_amount=\"50.0\"/></bank><bank_sign cert_id=\"c183d70b\" type=\"RSA\">p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498pU9HGuGAoDVjB+NtrHk=</bank_sign></document>";
 
-    private static final XmlControlResonseDocument DOCUMENT;
+    private static final XmlControlResponseDocument DOCUMENT;
 
     static {
 	final XmlPayment payment = new XmlPayment("160614151802", "151802", "484902574738032", 1000d,
@@ -54,7 +54,7 @@ public class XmlDocumentControlResponseTest {
 				"pU9HGuGAoDVjB+NtrHk="),
 		new BigInteger("c183d70b", 16));
 
-	DOCUMENT = new XmlControlResonseDocument(bank, bankSign);
+	DOCUMENT = new XmlControlResponseDocument(bank, bankSign);
     }
 
     @Test
@@ -71,21 +71,21 @@ public class XmlDocumentControlResponseTest {
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	final XmlControlResonseDocument loaded = loadDocument(RESOURCE);
+	final XmlControlResponseDocument loaded = loadDocument(RESOURCE);
 	dumpDocument(loaded, true);
     }
 
-    private void dumpDocument(final XmlControlResonseDocument document, final boolean formatted) throws JAXBException {
+    private void dumpDocument(final XmlControlResponseDocument document, final boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(final XmlControlResonseDocument document, final boolean formatted)
+    private String getDocumentString(final XmlControlResponseDocument document, final boolean formatted)
 	    throws JAXBException {
-	return XmlControlResonseDocument.getTool().serializeToString(document);
+	return XmlControlResponseDocument.getTool().serializeToString(document);
     }
 
-    private XmlControlResonseDocument loadDocument(final String resourceName) throws JAXBException {
-	return XmlControlResonseDocument.getTool()
+    private XmlControlResponseDocument loadDocument(final String resourceName) throws JAXBException {
+	return XmlControlResponseDocument.getTool()
 		.deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
     }
 }
