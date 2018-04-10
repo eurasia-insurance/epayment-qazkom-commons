@@ -40,7 +40,7 @@ import tech.lapsa.java.jaxb.adapter.XmlCurrencyNumericAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-@HashCodePrime(-1)
+@HashCodePrime(151)
 public class XmlStatusResponseDocument extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
@@ -119,7 +119,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
     @XmlRootElement(name = "bank")
-    @HashCodePrime(-1)
+    @HashCodePrime(157)
     public static class XmlBank extends AXmlBase {
 
 	private static final long serialVersionUID = 1L;
@@ -158,7 +158,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 	@XmlRootElement(name = "merchant")
-	@HashCodePrime(-1)
+	@HashCodePrime(163)
 	public static class XmlMerchant extends AXmlBase {
 
 	    private static final long serialVersionUID = 1L;
@@ -179,7 +179,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
 
 	    @XmlAccessorType(XmlAccessType.FIELD)
 	    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-	    @HashCodePrime(-1)
+	    @HashCodePrime(167)
 	    public static class XmlOrder extends AXmlBase {
 
 		private static final long serialVersionUID = 1L;
@@ -266,7 +266,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
 
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-	@HashCodePrime(-1)
+	@HashCodePrime(173)
 	public static class XmlResponse extends AXmlBase {
 
 	    private static final long serialVersionUID = 1L;
@@ -576,7 +576,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(-1)
+    @HashCodePrime(179)
     public static class XmlBankSign extends AXmlSignBase {
 
 	private static final long serialVersionUID = 1L;

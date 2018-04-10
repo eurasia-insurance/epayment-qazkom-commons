@@ -27,7 +27,7 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-@HashCodePrime(-1)
+@HashCodePrime(131)
 public class XmlStatusRequestDocument extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
@@ -118,7 +118,7 @@ public class XmlStatusRequestDocument extends AXmlBase {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
     @XmlRootElement(name = "merchant")
-    @HashCodePrime(-1)
+    @HashCodePrime(137)
     public static class XmlMerchant extends AXmlBase {
 
 	private static final long serialVersionUID = 1L;
@@ -139,7 +139,7 @@ public class XmlStatusRequestDocument extends AXmlBase {
 
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-	@HashCodePrime(-1)
+	@HashCodePrime(139)
 	public static class XmlOrder extends AXmlBase {
 
 	    private static final long serialVersionUID = 1L;
@@ -199,7 +199,7 @@ public class XmlStatusRequestDocument extends AXmlBase {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(-1)
+    @HashCodePrime(149)
     public static class XmlMerchantSign extends AXmlSignBase {
 
 	private static final long serialVersionUID = 1L;

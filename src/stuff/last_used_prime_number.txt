@@ -24,20 +24,20 @@
       97 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlPayment
      101 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason
      103 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign
-     107 
-     109 
-     113 
-     127 
-     131 
-     137 
-     139 
-     149 
-     151 
-     157 
-     163 
-     167 
-     173 
-     179 
+     107 tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument
+     109 tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank
+     113 tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBank.XmlResponse
+     127 tech.lapsa.epayment.qazkom.xml.bind.XmlControlResponseDocument.XmlBankSign
+     131 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument
+     137 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchant
+     139 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchant.XmlOrder
+     149 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchantSign
+     151 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument
+     157 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument.XmlBank
+     163 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument.XmlBank.XmlMerchant
+     167 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument.XmlBank.XmlMerchant.XmlOrder
+     173 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument.XmlBank.XmlResponse
+     179 tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument.XmlBankSign
      181 
      191 
      193 

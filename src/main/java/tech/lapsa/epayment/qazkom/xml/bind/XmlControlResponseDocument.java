@@ -30,7 +30,7 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
-@HashCodePrime(79)
+@HashCodePrime(107)
 public class XmlControlResponseDocument extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
@@ -109,7 +109,7 @@ public class XmlControlResponseDocument extends AXmlBase {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
     @XmlRootElement(name = "bank")
-    @HashCodePrime(-1)
+    @HashCodePrime(109)
     public static class XmlBank extends AXmlBase {
 
 	private static final long serialVersionUID = 1L;
@@ -160,7 +160,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-	@HashCodePrime(-1)
+	@HashCodePrime(113)
 	public static class XmlResponse extends AXmlBase {
 
 	    private static final long serialVersionUID = 1L;
@@ -251,7 +251,7 @@ public class XmlControlResponseDocument extends AXmlBase {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(103)
+    @HashCodePrime(127)
     public static class XmlBankSign extends AXmlSignBase {
 
 	private static final long serialVersionUID = 1L;
