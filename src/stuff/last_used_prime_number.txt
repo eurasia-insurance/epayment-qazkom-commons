@@ -18,12 +18,12 @@
       67 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError
       71 tech.lapsa.epayment.qazkom.xml.bind.XmlResults
       73 tech.lapsa.epayment.qazkom.xml.bind.XmlSession
-      79 
-      83 
-      89 
-      97 
-     101 
-     103 
+      79 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument
+      83 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant
+      89 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand
+      97 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlPayment
+     101 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason
+     103 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign
      107 
      109 
      113 
