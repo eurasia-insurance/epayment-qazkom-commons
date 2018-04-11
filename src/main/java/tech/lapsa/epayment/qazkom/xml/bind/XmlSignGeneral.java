@@ -129,7 +129,7 @@ public class XmlSignGeneral implements Serializable {
     public XmlSignGeneral(final XmlSignType signType, final byte[] signature) {
 	super();
 	this.signType = signType;
-	this.signature = signature.clone();
+	this.signature = signature == null ? null : signature.clone();
     }
 
     public XmlSignGeneral(final XmlSignType signType, final String signatureEncoded) {
