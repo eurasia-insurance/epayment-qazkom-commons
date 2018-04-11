@@ -41,4 +41,18 @@ public class XmlSignGeneralWithCert extends XmlSignGeneral {
 	super(signType, signature);
 	this.certificateSerialNumber = certificateSerialNumber;
     }
+
+    public XmlSignGeneralWithCert(final XmlSignType signType,
+	    final String signatureEncoded,
+	    final BigInteger certificateSerialNumber) {
+	super(signType, signatureEncoded);
+	this.certificateSerialNumber = certificateSerialNumber;
+    }
+
+    public XmlSignGeneralWithCert(final XmlSignType signType,
+	    final BigInteger certificateSerialNumber) {
+	super(signType);
+	this.certificateSerialNumber = certificateSerialNumber;
+    }
+
 }
