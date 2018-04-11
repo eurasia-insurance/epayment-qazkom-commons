@@ -3,39 +3,20 @@ package test.builder;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import java.io.InputStream;
-import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment;
-import tech.lapsa.java.commons.io.MyResources;
-import tech.lapsa.java.commons.security.MyCertificates;
-import tech.lapsa.java.commons.security.MyKeyStores;
-import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 
 public class XmlDocumentPaymentBulderTest {
-
-    private static final StoreType STORETYPE = StoreType.JKS;
-    private static final String KEYSTORE = "/kkb.jks";
-    private static final String STOREPASS = "1q2w3e4r";
-    private static final String ALIAS = "kkbca-test";
 
     private static X509Certificate bankCert;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
-
-	final InputStream storeStream = MyResources.optAsStream(XmlDocumentPaymentBulderTest.class, KEYSTORE) //
-		.orElseThrow(() -> new RuntimeException("Keystore not found"));
-
-	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
-		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
-
-	bankCert = MyCertificates.from(keystore, ALIAS) //
-		.orElseThrow(() -> new RuntimeException("Can find key entry"));
+	bankCert = TestKeystoreUtils.getBankCert();
     }
 
     private static final String BANK_XML = ""
