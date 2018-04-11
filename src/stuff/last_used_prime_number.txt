@@ -1,23 +1,23 @@
        3 
        5 
        7 
-      11 tech.lapsa.epayment.qazkom.xml.bind.XmlBank
-      13 tech.lapsa.epayment.qazkom.xml.bind.XmlBankSign
-      17 tech.lapsa.epayment.qazkom.xml.bind.XmlCustomer
-      19 tech.lapsa.epayment.qazkom.xml.bind.XmlCustomerSign
-      23 tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment
+      11 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank
+      13 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBankSign
+      17 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlCustomer
+      19 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlCustomerSign
+      23 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder.XmlDepartment
       29 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart
       31 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder
       37 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment
-      41 tech.lapsa.epayment.qazkom.xml.bind.XmlError
-      43 tech.lapsa.epayment.qazkom.xml.bind.XmlItem
-      47 tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant
-      53 tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign
-      59 tech.lapsa.epayment.qazkom.xml.bind.XmlOrder
-      61 tech.lapsa.epayment.qazkom.xml.bind.XmlPayment
+      41 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlError
+      43 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart.XmlItem
+      47 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant
+      53 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchantSign
+      59 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder
+      61 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlResults.XmlPayment
       67 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError
-      71 tech.lapsa.epayment.qazkom.xml.bind.XmlResults
-      73 tech.lapsa.epayment.qazkom.xml.bind.XmlSession
+      71 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlResults
+      73 tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlSession
       79 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument
       83 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant
       89 tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand

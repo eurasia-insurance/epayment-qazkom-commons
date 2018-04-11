@@ -11,11 +11,11 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder.XmlDepartment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 

@@ -11,9 +11,9 @@ import javax.xml.bind.JAXBException;
 import org.junit.Test;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlError;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlError;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlSession;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlErrorType;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlSession;
 
 public class XmlDocumentErrorTest {
 
