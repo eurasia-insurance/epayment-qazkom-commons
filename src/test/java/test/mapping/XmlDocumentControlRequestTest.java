@@ -17,7 +17,7 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand.XmlType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlReason;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
@@ -37,7 +37,7 @@ public class XmlDocumentControlRequestTest {
 	final XmlReason reason = new XmlReason("Неверная сумма");
 	final XmlMerchant merchant = new XmlMerchant("92061103", command, payment, reason);
 
-	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA,
+	final XmlSignGeneralWithCert merchantSign = new XmlSignGeneralWithCert(XmlSignType.RSA,
 		Base64.getDecoder().decode(
 			"8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ="),
 		new BigInteger("c183d70b", 16));
@@ -66,11 +66,13 @@ public class XmlDocumentControlRequestTest {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(final XmlDocumentControlRequest document, final boolean formatted) throws JAXBException {
+    private String getDocumentString(final XmlDocumentControlRequest document, final boolean formatted)
+	    throws JAXBException {
 	return XmlDocumentControlRequest.getTool().serializeToString(document);
     }
 
     private XmlDocumentControlRequest loadDocument(final String resourceName) throws JAXBException {
-	return XmlDocumentControlRequest.getTool().deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
+	return XmlDocumentControlRequest.getTool()
+		.deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
     }
 }

@@ -1,7 +1,6 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Currency;
@@ -23,7 +22,6 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlReason;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlAmountAdapter;
-import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -80,7 +78,8 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	private XmlControlRequestDocumentBuilder() {
 	}
 
-	public XmlControlRequestDocumentBuilder withPaymentReference(String paymentReference) throws IllegalArgumentException {
+	public XmlControlRequestDocumentBuilder withPaymentReference(String paymentReference)
+		throws IllegalArgumentException {
 	    this.paymentReference = MyStrings.requireNonEmpty(paymentReference, "paymentReference");
 	    return this;
 	}
@@ -105,7 +104,8 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	    return this;
 	}
 
-	public XmlControlRequestDocumentBuilder withPayment(String paymentReference, String approvalCode, String orderNumber,
+	public XmlControlRequestDocumentBuilder withPayment(String paymentReference, String approvalCode,
+		String orderNumber,
 		Double amount, Currency currency) throws IllegalArgumentException {
 	    withPaymentReference(paymentReference);
 	    withApprovalCode(approvalCode);
@@ -126,7 +126,8 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	    return this;
 	}
 
-	public XmlControlRequestDocumentBuilder withMerchantKey(PrivateKey merchantKey) throws IllegalArgumentException {
+	public XmlControlRequestDocumentBuilder withMerchantKey(PrivateKey merchantKey)
+		throws IllegalArgumentException {
 	    this.merchantKey = MyObjects.requireNonNull(merchantKey, "merchantKey");
 	    return this;
 	}
@@ -139,13 +140,15 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	    return this;
 	}
 
-	public XmlControlRequestDocumentBuilder prepareCancel(String cancelationReason) throws IllegalArgumentException {
+	public XmlControlRequestDocumentBuilder prepareCancel(String cancelationReason)
+		throws IllegalArgumentException {
 	    this.commandType = XmlType.REVERSE;
 	    this.reason = MyStrings.requireNonEmpty(cancelationReason, "cancelationReason");
 	    return this;
 	}
 
-	public XmlControlRequestDocumentBuilder prepareRefund(String refundationReason) throws IllegalArgumentException {
+	public XmlControlRequestDocumentBuilder prepareRefund(String refundationReason)
+		throws IllegalArgumentException {
 	    this.commandType = XmlType.REFUND;
 	    this.reason = MyStrings.requireNonEmpty(refundationReason, "refundationReason");
 	    return this;
@@ -190,7 +193,7 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	    final byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
-	    final XmlMerchantSign merchantSign = new XmlMerchantSign(SIGN_TYPE, digest,
+	    final XmlSignGeneralWithCert merchantSign = new XmlSignGeneralWithCert(SIGN_TYPE, digest,
 		    merchantCertificate.getSerialNumber());
 	    return new XmlDocumentControlRequest(merchant, merchantSign);
 	}
@@ -420,40 +423,10 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	return merchant;
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(103)
-    public static class XmlMerchantSign extends AXmlSignBase {
-
-	private static final long serialVersionUID = 1L;
-
-	@XmlAttribute(name = "cert_id")
-	@XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
-	private final BigInteger certificateSerialNumber;
-
-	public BigInteger getCertificateSerialNumber() {
-	    return certificateSerialNumber;
-	}
-
-	/*
-	 * Default no-args constructor due to JAXB requirements
-	 */
-	@Deprecated
-	public XmlMerchantSign() {
-	    super();
-	    this.certificateSerialNumber = null;
-	}
-
-	public XmlMerchantSign(XmlSignType signType, byte[] signature, BigInteger certificateSerialNumber) {
-	    super(signType, signature);
-	    this.certificateSerialNumber = certificateSerialNumber;
-	}
-    }
-
     @XmlElement(name = "merchant_sign")
-    private final XmlMerchantSign merchantSign;
+    private final XmlSignGeneralWithCert merchantSign;
 
-    public XmlMerchantSign getMerchantSign() {
+    public XmlSignGeneralWithCert getMerchantSign() {
 	return merchantSign;
     }
 
@@ -498,7 +471,7 @@ public class XmlDocumentControlRequest extends AXmlBase {
 	this.merchantSign = null;
     }
 
-    public XmlDocumentControlRequest(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+    public XmlDocumentControlRequest(XmlMerchant merchant, XmlSignGeneralWithCert merchantSign) {
 	super();
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;

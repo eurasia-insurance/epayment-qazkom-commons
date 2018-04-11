@@ -14,7 +14,7 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant.XmlOrder;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
 import tech.lapsa.java.commons.io.MyResources;
 
 public class XmlDocumentStatusRequestTest {
@@ -29,7 +29,7 @@ public class XmlDocumentStatusRequestTest {
 	final XmlOrder order = new XmlOrder("484902574738032");
 	final XmlMerchant merchant = new XmlMerchant("92061103", order);
 
-	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA,
+	final XmlSignGeneralWithCert merchantSign = new XmlSignGeneralWithCert(XmlSignType.RSA,
 		Base64.getDecoder().decode(
 			"MD/ci+9LW8MrMP5o1uSbX+rgDxKcX4TZSuF065i1JbSZMyW6IW5LwwytunW/NaA//DXjnnfYuB1wfJarI4vIpEQzX4Eh1Ld/nWpQ/RjVeSXJT9qlJY9ka/Tky1Kej/6i17U4ognYC5QQzf3wwkXMFBM0Nhz0kPeW50sorgX1bDI="),
 		new BigInteger("c183d70b", 16));

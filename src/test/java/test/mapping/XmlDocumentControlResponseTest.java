@@ -16,11 +16,10 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand.XmlType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlReason;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse.XmlBank;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse.XmlBank.XmlResponse;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse.XmlBankSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
@@ -40,14 +39,14 @@ public class XmlDocumentControlResponseTest {
 	final XmlReason reason = new XmlReason("Неверная сумма");
 	final XmlMerchant merchant = new XmlMerchant("92061103", command, payment, reason);
 
-	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA,
+	final XmlSignGeneralWithCert merchantSign = new XmlSignGeneralWithCert(XmlSignType.RSA,
 		Base64.getDecoder().decode(
 			"8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ="),
 		new BigInteger("c183d70b", 16));
 	final XmlResponse response = new XmlResponse("00", "Approved", 50d, null);
 
 	final XmlBank bank = new XmlBank("Kazkommertsbank JSC", merchant, merchantSign, response);
-	final XmlBankSign bankSign = new XmlBankSign(XmlSignType.RSA,
+	final XmlSignGeneralWithCert bankSign = new XmlSignGeneralWithCert(XmlSignType.RSA,
 		Base64.getDecoder()
 			.decode("p25i1rUH7StnhOfnkHSOHguuPMePaGXtiPGEOrJE4bof1gFVH19mhDyHjfWa6OeJ80fidyvVf1X4" +
 				"ewyP0yG4GxJSl0VyXz7+PNLsbs1lJe42d1fixvozhJSSYN6fAxMN8hhDht6S81YK3GbDTE7GH498" +

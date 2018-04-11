@@ -1,6 +1,5 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
-import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.util.Currency;
@@ -24,9 +23,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.lapsa.international.phone.PhoneNumber;
 import com.lapsa.international.phone.converter.jaxb.XmlPhoneNumberAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlAmountAdapter;
-import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlTimestampAdapterWithNano;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
@@ -258,9 +255,9 @@ public class XmlDocumentStatusResponse extends AXmlBase {
 	}
 
 	@XmlElement(name = "merchant_sign")
-	private final XmlMerchantSign merchantSign;
+	private final XmlSignGeneralWithCert merchantSign;
 
-	public XmlMerchantSign getMerchantSign() {
+	public XmlSignGeneralWithCert getMerchantSign() {
 	    return merchantSign;
 	}
 
@@ -574,35 +571,10 @@ public class XmlDocumentStatusResponse extends AXmlBase {
 	return bank;
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(179)
-    public static class XmlBankSign extends AXmlSignBase {
-
-	private static final long serialVersionUID = 1L;
-
-	@XmlAttribute(name = "cert_id")
-	@XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
-	private final BigInteger certificateSerialNumber;
-
-	public BigInteger getCertificateSerialNumber() {
-	    return certificateSerialNumber;
-	}
-
-	/*
-	 * Default no-args constructor due to JAXB requirements
-	 */
-	@Deprecated
-	public XmlBankSign() {
-	    super();
-	    this.certificateSerialNumber = null;
-	}
-    }
-
     @XmlElement(name = "bank_sign")
-    private final XmlBankSign bankSign;
+    private final XmlSignGeneralWithCert bankSign;
 
-    public XmlBankSign getBankSign() {
+    public XmlSignGeneralWithCert getBankSign() {
 	return bankSign;
     }
 

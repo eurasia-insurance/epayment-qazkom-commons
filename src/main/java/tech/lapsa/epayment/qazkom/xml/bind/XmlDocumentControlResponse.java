@@ -1,6 +1,5 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
-import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,11 +13,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchantSign;
-import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -152,9 +148,9 @@ public class XmlDocumentControlResponse extends AXmlBase {
 	}
 
 	@XmlElement(name = "merchant_sign")
-	private final XmlMerchantSign merchantSign;
+	private final XmlSignGeneralWithCert merchantSign;
 
-	public XmlMerchantSign getMerchantSign() {
+	public XmlSignGeneralWithCert getMerchantSign() {
 	    return merchantSign;
 	}
 
@@ -233,7 +229,7 @@ public class XmlDocumentControlResponse extends AXmlBase {
 	    this.response = null;
 	}
 
-	public XmlBank(String name, XmlMerchant merchant, XmlMerchantSign merchantSign, XmlResponse response) {
+	public XmlBank(String name, XmlMerchant merchant, XmlSignGeneralWithCert merchantSign, XmlResponse response) {
 	    super();
 	    this.name = name;
 	    this.merchant = merchant;
@@ -249,40 +245,10 @@ public class XmlDocumentControlResponse extends AXmlBase {
 	return bank;
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(127)
-    public static class XmlBankSign extends AXmlSignBase {
-
-	private static final long serialVersionUID = 1L;
-
-	@XmlAttribute(name = "cert_id")
-	@XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
-	private final BigInteger certificateSerialNumber;
-
-	public BigInteger getCertificateSerialNumber() {
-	    return certificateSerialNumber;
-	}
-
-	/*
-	 * Default no-args constructor due to JAXB requirements
-	 */
-	@Deprecated
-	public XmlBankSign() {
-	    super();
-	    this.certificateSerialNumber = null;
-	}
-
-	public XmlBankSign(XmlSignType signType, byte[] signature, BigInteger certificateSerialNumber) {
-	    super(signType, signature);
-	    this.certificateSerialNumber = certificateSerialNumber;
-	}
-    }
-
     @XmlElement(name = "bank_sign")
-    private final XmlBankSign bankSign;
+    private final XmlSignGeneralWithCert bankSign;
 
-    public XmlBankSign getBankSign() {
+    public XmlSignGeneralWithCert getBankSign() {
 	return bankSign;
     }
 
@@ -296,7 +262,7 @@ public class XmlDocumentControlResponse extends AXmlBase {
 	this.bankSign = null;
     }
 
-    public XmlDocumentControlResponse(XmlBank bank, XmlBankSign bankSign) {
+    public XmlDocumentControlResponse(XmlBank bank, XmlSignGeneralWithCert bankSign) {
 	super();
 	this.bank = bank;
 	this.bankSign = bankSign;

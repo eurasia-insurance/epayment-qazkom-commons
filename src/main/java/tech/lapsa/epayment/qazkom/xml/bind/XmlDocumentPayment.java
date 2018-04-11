@@ -1,6 +1,5 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
-import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,9 +23,7 @@ import com.lapsa.international.phone.PhoneNumber;
 import com.lapsa.international.phone.converter.jaxb.XmlPhoneNumberAdapter;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCardExpirationDateAdapter;
-import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCountryAlpha3CodeAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlTimestampAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -197,9 +194,9 @@ public class XmlDocumentPayment extends AXmlBase {
 	    }
 
 	    @XmlElement(name = "merchant_sign")
-	    private final XmlMerchantSign sourceMerchantSign;
+	    private final XmlSignGeneral sourceMerchantSign;
 
-	    public XmlMerchantSign getSourceMerchantSign() {
+	    public XmlSignGeneral getSourceMerchantSign() {
 		return sourceMerchantSign;
 	    }
 
@@ -219,7 +216,7 @@ public class XmlDocumentPayment extends AXmlBase {
 		    final String emailAddress,
 		    final PhoneNumber phone,
 		    final XmlMerchant sourceMerchant,
-		    final XmlMerchantSign sourceMerchantSign) {
+		    final XmlSignGeneral sourceMerchantSign) {
 		super();
 		this.name = name;
 		this.emailAddress = emailAddress;
@@ -236,34 +233,10 @@ public class XmlDocumentPayment extends AXmlBase {
 	    return customer;
 	}
 
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-	@HashCodePrime(19)
-	public static class XmlCustomerSign extends AXmlSignBase {
-
-	    private static final long serialVersionUID = 1L;
-
-	    /*
-	     * Default no-args constructor due to JAXB requirements
-	     */
-	    @Deprecated
-	    public XmlCustomerSign() {
-		super();
-	    }
-
-	    public XmlCustomerSign(XmlSignType signType, byte[] signature) {
-		super(signType, signature);
-	    }
-
-	    public XmlCustomerSign(XmlSignType signType, String signatureEncoded) {
-		super(signType, signatureEncoded);
-	    }
-	}
-
 	@XmlElement(name = "customer_sign")
-	private final XmlCustomerSign customerSign;
+	private final XmlSignGeneral customerSign;
 
-	public XmlCustomerSign getCustomerSign() {
+	public XmlSignGeneral getCustomerSign() {
 	    return customerSign;
 	}
 
@@ -445,7 +418,7 @@ public class XmlDocumentPayment extends AXmlBase {
 
 	public XmlBank(final String name,
 		final XmlCustomer customer,
-		final XmlCustomerSign customerSign,
+		final XmlSignGeneral customerSign,
 		final XmlResults results) {
 	    super();
 	    this.name = name;
@@ -462,47 +435,10 @@ public class XmlDocumentPayment extends AXmlBase {
 	return bank;
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(13)
-    public static class XmlBankSign extends AXmlSignBase {
-
-	private static final long serialVersionUID = 1L;
-
-	@XmlAttribute(name = "cert_id")
-	@XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
-	private final BigInteger certificateSerialNumber;
-
-	public BigInteger getCertificateSerialNumber() {
-	    return certificateSerialNumber;
-	}
-
-	/*
-	 * Default no-args constructor due to JAXB requirements
-	 */
-	@Deprecated
-	public XmlBankSign() {
-	    super();
-	    this.certificateSerialNumber = null;
-	}
-
-	public XmlBankSign(final XmlSignType signType, final byte[] signature,
-		final BigInteger certificateSerialNumber) {
-	    super(signType, signature);
-	    this.certificateSerialNumber = certificateSerialNumber;
-	}
-
-	public XmlBankSign(final XmlSignType signType, final String signatureEncoded,
-		final BigInteger certificateSerialNumber) {
-	    super(signType, signatureEncoded);
-	    this.certificateSerialNumber = certificateSerialNumber;
-	}
-    }
-
     @XmlElement(name = "bank_sign")
-    private final XmlBankSign bankSign;
+    private final XmlSignGeneralWithCert bankSign;
 
-    public XmlBankSign getBankSign() {
+    public XmlSignGeneralWithCert getBankSign() {
 	return bankSign;
     }
 
@@ -519,7 +455,7 @@ public class XmlDocumentPayment extends AXmlBase {
 	this.bankSign = null;
     }
 
-    public XmlDocumentPayment(XmlBank bank, XmlBankSign bankSign) {
+    public XmlDocumentPayment(XmlBank bank, XmlSignGeneralWithCert bankSign) {
 	super();
 	this.bank = bank;
 	this.bankSign = bankSign;

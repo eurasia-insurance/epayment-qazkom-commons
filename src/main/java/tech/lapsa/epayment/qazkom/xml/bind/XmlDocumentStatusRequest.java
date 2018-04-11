@@ -1,6 +1,5 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
-import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
@@ -11,10 +10,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant.XmlOrder;
-import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -108,7 +105,7 @@ public class XmlDocumentStatusRequest extends AXmlBase {
 	    final byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
-	    final XmlMerchantSign merchantSign = new XmlMerchantSign(SIGN_TYPE, digest,
+	    final XmlSignGeneralWithCert merchantSign = new XmlSignGeneralWithCert(SIGN_TYPE, digest,
 		    merchantCertificate.getSerialNumber());
 	    return new XmlDocumentStatusRequest(merchant, merchantSign);
 	}
@@ -197,40 +194,10 @@ public class XmlDocumentStatusRequest extends AXmlBase {
 	return merchant;
     }
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(149)
-    public static class XmlMerchantSign extends AXmlSignBase {
-
-	private static final long serialVersionUID = 1L;
-
-	@XmlAttribute(name = "cert_id")
-	@XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
-	private final BigInteger certificateSerialNumber;
-
-	public BigInteger getCertificateSerialNumber() {
-	    return certificateSerialNumber;
-	}
-
-	/*
-	 * Default no-args constructor due to JAXB requirements
-	 */
-	@Deprecated
-	public XmlMerchantSign() {
-	    super();
-	    this.certificateSerialNumber = null;
-	}
-
-	public XmlMerchantSign(XmlSignType signType, byte[] signature, BigInteger certificateSerialNumber) {
-	    super(signType, signature);
-	    this.certificateSerialNumber = certificateSerialNumber;
-	}
-    }
-
     @XmlElement(name = "merchant_sign")
-    private final XmlMerchantSign merchantSign;
+    private final XmlSignGeneralWithCert merchantSign;
 
-    public XmlMerchantSign getMerchantSign() {
+    public XmlSignGeneralWithCert getMerchantSign() {
 	return merchantSign;
     }
 
@@ -275,7 +242,7 @@ public class XmlDocumentStatusRequest extends AXmlBase {
 	this.merchantSign = null;
     }
 
-    public XmlDocumentStatusRequest(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+    public XmlDocumentStatusRequest(XmlMerchant merchant, XmlSignGeneralWithCert merchantSign) {
 	super();
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;

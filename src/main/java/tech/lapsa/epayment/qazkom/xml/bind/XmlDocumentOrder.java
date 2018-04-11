@@ -122,7 +122,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    final byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
-	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign(SIGN_TYPE, digest);
+	    final XmlSignGeneral xmlMerchantSign = new XmlSignGeneral(SIGN_TYPE, digest);
 
 	    final XmlDocumentOrder doc = new XmlDocumentOrder(xmlMerchant, xmlMerchantSign);
 
@@ -351,43 +351,14 @@ public class XmlDocumentOrder extends AXmlBase {
     @XmlElement(name = "merchant")
     private final XmlMerchant merchant;
 
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-    @HashCodePrime(53)
-    public static class XmlMerchantSign extends AXmlSignBase {
-
-	private static final long serialVersionUID = 1L;
-
-	/*
-	 * Default no-args constructor due to JAXB requirements
-	 */
-	@Deprecated
-	public XmlMerchantSign() {
-	    super();
-	}
-
-	public XmlMerchantSign(XmlSignType signType) {
-	    super(signType);
-	}
-
-	public XmlMerchantSign(final XmlSignType signType, final byte[] signature) {
-	    super(signType, signature);
-	}
-
-	public XmlMerchantSign(final XmlSignType signType, final String signatureEncoded) {
-	    super(signType, signatureEncoded);
-	}
-
-    }
-
-    @XmlElement(name = "merchant_sign")
-    private final XmlMerchantSign merchantSign;
-
     public XmlMerchant getMerchant() {
 	return merchant;
     }
 
-    public XmlMerchantSign getMerchantSign() {
+    @XmlElement(name = "merchant_sign")
+    private final XmlSignGeneral merchantSign;
+
+    public XmlSignGeneral getMerchantSign() {
 	return merchantSign;
     }
 
@@ -404,7 +375,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	this.merchantSign = null;
     }
 
-    public XmlDocumentOrder(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+    public XmlDocumentOrder(XmlMerchant merchant, XmlSignGeneral merchantSign) {
 	super();
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;
