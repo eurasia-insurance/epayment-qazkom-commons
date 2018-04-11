@@ -15,6 +15,7 @@ import javax.xml.bind.JAXBException;
 import org.junit.Test;
 
 import com.lapsa.international.country.Country;
+import com.lapsa.international.phone.PhoneNumber;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlBankSign;
@@ -65,7 +66,8 @@ public class XmlDocumentPaymentTest {
 
 	final XmlMerchantSign sourceMerchantSign = new XmlMerchantSign(XmlSignType.RSA);
 
-	final XmlCustomer customer = new XmlCustomer("John Cardholder", "klient@mymail.com", "223322", sourceMerchant,
+	final XmlCustomer customer = new XmlCustomer("John Cardholder", "klient@mymail.com",
+		PhoneNumber.assertValid("223322"), sourceMerchant,
 		sourceMerchantSign);
 
 	final XmlCustomerSign customerSign = new XmlCustomerSign(XmlSignType.CERTIFICATE, "4817C411000100000084");
@@ -106,7 +108,10 @@ public class XmlDocumentPaymentTest {
     @Test
     public void testSerializeDocument() throws JAXBException {
 	final String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
+	System.out.println();
 	System.out.println(documentString);
+	System.out.println();
+	System.out.println(TEST_DOCUMENT_AS_PLAINTEXT);
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 

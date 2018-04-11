@@ -17,7 +17,7 @@ public class XmlMerchantSign extends AXmlSignBase {
      */
     @Deprecated
     public XmlMerchantSign() {
-	super(null);
+	super();
     }
 
     public XmlMerchantSign(XmlSignType signType) {

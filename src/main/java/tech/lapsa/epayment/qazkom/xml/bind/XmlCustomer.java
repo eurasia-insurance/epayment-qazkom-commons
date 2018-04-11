@@ -6,6 +6,10 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.lapsa.international.phone.PhoneNumber;
+import com.lapsa.international.phone.converter.jaxb.XmlPhoneNumberAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -29,9 +33,10 @@ public class XmlCustomer extends AXmlBase {
     }
 
     @XmlAttribute(name = "phone")
-    private final String phone;
+    @XmlJavaTypeAdapter(XmlPhoneNumberAdapter.class)
+    private final PhoneNumber phone;
 
-    public String getPhone() {
+    public PhoneNumber getPhone() {
 	return phone;
     }
 
@@ -63,7 +68,7 @@ public class XmlCustomer extends AXmlBase {
 
     public XmlCustomer(final String name, 
 	    final String emailAddress, 
-	    final String phone, 
+	    final PhoneNumber phone, 
 	    final XmlMerchant sourceMerchant,
 	    final XmlMerchantSign sourceMerchantSign) {
 	super();
