@@ -1,19 +1,27 @@
 package tech.lapsa.epayment.qazkom.xml.bind;
 
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Currency;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder.XmlDepartment;
+import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
+import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
@@ -114,7 +122,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    final byte[] digest = signature.sign(data);
 	    MyArrays.reverse(digest);
 
-	    final XmlMerchantSign xmlMerchantSign = new XmlMerchantSign(SIGN_TYPE, digest);
+	    final XmlSignGeneral xmlMerchantSign = new XmlSignGeneral(SIGN_TYPE, digest);
 
 	    final XmlDocumentOrder doc = new XmlDocumentOrder(xmlMerchant, xmlMerchantSign);
 
@@ -150,17 +158,207 @@ public class XmlDocumentOrder extends AXmlBase {
 	throw MyExceptions.illegalStateFormat("Signature is invalid");
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
+    @XmlRootElement(name = "merchant")
+    @HashCodePrime(47)
+    public static class XmlMerchant extends AXmlBase {
+
+	private static final long serialVersionUID = 1L;
+
+	private static final SerializationTool<XmlMerchant> TOOL = SerializationTool.forClass(XmlMerchant.class,
+		XmlSchemas.ORDER_SCHEMA);
+
+	public static final SerializationTool<XmlMerchant> getTool() {
+	    return TOOL;
+	}
+
+	public static XmlMerchant of(final String rawXml) {
+	    return TOOL.deserializeFrom(rawXml);
+	}
+
+	// cert_id - Серийный номер сертификата
+	@XmlAttribute(name = "cert_id")
+	@XmlJavaTypeAdapter(XmlCertificateSeriaNumberToHEXStringAdapter.class)
+	private final BigInteger certificateSerialNumber;
+
+	public BigInteger getCertificateSerialNumber() {
+	    return certificateSerialNumber;
+	}
+
+	// name - имя магазина(сайта)
+	@XmlAttribute(name = "name")
+	private final String name;
+
+	public String getName() {
+	    return name;
+	}
+
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
+	@HashCodePrime(49)
+	public static class XmlOrder extends AXmlAmountAndCurrency {
+
+	    private static final long serialVersionUID = 1L;
+
+	    // order_id - Номер заказа(должен состоять не менее чем из 6
+	    // ЧИСЛОВЫХ
+	    // знаков, максимально -15)
+	    @XmlAttribute(name = "order_id")
+	    private final String orderId;
+
+	    public String getOrderId() {
+		return orderId;
+	    }
+
+	    @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
+	    @XmlAccessorType(XmlAccessType.FIELD)
+	    @HashCodePrime(103)
+	    public static class XmlDepartment extends AXmlAmount {
+
+		private static final long serialVersionUID = 1L;
+
+		// merchant_id - ID продавца в платежной системе
+		@XmlAttribute(name = "merchant_id")
+		private final String merchantId;
+
+		public String getMerchantId() {
+		    return merchantId;
+		}
+
+		// abonent_id - дополнительные поля для продавца, можно не
+		// указывать
+		@XmlAttribute(name = "abonent_id")
+		private final String abonentId;
+
+		public String getAbonentId() {
+		    return abonentId;
+		}
+
+		// terminal - дополнительные поля для продавца, можно не
+		// указывать
+		@XmlAttribute(name = "terminal")
+		private final String terminal;
+
+		public String getTerminal() {
+		    return terminal;
+		}
+
+		// phone - дополнительные поля для продавца, можно не указывать
+		@XmlAttribute(name = "phone")
+		private final String phone;
+
+		public String getPhone() {
+		    return phone;
+		}
+
+		// RL - дополнительное поле, для транспортных компаний- Номер
+		// брони, можно
+		// не указывать. Транслуруется по всем отчетам и выпискам
+		@XmlAttribute(name = "RL")
+		private final String airticketBookingNumber;
+
+		public String getAirticketBookingNumber() {
+		    return airticketBookingNumber;
+		}
+
+		/*
+		 * Default no-args constructor due to JAXB requirements
+		 */
+		@Deprecated
+		public XmlDepartment() {
+		    super(null);
+		    this.merchantId = null;
+		    this.abonentId = null;
+		    this.terminal = null;
+		    this.phone = null;
+		    this.airticketBookingNumber = null;
+		}
+
+		public XmlDepartment(Double amount, String merchantId, String abonentId, String terminal, String phone,
+			String airticketBookingNumber) {
+		    super(amount);
+		    this.merchantId = merchantId;
+		    this.abonentId = abonentId;
+		    this.terminal = terminal;
+		    this.phone = phone;
+		    this.airticketBookingNumber = airticketBookingNumber;
+		}
+
+		public XmlDepartment(Double amount, String merchantId) {
+		    super(amount);
+		    this.merchantId = merchantId;
+		    this.abonentId = null;
+		    this.terminal = null;
+		    this.phone = null;
+		    this.airticketBookingNumber = null;
+		}
+	    }
+
+	    @XmlElement(name = "department")
+	    private final List<XmlDepartment> departments;
+
+	    public List<XmlDepartment> getDepartments() {
+		return departments;
+	    }
+
+	    /*
+	     * Default no-args constructor due to JAXB requirements
+	     */
+	    @Deprecated
+	    public XmlOrder() {
+		super(null, null);
+		this.orderId = null;
+		this.departments = null;
+	    }
+
+	    public XmlOrder(Double amount, Currency currency, String orderId, List<XmlDepartment> departments) {
+		super(amount, currency);
+		this.orderId = orderId;
+		this.departments = departments == null ? null : MyCollections.unmodifiableOrEmptyList(departments);
+	    }
+	}
+
+	@XmlElement(name = "order")
+	private final XmlOrder order;
+
+	public XmlOrder getOrder() {
+	    return order;
+	}
+
+	public String getRawXml() {
+	    return TOOL.serializeToString(this);
+	}
+
+	/*
+	 * Default no-args constructor due to JAXB requirements
+	 */
+	@Deprecated
+	public XmlMerchant() {
+	    this.certificateSerialNumber = null;
+	    this.name = null;
+	    this.order = null;
+	}
+
+	public XmlMerchant(BigInteger certificateSerialNumber, String name, XmlOrder order) {
+	    super();
+	    this.certificateSerialNumber = certificateSerialNumber;
+	    this.name = name;
+	    this.order = order;
+	}
+    }
+
     @XmlElement(name = "merchant")
     private final XmlMerchant merchant;
-
-    @XmlElement(name = "merchant_sign")
-    private final XmlMerchantSign merchantSign;
 
     public XmlMerchant getMerchant() {
 	return merchant;
     }
 
-    public XmlMerchantSign getMerchantSign() {
+    @XmlElement(name = "merchant_sign")
+    private final XmlSignGeneral merchantSign;
+
+    public XmlSignGeneral getMerchantSign() {
 	return merchantSign;
     }
 
@@ -177,7 +375,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	this.merchantSign = null;
     }
 
-    public XmlDocumentOrder(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+    public XmlDocumentOrder(XmlMerchant merchant, XmlSignGeneral merchantSign) {
 	super();
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;

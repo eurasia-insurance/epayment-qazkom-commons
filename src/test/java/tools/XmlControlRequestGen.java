@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Currency;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
@@ -37,7 +37,7 @@ public class XmlControlRequestGen {
 	certificate = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
 
-	final XmlControlRequestDocument o = XmlControlRequestDocument.builder() //
+	final XmlDocumentControlRequest o = XmlDocumentControlRequest.builder() //
 		.withMerchantId("92061103") //
 		.signWith(key, certificate) //
 		.withOrderNumber("503390238687304") //

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank;
 
 public class XmlBankParserTest {
 

@@ -11,10 +11,10 @@ import javax.xml.bind.JAXBException;
 import org.junit.Test;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchant.XmlOrder;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
 import tech.lapsa.java.commons.io.MyResources;
 
 public class XmlDocumentStatusRequestTest {
@@ -23,17 +23,17 @@ public class XmlDocumentStatusRequestTest {
 
     private static final String XML = "<document><merchant id=\"92061103\"><order id=\"484902574738032\"/></merchant><merchant_sign cert_id=\"c183d70b\" type=\"RSA\">MD/ci+9LW8MrMP5o1uSbX+rgDxKcX4TZSuF065i1JbSZMyW6IW5LwwytunW/NaA//DXjnnfYuB1wfJarI4vIpEQzX4Eh1Ld/nWpQ/RjVeSXJT9qlJY9ka/Tky1Kej/6i17U4ognYC5QQzf3wwkXMFBM0Nhz0kPeW50sorgX1bDI=</merchant_sign></document>";
 
-    private static final XmlStatusRequestDocument DOCUMENT;
+    private static final XmlDocumentStatusRequest DOCUMENT;
 
     static {
 	final XmlOrder order = new XmlOrder("484902574738032");
 	final XmlMerchant merchant = new XmlMerchant("92061103", order);
 
-	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA,
+	final XmlSignGeneralWithCert merchantSign = new XmlSignGeneralWithCert(XmlSignType.RSA,
 		Base64.getDecoder().decode(
 			"MD/ci+9LW8MrMP5o1uSbX+rgDxKcX4TZSuF065i1JbSZMyW6IW5LwwytunW/NaA//DXjnnfYuB1wfJarI4vIpEQzX4Eh1Ld/nWpQ/RjVeSXJT9qlJY9ka/Tky1Kej/6i17U4ognYC5QQzf3wwkXMFBM0Nhz0kPeW50sorgX1bDI="),
 		new BigInteger("c183d70b", 16));
-	DOCUMENT = new XmlStatusRequestDocument(merchant, merchantSign);
+	DOCUMENT = new XmlDocumentStatusRequest(merchant, merchantSign);
     }
 
     @Test
@@ -50,21 +50,21 @@ public class XmlDocumentStatusRequestTest {
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	final XmlStatusRequestDocument loaded = loadDocument(RESOURCE);
+	final XmlDocumentStatusRequest loaded = loadDocument(RESOURCE);
 	dumpDocument(loaded, true);
     }
 
-    private void dumpDocument(final XmlStatusRequestDocument document, final boolean formatted) throws JAXBException {
+    private void dumpDocument(final XmlDocumentStatusRequest document, final boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(final XmlStatusRequestDocument document, final boolean formatted)
+    private String getDocumentString(final XmlDocumentStatusRequest document, final boolean formatted)
 	    throws JAXBException {
-	return XmlStatusRequestDocument.getTool().serializeToString(document);
+	return XmlDocumentStatusRequest.getTool().serializeToString(document);
     }
 
-    private XmlStatusRequestDocument loadDocument(final String resourceName) throws JAXBException {
-	return XmlStatusRequestDocument.getTool()
+    private XmlDocumentStatusRequest loadDocument(final String resourceName) throws JAXBException {
+	return XmlDocumentStatusRequest.getTool()
 		.deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
     }
 }

@@ -13,8 +13,8 @@ import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHE
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
-@HashCodePrime(13)
-public class XmlBankSign extends AXmlSignBase {
+@HashCodePrime(5)
+public class XmlSignGeneralWithCert extends XmlSignGeneral {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,19 +30,15 @@ public class XmlBankSign extends AXmlSignBase {
      * Default no-args constructor due to JAXB requirements
      */
     @Deprecated
-    public XmlBankSign() {
+    public XmlSignGeneralWithCert() {
 	super();
 	this.certificateSerialNumber = null;
     }
 
-    public XmlBankSign(final XmlSignType signType, final byte[] signature, final BigInteger certificateSerialNumber) {
-	super(signType, signature);
-	this.certificateSerialNumber = certificateSerialNumber;
-    }
-
-    public XmlBankSign(final XmlSignType signType, final String signatureEncoded,
+    public XmlSignGeneralWithCert(final XmlSignType signType,
+	    final byte[] signature,
 	    final BigInteger certificateSerialNumber) {
-	super(signType, signatureEncoded);
+	super(signType, signature);
 	this.certificateSerialNumber = certificateSerialNumber;
     }
 }

@@ -11,11 +11,11 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder.XmlDepartment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
@@ -45,7 +45,7 @@ public class XmlDocumentOrderTest {
 		"Shop Name",
 		order);
 
-	final XmlMerchantSign merchantSign = new XmlMerchantSign(XmlSignType.RSA,
+	final XmlSignGeneral merchantSign = new XmlSignGeneral(XmlSignType.RSA,
 		new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11, -82, 60,
 			-57, -113, 104, 101, -19, -120, -15, -124, 58, -78, 68, -31, -70, 31, -42, 1, 85, 31, 95, 102,
 			-124, 60, -121, -115, -11, -102, -24, -25, -119, -13, 71, -30, 119, 43, -43, 127, 85, -8, 123,

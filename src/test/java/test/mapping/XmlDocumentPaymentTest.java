@@ -17,18 +17,17 @@ import org.junit.Test;
 import com.lapsa.international.country.Country;
 import com.lapsa.international.phone.PhoneNumber;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlBankSign;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlCustomer;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlCustomerSign;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlDepartment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder.XmlDepartment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchantSign;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlPayment;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlResults;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlCustomer;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlResults;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlResults.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSecureType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 
 public class XmlDocumentPaymentTest {
@@ -64,13 +63,13 @@ public class XmlDocumentPaymentTest {
 	final XmlMerchant sourceMerchant = new XmlMerchant(new BigInteger("7269C18D00010000005E", 16), "Shop Name",
 		order);
 
-	final XmlMerchantSign sourceMerchantSign = new XmlMerchantSign(XmlSignType.RSA);
+	final XmlSignGeneral sourceMerchantSign = new XmlSignGeneral(XmlSignType.RSA);
 
 	final XmlCustomer customer = new XmlCustomer("John Cardholder", "klient@mymail.com",
 		PhoneNumber.assertValid("223322"), sourceMerchant,
 		sourceMerchantSign);
 
-	final XmlCustomerSign customerSign = new XmlCustomerSign(XmlSignType.CERTIFICATE, "4817C411000100000084");
+	final XmlSignGeneral customerSign = new XmlSignGeneral(XmlSignType.CERTIFICATE, "4817C411000100000084");
 
 	final XmlPayment payment = new XmlPayment(320.5,
 		"90050801",
@@ -91,7 +90,7 @@ public class XmlDocumentPaymentTest {
 
 	final XmlBank bank = new XmlBank("Kazkommertsbank JSC", customer, customerSign, results);
 
-	final XmlBankSign bankSign = new XmlBankSign(XmlSignType.SHA_RSA,
+	final XmlSignGeneralWithCert bankSign = new XmlSignGeneralWithCert(XmlSignType.SHA_RSA,
 		new byte[] { 36, -115, -47, 100, -63, 47, 123, 19, 101, 14, 98, -84, 57, 8, 94, -46, -100, -57, -72,
 			-88, -93, -99, -72, 111, -100, -69, -67, -10, -88, 123, -121, -30, 110, -16, 123, -46, 124, 99,
 			91, 16, -100, 87, 80, -66, 124, 51, -34, 45, 94, -5, -69, -61, 64, 87, 73, -114, -52, 29, -29,
