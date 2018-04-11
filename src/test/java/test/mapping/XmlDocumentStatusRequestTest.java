@@ -10,10 +10,10 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
 import tech.lapsa.java.commons.io.MyResources;
 

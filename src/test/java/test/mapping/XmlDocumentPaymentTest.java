@@ -27,8 +27,8 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlResults
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlBank.XmlResults.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSecureType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 
 public class XmlDocumentPaymentTest {
 

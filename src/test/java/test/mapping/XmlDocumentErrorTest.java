@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlError;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlError.XmlErrorType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError.XmlSession;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlErrorType;
 
 public class XmlDocumentErrorTest {
 
