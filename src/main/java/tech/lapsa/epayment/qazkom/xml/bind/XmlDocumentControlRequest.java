@@ -21,6 +21,7 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand.XmlType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlReason;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlAmountAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;

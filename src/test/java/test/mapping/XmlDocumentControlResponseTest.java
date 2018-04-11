@@ -19,8 +19,8 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse.XmlBank;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlResponse.XmlBank.XmlResponse;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneralWithCert;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
 public class XmlDocumentControlResponseTest {

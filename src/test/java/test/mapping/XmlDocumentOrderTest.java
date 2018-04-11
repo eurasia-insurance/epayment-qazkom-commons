@@ -16,7 +16,7 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder.XmlMerchant.XmlOrder.XmlDepartment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
 public class XmlDocumentOrderTest {

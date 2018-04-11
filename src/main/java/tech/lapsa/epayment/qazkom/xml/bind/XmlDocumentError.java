@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -62,12 +64,20 @@ public class XmlDocumentError extends AXmlBase {
 	    return HcEqUtil.equals(this, other);
 	}
 
-	// type - тип ошибки:
-	// system - ошибка при работе в системе авторизации, например
-	// неправильно
-	// введеный параметр
-	// auth - ошибка авторизации, в данном случае указывается код ошибки в
-	// атрибуте code
+	@XmlEnum
+	public enum XmlErrorType {
+	    // system - ошибка при работе в системе авторизации, например
+	    // неправильно
+	    // введеный параметр
+	    @XmlEnumValue(value = "system")
+	    SYSTEM,
+	    // auth - ошибка авторизации, в данном случае указывается код ошибки
+	    // в
+	    // атрибуте code
+	    @XmlEnumValue(value = "auth")
+	    AUTHORIZATION;
+	}
+
 	@XmlAttribute(name = "type")
 	private final XmlErrorType type;
 

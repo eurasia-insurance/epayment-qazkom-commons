@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlSignGeneral.XmlSignType;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
 import tech.lapsa.java.commons.function.MyExceptions;
