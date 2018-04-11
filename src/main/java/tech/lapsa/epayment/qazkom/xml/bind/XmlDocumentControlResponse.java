@@ -16,8 +16,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
@@ -31,18 +31,18 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 @HashCodePrime(107)
-public class XmlControlResponseDocument extends AXmlBase {
+public class XmlDocumentControlResponse extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final SerializationTool<XmlControlResponseDocument> TOOL = SerializationTool
-	    .forClass(XmlControlResponseDocument.class, XmlSchemas.CONTROL_RESPONSE_SCHEMA);
+    private static final SerializationTool<XmlDocumentControlResponse> TOOL = SerializationTool
+	    .forClass(XmlDocumentControlResponse.class, XmlSchemas.CONTROL_RESPONSE_SCHEMA);
 
-    public static final SerializationTool<XmlControlResponseDocument> getTool() {
+    public static final SerializationTool<XmlDocumentControlResponse> getTool() {
 	return TOOL;
     }
 
-    public static XmlControlResponseDocument of(final String rawXml) {
+    public static XmlDocumentControlResponse of(final String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
     }
@@ -69,9 +69,9 @@ public class XmlControlResponseDocument extends AXmlBase {
 	    return this;
 	}
 
-	public XmlControlResponseDocument build() throws IllegalArgumentException, IllegalStateException {
+	public XmlDocumentControlResponse build() throws IllegalArgumentException, IllegalStateException {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
-	    final XmlControlResponseDocument document = TOOL.deserializeFrom(rawXml);
+	    final XmlDocumentControlResponse document = TOOL.deserializeFrom(rawXml);
 
 	    if (MyObjects.nonNull(certificate)) {
 
@@ -290,13 +290,13 @@ public class XmlControlResponseDocument extends AXmlBase {
      * Default no-args constructor due to JAXB requirements
      */
     @Deprecated
-    public XmlControlResponseDocument() {
+    public XmlDocumentControlResponse() {
 	super();
 	this.bank = null;
 	this.bankSign = null;
     }
 
-    public XmlControlResponseDocument(XmlBank bank, XmlBankSign bankSign) {
+    public XmlDocumentControlResponse(XmlBank bank, XmlBankSign bankSign) {
 	super();
 	this.bank = bank;
 	this.bankSign = bankSign;

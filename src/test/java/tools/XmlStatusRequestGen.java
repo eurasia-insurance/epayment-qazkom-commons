@@ -5,7 +5,7 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
@@ -36,7 +36,7 @@ public class XmlStatusRequestGen {
 	certificate = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
 
-	final XmlStatusRequestDocument o = XmlStatusRequestDocument.builder() //
+	final XmlDocumentStatusRequest o = XmlDocumentStatusRequest.builder() //
 		.withMerchantId("92061103") //
 		.signWith(key, certificate) //
 		.withOrderNumber("503390238687304") //

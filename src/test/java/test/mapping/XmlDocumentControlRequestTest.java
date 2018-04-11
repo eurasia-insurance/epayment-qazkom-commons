@@ -11,13 +11,13 @@ import javax.xml.bind.JAXBException;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand.XmlType;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlPayment;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand.XmlType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlReason;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlSignType;
 import tech.lapsa.java.commons.io.MyResources;
 
@@ -27,7 +27,7 @@ public class XmlDocumentControlRequestTest {
 
     private static final String XML = "<document><merchant id=\"92061103\"><command type=\"reverse\"/><payment amount=\"1000\" approval_code=\"151802\" currency_code=\"398\" orderid=\"484902574738032\" reference=\"160614151802\"/><reason>Неверная сумма</reason></merchant><merchant_sign cert_id=\"c183d70b\" type=\"RSA\">8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ=</merchant_sign></document>";
 
-    private static final XmlControlRequestDocument DOCUMENT;
+    private static final XmlDocumentControlRequest DOCUMENT;
 
     static {
 	final XmlCommand command = new XmlCommand(XmlType.REVERSE);
@@ -41,7 +41,7 @@ public class XmlDocumentControlRequestTest {
 		Base64.getDecoder().decode(
 			"8uqRUt4dgB1VVGoxhylnafkn6FenR/kVwUf1Ek4/uC3GGQ/SAkRPfOUruFi55f+pGulV0t/aGFVTGt9xWtTccGM5yffl7pZG2Ox+KAoClsHmJwRvmubcvavsrtcmQKLqEfx2JEIl6tSdABYXaEyS3P+XhvDTBW2yPn75OGb4pmQ="),
 		new BigInteger("c183d70b", 16));
-	DOCUMENT = new XmlControlRequestDocument(merchant, merchantSign);
+	DOCUMENT = new XmlDocumentControlRequest(merchant, merchantSign);
     }
 
     @Test
@@ -58,19 +58,19 @@ public class XmlDocumentControlRequestTest {
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	final XmlControlRequestDocument loaded = loadDocument(RESOURCE);
+	final XmlDocumentControlRequest loaded = loadDocument(RESOURCE);
 	dumpDocument(loaded, true);
     }
 
-    private void dumpDocument(final XmlControlRequestDocument document, final boolean formatted) throws JAXBException {
+    private void dumpDocument(final XmlDocumentControlRequest document, final boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(final XmlControlRequestDocument document, final boolean formatted) throws JAXBException {
-	return XmlControlRequestDocument.getTool().serializeToString(document);
+    private String getDocumentString(final XmlDocumentControlRequest document, final boolean formatted) throws JAXBException {
+	return XmlDocumentControlRequest.getTool().serializeToString(document);
     }
 
-    private XmlControlRequestDocument loadDocument(final String resourceName) throws JAXBException {
-	return XmlControlRequestDocument.getTool().deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
+    private XmlDocumentControlRequest loadDocument(final String resourceName) throws JAXBException {
+	return XmlDocumentControlRequest.getTool().deserializeFrom(MyResources.getAsStream(this.getClass(), resourceName));
     }
 }

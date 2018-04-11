@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.lapsa.international.phone.PhoneNumber;
 import com.lapsa.international.phone.converter.jaxb.XmlPhoneNumberAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchantSign;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchantSign;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlAmountAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlTimestampAdapterWithNano;
@@ -41,18 +41,18 @@ import tech.lapsa.java.jaxb.adapter.XmlCurrencyNumericAdapter;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 @HashCodePrime(151)
-public class XmlStatusResponseDocument extends AXmlBase {
+public class XmlDocumentStatusResponse extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final SerializationTool<XmlStatusResponseDocument> TOOL = SerializationTool.forClass(
-	    XmlStatusResponseDocument.class, XmlSchemas.STATUS_RESPONSE_SCHEMA);
+    private static final SerializationTool<XmlDocumentStatusResponse> TOOL = SerializationTool.forClass(
+	    XmlDocumentStatusResponse.class, XmlSchemas.STATUS_RESPONSE_SCHEMA);
 
-    public static final SerializationTool<XmlStatusResponseDocument> getTool() {
+    public static final SerializationTool<XmlDocumentStatusResponse> getTool() {
 	return TOOL;
     }
 
-    public static XmlStatusResponseDocument of(final String rawXml) {
+    public static XmlDocumentStatusResponse of(final String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
     }
@@ -79,9 +79,9 @@ public class XmlStatusResponseDocument extends AXmlBase {
 	    return this;
 	}
 
-	public XmlStatusResponseDocument build() throws IllegalArgumentException, IllegalStateException {
+	public XmlDocumentStatusResponse build() throws IllegalArgumentException, IllegalStateException {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
-	    final XmlStatusResponseDocument document = TOOL.deserializeFrom(rawXml);
+	    final XmlDocumentStatusResponse document = TOOL.deserializeFrom(rawXml);
 
 	    if (MyObjects.nonNull(certificate)) {
 
@@ -614,7 +614,7 @@ public class XmlStatusResponseDocument extends AXmlBase {
      * Default no-args constructor due to JAXB requirements
      */
     @Deprecated
-    public XmlStatusResponseDocument() {
+    public XmlDocumentStatusResponse() {
 	this.bank = null;
 	this.bankSign = null;
     }

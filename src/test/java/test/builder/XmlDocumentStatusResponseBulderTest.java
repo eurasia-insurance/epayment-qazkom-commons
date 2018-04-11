@@ -10,7 +10,7 @@ import java.security.cert.X509Certificate;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusResponseDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusResponse;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
@@ -53,7 +53,7 @@ public class XmlDocumentStatusResponseBulderTest {
 
     @Test
     public void basicTest() {
-	final XmlStatusResponseDocument o = XmlStatusResponseDocument.builder() //
+	final XmlDocumentStatusResponse o = XmlDocumentStatusResponse.builder() //
 		.ofRawXml(RESPONSE_XML) //
 		.withBankCertificate(bankCert) //
 		.build();

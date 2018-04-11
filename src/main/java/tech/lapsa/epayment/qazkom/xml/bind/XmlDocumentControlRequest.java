@@ -18,10 +18,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlCommand.XmlType;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlPayment;
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument.XmlMerchant.XmlReason;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlCommand.XmlType;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest.XmlMerchant.XmlReason;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlAmountAdapter;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
@@ -39,18 +39,18 @@ import tech.lapsa.java.jaxb.adapter.XmlCurrencyNumericAdapter;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 @HashCodePrime(79)
-public class XmlControlRequestDocument extends AXmlBase {
+public class XmlDocumentControlRequest extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final SerializationTool<XmlControlRequestDocument> TOOL = SerializationTool.forClass(
-	    XmlControlRequestDocument.class, XmlSchemas.CONTROL_REQUEST_SCHEMA);
+    private static final SerializationTool<XmlDocumentControlRequest> TOOL = SerializationTool.forClass(
+	    XmlDocumentControlRequest.class, XmlSchemas.CONTROL_REQUEST_SCHEMA);
 
-    public static final SerializationTool<XmlControlRequestDocument> getTool() {
+    public static final SerializationTool<XmlDocumentControlRequest> getTool() {
 	return TOOL;
     }
 
-    public static XmlControlRequestDocument of(final String rawXml) {
+    public static XmlDocumentControlRequest of(final String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
     }
@@ -157,7 +157,7 @@ public class XmlControlRequestDocument extends AXmlBase {
 	    return this;
 	}
 
-	public XmlControlRequestDocument build() throws IllegalArgumentException {
+	public XmlDocumentControlRequest build() throws IllegalArgumentException {
 	    MyStrings.requireNonEmpty(paymentReference, "paymentReference");
 	    MyStrings.requireNonEmpty(approvalCode, "approvalCode");
 	    MyStrings.requireNonEmpty(orderNumber, "orderNumber");
@@ -192,7 +192,7 @@ public class XmlControlRequestDocument extends AXmlBase {
 
 	    final XmlMerchantSign merchantSign = new XmlMerchantSign(SIGN_TYPE, digest,
 		    merchantCertificate.getSerialNumber());
-	    return new XmlControlRequestDocument(merchant, merchantSign);
+	    return new XmlDocumentControlRequest(merchant, merchantSign);
 	}
 
     }
@@ -482,7 +482,7 @@ public class XmlControlRequestDocument extends AXmlBase {
 	return signature.verify(data, digest);
     }
 
-    public XmlControlRequestDocument requreValidSignature(final X509Certificate certificate)
+    public XmlDocumentControlRequest requreValidSignature(final X509Certificate certificate)
 	    throws IllegalStateException, IllegalArgumentException {
 	if (validSignature(certificate))
 	    return this;
@@ -493,12 +493,12 @@ public class XmlControlRequestDocument extends AXmlBase {
      * Default no-args constructor due to JAXB requirements
      */
     @Deprecated
-    public XmlControlRequestDocument() {
+    public XmlDocumentControlRequest() {
 	this.merchant = null;
 	this.merchantSign = null;
     }
 
-    public XmlControlRequestDocument(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+    public XmlDocumentControlRequest(XmlMerchant merchant, XmlMerchantSign merchantSign) {
 	super();
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;

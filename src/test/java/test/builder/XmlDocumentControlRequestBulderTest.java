@@ -12,7 +12,7 @@ import java.util.Currency;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlControlRequestDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentControlRequest;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
@@ -59,7 +59,7 @@ public class XmlDocumentControlRequestBulderTest {
 
     @Test
     public void basicTest() {
-	final XmlControlRequestDocument o = XmlControlRequestDocument.builder() //
+	final XmlDocumentControlRequest o = XmlDocumentControlRequest.builder() //
 		.withPaymentReference("160614151802") //
 		.withApprovalCode("151802") //
 		.withOrderNumber("484902574738032") //
@@ -79,7 +79,7 @@ public class XmlDocumentControlRequestBulderTest {
 
     @Test
     public void deserializeTest() {
-	final XmlControlRequestDocument o = XmlControlRequestDocument.of(RAW_XML);
+	final XmlDocumentControlRequest o = XmlDocumentControlRequest.of(RAW_XML);
 	assertThat(o, not(nullValue()));
 	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
@@ -87,7 +87,7 @@ public class XmlDocumentControlRequestBulderTest {
 
     @Test
     public void signatureVerificationTest() {
-	final XmlControlRequestDocument o = XmlControlRequestDocument.of(RAW_XML);
+	final XmlDocumentControlRequest o = XmlDocumentControlRequest.of(RAW_XML);
 	assertTrue("Signature must be VALID", o.validSignature(certificate));
 
 	o.requreValidSignature(certificate);

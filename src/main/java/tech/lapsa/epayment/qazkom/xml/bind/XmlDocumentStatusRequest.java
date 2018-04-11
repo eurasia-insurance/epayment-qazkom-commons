@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument.XmlMerchant.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest.XmlMerchant.XmlOrder;
 import tech.lapsa.epayment.qazkom.xml.bind.adapter.XmlCertificateSeriaNumberToHEXStringAdapter;
 import tech.lapsa.epayment.qazkom.xml.schema.XmlSchemas;
 import tech.lapsa.java.commons.function.MyArrays;
@@ -28,18 +28,18 @@ import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "document")
 @HashCodePrime(131)
-public class XmlStatusRequestDocument extends AXmlBase {
+public class XmlDocumentStatusRequest extends AXmlBase {
 
     private static final long serialVersionUID = 1L;
 
-    private static final SerializationTool<XmlStatusRequestDocument> TOOL = SerializationTool.forClass(
-	    XmlStatusRequestDocument.class, XmlSchemas.STATUS_REQUEST_SCHEMA);
+    private static final SerializationTool<XmlDocumentStatusRequest> TOOL = SerializationTool.forClass(
+	    XmlDocumentStatusRequest.class, XmlSchemas.STATUS_REQUEST_SCHEMA);
 
-    public static final SerializationTool<XmlStatusRequestDocument> getTool() {
+    public static final SerializationTool<XmlDocumentStatusRequest> getTool() {
 	return TOOL;
     }
 
-    public static XmlStatusRequestDocument of(final String rawXml) {
+    public static XmlDocumentStatusRequest of(final String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 	return TOOL.deserializeFrom(rawXml);
     }
@@ -89,7 +89,7 @@ public class XmlStatusRequestDocument extends AXmlBase {
 	    return this;
 	}
 
-	public XmlStatusRequestDocument build() throws IllegalArgumentException {
+	public XmlDocumentStatusRequest build() throws IllegalArgumentException {
 	    MyStrings.requireNonEmpty(orderNumber, "orderNumber");
 	    MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    MyObjects.requireNonNull(merchantCertificate, "merchantCertificate");
@@ -110,7 +110,7 @@ public class XmlStatusRequestDocument extends AXmlBase {
 
 	    final XmlMerchantSign merchantSign = new XmlMerchantSign(SIGN_TYPE, digest,
 		    merchantCertificate.getSerialNumber());
-	    return new XmlStatusRequestDocument(merchant, merchantSign);
+	    return new XmlDocumentStatusRequest(merchant, merchantSign);
 	}
 
     }
@@ -259,7 +259,7 @@ public class XmlStatusRequestDocument extends AXmlBase {
 	return signature.verify(data, digest);
     }
 
-    public XmlStatusRequestDocument requreValidSignature(final X509Certificate certificate)
+    public XmlDocumentStatusRequest requreValidSignature(final X509Certificate certificate)
 	    throws IllegalStateException, IllegalArgumentException {
 	if (validSignature(certificate))
 	    return this;
@@ -270,12 +270,12 @@ public class XmlStatusRequestDocument extends AXmlBase {
      * Default no-args constructor due to JAXB requirements
      */
     @Deprecated
-    public XmlStatusRequestDocument() {
+    public XmlDocumentStatusRequest() {
 	this.merchant = null;
 	this.merchantSign = null;
     }
 
-    public XmlStatusRequestDocument(XmlMerchant merchant, XmlMerchantSign merchantSign) {
+    public XmlDocumentStatusRequest(XmlMerchant merchant, XmlMerchantSign merchantSign) {
 	super();
 	this.merchant = merchant;
 	this.merchantSign = merchantSign;

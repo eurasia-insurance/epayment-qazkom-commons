@@ -11,7 +11,7 @@ import java.security.cert.X509Certificate;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tech.lapsa.epayment.qazkom.xml.bind.XmlStatusRequestDocument;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentStatusRequest;
 import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
@@ -57,7 +57,7 @@ public class XmlDocumentStatusRequestBulderTest {
 
     @Test
     public void basicTest() {
-	final XmlStatusRequestDocument o = XmlStatusRequestDocument.builder() //
+	final XmlDocumentStatusRequest o = XmlDocumentStatusRequest.builder() //
 		.withMerchantId("92061103") //
 		.withOrderNumber("484902574738032") //
 		.signWith(key, certificate) //
@@ -72,7 +72,7 @@ public class XmlDocumentStatusRequestBulderTest {
 
     @Test
     public void deserializeTest() {
-	final XmlStatusRequestDocument o = XmlStatusRequestDocument.of(RAW_XML);
+	final XmlDocumentStatusRequest o = XmlDocumentStatusRequest.of(RAW_XML);
 	assertThat(o, not(nullValue()));
 	final String rawXml = o.getRawXml();
 	assertThat(rawXml, allOf(not(isEmptyOrNullString()), equalTo(RAW_XML)));
@@ -80,7 +80,7 @@ public class XmlDocumentStatusRequestBulderTest {
 
     @Test
     public void signatureVerificationTest() {
-	final XmlStatusRequestDocument o = XmlStatusRequestDocument.of(RAW_XML);
+	final XmlDocumentStatusRequest o = XmlDocumentStatusRequest.of(RAW_XML);
 	assertTrue("Signature must be VALID", o.validSignature(certificate));
 
 	o.requreValidSignature(certificate);
