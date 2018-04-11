@@ -135,6 +135,6 @@ public class XmlSignGeneral implements Serializable {
     public XmlSignGeneral(final XmlSignType signType, final String signatureEncoded) {
 	super();
 	this.signType = signType;
-	this.signature = Base64.getDecoder().decode(signatureEncoded);
+	this.signature = signatureEncoded == null ? null : Base64.getDecoder().decode(signatureEncoded);
     }
 }
