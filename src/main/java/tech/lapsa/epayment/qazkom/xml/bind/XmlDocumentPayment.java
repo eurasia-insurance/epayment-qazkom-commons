@@ -394,7 +394,7 @@ public class XmlDocumentPayment extends AXmlBase {
 	    public XmlResults(Instant timestamp, List<XmlPayment> payments) {
 		super();
 		this.timestamp = timestamp;
-		this.payments = payments == null ? null : MyCollections.unmodifiableOrEmptyList(payments);
+		this.payments = MyObjects.nullOrGet(payments, MyCollections::unmodifiableOrEmptyList);
 	    }
 	}
 

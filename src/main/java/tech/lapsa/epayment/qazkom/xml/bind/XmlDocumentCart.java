@@ -165,6 +165,6 @@ public class XmlDocumentCart extends AXmlBase {
     }
 
     public XmlDocumentCart(List<XmlItem> items) {
-	this.items = items == null ? null : MyCollections.unmodifiableOrEmptyList(items);
+	this.items = MyObjects.nullOrGet(items, MyCollections::unmodifiableOrEmptyList);
     }
 }

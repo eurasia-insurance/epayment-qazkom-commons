@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlValue;
 
+import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.security.MyDigests;
 import tech.lapsa.java.commons.security.MySignatures;
@@ -103,11 +104,11 @@ public class XmlSignGeneral implements Serializable {
 
     // подпись
     public byte[] getSignature() {
-	return signature == null ? null : signature.clone();
+	return MyObjects.nullOrGet(signature, byte[]::clone);
     }
 
     public String getSignatureEncoded() {
-	return Base64.getEncoder().encodeToString(signature);
+	return MyObjects.nullOrGet(signature, Base64.getEncoder()::encodeToString);
     }
 
     /*
@@ -129,12 +130,12 @@ public class XmlSignGeneral implements Serializable {
     public XmlSignGeneral(final XmlSignType signType, final byte[] signature) {
 	super();
 	this.signType = signType;
-	this.signature = signature == null ? null : signature.clone();
+	this.signature = MyObjects.nullOrGet(signature, byte[]::clone);
     }
 
     public XmlSignGeneral(final XmlSignType signType, final String signatureEncoded) {
 	super();
 	this.signType = signType;
-	this.signature = signatureEncoded == null ? null : Base64.getDecoder().decode(signatureEncoded);
+	this.signature = MyObjects.nullOrGet(signatureEncoded, Base64.getDecoder()::decode);
     }
 }
