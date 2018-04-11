@@ -103,7 +103,7 @@ public class XmlSignGeneral implements Serializable {
 
     // подпись
     public byte[] getSignature() {
-	return signature.clone();
+	return signature == null ? null : signature.clone();
     }
 
     public String getSignatureEncoded() {
