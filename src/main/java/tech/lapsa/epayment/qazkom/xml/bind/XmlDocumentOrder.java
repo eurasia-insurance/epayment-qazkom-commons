@@ -316,7 +316,7 @@ public class XmlDocumentOrder extends AXmlBase {
 	    public XmlOrder(Double amount, Currency currency, String orderId, List<XmlDepartment> departments) {
 		super(amount, currency);
 		this.orderId = orderId;
-		this.departments = departments == null ? null : MyCollections.unmodifiableOrEmptyList(departments);
+		this.departments = MyObjects.nullOrGet(departments, MyCollections::unmodifiableOrEmptyList);
 	    }
 	}
 
