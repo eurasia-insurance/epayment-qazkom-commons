@@ -97,9 +97,4 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<issueManagement>
-		<system>gitlab</system>
-		<url>https://gitlab.lapsa.tech/lapsa/epayment/qazkom-commons/issues</url>
-	</issueManagement>
-
 </project>
