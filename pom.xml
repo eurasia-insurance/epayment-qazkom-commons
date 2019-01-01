@@ -10,6 +10,7 @@
 	<groupId>tech.lapsa.epayment</groupId>
 	<artifactId>epayment-qazkom-commons</artifactId>
 	<version>CURRENT-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<name>Epayment Lib : Qazkom Epay commons</name>
 
