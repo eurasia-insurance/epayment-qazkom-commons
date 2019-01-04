@@ -32,7 +32,7 @@ public class XmlDocumentOrderBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	final InputStream storeStream = MyResources.optionalAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optAsStream(XmlDocumentOrderBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //

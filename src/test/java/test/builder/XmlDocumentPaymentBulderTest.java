@@ -28,7 +28,7 @@ public class XmlDocumentPaymentBulderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	final InputStream storeStream = MyResources.optionalAsStream(XmlDocumentPaymentBulderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optAsStream(XmlDocumentPaymentBulderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //

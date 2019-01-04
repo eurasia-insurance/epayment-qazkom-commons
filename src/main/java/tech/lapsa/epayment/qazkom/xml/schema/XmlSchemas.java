@@ -29,7 +29,7 @@ public final class XmlSchemas {
     }
 
     private static final Schema fromResource(final String resource) {
-	final InputStream is = MyResources.optionalAsStream(XmlSchemas.class, resource) //
+	final InputStream is = MyResources.optAsStream(XmlSchemas.class, resource) //
 		.orElseThrow(() -> new RuntimeException("Resource not found " + resource));
 	final Source source = new StreamSource(is);
 	try {
