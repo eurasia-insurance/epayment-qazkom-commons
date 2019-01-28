@@ -57,6 +57,9 @@ public class XmlBank extends AXmlBase {
 
     @XmlAttribute(name = "name")
     private String name;
+    
+    @XmlAttribute(name = "bik")
+    private String bik;
 
     @XmlElementRef
     private XmlCustomer customer;
@@ -75,6 +78,14 @@ public class XmlBank extends AXmlBase {
 
     public void setName(final String name) {
 	this.name = name;
+    }
+
+    public String getBik() {
+        return bik;
+    }
+
+    public void setBik(String bik) {
+        this.bik = bik;
     }
 
     public XmlCustomer getCustomer() {

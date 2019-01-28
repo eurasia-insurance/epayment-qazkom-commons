@@ -5,6 +5,10 @@
 		<xs:restriction base="xs:string" />
 	</xs:simpleType>
 
+	<xs:simpleType name="ts_bank_bik">
+		<xs:restriction base="xs:string" />
+	</xs:simpleType>
+
 	<xs:simpleType name="ts_merchant_name">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1" />
@@ -279,6 +283,7 @@
 				maxOccurs="1" />
 		</xs:sequence>
 		<xs:attribute name="name" type="ts_bank_name" use="required" />
+		<xs:attribute name="bik" type="ts_bank_bik" use="optional" />
 	</xs:complexType>
 
 	<xs:complexType name="tc_bank_sign">
